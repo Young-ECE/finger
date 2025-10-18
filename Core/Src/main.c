@@ -60,7 +60,6 @@ extern I2C_HandleTypeDef hi2c2;
 extern I2S_HandleTypeDef hi2s1;  // 例如使用 I2S1
 extern UART_HandleTypeDef huart1; 
 
-uint32_t dma_buffer[4]; // DMA 原始接收缓冲
 
 
 

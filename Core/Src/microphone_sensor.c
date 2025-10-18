@@ -5,7 +5,8 @@
 
 #include "microphone_sensor.h"
 #include <string.h>
-extern uint32_t  dma_buffer[MIC_BUFFER_SIZE]; // 原始DMA接收缓冲
+__attribute__((section(".bss"))) uint32_t dma_buffer[4];// 原始DMA接收缓冲
+extern uint32_t  dma_buffer[MIC_BUFFER_SIZE]; 
 
 HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 {
