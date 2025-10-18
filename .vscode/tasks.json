@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Project",
+      "type": "shell",
+      "command": "make",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash STM32",
+      "type": "shell",
+      "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program ${workspaceFolder}/build/finger.elf verify reset exit\"",
+      "problemMatcher": []
+    }
+  ]
+}

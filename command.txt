@@ -1,0 +1,7 @@
+ls -l /dev/ttyUSB*
+make
+STM32_Programmer_CLI --version
+sudo screen /dev/ttyUSB0 115200
+STM32_Programmer_CLI --connect port=SWD
+STM32_Programmer_CLI --connect port=SWD --write build/finger.bin 0x08000000 --verify --start
+sudo lsof /dev/ttyUSB0

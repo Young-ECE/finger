@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/Drivers/CMSIS/Include",
+        "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
+        "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include"
+      ],
+      "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F446xx"  // 根据你的MCU型号修改        
+      ],
+      "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+      "cStandard": "c11",
+      "cppStandard": "gnu++14"
+    }
+  ],
+  "version": 4
+}

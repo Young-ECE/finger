@@ -148,7 +148,6 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_I2S1_Init();
-  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   RGB_LED_Init();
 
@@ -174,18 +173,6 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-    // uint8_t aqi;
-    // uint16_t tvoc, eco2;
-    // ENS160_ReadAQI(&ens160, &aqi);
-    // ENS160_ReadTVOC(&ens160, &tvoc);
-    // ENS160_ReadECO2(&ens160, &eco2);
-
-    // Debug_Print("%d,%d,%d\n", aqi, tvoc, eco2);
-    // HAL_Delay(10);
-
-    
-
-
 
     /* USER CODE BEGIN 3 */
   }

@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug STM32F446 (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "device": "STM32F446RE",
+      "interface": "swd",
+      "executable": "${workspaceFolder}/build/finger.elf",
+      "runToEntryPoint": "main",
+      "gdbPath": "/usr/local/arm-gdb/bin/arm-none-eabi-gdb",
+      "configFiles": [
+        "/usr/share/openocd/scripts/interface/stlink.cfg",
+        "/usr/share/openocd/scripts/target/stm32f4x.cfg"
+      ],
+      "showDevDebugOutput": "raw",
+      "svdFile": "${workspaceFolder}/STM32F446x.svd",
+      "preLaunchCommands": [
+        "monitor reset halt",
+        "monitor reset init"
+      ],
+      "postLaunchCommands": [
+        "monitor reset halt",
+        "monitor arm semihosting enable"
+      ],
+      "postRestartCommands": [
+        "continue"
+      ]
+    }
+  ]
+}
