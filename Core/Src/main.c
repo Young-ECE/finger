@@ -60,15 +60,17 @@ extern I2C_HandleTypeDef hi2c2;
 extern I2S_HandleTypeDef hi2s1;  // 例如使用 I2S1
 extern UART_HandleTypeDef huart1; 
 
-uint32_t dma[4];
-int32_t sample;
-uint8_t ready=0;
+uint32_t dma_buffer[4]; // DMA 原始接收缓冲
+
+
+
+
 
 
 VCNL4040_HandleTypeDef vcnl4040;
 ENS160_HandleTypeDef ens160;
 HDC302x_HandleTypeDef hdc1, hdc2, hdc3, hdc4;
-// MIC_HandleTypeDef mic;
+MIC_HandleTypeDef mic;
 
 
 /* USER CODE END PV */
@@ -80,31 +82,13 @@ void SystemClock_Config(void);
 void RGB_LED_Init(void);
 void RGB_LED_Blink(void);
 void Debug_Print(const char *format, ...);
+void Debug_Print_DMA(const char *format, ...);
 void I2C_Scan(void);
 void Send_Raw_Bytes(uint16_t data);
 void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count);
 
 
-void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
-{
-  if (hi2s == &hi2s1)
-  {
 
-    // static uint16_t cb_cnt = 0;
-    // cb_cnt++; // 回调次数计数
-
-    uint32_t val = (dma[0]<<8) + (dma[1]>>8);
-    if (val & 0x800000)
-      sample = val | 0xFF000000; // 符号扩展
-    else
-      sample = val;
-
-    ready = 1;
-
-    // if (cb_cnt % 10 == 0)
-    //   Debug_Print("%d\n", sample);
-  }
-}
 
 
 /* USER CODE END PFP */
@@ -157,14 +141,9 @@ int main(void)
   HDC302x_Init(&hdc2, &hi2c1, HDC302x_ADDR_45);
   HDC302x_Init(&hdc3, &hi2c1, HDC302x_ADDR_46);
   HDC302x_Init(&hdc4, &hi2c1, HDC302x_ADDR_47);
-  // MIC_Init(&mic, &hi2s1);
-  // MIC_Start(&mic);
-
-  HAL_I2S_Receive_DMA(&hi2s1, (uint16_t*)dma, 4);
-
-  
+  MIC_Init(&mic, &hi2s1);
+  MIC_Start(&mic);
  
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -173,10 +152,11 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-    Debug_Print("%d",sample);
-    Debug_Print("\n");
-    HAL_Delay(10);
-
+    // Debug_Print("%d\n",audio_result);
+    // HAL_Delay(10);
+    RGB_LED_Blink();
+    Debug_Print("%d\n", mic.audio_result);
+    
 
     /* USER CODE BEGIN 3 */
   }
@@ -252,17 +232,17 @@ void RGB_LED_Blink(void)
     // Red
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(5);
 
     // Green
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(5);
 
     // Blue
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(5);
 
     // // White (all on)
     // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
@@ -283,6 +263,19 @@ void Debug_Print(const char *format, ...)
     va_end(args);
     // 发送格式化的字符串通过UART
     HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 100);
+}
+void Debug_Print_DMA(const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    
+    // 格式化字符串到临时缓冲区
+    char buffer[128];
+    vsnprintf(buffer, sizeof(buffer), format, args);
+    va_end(args);
+    
+    // 使用 DMA 发送数据
+    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)buffer, strlen(buffer));
 }
 void Send_Raw_Bytes(uint16_t data)
 {

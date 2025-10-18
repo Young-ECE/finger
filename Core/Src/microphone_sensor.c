@@ -5,7 +5,7 @@
 
 #include "microphone_sensor.h"
 #include <string.h>
-
+extern uint32_t  dma_buffer[MIC_BUFFER_SIZE]; // 原始DMA接收缓冲
 
 HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 {
@@ -13,8 +13,7 @@ HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
     mic->hi2s = hi2s;
     mic->half_ready = 0;
     mic->full_ready = 0;
-    memset(mic->dma_buffer, 0, sizeof(mic->dma_buffer));
-    memset(mic->audio_buffer, 0, sizeof(mic->audio_buffer));
+    mic->audio_result = 0;
     return HAL_OK;
 }
 
@@ -25,7 +24,7 @@ HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic)
 {
     if (!mic || !mic->hi2s) return HAL_ERROR;
-    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)mic->dma_buffer, MIC_BUFFER_SIZE);
+    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
 }
 
 
