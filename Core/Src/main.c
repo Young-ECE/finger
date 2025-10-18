@@ -90,8 +90,8 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
   if (hi2s == &hi2s1)
   {
 
-    static uint16_t cb_cnt = 0;
-    cb_cnt++; // 回调次数计数
+    // static uint16_t cb_cnt = 0;
+    // cb_cnt++; // 回调次数计数
 
     uint32_t val = (dma[0]<<8) + (dma[1]>>8);
     if (val & 0x800000)
@@ -173,6 +173,10 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
+    Debug_Print("%d",sample);
+    Debug_Print("\n");
+    HAL_Delay(10);
+
 
     /* USER CODE BEGIN 3 */
   }
@@ -315,47 +319,36 @@ void I2C_Scan(void)
 
     Debug_Print("I2C scan complete.\r\n");
 }
-// void I2C_Scan(void)
-// {
-//     Debug_Print("Starting I2C scan...\r\n");
 
-//     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
-//     {
-//         // Check if a device responds at this address with a timeout mechanism
-//         HAL_StatusTypeDef status = HAL_I2C_IsDeviceReady(&hi2c2, (addr << 1), 1, HAL_MAX_DELAY);
+/*
+    uint8_t aqi;
+    uint16_t tvoc, eco2;
+    ENS160_ReadAQI(&ens160, &aqi);
+    ENS160_ReadTVOC(&ens160, &tvoc);
+    ENS160_ReadECO2(&ens160, &eco2);
 
-//         if (status == HAL_OK)
-//         {
-//             Debug_Print("I2C device found at address: 0x%02X\r\n", addr);
-//         }
-//         else if (status == HAL_BUSY)
-//         {
-//             Debug_Print("I2C bus is busy during scan at address: 0x%02X\r\n", addr);
-//         }
-//         else
-//         {
-//             Debug_Print("No device at address: 0x%02X\r\n", addr);
-//         }
-//     }
-
-//     Debug_Print("I2C scan complete.\r\n");
-// }
+    Debug_Print("%d,%d,%d\n", aqi, tvoc, eco2);
 
 
+float T1, H1, T2, H2, T3, H3, T4, H4;
+
+        HTS_ReadData(&hts1, &T1, &H1);
+        HTS_ReadData(&hts2, &T2, &H2);
+        HTS_ReadData(&hts3, &T3, &H3);
+        HTS_ReadData(&hts4, &T4, &H4);
+
+        printf("[S1] T=%.2f°C RH=%.1f%% | [S2] T=%.2f°C RH=%.1f%%\r\n", T1, H1, T2, H2);
+        printf("[S3] T=%.2f°C RH=%.1f%% | [S4] T=%.2f°C RH=%.1f%%\r\n", T3, H3, T4, H4);
 
 
+uint16_t als, ps;
+        VCNL4040_ReadALS(&vcnl4040, &als);
+        VCNL4040_ReadPS(&vcnl4040, &ps);
+        printf("ALS=%u, PS=%u\r\n", als, ps);
+        HAL_Delay(500);
 
 
-
-
-
-
-
-
-
-
-
-
+*/
 
 /* USER CODE END 4 */
 
