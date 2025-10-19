@@ -27,6 +27,7 @@ extern "C" {
 /* ==== COMMAND DEFINITIONS (Datasheet Section 8.5.1) ==== */
 #define HDC302x_CMD_TRIGGER_LPM0        0x2400  // Trigger-on-demand, Low Power Mode 0
 #define HDC302x_CMD_TRIGGER_LPM1        0x240B  // Trigger-on-demand, Low Power Mode 1
+#define HDC302x_CMD_TRIGGER_LPM2        0x2416  // 低功耗模式2，快速测量
 #define HDC302x_CMD_SOFT_RESET          0x30A2  // Software reset
 #define HDC302x_CMD_HEATER_ENABLE       0x306D  // Enable heater
 #define HDC302x_CMD_HEATER_DISABLE      0x3066  // Disable heater

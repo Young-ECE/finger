@@ -76,6 +76,32 @@ MIC_HandleTypeDef mic;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+void Data_Send(void)
+{
+  uint8_t aqi;
+  uint16_t tvoc;
+  uint16_t eco2;
+  ENS160_ReadAQI(&ens160, &aqi);
+  ENS160_ReadTVOC(&ens160, &tvoc);
+  ENS160_ReadECO2(&ens160, &eco2);
+
+  uint16_t als, ps;
+  VCNL4040_ReadALS(&vcnl4040, &als);
+  VCNL4040_ReadPS(&vcnl4040, &ps);
+
+  float T1, H1, T2, H2, T3, H3, T4, H4;
+
+  HDC302x_ReadData(&hdc1, &T1, &H1);
+  HDC302x_ReadData(&hdc2, &T2, &H2);
+  HDC302x_ReadData(&hdc3, &T3, &H3);
+  HDC302x_ReadData(&hdc4, &T4, &H4);
+
+  USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
+  USB_Print("%u,%u,", als, ps);
+  USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,", (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10), (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10));
+  USB_Print("%d\n", mic.audio_result);
+}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -139,29 +165,8 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-    uint8_t aqi;
-    uint16_t tvoc;
-    uint16_t eco2;
-    ENS160_ReadAQI(&ens160, &aqi);
-    ENS160_ReadTVOC(&ens160, &tvoc);
-    ENS160_ReadECO2(&ens160, &eco2);
+    Data_Send();
 
-    uint16_t als, ps;
-    VCNL4040_ReadALS(&vcnl4040, &als);
-    VCNL4040_ReadPS(&vcnl4040, &ps);
-
-    float T1, H1, T2, H2, T3, H3, T4, H4;
-
-    HDC302x_ReadData(&hdc1, &T1, &H1);
-    HDC302x_ReadData(&hdc2, &T2, &H2);
-    HDC302x_ReadData(&hdc3, &T3, &H3);
-    HDC302x_ReadData(&hdc4, &T4, &H4);
-
-    
-    USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
-    USB_Print("%u,%u,", als, ps);
-    USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,",(int)(T1*100), (int)(H1*100), (int)(T2*100), (int)(H2*100), (int)(T3*100), (int)(H3*100), (int)(T4*100), (int)(H4*100));
-    USB_Print("%d\n", mic.audio_result);
 
     // HAL_Delay();
 

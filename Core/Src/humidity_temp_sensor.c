@@ -51,11 +51,11 @@ HAL_StatusTypeDef HDC302x_ReadData(HDC302x_HandleTypeDef *dev, float *temperatur
     HAL_StatusTypeDef ret;
 
     // Step 1: Trigger measurement (LPM0)
-    if (HDC302x_WriteCmd(dev, HDC302x_CMD_TRIGGER_LPM0) != HAL_OK)
+    if (HDC302x_WriteCmd(dev, HDC302x_CMD_TRIGGER_LPM2) != HAL_OK)
         return HAL_ERROR;
 
     // Step 2: Wait t_MEAS (typ. 3.7ms–14.2ms depending on LPM)
-    HAL_Delay(15);
+    HAL_Delay(1);
 
     // Step 3: Read 6 bytes (T_MSB, T_LSB, CRC_T, RH_MSB, RH_LSB, CRC_RH)
     ret = HAL_I2C_Master_Receive(dev->hi2c, dev->i2c_addr, rx, 6, 100);
