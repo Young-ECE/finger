@@ -30,6 +30,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "vcnl4040_sensor.h"
 #include "ens160_sensor.h"
 #include "humidity_temp_sensor.h"
@@ -139,7 +140,8 @@ int main(void)
 
     /* USER CODE END WHILE */
     uint8_t aqi;
-    uint16_t tvoc, eco2;
+    uint16_t tvoc;
+    uint16_t eco2;
     ENS160_ReadAQI(&ens160, &aqi);
     ENS160_ReadTVOC(&ens160, &tvoc);
     ENS160_ReadECO2(&ens160, &eco2);

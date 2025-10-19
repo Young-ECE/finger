@@ -5,6 +5,7 @@
     "idf.pythonInstallPath": "/usr/bin/python3",
     "cortex-debug.variableUseNaturalFormat": false,
     "files.associations": {
-        "humidity_temp_sensor.h": "c"
+        "humidity_temp_sensor.h": "c",
+        "main.h": "c"
     }
 }

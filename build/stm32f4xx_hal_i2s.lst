@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccrygoZ9.s 			page 1
+ARM GAS  /tmp/cc1vGOZF.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
   28:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
   29:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     (#) Declare a I2S_HandleTypeDef handle structure.
   30:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     (#) Initialize the I2S low level resources by implement the HAL_I2S_MspInit() API:
-ARM GAS  /tmp/ccrygoZ9.s 			page 2
+ARM GAS  /tmp/cc1vGOZF.s 			page 2
 
 
   31:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         (##) Enable the SPIx interface clock.
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
   85:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****    ==============================
   86:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****    [..]
   87:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****      (+) Send an amount of data in non blocking mode (DMA) using HAL_I2S_Transmit_DMA()
-ARM GAS  /tmp/ccrygoZ9.s 			page 3
+ARM GAS  /tmp/cc1vGOZF.s 			page 3
 
 
   88:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****      (+) At transmission end of half transfer HAL_I2S_TxHalfCpltCallback is executed and user can
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  142:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  143:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  144:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       (#) Use function HAL_I2S_UnRegisterCallback to reset a callback to the default
-ARM GAS  /tmp/ccrygoZ9.s 			page 4
+ARM GAS  /tmp/cc1vGOZF.s 			page 4
 
 
  145:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****           weak function.
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  199:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  200:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /* Private typedef -----------------------------------------------------------*/
  201:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /* Private define ------------------------------------------------------------*/
-ARM GAS  /tmp/ccrygoZ9.s 			page 5
+ARM GAS  /tmp/cc1vGOZF.s 			page 5
 
 
  202:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #define I2S_TIMEOUT_FLAG          100U         /*!< Timeout 100 ms            */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  256:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   */
  257:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  258:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
-ARM GAS  /tmp/ccrygoZ9.s 			page 6
+ARM GAS  /tmp/cc1vGOZF.s 			page 6
 
 
  259:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  Initializes the I2S according to the specified parameters
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  313:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  314:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     if (hi2s->MspInitCallback == NULL)
  315:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
-ARM GAS  /tmp/ccrygoZ9.s 			page 7
+ARM GAS  /tmp/cc1vGOZF.s 			page 7
 
 
  316:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       hi2s->MspInitCallback = HAL_I2S_MspInit; /* Legacy weak MspInit  */
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  370:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     i2sclk = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2S);
  371:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #endif /* I2S_APB1_APB2_FEATURE */
  372:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 8
+ARM GAS  /tmp/cc1vGOZF.s 			page 8
 
 
  373:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Compute the Real divider depending on the MCLK output state, with a floating point */
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  427:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****                                        SPI_I2SCFGR_CKPOL | SPI_I2SCFGR_I2SSTD | \
  428:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****                                        SPI_I2SCFGR_PCMSYNC | SPI_I2SCFGR_I2SCFG | \
  429:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****                                        SPI_I2SCFGR_I2SE  | SPI_I2SCFGR_I2SMOD), \
-ARM GAS  /tmp/ccrygoZ9.s 			page 9
+ARM GAS  /tmp/cc1vGOZF.s 			page 9
 
 
  430:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****              (SPI_I2SCFGR_I2SMOD | hi2s->Init.Mode | \
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  484:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   hi2s->State     = HAL_I2S_STATE_READY;
  485:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  486:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   return HAL_OK;
-ARM GAS  /tmp/ccrygoZ9.s 			page 10
+ARM GAS  /tmp/cc1vGOZF.s 			page 10
 
 
  487:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  541:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Prevent unused argument(s) compilation warning */
  542:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   UNUSED(hi2s);
  543:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 11
+ARM GAS  /tmp/cc1vGOZF.s 			page 11
 
 
  544:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* NOTE : This function Should not be modified, when the callback is needed,
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  598:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       case HAL_I2S_RX_COMPLETE_CB_ID :
  599:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         hi2s->RxCpltCallback = pCallback;
  600:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         break;
-ARM GAS  /tmp/ccrygoZ9.s 			page 12
+ARM GAS  /tmp/cc1vGOZF.s 			page 12
 
 
  601:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  655:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       default :
  656:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         /* Update the error code */
  657:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         SET_BIT(hi2s->ErrorCode, HAL_I2S_ERROR_INVALID_CALLBACK);
-ARM GAS  /tmp/ccrygoZ9.s 			page 13
+ARM GAS  /tmp/cc1vGOZF.s 			page 13
 
 
  658:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  712:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         hi2s->TxHalfCpltCallback = HAL_I2S_TxHalfCpltCallback;        /* Legacy weak TxHalfCpltCall
  713:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         break;
  714:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 14
+ARM GAS  /tmp/cc1vGOZF.s 			page 14
 
 
  715:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       case HAL_I2S_RX_HALF_COMPLETE_CB_ID :
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  769:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Update the error code */
  770:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     SET_BIT(hi2s->ErrorCode, HAL_I2S_ERROR_INVALID_CALLBACK);
  771:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 15
+ARM GAS  /tmp/cc1vGOZF.s 			page 15
 
 
  772:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Return error status */
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  826:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  827:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
  828:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  Transmit an amount of data in blocking mode
-ARM GAS  /tmp/ccrygoZ9.s 			page 16
+ARM GAS  /tmp/cc1vGOZF.s 			page 16
 
 
  829:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @param  hi2s pointer to a I2S_HandleTypeDef structure that contains
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  883:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     __HAL_I2S_ENABLE(hi2s);
  884:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
  885:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 17
+ARM GAS  /tmp/cc1vGOZF.s 			page 17
 
 
  886:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Wait until TXE flag is set */
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  940:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   return HAL_OK;
  941:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
  942:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 18
+ARM GAS  /tmp/cc1vGOZF.s 			page 18
 
 
  943:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  997:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  998:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Enable I2S peripheral */
  999:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     __HAL_I2S_ENABLE(hi2s);
-ARM GAS  /tmp/ccrygoZ9.s 			page 19
+ARM GAS  /tmp/cc1vGOZF.s 			page 19
 
 
 1000:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1054:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   *         between Master and Slave(example: audio streaming).
 1055:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @retval HAL status
 1056:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   */
-ARM GAS  /tmp/ccrygoZ9.s 			page 20
+ARM GAS  /tmp/cc1vGOZF.s 			page 20
 
 
 1057:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** HAL_StatusTypeDef HAL_I2S_Transmit_IT(I2S_HandleTypeDef *hi2s, uint16_t *pData, uint16_t Size)
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1111:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @param  pData a 16-bit pointer to the Receive data buffer.
 1112:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @param  Size number of data sample to be sent:
 1113:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @note   When a 16-bit data frame or a 16-bit data frame extended is selected during the I2S
-ARM GAS  /tmp/ccrygoZ9.s 			page 21
+ARM GAS  /tmp/cc1vGOZF.s 			page 21
 
 
 1114:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   *         configuration phase, the Size parameter means the number of 16-bit data length
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1168:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
 1169:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1170:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   return HAL_OK;
-ARM GAS  /tmp/ccrygoZ9.s 			page 22
+ARM GAS  /tmp/cc1vGOZF.s 			page 22
 
 
 1171:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1225:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Set the I2S Tx DMA transfer complete callback */
 1226:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   hi2s->hdmatx->XferCpltCallback = I2S_DMATxCplt;
 1227:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 23
+ARM GAS  /tmp/cc1vGOZF.s 			page 23
 
 
 1228:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Set the DMA error callback */
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1282:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   if ((pData == NULL) || (Size == 0U))
 1283:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
 1284:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     return  HAL_ERROR;
-ARM GAS  /tmp/ccrygoZ9.s 			page 24
+ARM GAS  /tmp/cc1vGOZF.s 			page 24
 
 
 1285:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1339:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     return HAL_ERROR;
 1340:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
 1341:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 25
+ARM GAS  /tmp/cc1vGOZF.s 			page 25
 
 
 1342:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   __HAL_UNLOCK(hi2s);
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1396:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   __HAL_UNLOCK(hi2s);
 1397:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1398:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   return HAL_OK;
-ARM GAS  /tmp/ccrygoZ9.s 			page 26
+ARM GAS  /tmp/cc1vGOZF.s 			page 26
 
 
 1399:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1453:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
 1454:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1455:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
-ARM GAS  /tmp/ccrygoZ9.s 			page 27
+ARM GAS  /tmp/cc1vGOZF.s 			page 27
 
 
 1456:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  Stops the audio DMA Stream/Channel playing from the Media.
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1510:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Disable the I2S Tx DMA requests */
 1511:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_TXDMAEN);
 1512:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 28
+ARM GAS  /tmp/cc1vGOZF.s 			page 28
 
 
 1513:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #if defined (SPI_I2S_FULLDUPLEX_SUPPORT)
@@ -1678,7 +1678,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1567:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #if defined (SPI_I2S_FULLDUPLEX_SUPPORT)
 1568:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1569:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     if (hi2s->State == HAL_I2S_STATE_BUSY_TX_RX)
-ARM GAS  /tmp/ccrygoZ9.s 			page 29
+ARM GAS  /tmp/cc1vGOZF.s 			page 29
 
 
 1570:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1624:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     __HAL_I2S_DISABLE(hi2s);
 1625:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1626:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Clear OVR flag */
-ARM GAS  /tmp/ccrygoZ9.s 			page 30
+ARM GAS  /tmp/cc1vGOZF.s 			page 30
 
 
 1627:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     __HAL_I2S_CLEAR_OVRFLAG(hi2s);
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1681:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
 1682:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  Tx Transfer completed callbacks
 1683:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @param  hi2s pointer to a I2S_HandleTypeDef structure that contains
-ARM GAS  /tmp/ccrygoZ9.s 			page 31
+ARM GAS  /tmp/cc1vGOZF.s 			page 31
 
 
 1684:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   *         the configuration information for I2S module
@@ -1858,7 +1858,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1738:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   UNUSED(hi2s);
 1739:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1740:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* NOTE : This function Should not be modified, when the callback is needed,
-ARM GAS  /tmp/ccrygoZ9.s 			page 32
+ARM GAS  /tmp/cc1vGOZF.s 			page 32
 
 
 1741:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****             the HAL_I2S_ErrorCallback could be implemented in the user file
@@ -1918,7 +1918,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1795:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   */
 1796:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
 1797:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  DMA I2S transmit process complete callback
-ARM GAS  /tmp/ccrygoZ9.s 			page 33
+ARM GAS  /tmp/cc1vGOZF.s 			page 33
 
 
 1798:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @param  hdma pointer to a DMA_HandleTypeDef structure that contains
@@ -1978,7 +1978,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1852:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   if (hdma->Init.Mode == DMA_NORMAL)
 1853:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
 1854:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     /* Disable Rx DMA Request */
-ARM GAS  /tmp/ccrygoZ9.s 			page 34
+ARM GAS  /tmp/cc1vGOZF.s 			page 34
 
 
 1855:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     CLEAR_BIT(hi2s->Instance->CR2, SPI_CR2_RXDMAEN);
@@ -2038,7 +2038,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1909:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #endif /* USE_HAL_I2S_REGISTER_CALLBACKS */
 1910:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
 1911:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 35
+ARM GAS  /tmp/cc1vGOZF.s 			page 35
 
 
 1912:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
@@ -2098,7 +2098,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1966:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
 1967:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 1968:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** /**
-ARM GAS  /tmp/ccrygoZ9.s 			page 36
+ARM GAS  /tmp/cc1vGOZF.s 			page 36
 
 
 1969:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   * @brief  This function handles I2S interrupt request.
@@ -2158,7 +2158,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 2023:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
 2024:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       /* Clear Underrun flag */
 2025:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       __HAL_I2S_CLEAR_UDRFLAG(hi2s);
-ARM GAS  /tmp/ccrygoZ9.s 			page 37
+ARM GAS  /tmp/cc1vGOZF.s 			page 37
 
 
 2026:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -2218,7 +2218,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
   51              		.loc 1 2057 15 is_stmt 0 view .LVU4
   52 000c FFF7FEFF 		bl	HAL_GetTick
   53              	.LVL1:
-ARM GAS  /tmp/ccrygoZ9.s 			page 38
+ARM GAS  /tmp/cc1vGOZF.s 			page 38
 
 
   54              		.loc 1 2057 15 view .LVU5
@@ -2278,7 +2278,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
   95 0042 86F84030 		strb	r3, [r6, #64]
   96              		.loc 1 2070 9 view .LVU22
 2071:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 39
+ARM GAS  /tmp/cc1vGOZF.s 			page 39
 
 
 2072:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****         return HAL_TIMEOUT;
@@ -2338,7 +2338,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  145              		@ frame_needed = 0, uses_anonymous_args = 0
  267:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   uint32_t i2sodd;
  146              		.loc 1 267 3 view .LVU32
-ARM GAS  /tmp/ccrygoZ9.s 			page 40
+ARM GAS  /tmp/cc1vGOZF.s 			page 40
 
 
  268:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   uint32_t packetlength;
@@ -2398,7 +2398,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  181 0010 0222     		movs	r2, #2
  182 0012 84F84120 		strb	r2, [r4, #65]
  331:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****                                       SPI_I2SCFGR_I2SSTD | SPI_I2SCFGR_PCMSYNC | SPI_I2SCFGR_I2SCFG
-ARM GAS  /tmp/ccrygoZ9.s 			page 41
+ARM GAS  /tmp/cc1vGOZF.s 			page 41
 
 
  183              		.loc 1 331 3 is_stmt 1 view .LVU53
@@ -2458,7 +2458,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  361:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
  221              		.loc 1 361 9 is_stmt 0 view .LVU70
  222 003c 2368     		ldr	r3, [r4]
-ARM GAS  /tmp/ccrygoZ9.s 			page 42
+ARM GAS  /tmp/cc1vGOZF.s 			page 42
 
 
  361:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
@@ -2518,7 +2518,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  263              	.L18:
  374:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
  264              		.loc 1 374 5 is_stmt 1 view .LVU85
-ARM GAS  /tmp/ccrygoZ9.s 			page 43
+ARM GAS  /tmp/cc1vGOZF.s 			page 43
 
 
  374:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
@@ -2578,7 +2578,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  302              		.loc 1 402 12 is_stmt 0 view .LVU102
  303 0096 1102     		lsls	r1, r2, #8
  304              	.LVL20:
-ARM GAS  /tmp/ccrygoZ9.s 			page 44
+ARM GAS  /tmp/cc1vGOZF.s 			page 44
 
 
  305              	.L13:
@@ -2638,7 +2638,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  345 00cc 302B     		cmp	r3, #48
  346 00ce 01D0     		beq	.L23
  435:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
-ARM GAS  /tmp/ccrygoZ9.s 			page 45
+ARM GAS  /tmp/cc1vGOZF.s 			page 45
 
 
  347              		.loc 1 435 55 discriminator 1 view .LVU117
@@ -2698,7 +2698,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  386              		.loc 1 379 79 view .LVU132
  387 00fa 6269     		ldr	r2, [r4, #20]
  379:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       }
-ARM GAS  /tmp/ccrygoZ9.s 			page 46
+ARM GAS  /tmp/cc1vGOZF.s 			page 46
 
 
  388              		.loc 1 379 67 view .LVU133
@@ -2758,7 +2758,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  416:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
  429              		.loc 1 416 5 is_stmt 1 view .LVU147
  416:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
-ARM GAS  /tmp/ccrygoZ9.s 			page 47
+ARM GAS  /tmp/cc1vGOZF.s 			page 47
 
 
  430              		.loc 1 416 13 is_stmt 0 view .LVU148
@@ -2818,7 +2818,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  483              	HAL_I2S_DeInit:
  484              	.LVL37:
  485              	.LFB135:
-ARM GAS  /tmp/ccrygoZ9.s 			page 48
+ARM GAS  /tmp/cc1vGOZF.s 			page 48
 
 
  496:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Check the I2S handle allocation */
@@ -2878,7 +2878,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  530:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** }
  524              		.loc 1 530 3 view .LVU170
  531:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 49
+ARM GAS  /tmp/cc1vGOZF.s 			page 49
 
 
  525              		.loc 1 531 1 is_stmt 0 view .LVU171
@@ -2938,7 +2938,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  574 000e 1D46     		mov	r5, r3
  846:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  575              		.loc 1 846 23 discriminator 1 view .LVU179
-ARM GAS  /tmp/ccrygoZ9.s 			page 50
+ARM GAS  /tmp/cc1vGOZF.s 			page 50
 
 
  576 0010 002A     		cmp	r2, #0
@@ -2998,7 +2998,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  613              	.LVL43:
  864:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  614              		.loc 1 864 15 view .LVU197
-ARM GAS  /tmp/ccrygoZ9.s 			page 51
+ARM GAS  /tmp/cc1vGOZF.s 			page 51
 
 
  615 0044 01F00701 		and	r1, r1, #7
@@ -3058,7 +3058,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  651              		.loc 1 880 6 view .LVU215
  652 0062 12F4806F 		tst	r2, #1024
  653 0066 03D1     		bne	.L50
-ARM GAS  /tmp/ccrygoZ9.s 			page 52
+ARM GAS  /tmp/cc1vGOZF.s 			page 52
 
 
  883:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
@@ -3118,7 +3118,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  899:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     hi2s->TxXferCount--;
  693              		.loc 1 899 21 view .LVU231
  694 0092 0233     		adds	r3, r3, #2
-ARM GAS  /tmp/ccrygoZ9.s 			page 53
+ARM GAS  /tmp/cc1vGOZF.s 			page 53
 
 
  695 0094 6362     		str	r3, [r4, #36]
@@ -3178,7 +3178,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  734 00c2 636C     		ldr	r3, [r4, #68]
  735 00c4 43F00403 		orr	r3, r3, #4
  736 00c8 6364     		str	r3, [r4, #68]
-ARM GAS  /tmp/ccrygoZ9.s 			page 54
+ARM GAS  /tmp/cc1vGOZF.s 			page 54
 
 
  737 00ca D9E7     		b	.L53
@@ -3238,7 +3238,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  924:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       || ((tmpreg_cfgr & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_RX))
  774              		.loc 1 924 6 is_stmt 0 view .LVU264
  775 00f8 17F44077 		ands	r7, r7, #768
-ARM GAS  /tmp/ccrygoZ9.s 			page 55
+ARM GAS  /tmp/cc1vGOZF.s 			page 55
 
 
  776              	.LVL51:
@@ -3298,7 +3298,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  815 012e 84F84130 		strb	r3, [r4, #65]
  933:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       return HAL_ERROR;
  816              		.loc 1 933 7 is_stmt 1 view .LVU280
-ARM GAS  /tmp/ccrygoZ9.s 			page 56
+ARM GAS  /tmp/cc1vGOZF.s 			page 56
 
 
  933:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       return HAL_ERROR;
@@ -3358,7 +3358,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  864              	HAL_I2S_Receive:
  865              	.LVL57:
  866              	.LFB139:
-ARM GAS  /tmp/ccrygoZ9.s 			page 57
+ARM GAS  /tmp/cc1vGOZF.s 			page 57
 
 
  961:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   uint32_t tmpreg_cfgr;
@@ -3418,7 +3418,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  908 0024 0123     		movs	r3, #1
  909 0026 84F84030 		strb	r3, [r4, #64]
  975:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   
-ARM GAS  /tmp/ccrygoZ9.s 			page 58
+ARM GAS  /tmp/cc1vGOZF.s 			page 58
 
 
  910              		.loc 1 975 3 discriminator 2 view .LVU303
@@ -3478,7 +3478,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  946              		.loc 1 986 5 is_stmt 1 view .LVU321
  986:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     hi2s->RxXferCount = (Size << 1U);
  947              		.loc 1 986 30 is_stmt 0 view .LVU322
-ARM GAS  /tmp/ccrygoZ9.s 			page 59
+ARM GAS  /tmp/cc1vGOZF.s 			page 59
 
 
  948 004c 5200     		lsls	r2, r2, #1
@@ -3538,7 +3538,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1011:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  987              		.loc 1 1011 28 view .LVU338
  988 0076 002A     		cmp	r2, #0
-ARM GAS  /tmp/ccrygoZ9.s 			page 60
+ARM GAS  /tmp/cc1vGOZF.s 			page 60
 
 
  989 0078 36D0     		beq	.L82
@@ -3598,7 +3598,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1028:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
  1027              		.loc 1 1028 8 view .LVU355
  1028 00a4 12F0400F 		tst	r2, #64
-ARM GAS  /tmp/ccrygoZ9.s 			page 61
+ARM GAS  /tmp/cc1vGOZF.s 			page 61
 
 
  1029 00a8 E3D0     		beq	.L74
@@ -3658,7 +3658,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1017:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       hi2s->State = HAL_I2S_STATE_READY;
  1070              		.loc 1 1017 7 is_stmt 1 view .LVU369
  1071 00d2 636C     		ldr	r3, [r4, #68]
-ARM GAS  /tmp/ccrygoZ9.s 			page 62
+ARM GAS  /tmp/cc1vGOZF.s 			page 62
 
 
  1072 00d4 43F00103 		orr	r3, r3, #1
@@ -3718,7 +3718,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1109              		.loc 1 1041 1 view .LVU386
  1110 00fc 3046     		mov	r0, r6
  1111 00fe 02B0     		add	sp, sp, #8
-ARM GAS  /tmp/ccrygoZ9.s 			page 63
+ARM GAS  /tmp/cc1vGOZF.s 			page 63
 
 
  1112              	.LCFI11:
@@ -3778,7 +3778,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1066:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1160              		.loc 1 1066 3 is_stmt 1 view .LVU395
 1066:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
-ARM GAS  /tmp/ccrygoZ9.s 			page 64
+ARM GAS  /tmp/cc1vGOZF.s 			page 64
 
 
  1161              		.loc 1 1066 11 is_stmt 0 view .LVU396
@@ -3838,7 +3838,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1198              		.loc 1 1081 6 is_stmt 0 view .LVU413
  1199 0038 032B     		cmp	r3, #3
  1200 003a 04D0     		beq	.L86
-ARM GAS  /tmp/ccrygoZ9.s 			page 65
+ARM GAS  /tmp/cc1vGOZF.s 			page 65
 
 
 1081:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
@@ -3898,7 +3898,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1237              		.loc 1 1098 12 is_stmt 0 view .LVU431
  1238 005c 0368     		ldr	r3, [r0]
 1098:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
-ARM GAS  /tmp/ccrygoZ9.s 			page 66
+ARM GAS  /tmp/cc1vGOZF.s 			page 66
 
 
  1239              		.loc 1 1098 22 view .LVU432
@@ -3958,7 +3958,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1284 007e 0220     		movs	r0, #2
  1285              	.LVL84:
 1068:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
-ARM GAS  /tmp/ccrygoZ9.s 			page 67
+ARM GAS  /tmp/cc1vGOZF.s 			page 67
 
 
  1286              		.loc 1 1068 12 view .LVU442
@@ -4018,7 +4018,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1332 0008 35D0     		beq	.L104
 1132:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1333              		.loc 1 1132 3 is_stmt 1 view .LVU453
-ARM GAS  /tmp/ccrygoZ9.s 			page 68
+ARM GAS  /tmp/cc1vGOZF.s 			page 68
 
 
 1132:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
@@ -4078,7 +4078,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1147:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1371              		.loc 1 1147 6 is_stmt 0 view .LVU471
  1372 0038 032B     		cmp	r3, #3
-ARM GAS  /tmp/ccrygoZ9.s 			page 69
+ARM GAS  /tmp/cc1vGOZF.s 			page 69
 
 
  1373 003a 04D0     		beq	.L100
@@ -4138,7 +4138,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1164:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1410              		.loc 1 1164 12 is_stmt 0 view .LVU489
  1411 005c 0368     		ldr	r3, [r0]
-ARM GAS  /tmp/ccrygoZ9.s 			page 70
+ARM GAS  /tmp/cc1vGOZF.s 			page 70
 
 
 1164:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
@@ -4198,7 +4198,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1456              		.loc 1 1134 12 view .LVU499
  1457 007e 0220     		movs	r0, #2
  1458              	.LVL101:
-ARM GAS  /tmp/ccrygoZ9.s 			page 71
+ARM GAS  /tmp/cc1vGOZF.s 			page 71
 
 
 1134:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
@@ -4258,7 +4258,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1505 0006 0446     		mov	r4, r0
 1191:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1506              		.loc 1 1191 23 discriminator 1 view .LVU510
-ARM GAS  /tmp/ccrygoZ9.s 			page 72
+ARM GAS  /tmp/cc1vGOZF.s 			page 72
 
 
  1507 0008 002A     		cmp	r2, #0
@@ -4318,7 +4318,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1544              	.LVL107:
 1211:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
  1545              		.loc 1 1211 3 is_stmt 1 view .LVU528
-ARM GAS  /tmp/ccrygoZ9.s 			page 73
+ARM GAS  /tmp/cc1vGOZF.s 			page 73
 
 
 1211:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   {
@@ -4378,7 +4378,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1582              		.loc 1 1226 34 view .LVU546
  1583 0058 1C4A     		ldr	r2, .L128+4
  1584 005a DA63     		str	r2, [r3, #60]
-ARM GAS  /tmp/ccrygoZ9.s 			page 74
+ARM GAS  /tmp/cc1vGOZF.s 			page 74
 
 
 1229:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -4438,7 +4438,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1622 0084 5A68     		ldr	r2, [r3, #4]
  1623 0086 42F00202 		orr	r2, r2, #2
  1624 008a 5A60     		str	r2, [r3, #4]
-ARM GAS  /tmp/ccrygoZ9.s 			page 75
+ARM GAS  /tmp/cc1vGOZF.s 			page 75
 
 
  1625              	.L118:
@@ -4498,7 +4498,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1666              	.LVL114:
 1262:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  1667              		.loc 1 1262 1 view .LVU577
-ARM GAS  /tmp/ccrygoZ9.s 			page 76
+ARM GAS  /tmp/cc1vGOZF.s 			page 76
 
 
  1668 00ba 7047     		bx	lr
@@ -4558,7 +4558,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1717              		.cfi_startproc
  1718              		@ args = 0, pretend = 0, frame = 8
  1719              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccrygoZ9.s 			page 77
+ARM GAS  /tmp/cc1vGOZF.s 			page 77
 
 
 1280:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -4618,7 +4618,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1297:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   hi2s->pRxBuffPtr = pData;
  1760              		.loc 1 1297 3 is_stmt 1 view .LVU599
 1297:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   hi2s->pRxBuffPtr = pData;
-ARM GAS  /tmp/ccrygoZ9.s 			page 78
+ARM GAS  /tmp/cc1vGOZF.s 			page 78
 
 
  1761              		.loc 1 1297 19 is_stmt 0 view .LVU600
@@ -4678,7 +4678,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1305:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
  1798              		.loc 1 1305 5 is_stmt 1 view .LVU618
 1305:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
-ARM GAS  /tmp/ccrygoZ9.s 			page 79
+ARM GAS  /tmp/cc1vGOZF.s 			page 79
 
 
  1799              		.loc 1 1305 23 is_stmt 0 view .LVU619
@@ -4738,7 +4738,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1836 0072 238E     		ldrh	r3, [r4, #48]
 1331:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****                                  hi2s->RxXferSize))
  1837              		.loc 1 1331 17 view .LVU637
-ARM GAS  /tmp/ccrygoZ9.s 			page 80
+ARM GAS  /tmp/cc1vGOZF.s 			page 80
 
 
  1838 0074 9BB2     		uxth	r3, r3
@@ -4798,7 +4798,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1327:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
  1879              		.loc 1 1327 5 view .LVU651
  1880              	.LBB5:
-ARM GAS  /tmp/ccrygoZ9.s 			page 81
+ARM GAS  /tmp/cc1vGOZF.s 			page 81
 
 
 1327:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   }
@@ -4858,7 +4858,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1921              		.loc 1 1284 13 view .LVU665
  1922 00d6 0120     		movs	r0, #1
  1923              	.LVL131:
-ARM GAS  /tmp/ccrygoZ9.s 			page 82
+ARM GAS  /tmp/cc1vGOZF.s 			page 82
 
 
 1359:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -4918,7 +4918,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  1972              		.syntax unified
  1973              		.thumb
  1974              		.thumb_func
-ARM GAS  /tmp/ccrygoZ9.s 			page 83
+ARM GAS  /tmp/cc1vGOZF.s 			page 83
 
 
  1976              	HAL_I2S_DMAPause:
@@ -4978,7 +4978,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2015              	.LVL139:
 1396:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2016              		.loc 1 1396 3 is_stmt 0 view .LVU688
-ARM GAS  /tmp/ccrygoZ9.s 			page 84
+ARM GAS  /tmp/cc1vGOZF.s 			page 84
 
 
  2017 0028 83F84000 		strb	r0, [r3, #64]
@@ -5038,7 +5038,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2063              		.loc 1 1410 3 is_stmt 1 view .LVU698
 1410:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2064              		.loc 1 1410 3 view .LVU699
-ARM GAS  /tmp/ccrygoZ9.s 			page 85
+ARM GAS  /tmp/cc1vGOZF.s 			page 85
 
 
  2065 0002 90F84020 		ldrb	r2, [r0, #64]	@ zero_extendqisi2
@@ -5098,7 +5098,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2104              	.LVL143:
 1450:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2105              		.loc 1 1450 3 is_stmt 0 view .LVU715
-ARM GAS  /tmp/ccrygoZ9.s 			page 86
+ARM GAS  /tmp/cc1vGOZF.s 			page 86
 
 
  2106 003a 83F84000 		strb	r0, [r3, #64]
@@ -5158,7 +5158,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2153              		.cfi_offset 4, -12
  2154              		.cfi_offset 5, -8
  2155              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccrygoZ9.s 			page 87
+ARM GAS  /tmp/cc1vGOZF.s 			page 87
 
 
  2156 0002 83B0     		sub	sp, sp, #12
@@ -5218,7 +5218,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1466:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* The Lock is not implemented on this API to allow the user application
  2196              		.loc 1 1466 21 view .LVU739
  2197 002a 0025     		movs	r5, #0
-ARM GAS  /tmp/ccrygoZ9.s 			page 88
+ARM GAS  /tmp/cc1vGOZF.s 			page 88
 
 
  2198              	.LVL152:
@@ -5278,7 +5278,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2238              		.loc 1 1500 19 is_stmt 0 view .LVU753
  2239 005e 0125     		movs	r5, #1
  2240              	.LVL157:
-ARM GAS  /tmp/ccrygoZ9.s 			page 89
+ARM GAS  /tmp/cc1vGOZF.s 			page 89
 
 
 1500:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       errorcode   = HAL_ERROR;
@@ -5338,7 +5338,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2282 008c 30BD     		pop	{r4, r5, pc}
  2283              	.LVL160:
  2284              	.L167:
-ARM GAS  /tmp/ccrygoZ9.s 			page 90
+ARM GAS  /tmp/cc1vGOZF.s 			page 90
 
 
  2285              	.LCFI35:
@@ -5398,7 +5398,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2325              	.L173:
 1624:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2326              		.loc 1 1624 5 is_stmt 1 view .LVU781
-ARM GAS  /tmp/ccrygoZ9.s 			page 91
+ARM GAS  /tmp/cc1vGOZF.s 			page 91
 
 
  2327 00b8 2268     		ldr	r2, [r4]
@@ -5458,7 +5458,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2367              		.loc 1 1638 19 is_stmt 0 view .LVU795
  2368 00f0 0125     		movs	r5, #1
  2369              	.LVL166:
-ARM GAS  /tmp/ccrygoZ9.s 			page 92
+ARM GAS  /tmp/cc1vGOZF.s 			page 92
 
 
 1638:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****       errorcode = HAL_ERROR;
@@ -5518,7 +5518,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2419              	.LFB148:
 1672:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Prevent unused argument(s) compilation warning */
  2420              		.loc 1 1672 1 is_stmt 1 view -0
-ARM GAS  /tmp/ccrygoZ9.s 			page 93
+ARM GAS  /tmp/cc1vGOZF.s 			page 93
 
 
  2421              		.cfi_startproc
@@ -5578,7 +5578,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2471              	.LVL175:
  2472              	.LFB149:
 1688:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   /* Prevent unused argument(s) compilation warning */
-ARM GAS  /tmp/ccrygoZ9.s 			page 94
+ARM GAS  /tmp/cc1vGOZF.s 			page 94
 
 
  2473              		.loc 1 1688 1 is_stmt 1 view -0
@@ -5638,7 +5638,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2517 000e 4362     		str	r3, [r0, #36]
 1923:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2518              		.loc 1 1923 3 is_stmt 1 view .LVU827
-ARM GAS  /tmp/ccrygoZ9.s 			page 95
+ARM GAS  /tmp/cc1vGOZF.s 			page 95
 
 
 1923:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -5698,7 +5698,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1803:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   I2S_HandleTypeDef *hi2s = (I2S_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation
  2564              		.loc 1 1803 1 is_stmt 1 view -0
  2565              		.cfi_startproc
-ARM GAS  /tmp/ccrygoZ9.s 			page 96
+ARM GAS  /tmp/cc1vGOZF.s 			page 96
 
 
  2566              		@ args = 0, pretend = 0, frame = 0
@@ -5758,7 +5758,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2608              		.align	1
  2609              		.weak	HAL_I2S_RxHalfCpltCallback
  2610              		.syntax unified
-ARM GAS  /tmp/ccrygoZ9.s 			page 97
+ARM GAS  /tmp/cc1vGOZF.s 			page 97
 
 
  2611              		.thumb
@@ -5818,7 +5818,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2660              		.section	.text.HAL_I2S_RxCpltCallback,"ax",%progbits
  2661              		.align	1
  2662              		.weak	HAL_I2S_RxCpltCallback
-ARM GAS  /tmp/ccrygoZ9.s 			page 98
+ARM GAS  /tmp/cc1vGOZF.s 			page 98
 
 
  2663              		.syntax unified
@@ -5878,7 +5878,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2709              		.loc 1 1950 3 is_stmt 1 view .LVU872
 1950:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   hi2s->RxXferCount--;
  2710              		.loc 1 1950 7 is_stmt 0 view .LVU873
-ARM GAS  /tmp/ccrygoZ9.s 			page 99
+ARM GAS  /tmp/cc1vGOZF.s 			page 99
 
 
  2711 000a C36A     		ldr	r3, [r0, #44]
@@ -5938,7 +5938,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2753              		.align	1
  2754              		.syntax unified
  2755              		.thumb
-ARM GAS  /tmp/ccrygoZ9.s 			page 100
+ARM GAS  /tmp/cc1vGOZF.s 			page 100
 
 
  2756              		.thumb_func
@@ -5998,7 +5998,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2798              	.LVL197:
 1865:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2799              		.loc 1 1865 1 is_stmt 0 view .LVU900
-ARM GAS  /tmp/ccrygoZ9.s 			page 101
+ARM GAS  /tmp/cc1vGOZF.s 			page 101
 
 
  2800 0022 08BD     		pop	{r3, pc}
@@ -6058,7 +6058,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 1976:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
  2851              		.loc 1 1976 39 view .LVU908
  2852 0008 9368     		ldr	r3, [r2, #8]
-ARM GAS  /tmp/ccrygoZ9.s 			page 102
+ARM GAS  /tmp/cc1vGOZF.s 			page 102
 
 
 1976:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
@@ -6118,7 +6118,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2894              	.LVL202:
  2895              	.L207:
 1987:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****     {
-ARM GAS  /tmp/ccrygoZ9.s 			page 103
+ARM GAS  /tmp/cc1vGOZF.s 			page 103
 
 
  2896              		.loc 1 1987 5 is_stmt 1 view .LVU922
@@ -6178,7 +6178,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
 2005:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** #endif /* USE_HAL_I2S_REGISTER_CALLBACKS */
  2936              		.loc 1 2005 7 view .LVU937
  2937 006c 2046     		mov	r0, r4
-ARM GAS  /tmp/ccrygoZ9.s 			page 104
+ARM GAS  /tmp/cc1vGOZF.s 			page 104
 
 
  2938 006e FFF7FEFF 		bl	HAL_I2S_ErrorCallback
@@ -6238,7 +6238,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  2978              		.loc 1 2025 7 view .LVU951
  2979              	.LBB9:
 2025:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c **** 
-ARM GAS  /tmp/ccrygoZ9.s 			page 105
+ARM GAS  /tmp/cc1vGOZF.s 			page 105
 
 
  2980              		.loc 1 2025 7 view .LVU952
@@ -6298,7 +6298,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  3026              		@ frame_needed = 0, uses_anonymous_args = 0
 1892:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   I2S_HandleTypeDef *hi2s = (I2S_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation
  3027              		.loc 1 1892 1 is_stmt 0 view .LVU963
-ARM GAS  /tmp/ccrygoZ9.s 			page 106
+ARM GAS  /tmp/cc1vGOZF.s 			page 106
 
 
  3028 0000 08B5     		push	{r3, lr}
@@ -6358,7 +6358,7 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  3072              	HAL_I2S_GetState:
  3073              	.LVL211:
  3074              	.LFB153:
-ARM GAS  /tmp/ccrygoZ9.s 			page 107
+ARM GAS  /tmp/cc1vGOZF.s 			page 107
 
 
 1771:Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.c ****   return hi2s->State;
@@ -6414,77 +6414,77 @@ ARM GAS  /tmp/ccrygoZ9.s 			page 1
  3120              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
  3121              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
  3122              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  /tmp/ccrygoZ9.s 			page 108
+ARM GAS  /tmp/cc1vGOZF.s 			page 108
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_i2s.c
-     /tmp/ccrygoZ9.s:21     .text.I2S_WaitFlagStateUntilTimeout:00000000 $t
-     /tmp/ccrygoZ9.s:26     .text.I2S_WaitFlagStateUntilTimeout:00000000 I2S_WaitFlagStateUntilTimeout
-     /tmp/ccrygoZ9.s:112    .text.HAL_I2S_MspInit:00000000 $t
-     /tmp/ccrygoZ9.s:118    .text.HAL_I2S_MspInit:00000000 HAL_I2S_MspInit
-     /tmp/ccrygoZ9.s:133    .text.HAL_I2S_Init:00000000 $t
-     /tmp/ccrygoZ9.s:139    .text.HAL_I2S_Init:00000000 HAL_I2S_Init
-     /tmp/ccrygoZ9.s:449    .text.HAL_I2S_Init:00000130 $d
-     /tmp/ccrygoZ9.s:2831   .text.I2S_IRQHandler:00000000 I2S_IRQHandler
-     /tmp/ccrygoZ9.s:456    .text.HAL_I2S_MspDeInit:00000000 $t
-     /tmp/ccrygoZ9.s:462    .text.HAL_I2S_MspDeInit:00000000 HAL_I2S_MspDeInit
-     /tmp/ccrygoZ9.s:477    .text.HAL_I2S_DeInit:00000000 $t
-     /tmp/ccrygoZ9.s:483    .text.HAL_I2S_DeInit:00000000 HAL_I2S_DeInit
-     /tmp/ccrygoZ9.s:542    .text.HAL_I2S_Transmit:00000000 $t
-     /tmp/ccrygoZ9.s:548    .text.HAL_I2S_Transmit:00000000 HAL_I2S_Transmit
-     /tmp/ccrygoZ9.s:858    .text.HAL_I2S_Receive:00000000 $t
-     /tmp/ccrygoZ9.s:864    .text.HAL_I2S_Receive:00000000 HAL_I2S_Receive
-     /tmp/ccrygoZ9.s:1133   .text.HAL_I2S_Transmit_IT:00000000 $t
-     /tmp/ccrygoZ9.s:1139   .text.HAL_I2S_Transmit_IT:00000000 HAL_I2S_Transmit_IT
-     /tmp/ccrygoZ9.s:1306   .text.HAL_I2S_Receive_IT:00000000 $t
-     /tmp/ccrygoZ9.s:1312   .text.HAL_I2S_Receive_IT:00000000 HAL_I2S_Receive_IT
-     /tmp/ccrygoZ9.s:1479   .text.HAL_I2S_Transmit_DMA:00000000 $t
-     /tmp/ccrygoZ9.s:1485   .text.HAL_I2S_Transmit_DMA:00000000 HAL_I2S_Transmit_DMA
-     /tmp/ccrygoZ9.s:1700   .text.HAL_I2S_Transmit_DMA:000000c8 $d
-     /tmp/ccrygoZ9.s:2437   .text.I2S_DMATxHalfCplt:00000000 I2S_DMATxHalfCplt
-     /tmp/ccrygoZ9.s:2561   .text.I2S_DMATxCplt:00000000 I2S_DMATxCplt
-     /tmp/ccrygoZ9.s:3020   .text.I2S_DMAError:00000000 I2S_DMAError
-     /tmp/ccrygoZ9.s:1707   .text.HAL_I2S_Receive_DMA:00000000 $t
-     /tmp/ccrygoZ9.s:1713   .text.HAL_I2S_Receive_DMA:00000000 HAL_I2S_Receive_DMA
-     /tmp/ccrygoZ9.s:1963   .text.HAL_I2S_Receive_DMA:000000e8 $d
-     /tmp/ccrygoZ9.s:2634   .text.I2S_DMARxHalfCplt:00000000 I2S_DMARxHalfCplt
-     /tmp/ccrygoZ9.s:2758   .text.I2S_DMARxCplt:00000000 I2S_DMARxCplt
-     /tmp/ccrygoZ9.s:1970   .text.HAL_I2S_DMAPause:00000000 $t
-     /tmp/ccrygoZ9.s:1976   .text.HAL_I2S_DMAPause:00000000 HAL_I2S_DMAPause
-     /tmp/ccrygoZ9.s:2047   .text.HAL_I2S_DMAResume:00000000 $t
-     /tmp/ccrygoZ9.s:2053   .text.HAL_I2S_DMAResume:00000000 HAL_I2S_DMAResume
-     /tmp/ccrygoZ9.s:2136   .text.HAL_I2S_DMAStop:00000000 $t
-     /tmp/ccrygoZ9.s:2142   .text.HAL_I2S_DMAStop:00000000 HAL_I2S_DMAStop
-     /tmp/ccrygoZ9.s:2380   .text.HAL_I2S_IRQHandler:00000000 $t
-     /tmp/ccrygoZ9.s:2386   .text.HAL_I2S_IRQHandler:00000000 HAL_I2S_IRQHandler
-     /tmp/ccrygoZ9.s:2411   .text.HAL_I2S_TxHalfCpltCallback:00000000 $t
-     /tmp/ccrygoZ9.s:2417   .text.HAL_I2S_TxHalfCpltCallback:00000000 HAL_I2S_TxHalfCpltCallback
-     /tmp/ccrygoZ9.s:2432   .text.I2S_DMATxHalfCplt:00000000 $t
-     /tmp/ccrygoZ9.s:2464   .text.HAL_I2S_TxCpltCallback:00000000 $t
-     /tmp/ccrygoZ9.s:2470   .text.HAL_I2S_TxCpltCallback:00000000 HAL_I2S_TxCpltCallback
-     /tmp/ccrygoZ9.s:2485   .text.I2S_Transmit_IT:00000000 $t
-     /tmp/ccrygoZ9.s:2490   .text.I2S_Transmit_IT:00000000 I2S_Transmit_IT
-     /tmp/ccrygoZ9.s:2556   .text.I2S_DMATxCplt:00000000 $t
-     /tmp/ccrygoZ9.s:2608   .text.HAL_I2S_RxHalfCpltCallback:00000000 $t
-     /tmp/ccrygoZ9.s:2614   .text.HAL_I2S_RxHalfCpltCallback:00000000 HAL_I2S_RxHalfCpltCallback
-     /tmp/ccrygoZ9.s:2629   .text.I2S_DMARxHalfCplt:00000000 $t
-     /tmp/ccrygoZ9.s:2661   .text.HAL_I2S_RxCpltCallback:00000000 $t
-     /tmp/ccrygoZ9.s:2667   .text.HAL_I2S_RxCpltCallback:00000000 HAL_I2S_RxCpltCallback
-     /tmp/ccrygoZ9.s:2682   .text.I2S_Receive_IT:00000000 $t
-     /tmp/ccrygoZ9.s:2687   .text.I2S_Receive_IT:00000000 I2S_Receive_IT
-     /tmp/ccrygoZ9.s:2753   .text.I2S_DMARxCplt:00000000 $t
-ARM GAS  /tmp/ccrygoZ9.s 			page 109
+     /tmp/cc1vGOZF.s:21     .text.I2S_WaitFlagStateUntilTimeout:00000000 $t
+     /tmp/cc1vGOZF.s:26     .text.I2S_WaitFlagStateUntilTimeout:00000000 I2S_WaitFlagStateUntilTimeout
+     /tmp/cc1vGOZF.s:112    .text.HAL_I2S_MspInit:00000000 $t
+     /tmp/cc1vGOZF.s:118    .text.HAL_I2S_MspInit:00000000 HAL_I2S_MspInit
+     /tmp/cc1vGOZF.s:133    .text.HAL_I2S_Init:00000000 $t
+     /tmp/cc1vGOZF.s:139    .text.HAL_I2S_Init:00000000 HAL_I2S_Init
+     /tmp/cc1vGOZF.s:449    .text.HAL_I2S_Init:00000130 $d
+     /tmp/cc1vGOZF.s:2831   .text.I2S_IRQHandler:00000000 I2S_IRQHandler
+     /tmp/cc1vGOZF.s:456    .text.HAL_I2S_MspDeInit:00000000 $t
+     /tmp/cc1vGOZF.s:462    .text.HAL_I2S_MspDeInit:00000000 HAL_I2S_MspDeInit
+     /tmp/cc1vGOZF.s:477    .text.HAL_I2S_DeInit:00000000 $t
+     /tmp/cc1vGOZF.s:483    .text.HAL_I2S_DeInit:00000000 HAL_I2S_DeInit
+     /tmp/cc1vGOZF.s:542    .text.HAL_I2S_Transmit:00000000 $t
+     /tmp/cc1vGOZF.s:548    .text.HAL_I2S_Transmit:00000000 HAL_I2S_Transmit
+     /tmp/cc1vGOZF.s:858    .text.HAL_I2S_Receive:00000000 $t
+     /tmp/cc1vGOZF.s:864    .text.HAL_I2S_Receive:00000000 HAL_I2S_Receive
+     /tmp/cc1vGOZF.s:1133   .text.HAL_I2S_Transmit_IT:00000000 $t
+     /tmp/cc1vGOZF.s:1139   .text.HAL_I2S_Transmit_IT:00000000 HAL_I2S_Transmit_IT
+     /tmp/cc1vGOZF.s:1306   .text.HAL_I2S_Receive_IT:00000000 $t
+     /tmp/cc1vGOZF.s:1312   .text.HAL_I2S_Receive_IT:00000000 HAL_I2S_Receive_IT
+     /tmp/cc1vGOZF.s:1479   .text.HAL_I2S_Transmit_DMA:00000000 $t
+     /tmp/cc1vGOZF.s:1485   .text.HAL_I2S_Transmit_DMA:00000000 HAL_I2S_Transmit_DMA
+     /tmp/cc1vGOZF.s:1700   .text.HAL_I2S_Transmit_DMA:000000c8 $d
+     /tmp/cc1vGOZF.s:2437   .text.I2S_DMATxHalfCplt:00000000 I2S_DMATxHalfCplt
+     /tmp/cc1vGOZF.s:2561   .text.I2S_DMATxCplt:00000000 I2S_DMATxCplt
+     /tmp/cc1vGOZF.s:3020   .text.I2S_DMAError:00000000 I2S_DMAError
+     /tmp/cc1vGOZF.s:1707   .text.HAL_I2S_Receive_DMA:00000000 $t
+     /tmp/cc1vGOZF.s:1713   .text.HAL_I2S_Receive_DMA:00000000 HAL_I2S_Receive_DMA
+     /tmp/cc1vGOZF.s:1963   .text.HAL_I2S_Receive_DMA:000000e8 $d
+     /tmp/cc1vGOZF.s:2634   .text.I2S_DMARxHalfCplt:00000000 I2S_DMARxHalfCplt
+     /tmp/cc1vGOZF.s:2758   .text.I2S_DMARxCplt:00000000 I2S_DMARxCplt
+     /tmp/cc1vGOZF.s:1970   .text.HAL_I2S_DMAPause:00000000 $t
+     /tmp/cc1vGOZF.s:1976   .text.HAL_I2S_DMAPause:00000000 HAL_I2S_DMAPause
+     /tmp/cc1vGOZF.s:2047   .text.HAL_I2S_DMAResume:00000000 $t
+     /tmp/cc1vGOZF.s:2053   .text.HAL_I2S_DMAResume:00000000 HAL_I2S_DMAResume
+     /tmp/cc1vGOZF.s:2136   .text.HAL_I2S_DMAStop:00000000 $t
+     /tmp/cc1vGOZF.s:2142   .text.HAL_I2S_DMAStop:00000000 HAL_I2S_DMAStop
+     /tmp/cc1vGOZF.s:2380   .text.HAL_I2S_IRQHandler:00000000 $t
+     /tmp/cc1vGOZF.s:2386   .text.HAL_I2S_IRQHandler:00000000 HAL_I2S_IRQHandler
+     /tmp/cc1vGOZF.s:2411   .text.HAL_I2S_TxHalfCpltCallback:00000000 $t
+     /tmp/cc1vGOZF.s:2417   .text.HAL_I2S_TxHalfCpltCallback:00000000 HAL_I2S_TxHalfCpltCallback
+     /tmp/cc1vGOZF.s:2432   .text.I2S_DMATxHalfCplt:00000000 $t
+     /tmp/cc1vGOZF.s:2464   .text.HAL_I2S_TxCpltCallback:00000000 $t
+     /tmp/cc1vGOZF.s:2470   .text.HAL_I2S_TxCpltCallback:00000000 HAL_I2S_TxCpltCallback
+     /tmp/cc1vGOZF.s:2485   .text.I2S_Transmit_IT:00000000 $t
+     /tmp/cc1vGOZF.s:2490   .text.I2S_Transmit_IT:00000000 I2S_Transmit_IT
+     /tmp/cc1vGOZF.s:2556   .text.I2S_DMATxCplt:00000000 $t
+     /tmp/cc1vGOZF.s:2608   .text.HAL_I2S_RxHalfCpltCallback:00000000 $t
+     /tmp/cc1vGOZF.s:2614   .text.HAL_I2S_RxHalfCpltCallback:00000000 HAL_I2S_RxHalfCpltCallback
+     /tmp/cc1vGOZF.s:2629   .text.I2S_DMARxHalfCplt:00000000 $t
+     /tmp/cc1vGOZF.s:2661   .text.HAL_I2S_RxCpltCallback:00000000 $t
+     /tmp/cc1vGOZF.s:2667   .text.HAL_I2S_RxCpltCallback:00000000 HAL_I2S_RxCpltCallback
+     /tmp/cc1vGOZF.s:2682   .text.I2S_Receive_IT:00000000 $t
+     /tmp/cc1vGOZF.s:2687   .text.I2S_Receive_IT:00000000 I2S_Receive_IT
+     /tmp/cc1vGOZF.s:2753   .text.I2S_DMARxCplt:00000000 $t
+ARM GAS  /tmp/cc1vGOZF.s 			page 109
 
 
-     /tmp/ccrygoZ9.s:2805   .text.HAL_I2S_ErrorCallback:00000000 $t
-     /tmp/ccrygoZ9.s:2811   .text.HAL_I2S_ErrorCallback:00000000 HAL_I2S_ErrorCallback
-     /tmp/ccrygoZ9.s:2826   .text.I2S_IRQHandler:00000000 $t
-     /tmp/ccrygoZ9.s:3015   .text.I2S_DMAError:00000000 $t
-     /tmp/ccrygoZ9.s:3066   .text.HAL_I2S_GetState:00000000 $t
-     /tmp/ccrygoZ9.s:3072   .text.HAL_I2S_GetState:00000000 HAL_I2S_GetState
-     /tmp/ccrygoZ9.s:3090   .text.HAL_I2S_GetError:00000000 $t
-     /tmp/ccrygoZ9.s:3096   .text.HAL_I2S_GetError:00000000 HAL_I2S_GetError
+     /tmp/cc1vGOZF.s:2805   .text.HAL_I2S_ErrorCallback:00000000 $t
+     /tmp/cc1vGOZF.s:2811   .text.HAL_I2S_ErrorCallback:00000000 HAL_I2S_ErrorCallback
+     /tmp/cc1vGOZF.s:2826   .text.I2S_IRQHandler:00000000 $t
+     /tmp/cc1vGOZF.s:3015   .text.I2S_DMAError:00000000 $t
+     /tmp/cc1vGOZF.s:3066   .text.HAL_I2S_GetState:00000000 $t
+     /tmp/cc1vGOZF.s:3072   .text.HAL_I2S_GetState:00000000 HAL_I2S_GetState
+     /tmp/cc1vGOZF.s:3090   .text.HAL_I2S_GetError:00000000 $t
+     /tmp/cc1vGOZF.s:3096   .text.HAL_I2S_GetError:00000000 HAL_I2S_GetError
 
 UNDEFINED SYMBOLS
 HAL_GetTick
