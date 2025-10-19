@@ -22,6 +22,7 @@
 #include "i2c.h"
 #include "i2s.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -34,6 +35,7 @@
 #include "humidity_temp_sensor.h"
 #include "microphone_sensor.h"
 #include <stdlib.h>
+#include "methods.h"
 
 
 /* USER CODE END Includes */
@@ -56,14 +58,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern I2C_HandleTypeDef hi2c2;
+extern I2C_HandleTypeDef hi2c1;
 extern I2S_HandleTypeDef hi2s1;  // 例如使用 I2S1
 extern UART_HandleTypeDef huart1; 
-
-
-
-
-
 
 
 VCNL4040_HandleTypeDef vcnl4040;
@@ -77,18 +74,6 @@ MIC_HandleTypeDef mic;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
-void RGB_LED_Init(void);
-void RGB_LED_Blink(void);
-void Debug_Print(const char *format, ...);
-void Debug_Print_DMA(const char *format, ...);
-void I2C_Scan(void);
-void Send_Raw_Bytes(uint16_t data);
-void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count);
-
-
-
-
 
 /* USER CODE END PFP */
 
@@ -105,6 +90,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  
 
   /* USER CODE END 1 */
 
@@ -131,6 +117,7 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_I2S1_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   RGB_LED_Init();
 
@@ -151,11 +138,30 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-    // Debug_Print("%d\n",audio_result);
-    // HAL_Delay(10);
-    RGB_LED_Blink();
-    Debug_Print("%d\n", mic.audio_result);
+    uint8_t aqi;
+    uint16_t tvoc, eco2;
+    ENS160_ReadAQI(&ens160, &aqi);
+    ENS160_ReadTVOC(&ens160, &tvoc);
+    ENS160_ReadECO2(&ens160, &eco2);
+
+    uint16_t als, ps;
+    VCNL4040_ReadALS(&vcnl4040, &als);
+    VCNL4040_ReadPS(&vcnl4040, &ps);
+
+    float T1, H1, T2, H2, T3, H3, T4, H4;
+
+    HDC302x_ReadData(&hdc1, &T1, &H1);
+    HDC302x_ReadData(&hdc2, &T2, &H2);
+    HDC302x_ReadData(&hdc3, &T3, &H3);
+    HDC302x_ReadData(&hdc4, &T4, &H4);
+
     
+    USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
+    USB_Print("%u,%u,", als, ps);
+    USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,",(int)(T1*100), (int)(H1*100), (int)(T2*100), (int)(H2*100), (int)(T3*100), (int)(H3*100), (int)(T4*100), (int)(H4*100));
+    USB_Print("%d\n", mic.audio_result);
+
+    // HAL_Delay();
 
     /* USER CODE BEGIN 3 */
   }
@@ -174,7 +180,7 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage
   */
   __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -184,9 +190,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLN = 72;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 3;
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -199,118 +205,17 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
 }
 
 /* USER CODE BEGIN 4 */
-void RGB_LED_Init(void)
-{
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    // Enable GPIOC clock
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-
-    // Configure PC0, PC1, PC2 as output pins
-    GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    // Turn off all LEDs initially
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-}
-void RGB_LED_Blink(void)
-{
-    // Red
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(5);
-
-    // Green
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(5);
-
-    // Blue
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_RESET);
-    HAL_Delay(5);
-
-    // // White (all on)
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
-    // HAL_Delay(200);
-
-    // // Off
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-    // HAL_Delay(200);
-}
-
-
-void Debug_Print(const char *format, ...)
-{
-    char buffer[128];
-    va_list args;
-    va_start(args, format);
-    vsnprintf(buffer, sizeof(buffer), format, args);
-    va_end(args);
-    // 发送格式化的字符串通过UART
-    HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 100);
-}
-void Debug_Print_DMA(const char *format, ...)
-{
-    va_list args;
-    va_start(args, format);
-    
-    // 格式化字符串到临时缓冲区
-    char buffer[128];
-    vsnprintf(buffer, sizeof(buffer), format, args);
-    va_end(args);
-    
-    // 使用 DMA 发送数据
-    HAL_UART_Transmit_DMA(&huart1, (uint8_t*)buffer, strlen(buffer));
-}
-void Send_Raw_Bytes(uint16_t data)
-{
-    uint8_t bytes[2];
-    
-    // 将16位数据拆分为2个字节
-    bytes[0] = (uint8_t)(data & 0xFF);        // 低字节 (LSB)
-    bytes[1] = (uint8_t)((data >> 8) & 0xFF); // 高字节 (MSB)
-    
-    // 发送字节数据
-    HAL_UART_Transmit(&huart1, bytes, 2, HAL_MAX_DELAY);
-}
-
-void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count)
-{
-    for (uint16_t i = 0; i < count; i++)
-    {
-        Send_Raw_Bytes(buffer[i]);
-    }
-}
-
-void I2C_Scan(void)
-{
-    Debug_Print("Starting I2C scan...\r\n");
-
-    for (uint8_t addr = 0x03; addr <= 0x77; addr++)
-    {
-        // Check if a device responds at this address
-        if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
-        {
-            Debug_Print("I2C device found at address: 0x%02X\r\n", addr);
-        }
-    }
-
-    Debug_Print("I2C scan complete.\r\n");
-}
 
 /*
     uint8_t aqi;

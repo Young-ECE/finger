@@ -26,10 +26,24 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Core/Inc/dma.h \
- Core/Inc/main.h Core/Inc/i2c.h Core/Inc/i2s.h Core/Inc/usart.h \
- Core/Inc/gpio.h Core/Inc/vcnl4040_sensor.h Core/Inc/ens160_sensor.h \
- Core/Inc/humidity_temp_sensor.h Core/Inc/microphone_sensor.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Core/Inc/main.h \
+ Core/Inc/usart.h Core/Inc/dma.h Core/Inc/i2c.h Core/Inc/i2s.h \
+ Core/Inc/usart.h USB_DEVICE/App/usb_device.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ USB_DEVICE/Target/usbd_conf.h Core/Inc/gpio.h Core/Inc/vcnl4040_sensor.h \
+ Core/Inc/ens160_sensor.h Core/Inc/humidity_temp_sensor.h \
+ Core/Inc/microphone_sensor.h Core/Inc/methods.h \
+ USB_DEVICE/App/usbd_cdc_if.h \
+ Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
+ Core/Inc/i2c.h
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
@@ -61,13 +75,29 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-Core/Inc/dma.h:
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h:
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h:
 Core/Inc/main.h:
+Core/Inc/usart.h:
+Core/Inc/dma.h:
 Core/Inc/i2c.h:
 Core/Inc/i2s.h:
 Core/Inc/usart.h:
+USB_DEVICE/App/usb_device.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+USB_DEVICE/Target/usbd_conf.h:
 Core/Inc/gpio.h:
 Core/Inc/vcnl4040_sensor.h:
 Core/Inc/ens160_sensor.h:
 Core/Inc/humidity_temp_sensor.h:
 Core/Inc/microphone_sensor.h:
+Core/Inc/methods.h:
+USB_DEVICE/App/usbd_cdc_if.h:
+Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
+Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
+Core/Inc/i2c.h:

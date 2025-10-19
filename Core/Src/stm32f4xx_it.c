@@ -56,6 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern DMA_HandleTypeDef hdma_spi1_rx;
 /* USER CODE BEGIN EV */
 extern MIC_HandleTypeDef mic;
@@ -217,13 +218,28 @@ void DMA2_Stream0_IRQHandler(void)
   /* USER CODE END DMA2_Stream0_IRQn 1 */
 }
 
+/**
+  * @brief This function handles USB On The Go FS global interrupt.
+  */
+void OTG_FS_IRQHandler(void)
+{
+  /* USER CODE BEGIN OTG_FS_IRQn 0 */
+
+  /* USER CODE END OTG_FS_IRQn 0 */
+  HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
+  /* USER CODE BEGIN OTG_FS_IRQn 1 */
+
+  /* USER CODE END OTG_FS_IRQn 1 */
+}
+
+/* USER CODE BEGIN 1 */
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
 
-    static uint16_t cb_cnt = 0;
-    cb_cnt++; // 回调次数计数
+    // static uint16_t cb_cnt = 0;
+    // cb_cnt++; // 回调次数计数
 
     uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
     if (val & 0x800000)
@@ -234,33 +250,9 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
     mic.half_ready = 1;
 
     // if (cb_cnt % 10 == 0)
-    //   Debug_Print_DMA("%d\n", audio_result);
-    
+    //   Debug_Print("%d\n", mic.audio_buffer[0]);
   }
 }
-
-/* USER CODE BEGIN 1 */
-// void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
-// {
-//   if (hi2s == &hi2s1)
-//   {
-
-//     // static uint16_t cb_cnt = 0;
-//     // cb_cnt++; // 回调次数计数
-
-//     uint32_t val = (mic.dma_buffer[0]<<8) + (mic.dma_buffer[1]>>8);
-//     if (val & 0x800000)
-//       mic.audio_buffer[0] = val | 0xFF000000; // 符号扩展
-//     else
-//       mic.audio_buffer[0] = val;
-
-//     mic.half_ready = 1;
-
-//     // if (cb_cnt % 10 == 0)
-//     //   Debug_Print("%d\n", mic.audio_buffer[0]);
-//   }
-// }
-
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
