@@ -47,6 +47,16 @@ extern "C" {
 #define ENS160_CMD_GET_APPVER   0x0E
 #define ENS160_CMD_CLRGPR       0xCC
 
+/* ==== STATUS FLAGS ==== */
+#define ENS160_STATUS_NEWDAT    0x02  // New data available
+#define ENS160_STATUS_STATAS    0x80  // Operating mode running
+
+/* ==== VALIDITY FLAGS ==== */
+#define ENS160_VALIDITY_NORMAL      0  // Normal operation
+#define ENS160_VALIDITY_WARMUP      1  // Warm-up phase (first 3 minutes)
+#define ENS160_VALIDITY_STARTUP     2  // Initial start-up (first 1 hour)
+#define ENS160_VALIDITY_INVALID     3  // Invalid output
+
 /* ==== STRUCT ==== */
 typedef struct {
     I2C_HandleTypeDef *hi2c;
@@ -61,6 +71,8 @@ HAL_StatusTypeDef ENS160_ReadTVOC(ENS160_HandleTypeDef *dev, uint16_t *tvoc);
 HAL_StatusTypeDef ENS160_ReadECO2(ENS160_HandleTypeDef *dev, uint16_t *eco2);
 HAL_StatusTypeDef ENS160_ReadStatus(ENS160_HandleTypeDef *dev, uint8_t *status);
 HAL_StatusTypeDef ENS160_ReadID(ENS160_HandleTypeDef *dev, uint16_t *id);
+uint8_t ENS160_GetValidity(ENS160_HandleTypeDef *dev);
+uint8_t ENS160_IsDataReady(ENS160_HandleTypeDef *dev);
 
 #ifdef __cplusplus
 }

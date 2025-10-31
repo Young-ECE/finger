@@ -76,8 +76,26 @@ MIC_HandleTypeDef mic;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
+// Performance profiling - uncomment to enable timing analysis
+#define ENABLE_PROFILING
+
+// Enable DWT cycle counter for profiling
+static inline void DWT_Init(void)
+{
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // Enable trace
+  DWT->CYCCNT = 0;                                  // Reset counter
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // Enable counter
+}
+
 void Data_Send(void)
 {
+#ifdef ENABLE_PROFILING
+  static uint32_t profile_count = 0;
+  uint32_t t_start, t_ens160, t_vcnl, t_hdc1, t_hdc2, t_hdc3, t_hdc4, t_usb, t_total;
+
+  t_start = DWT->CYCCNT;
+#endif
+
   uint8_t aqi;
   uint16_t tvoc;
   uint16_t eco2;
@@ -85,21 +103,59 @@ void Data_Send(void)
   ENS160_ReadTVOC(&ens160, &tvoc);
   ENS160_ReadECO2(&ens160, &eco2);
 
+#ifdef ENABLE_PROFILING
+  t_ens160 = DWT->CYCCNT;
+#endif
+
   uint16_t als, ps;
   VCNL4040_ReadALS(&vcnl4040, &als);
   VCNL4040_ReadPS(&vcnl4040, &ps);
 
+#ifdef ENABLE_PROFILING
+  t_vcnl = DWT->CYCCNT;
+#endif
+
   float T1, H1, T2, H2, T3, H3, T4, H4;
 
   HDC302x_ReadData(&hdc1, &T1, &H1);
-  HDC302x_ReadData(&hdc2, &T2, &H2);
-  HDC302x_ReadData(&hdc3, &T3, &H3);
-  HDC302x_ReadData(&hdc4, &T4, &H4);
+#ifdef ENABLE_PROFILING
+  t_hdc1 = DWT->CYCCNT;
+#endif
 
-  USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
-  USB_Print("%u,%u,", als, ps);
-  USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,", (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10), (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10));
-  USB_Print("%d\n", mic.audio_result);
+  HDC302x_ReadData(&hdc2, &T2, &H2);
+#ifdef ENABLE_PROFILING
+  t_hdc2 = DWT->CYCCNT;
+#endif
+
+  HDC302x_ReadData(&hdc3, &T3, &H3);
+#ifdef ENABLE_PROFILING
+  t_hdc3 = DWT->CYCCNT;
+#endif
+
+  HDC302x_ReadData(&hdc4, &T4, &H4);
+#ifdef ENABLE_PROFILING
+  t_hdc4 = DWT->CYCCNT;
+#endif
+
+  // Single USB transmission for maximum speed
+  USB_Print("%d,%d,%d,%u,%u,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
+            aqi, tvoc, eco2, als, ps,
+            (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10),
+            (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10),
+            mic.audio_result);
+
+#ifdef ENABLE_PROFILING
+  t_usb = DWT->CYCCNT;
+  t_total = t_usb - t_start;
+
+  // Print profiling info every 100 cycles (72MHz CPU, cycles to microseconds: /72)
+  if (++profile_count % 100 == 0) {
+    USB_Print("PROFILE: ENS=%lu VCNL=%lu HDC1=%lu HDC2=%lu HDC3=%lu HDC4=%lu USB=%lu TOTAL=%lu us\n",
+              (t_ens160-t_start)/72, (t_vcnl-t_ens160)/72, (t_hdc1-t_vcnl)/72,
+              (t_hdc2-t_hdc1)/72, (t_hdc3-t_hdc2)/72, (t_hdc4-t_hdc3)/72,
+              (t_usb-t_hdc4)/72, t_total/72);
+  }
+#endif
 }
 
 /* USER CODE END PFP */
@@ -156,7 +212,11 @@ int main(void)
   HDC302x_Init(&hdc4, &hi2c1, HDC302x_ADDR_47);
   MIC_Init(&mic, &hi2s1);
   MIC_Start(&mic);
- 
+
+#ifdef ENABLE_PROFILING
+  DWT_Init();  // Enable cycle counter for performance profiling
+#endif
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -167,8 +227,7 @@ int main(void)
     /* USER CODE END WHILE */
     Data_Send();
 
-
-    // HAL_Delay();
+    // No delay - maximum speed (limited only by I2C and USB)
 
     /* USER CODE BEGIN 3 */
   }
@@ -250,6 +309,7 @@ uint16_t als, ps;
         VCNL4040_ReadPS(&vcnl4040, &ps);
         printf("ALS=%u, PS=%u\r\n", als, ps);
         HAL_Delay(500);
+        
 
 
 */
@@ -285,4 +345,4 @@ void assert_failed(uint8_t *file, uint32_t line)
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
-#endif /* USE_FULL_ASSERT */
+#endif /* USE_FULL_ASSERT */   

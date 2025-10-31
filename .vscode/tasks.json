@@ -2,19 +2,105 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Project",
+      "label": "Build",
       "type": "shell",
       "command": "make",
       "options": {
-        "cwd": "${workspaceFolder}/build"
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "command": "make clean",
+      "options": {
+        "cwd": "${workspaceFolder}"
       },
       "group": "build",
       "problemMatcher": []
     },
     {
-      "label": "Flash STM32",
+      "label": "Clean and Build",
       "type": "shell",
-      "command": "openocd -f interface/stlink.cfg -f target/stm32f4x.cfg -c \"program ${workspaceFolder}/build/finger.elf verify reset exit\"",
+      "command": "make clean && make",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "Flash (OpenOCD)",
+      "type": "shell",
+      "command": "openocd",
+      "args": [
+        "-f", "${workspaceFolder}/openocd.cfg",
+        "-c", "program ${workspaceFolder}/build/finger.elf verify reset exit"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Build and Flash",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build",
+        "Flash (OpenOCD)"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Flash (Quick Script)",
+      "type": "shell",
+      "command": "./flash.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Erase Flash",
+      "type": "shell",
+      "command": "openocd",
+      "args": [
+        "-f", "${workspaceFolder}/openocd.cfg",
+        "-c", "init",
+        "-c", "reset halt",
+        "-c", "flash erase_sector 0 0 last",
+        "-c", "exit"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Show Size",
+      "type": "shell",
+      "command": "arm-none-eabi-size",
+      "args": [
+        "${workspaceFolder}/build/finger.elf"
+      ],
       "problemMatcher": []
     }
   ]

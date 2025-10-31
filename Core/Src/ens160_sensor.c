@@ -9,20 +9,20 @@
 static HAL_StatusTypeDef ENS160_Write8(ENS160_HandleTypeDef *dev, uint8_t reg, uint8_t value)
 {
     return HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
-                             I2C_MEMADD_SIZE_8BIT, &value, 1, 100);
+                             I2C_MEMADD_SIZE_8BIT, &value, 1, 10);
 }
 
 static HAL_StatusTypeDef ENS160_Read8(ENS160_HandleTypeDef *dev, uint8_t reg, uint8_t *value)
 {
     return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
-                            I2C_MEMADD_SIZE_8BIT, value, 1, 100);
+                            I2C_MEMADD_SIZE_8BIT, value, 1, 10);
 }
 
 static HAL_StatusTypeDef ENS160_Read16(ENS160_HandleTypeDef *dev, uint8_t reg, uint16_t *value)
 {
     uint8_t buf[2];
     HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
-                                             I2C_MEMADD_SIZE_8BIT, buf, 2, 100);
+                                             I2C_MEMADD_SIZE_8BIT, buf, 2, 10);
     if (ret == HAL_OK)
         *value = (uint16_t)((buf[1] << 8) | buf[0]);
     return ret;
@@ -100,4 +100,30 @@ HAL_StatusTypeDef ENS160_ReadStatus(ENS160_HandleTypeDef *dev, uint8_t *status)
 HAL_StatusTypeDef ENS160_ReadID(ENS160_HandleTypeDef *dev, uint16_t *id)
 {
     return ENS160_Read16(dev, ENS160_REG_PART_ID, id);
+}
+
+/**
+ * @brief Get validity flag from device status
+ * @return 0=Normal, 1=Warm-up, 2=Initial Start-up, 3=Invalid
+ */
+uint8_t ENS160_GetValidity(ENS160_HandleTypeDef *dev)
+{
+    uint8_t status = 0;
+    if (ENS160_ReadStatus(dev, &status) == HAL_OK) {
+        return (status >> 2) & 0x03;  // Bits 2-3
+    }
+    return ENS160_VALIDITY_INVALID;
+}
+
+/**
+ * @brief Check if new data is available
+ * @return 1 if new data ready, 0 otherwise
+ */
+uint8_t ENS160_IsDataReady(ENS160_HandleTypeDef *dev)
+{
+    uint8_t status = 0;
+    if (ENS160_ReadStatus(dev, &status) == HAL_OK) {
+        return (status & ENS160_STATUS_NEWDAT) ? 1 : 0;
+    }
+    return 0;
 }
