@@ -23,9 +23,10 @@ extern "C" {
 typedef struct
 {
     I2S_HandleTypeDef *hi2s;              // I2S句柄
-    int32_t audio_result;
-    uint8_t   half_ready;               // 半缓冲就绪标志
-    uint8_t   full_ready;               // 全缓冲就绪标志
+    int32_t audio_left;                   // 左声道麦克风数据
+    int32_t audio_right;                  // 右声道麦克风数据
+    uint8_t   half_ready;                 // 半缓冲就绪标志
+    uint8_t   full_ready;                 // 全缓冲就绪标志
 } MIC_HandleTypeDef;
 
 /* 初始化与启动 */

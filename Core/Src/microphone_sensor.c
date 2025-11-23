@@ -5,8 +5,10 @@
 
 #include "microphone_sensor.h"
 #include <string.h>
-__attribute__((section(".bss"))) uint32_t dma_buffer[4];// 原始DMA接收缓冲
-extern uint32_t  dma_buffer[MIC_BUFFER_SIZE]; 
+
+// DMA缓冲区：放在.bss段，确保地址对齐
+__attribute__((section(".bss"))) __attribute__((aligned(4))) 
+uint32_t dma_buffer[MIC_BUFFER_SIZE]; 
 
 HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 {
@@ -14,7 +16,8 @@ HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
     mic->hi2s = hi2s;
     mic->half_ready = 0;
     mic->full_ready = 0;
-    mic->audio_result = 0;
+    mic->audio_left = 0;
+    mic->audio_right = 0;
     return HAL_OK;
 }
 
@@ -25,7 +28,11 @@ HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic)
 {
     if (!mic || !mic->hi2s) return HAL_ERROR;
-    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
+    
+    // 对于24位I2S（32位帧），DMA配置为WORD对齐
+    // HAL_I2S_Receive_DMA的Size参数以半字为单位
+    // MIC_BUFFER_SIZE=4 (uint32_t) = 8个半字
+    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE * 2);
 }
 
 

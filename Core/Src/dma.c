@@ -50,5 +50,13 @@ void MX_DMA_Init(void)
 
 /* USER CODE BEGIN 2 */
 
+// Fix I2S DMA priority to avoid I2C conflict
+// Call this after MX_DMA_Init() in main.c
+void DMA_Fix_Priority(void)
+{
+  // Lower I2S DMA priority to avoid interrupting I2C blocking operations
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
+}
+
 /* USER CODE END 2 */
 

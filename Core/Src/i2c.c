@@ -38,7 +38,7 @@ void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 400000;  // Fast Mode (was 100000)
+  hi2c1.Init.ClockSpeed = 400000;  // Fast Mode: 400kHz (was 100kHz)
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -51,6 +51,9 @@ void MX_I2C1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* I2C中断已禁用 - 使用轮询模式，避免与I2S DMA冲突 */
+  // 传感器读取使用HAL_I2C_Mem_Read（阻塞轮询模式），不需要中断
 
   /* USER CODE END I2C1_Init 2 */
 
@@ -112,5 +115,52 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* i2cHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief  Recover I2C bus from stuck state
+ * @note   Call this if I2C communication fails repeatedly
+ * @retval None
+ */
+void I2C_BusRecover(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  // Disable I2C peripheral
+  __HAL_RCC_I2C1_CLK_DISABLE();
+
+  // Configure SCL and SDA as GPIO outputs
+  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  // Generate 9 clock pulses to clear any stuck slave
+  for (int i = 0; i < 9; i++) {
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);  // SCL low
+    HAL_Delay(1);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);    // SCL high
+    HAL_Delay(1);
+  }
+
+  // Send STOP condition
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_RESET);  // SDA low
+  HAL_Delay(1);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);    // SCL high
+  HAL_Delay(1);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);    // SDA high (STOP)
+  HAL_Delay(1);
+
+  // Reconfigure as I2C
+  GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_9;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  // Re-enable I2C peripheral
+  __HAL_RCC_I2C1_CLK_ENABLE();
+}
 
 /* USER CODE END 1 */

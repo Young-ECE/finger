@@ -1,4 +1,7 @@
 #include "methods.h"
+#include <stdarg.h>  // For va_list, va_start, va_end
+#include <stdio.h>   // For vsnprintf
+#include "usbd_cdc.h" // For USBD_CDC_HandleTypeDef
 
 
 
@@ -91,17 +94,33 @@ void I2C_Scan(void)
     USB_Print("I2C scan complete.\r\n");
 }
 
+static char usb_tx_buffer[256];  // Static buffer - prevents stack corruption from async USB DMA
+
 void USB_Print(const char *format, ...)
 {
-    char buffer[128];
     va_list args;
     va_start(args, format);
-    int len = vsnprintf(buffer, sizeof(buffer), format, args);
+    int len = vsnprintf(usb_tx_buffer, sizeof(usb_tx_buffer), format, args);
     va_end(args);
+
     if (len > 0) {
-        // 注意：CDC_Transmit_FS是非阻塞的，可能返回USBD_BUSY
-        while (CDC_Transmit_FS((uint8_t*)buffer, len) == USBD_BUSY) {
-            HAL_Delay(1);
+        // Limit to buffer size if truncated
+        if (len >= sizeof(usb_tx_buffer)) {
+            len = sizeof(usb_tx_buffer) - 1;
         }
+
+        // Simple blocking wait: retry while busy, with timeout
+        uint8_t result;
+        uint32_t timeout = 20; // 20ms max wait
+        uint32_t start = HAL_GetTick();
+
+        do {
+            result = CDC_Transmit_FS((uint8_t*)usb_tx_buffer, len);
+            if (result == USBD_OK) {
+                break;
+            }
+            HAL_Delay(1);
+        } while ((HAL_GetTick() - start) < timeout);
+        // If timeout, data is lost but system continues
     }
 }

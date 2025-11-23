@@ -11,16 +11,25 @@ static HAL_StatusTypeDef VCNL4040_Write16(VCNL4040_HandleTypeDef *dev, uint8_t r
 {
     uint8_t buf[2] = { low, high };
     return HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
-                             I2C_MEMADD_SIZE_8BIT, buf, 2, 10);
+                             I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
 }
 
 static HAL_StatusTypeDef VCNL4040_Read16(VCNL4040_HandleTypeDef *dev, uint8_t reg, uint16_t *out)
 {
     uint8_t buf[2];
-    HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
-                                             I2C_MEMADD_SIZE_8BIT, buf, 2, 10);
-    if (ret == HAL_OK)
-        *out = (uint16_t)((buf[1] << 8) | buf[0]);
+    HAL_StatusTypeDef ret;
+    
+    /* Try with retry on failure */
+    for (int retry = 0; retry < 2; retry++) {
+        ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+                               I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
+        if (ret == HAL_OK) {
+            *out = (uint16_t)((buf[1] << 8) | buf[0]);
+            return HAL_OK;
+        }
+        HAL_Delay(1);
+    }
+    
     return ret;
 }
 

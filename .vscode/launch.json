@@ -10,13 +10,19 @@
       "interface": "swd",
       "executable": "${workspaceFolder}/build/finger.elf",
       "runToEntryPoint": "main",
-      "gdbPath": "gdb-multiarch",
+      "gdbPath": "${workspaceFolder}/gdb-wrapper.sh",
       "configFiles": [
         "/usr/share/openocd/scripts/interface/stlink.cfg",
         "/usr/share/openocd/scripts/target/stm32f4x.cfg"
       ],
       "showDevDebugOutput": "raw",
       "svdFile": "${workspaceFolder}/STM32F446x.svd",
+      "environment": [
+        {
+          "name": "LD_LIBRARY_PATH",
+          "value": ""
+        }
+      ],
       "preLaunchCommands": [
         "monitor reset halt",
         "monitor reset init"
@@ -38,7 +44,7 @@
       "interface": "swd",
       "executable": "${workspaceFolder}/build/finger.elf",
       "runToEntryPoint": "main",
-      "gdbPath": "gdb-multiarch",
+      "gdbPath": "${workspaceFolder}/gdb-wrapper.sh",
       "searchDir": [
         "/usr/share/openocd/scripts"
       ],
@@ -47,6 +53,12 @@
       ],
       "showDevDebugOutput": "raw",
       "svdFile": "${workspaceFolder}/STM32F446x.svd",
+      "environment": [
+        {
+          "name": "LD_LIBRARY_PATH",
+          "value": ""
+        }
+      ],
       "preLaunchCommands": [
         "monitor reset halt",
         "monitor reset init"
@@ -67,13 +79,19 @@
       "device": "STM32F446RE",
       "interface": "swd",
       "executable": "${workspaceFolder}/build/finger.elf",
-      "gdbPath": "gdb-multiarch",
+      "gdbPath": "${workspaceFolder}/gdb-wrapper.sh",
       "configFiles": [
         "/usr/share/openocd/scripts/interface/stlink.cfg",
         "/usr/share/openocd/scripts/target/stm32f4x.cfg"
       ],
       "showDevDebugOutput": "raw",
-      "svdFile": "${workspaceFolder}/STM32F446x.svd"
+      "svdFile": "${workspaceFolder}/STM32F446x.svd",
+      "environment": [
+        {
+          "name": "LD_LIBRARY_PATH",
+          "value": ""
+        }
+      ]
     }
   ]
 }

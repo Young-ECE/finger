@@ -52,7 +52,8 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern MIC_HandleTypeDef mic;         // 麦克风句柄外部声明
+extern uint32_t dma_buffer[];         // DMA缓冲区外部声明
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -237,20 +238,28 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
+    // 两个ICS-43434麦克风：左声道(L/R=0) + 右声道(L/R=1)
+    // I2S 24位数据在32位帧中，左对齐（高24位有效，低8位为0）
+    // dma_buffer[0]=左声道, dma_buffer[1]=右声道
 
-    // static uint16_t cb_cnt = 0;
-    // cb_cnt++; // 回调次数计数
+    // 提取24位数据（右移8位舍弃低8位）
+    uint32_t left_24bit = dma_buffer[0] >> 8;
+    uint32_t right_24bit = dma_buffer[1] >> 8;
 
-    uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
-    if (val & 0x800000)
-      mic.audio_result = val | 0xFF000000; // 符号扩展
-    else
-      mic.audio_result = val;
+    // 符号扩展到32位
+    if (left_24bit & 0x00800000) {
+      mic.audio_left = (int32_t)(left_24bit | 0xFF000000);
+    } else {
+      mic.audio_left = (int32_t)left_24bit;
+    }
+
+    if (right_24bit & 0x00800000) {
+      mic.audio_right = (int32_t)(right_24bit | 0xFF000000);
+    } else {
+      mic.audio_right = (int32_t)right_24bit;
+    }
 
     mic.half_ready = 1;
-
-    // if (cb_cnt % 10 == 0)
-    //   Debug_Print("%d\n", mic.audio_buffer[0]);
   }
 }
 

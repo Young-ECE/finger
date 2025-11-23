@@ -32,11 +32,12 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "vcnl4040_sensor.h"
-#include "ens160_sensor.h"
 #include "humidity_temp_sensor.h"
 #include "microphone_sensor.h"
+#include "icm42688_sensor.h"
 #include <stdlib.h>
 #include "methods.h"
+#include "i2c_error_handler.h"
 
 
 /* USER CODE END Includes */
@@ -65,8 +66,8 @@ extern UART_HandleTypeDef huart1;
 
 
 VCNL4040_HandleTypeDef vcnl4040;
-ENS160_HandleTypeDef ens160;
-HDC302x_HandleTypeDef hdc1, hdc2, hdc3, hdc4;
+BME280_HandleTypeDef bme[8];  // 8x BME280 sensors via TCA9548A
+ICM42688_HandleTypeDef icm42688;
 MIC_HandleTypeDef mic;
 
 
@@ -76,86 +77,115 @@ MIC_HandleTypeDef mic;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
-// Performance profiling - uncomment to enable timing analysis
-#define ENABLE_PROFILING
-
-// Enable DWT cycle counter for profiling
-static inline void DWT_Init(void)
-{
-  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // Enable trace
-  DWT->CYCCNT = 0;                                  // Reset counter
-  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // Enable counter
-}
-
 void Data_Send(void)
 {
-#ifdef ENABLE_PROFILING
-  static uint32_t profile_count = 0;
-  uint32_t t_start, t_ens160, t_vcnl, t_hdc1, t_hdc2, t_hdc3, t_hdc4, t_usb, t_total;
+  static uint32_t error_count = 0;
+  static uint32_t success_count = 0;
+  HAL_StatusTypeDef status;
 
-  t_start = DWT->CYCCNT;
-#endif
-
-  uint8_t aqi;
-  uint16_t tvoc;
-  uint16_t eco2;
-  ENS160_ReadAQI(&ens160, &aqi);
-  ENS160_ReadTVOC(&ens160, &tvoc);
-  ENS160_ReadECO2(&ens160, &eco2);
-
-#ifdef ENABLE_PROFILING
-  t_ens160 = DWT->CYCCNT;
-#endif
-
-  uint16_t als, ps;
-  VCNL4040_ReadALS(&vcnl4040, &als);
-  VCNL4040_ReadPS(&vcnl4040, &ps);
-
-#ifdef ENABLE_PROFILING
-  t_vcnl = DWT->CYCCNT;
-#endif
-
-  float T1, H1, T2, H2, T3, H3, T4, H4;
-
-  HDC302x_ReadData(&hdc1, &T1, &H1);
-#ifdef ENABLE_PROFILING
-  t_hdc1 = DWT->CYCCNT;
-#endif
-
-  HDC302x_ReadData(&hdc2, &T2, &H2);
-#ifdef ENABLE_PROFILING
-  t_hdc2 = DWT->CYCCNT;
-#endif
-
-  HDC302x_ReadData(&hdc3, &T3, &H3);
-#ifdef ENABLE_PROFILING
-  t_hdc3 = DWT->CYCCNT;
-#endif
-
-  HDC302x_ReadData(&hdc4, &T4, &H4);
-#ifdef ENABLE_PROFILING
-  t_hdc4 = DWT->CYCCNT;
-#endif
-
-  // Single USB transmission for maximum speed
-  USB_Print("%d,%d,%d,%u,%u,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
-            aqi, tvoc, eco2, als, ps,
-            (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10),
-            (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10),
-            mic.audio_result);
-
-#ifdef ENABLE_PROFILING
-  t_usb = DWT->CYCCNT;
-  t_total = t_usb - t_start;
-
-  // Print profiling info every 100 cycles (72MHz CPU, cycles to microseconds: /72)
-  if (++profile_count % 100 == 0) {
-    USB_Print("PROFILE: ENS=%lu VCNL=%lu HDC1=%lu HDC2=%lu HDC3=%lu HDC4=%lu USB=%lu TOTAL=%lu us\n",
-              (t_ens160-t_start)/72, (t_vcnl-t_ens160)/72, (t_hdc1-t_vcnl)/72,
-              (t_hdc2-t_hdc1)/72, (t_hdc3-t_hdc2)/72, (t_hdc4-t_hdc3)/72,
-              (t_usb-t_hdc4)/72, t_total/72);
+  uint16_t als = 0, ps = 0;
+  status = VCNL4040_ReadALS(&vcnl4040, &als);
+  if (status != HAL_OK) {
+    als = 0;
+    error_count++;
+  } else {
+    success_count++;
   }
-#endif
+
+  status = VCNL4040_ReadPS(&vcnl4040, &ps);
+  if (status != HAL_OK) {
+    ps = 0;
+    error_count++;
+  } else {
+    success_count++;
+  }
+
+  ICM42688_ScaledData accel = {0}, gyro = {0};
+  float imu_temp = 0;
+  status = ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+  if (status != HAL_OK) {
+    accel.x = accel.y = accel.z = 0;
+    gyro.x = gyro.y = gyro.z = 0;
+    imu_temp = 0;
+    error_count++;
+  } else {
+    success_count++;
+  }
+
+  float temp[8] = {0}, hum[8] = {0}, press[8] = {0};
+  for (int i = 0; i < 8; i++) {
+    status = BME280_ReadData(&bme[i], &temp[i], &hum[i], &press[i]);
+    if (status != HAL_OK) {
+      temp[i] = 0;
+      hum[i] = 0;
+      press[i] = 0;
+      error_count++;
+    } else {
+      success_count++;
+    }
+  }
+
+  // Decay error count on successful operations
+  if (success_count > 10 && error_count > 0) {
+    error_count--;
+    success_count = 0;
+  }
+
+  // Conservative error recovery: only reset after many consecutive failures
+  if (error_count > 200) {  // ~10 seconds @ 20Hz
+    extern void I2C_BusRecover(void);
+    I2C_BusRecover();
+    HAL_I2C_DeInit(&hi2c1);
+    HAL_Delay(10);
+    MX_I2C1_Init();
+
+    // Re-initialize sensors
+    VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
+    for (int i = 0; i < 8; i++) {
+      BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
+    }
+    ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
+
+    error_count = 0;
+    success_count = 0;
+  }
+
+  // Send all data over USB (using rounding for better precision)
+  USB_Print("%u,%u,"
+            "%d,%d,%d,%d,%d,%d,%d,"
+            "%d,%d,%d,%d,%d,%d,%d,%d,"
+            "%d,%d,%d,%d,%d,%d,%d,%d,"
+            "%d,%d,%d,%d,%d,%d,%d,%d,"
+            "%ld,%ld\n",
+            als, ps,
+            (int)(accel.x*100 + (accel.x >= 0 ? 0.5f : -0.5f)),
+            (int)(accel.y*100 + (accel.y >= 0 ? 0.5f : -0.5f)),
+            (int)(accel.z*100 + (accel.z >= 0 ? 0.5f : -0.5f)),
+            (int)(gyro.x*10 + (gyro.x >= 0 ? 0.5f : -0.5f)),
+            (int)(gyro.y*10 + (gyro.y >= 0 ? 0.5f : -0.5f)),
+            (int)(gyro.z*10 + (gyro.z >= 0 ? 0.5f : -0.5f)),
+            (int)(imu_temp*10 + (imu_temp >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[0]*10 + (temp[0] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[0]*10 + (hum[0] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[1]*10 + (temp[1] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[1]*10 + (hum[1] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[2]*10 + (temp[2] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[2]*10 + (hum[2] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[3]*10 + (temp[3] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[3]*10 + (hum[3] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[4]*10 + (temp[4] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[4]*10 + (hum[4] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[5]*10 + (temp[5] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[5]*10 + (hum[5] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[6]*10 + (temp[6] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[6]*10 + (hum[6] >= 0 ? 0.5f : -0.5f)),
+            (int)(temp[7]*10 + (temp[7] >= 0 ? 0.5f : -0.5f)),
+            (int)(hum[7]*10 + (hum[7] >= 0 ? 0.5f : -0.5f)),
+            (int)(press[0] + 0.5f), (int)(press[1] + 0.5f),
+            (int)(press[2] + 0.5f), (int)(press[3] + 0.5f),
+            (int)(press[4] + 0.5f), (int)(press[5] + 0.5f),
+            (int)(press[6] + 0.5f), (int)(press[7] + 0.5f),
+            mic.audio_left, mic.audio_right);
 }
 
 /* USER CODE END PFP */
@@ -202,20 +232,23 @@ int main(void)
   MX_I2S1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+
+  // Fix DMA priority to avoid I2C/I2S conflict (must be called after MX_DMA_Init)
+  extern void DMA_Fix_Priority(void);
+  DMA_Fix_Priority();
+
   RGB_LED_Init();
 
   VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
-  ENS160_Init(&ens160,&hi2c1, ENS160_I2C_ADDR_LOW);
-  HDC302x_Init(&hdc1, &hi2c1, HDC302x_ADDR_44);
-  HDC302x_Init(&hdc2, &hi2c1, HDC302x_ADDR_45);
-  HDC302x_Init(&hdc3, &hi2c1, HDC302x_ADDR_46);
-  HDC302x_Init(&hdc4, &hi2c1, HDC302x_ADDR_47);
+
+  for (int i = 0; i < 8; i++) {
+    BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
+  }
+
+  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
+
   MIC_Init(&mic, &hi2s1);
   MIC_Start(&mic);
-
-#ifdef ENABLE_PROFILING
-  DWT_Init();  // Enable cycle counter for performance profiling
-#endif
 
   /* USER CODE END 2 */
 
@@ -223,11 +256,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    Data_Send();
+    HAL_Delay(50);  // 20Hz update rate (reduced to prevent USB congestion)
 
     /* USER CODE END WHILE */
-    Data_Send();
-
-    // No delay - maximum speed (limited only by I2C and USB)
 
     /* USER CODE BEGIN 3 */
   }
@@ -345,4 +377,4 @@ void assert_failed(uint8_t *file, uint32_t line)
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
-#endif /* USE_FULL_ASSERT */   
+#endif /* USE_FULL_ASSERT */
