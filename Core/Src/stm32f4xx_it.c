@@ -52,17 +52,19 @@
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern MIC_HandleTypeDef mic;         // 麦克风句柄外部声明
-extern uint32_t dma_buffer[];         // DMA缓冲区外部声明
+
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+extern DMA_HandleTypeDef hdma_i2c1_rx;
+extern DMA_HandleTypeDef hdma_i2c1_tx;
+extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_spi1_rx;
 /* USER CODE BEGIN EV */
 extern MIC_HandleTypeDef mic;
 extern I2S_HandleTypeDef hi2s1;
-extern uint32_t dma_buffer[4];
+extern uint32_t dma_buffer[16];  // I2S 24-bit mode: 32-bit DMA, 16 words
 
 
 /* USER CODE END EV */
@@ -206,6 +208,62 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles DMA1 stream0 global interrupt.
+  */
+void DMA1_Stream0_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream0_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 stream6 global interrupt.
+  */
+void DMA1_Stream6_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+  /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream6_IRQn 1 */
+}
+
+/**
+  * @brief This function handles I2C1 event interrupt.
+  */
+void I2C1_EV_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+
+  /* USER CODE END I2C1_EV_IRQn 0 */
+  HAL_I2C_EV_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+
+  /* USER CODE END I2C1_EV_IRQn 1 */
+}
+
+/**
+  * @brief This function handles I2C1 error interrupt.
+  */
+void I2C1_ER_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_ER_IRQn 0 */
+
+  /* USER CODE END I2C1_ER_IRQn 0 */
+  HAL_I2C_ER_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_ER_IRQn 1 */
+
+  /* USER CODE END I2C1_ER_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA2 stream0 global interrupt.
   */
 void DMA2_Stream0_IRQHandler(void)
@@ -238,26 +296,26 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
-    // 两个ICS-43434麦克风：左声道(L/R=0) + 右声道(L/R=1)
-    // I2S 24位数据在32位帧中，左对齐（高24位有效，低8位为0）
-    // dma_buffer[0]=左声道, dma_buffer[1]=右声道
-
-    // 提取24位数据（右移8位舍弃低8位）
-    uint32_t left_24bit = dma_buffer[0] >> 8;
-    uint32_t right_24bit = dma_buffer[1] >> 8;
-
-    // 符号扩展到32位
-    if (left_24bit & 0x00800000) {
-      mic.audio_left = (int32_t)(left_24bit | 0xFF000000);
-    } else {
-      mic.audio_left = (int32_t)left_24bit;
-    }
-
-    if (right_24bit & 0x00800000) {
-      mic.audio_right = (int32_t)(right_24bit | 0xFF000000);
-    } else {
-      mic.audio_right = (int32_t)right_24bit;
-    }
+    // Process first half of DMA buffer (indices 0 to 7)
+    // I2S 24-bit stereo data format (discovered from raw data):
+    // Left channel:  bits[15:0]  → no shift needed
+    // Right channel: bits[23:8]  → need to shift right 8 bits
+    
+    // Take last sample pair from first half
+    int32_t left_sample = dma_buffer[6];
+    int32_t right_sample = dma_buffer[7];
+    
+    // Extract 16-bit audio data
+    int16_t left_16 = (int16_t)(left_sample & 0xFFFF);           // bits[15:0]
+    int16_t right_16 = (int16_t)((right_sample >> 8) & 0xFFFF);  // bits[23:8]
+    
+    // Save raw 16-bit values for debugging
+    mic.raw_left = left_16;
+    mic.raw_right = right_16;
+    
+    // Scale to 24-bit range (left shift 8 bits)
+    mic.audio_left = ((int32_t)left_16) << 8;
+    mic.audio_right = ((int32_t)right_16) << 8;
 
     mic.half_ready = 1;
   }
@@ -267,6 +325,27 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
+    // Process second half of DMA buffer (indices 8 to 15)
+    // I2S 24-bit stereo data format (discovered from raw data):
+    // Left channel:  bits[15:0]  → no shift needed
+    // Right channel: bits[23:8]  → need to shift right 8 bits
+    
+    // Take last sample pair from second half
+    int32_t left_sample = dma_buffer[14];
+    int32_t right_sample = dma_buffer[15];
+    
+    // Extract 16-bit audio data
+    int16_t left_16 = (int16_t)(left_sample & 0xFFFF);           // bits[15:0]
+    int16_t right_16 = (int16_t)((right_sample >> 8) & 0xFFFF);  // bits[23:8]
+    
+    // Save raw 16-bit values for debugging
+    mic.raw_left = left_16;
+    mic.raw_right = right_16;
+    
+    // Scale to 24-bit range (left shift 8 bits)
+    mic.audio_left = ((int32_t)left_16) << 8;
+    mic.audio_right = ((int32_t)right_16) << 8;
+
     mic.full_ready = 1;
   }
 }

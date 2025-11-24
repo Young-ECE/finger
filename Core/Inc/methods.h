@@ -2,6 +2,9 @@
 #define __METHODS_H__
 
 #include <stdint.h>
+#include <stdarg.h>
+#include <string.h>
+#include <stdio.h>
 #include <stm32f4xx_hal.h>
 #include "usart.h"
 #include "usbd_cdc_if.h"

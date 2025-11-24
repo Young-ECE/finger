@@ -13,6 +13,7 @@
 
 #include "main.h"
 #include "i2c.h"
+#include "i2c_dma_manager.h"
 
 /* Error statistics counters */
 volatile uint32_t i2c_error_count = 0;
@@ -66,6 +67,9 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
         /* Re-initialize I2C */
         MX_I2C1_Init();
     }
+    
+    /* 通知DMA管理器状态机停止 */
+    I2C_DMA_HandleError();
 }
 
 /**

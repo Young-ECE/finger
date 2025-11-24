@@ -1,7 +1,6 @@
 #include "methods.h"
-#include <stdarg.h>  // For va_list, va_start, va_end
-#include <stdio.h>   // For vsnprintf
-#include "usbd_cdc.h" // For USBD_CDC_HandleTypeDef
+#include "usbd_cdc_if.h"
+#include "usb_device.h"
 
 
 
@@ -94,33 +93,23 @@ void I2C_Scan(void)
     USB_Print("I2C scan complete.\r\n");
 }
 
-static char usb_tx_buffer[256];  // Static buffer - prevents stack corruption from async USB DMA
-
 void USB_Print(const char *format, ...)
 {
+    static char buffer[256];  // static buffer（USB需要持久指针）
+    
+    // ✅ 快速检查：如果USB正在发送，直接返回（避免覆盖buffer）
+    extern USBD_HandleTypeDef hUsbDeviceFS;
+    USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
+    if (hcdc && hcdc->TxState != 0) {
+        return;  // Busy，丢弃本次数据（不阻塞）
+    }
+    
     va_list args;
     va_start(args, format);
-    int len = vsnprintf(usb_tx_buffer, sizeof(usb_tx_buffer), format, args);
+    int len = vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
 
-    if (len > 0) {
-        // Limit to buffer size if truncated
-        if (len >= sizeof(usb_tx_buffer)) {
-            len = sizeof(usb_tx_buffer) - 1;
-        }
-
-        // Simple blocking wait: retry while busy, with timeout
-        uint8_t result;
-        uint32_t timeout = 20; // 20ms max wait
-        uint32_t start = HAL_GetTick();
-
-        do {
-            result = CDC_Transmit_FS((uint8_t*)usb_tx_buffer, len);
-            if (result == USBD_OK) {
-                break;
-            }
-            HAL_Delay(1);
-        } while ((HAL_GetTick() - start) < timeout);
-        // If timeout, data is lost but system continues
+    if (len > 0 && len < sizeof(buffer)) {
+        CDC_Transmit_FS((uint8_t*)buffer, len);  // 直接发送
     }
 }
