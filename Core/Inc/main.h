@@ -53,13 +53,6 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-void Debug_Print(const char *format, ...);
-void I2C_Scan(void);
-void RGB_LED_Init(void);
-void RGB_LED_Blink(void);
-void Send_Raw_Bytes(uint16_t data);
-void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count);
-
 
 /* USER CODE END EFP */
 

@@ -4,17 +4,14 @@
  */
 
 #include "i2c_dma_manager.h"
-#include "vcnl4040_sensor.h"
-#include "icm42688_sensor.h"
+#include "my_main.h"
 #include "humidity_temp_sensor.h"
 #include <string.h>
 
 /* 全局数据缓冲区 */
 I2C_DMA_DataTypeDef i2c_dma_data = {0};
 
-/* 外部传感器句柄（从main.c引用） */
-extern VCNL4040_HandleTypeDef vcnl4040;
-extern ICM42688_HandleTypeDef icm42688;
+/* 外部传感器句柄（从my_main.c引用） */
 extern BME280_HandleTypeDef bme[8];
 extern I2C_HandleTypeDef hi2c1;
 
