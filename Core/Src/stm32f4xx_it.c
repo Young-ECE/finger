@@ -295,26 +295,14 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
-    // Process first half of DMA buffer (indices 0 to 7)
-    // I2S 24-bit stereo data format (discovered from raw data):
-    // Left channel:  bits[15:0]  → no shift needed
-    // Right channel: bits[23:8]  → need to shift right 8 bits
-    
-    // Take last sample pair from first half
-    int32_t left_sample = dma_buffer[6];
-    int32_t right_sample = dma_buffer[7];
-    
-    // Extract 16-bit audio data
-    int16_t left_16 = (int16_t)(left_sample & 0xFFFF);           // bits[15:0]
-    int16_t right_16 = (int16_t)((right_sample >> 8) & 0xFFFF);  // bits[23:8]
-    
-    // Save raw 16-bit values for debugging
-    mic.raw_left = left_16;
-    mic.raw_right = right_16;
-    
-    // Scale to 24-bit range (left shift 8 bits)
-    mic.audio_left = ((int32_t)left_16) << 8;
-    mic.audio_right = ((int32_t)right_16) << 8;
+    // static uint16_t cb_cnt = 0;
+    // cb_cnt++; // 回调次数计数
+
+    uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
+    if (val & 0x800000)
+      mic.audio_result = val | 0xFF000000; // 符号扩展
+    else
+      mic.audio_result = val;
 
     mic.half_ready = 1;
   }
@@ -324,27 +312,6 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
   if (hi2s == &hi2s1)
   {
-    // Process second half of DMA buffer (indices 8 to 15)
-    // I2S 24-bit stereo data format (discovered from raw data):
-    // Left channel:  bits[15:0]  → no shift needed
-    // Right channel: bits[23:8]  → need to shift right 8 bits
-    
-    // Take last sample pair from second half
-    int32_t left_sample = dma_buffer[14];
-    int32_t right_sample = dma_buffer[15];
-    
-    // Extract 16-bit audio data
-    int16_t left_16 = (int16_t)(left_sample & 0xFFFF);           // bits[15:0]
-    int16_t right_16 = (int16_t)((right_sample >> 8) & 0xFFFF);  // bits[23:8]
-    
-    // Save raw 16-bit values for debugging
-    mic.raw_left = left_16;
-    mic.raw_right = right_16;
-    
-    // Scale to 24-bit range (left shift 8 bits)
-    mic.audio_left = ((int32_t)left_16) << 8;
-    mic.audio_right = ((int32_t)right_16) << 8;
-
     mic.full_ready = 1;
   }
 }

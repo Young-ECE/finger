@@ -1,34 +1,34 @@
-ARM GAS  /tmp/ccj0SbIo.s 			page 1
+ARM GAS  /tmp/ccV5W4wZ.s 			page 1
 
 
    1              		.cpu cortex-m4
-   2              		.arch armv7e-m
-   3              		.fpu fpv4-sp-d16
-   4              		.eabi_attribute 27, 1
-   5              		.eabi_attribute 28, 1
-   6              		.eabi_attribute 20, 1
-   7              		.eabi_attribute 21, 1
-   8              		.eabi_attribute 23, 3
-   9              		.eabi_attribute 24, 1
-  10              		.eabi_attribute 25, 1
-  11              		.eabi_attribute 26, 1
-  12              		.eabi_attribute 30, 1
-  13              		.eabi_attribute 34, 1
-  14              		.eabi_attribute 18, 4
-  15              		.file	"microphone_sensor.c"
-  16              		.text
-  17              	.Ltext0:
-  18              		.cfi_sections	.debug_frame
-  19              		.file 1 "Core/Src/microphone_sensor.c"
-  20              		.section	.text.MIC_Init,"ax",%progbits
-  21              		.align	1
-  22              		.global	MIC_Init
-  23              		.syntax unified
-  24              		.thumb
-  25              		.thumb_func
-  27              	MIC_Init:
-  28              	.LVL0:
-  29              	.LFB134:
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"microphone_sensor.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MIC_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	MIC_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	MIC_Init:
+  27              	.LVL0:
+  28              	.LFB134:
+  29              		.file 1 "Core/Src/microphone_sensor.c"
    1:Core/Src/microphone_sensor.c **** /**
    2:Core/Src/microphone_sensor.c ****  * @file microphone_sensor.c
    3:Core/Src/microphone_sensor.c ****  * @brief ICS-43434 I2S Digital MEMS Microphone Implementation
@@ -37,7 +37,7 @@ ARM GAS  /tmp/ccj0SbIo.s 			page 1
    6:Core/Src/microphone_sensor.c **** #include "microphone_sensor.h"
    7:Core/Src/microphone_sensor.c **** #include <string.h>
    8:Core/Src/microphone_sensor.c **** __attribute__((section(".bss"))) uint32_t dma_buffer[4];// 原始DMA接收缓冲
-   9:Core/Src/microphone_sensor.c **** extern uint32_t  dma_buffer[MIC_BUFFER_SIZE]; 
+   9:Core/Src/microphone_sensor.c **** extern uint32_t  dma_buffer[MIC_BUFFER_SIZE];
   10:Core/Src/microphone_sensor.c **** 
   11:Core/Src/microphone_sensor.c **** HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
   12:Core/Src/microphone_sensor.c **** {
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccj0SbIo.s 			page 1
   42              		.loc 1 14 15 is_stmt 0 view .LVU5
   43 0006 0160     		str	r1, [r0]
   15:Core/Src/microphone_sensor.c ****     mic->half_ready = 0;
-ARM GAS  /tmp/ccj0SbIo.s 			page 2
+ARM GAS  /tmp/ccV5W4wZ.s 			page 2
 
 
   44              		.loc 1 15 5 is_stmt 1 view .LVU6
@@ -82,16 +82,16 @@ ARM GAS  /tmp/ccj0SbIo.s 			page 1
   59              	.LVL2:
   60              	.L3:
   13:Core/Src/microphone_sensor.c ****     mic->hi2s = hi2s;
-  61              		.loc 1 13 31 discriminator 3 view .LVU15
+  61              		.loc 1 13 31 view .LVU15
   62 0012 0120     		movs	r0, #1
   63              	.LVL3:
   13:Core/Src/microphone_sensor.c ****     mic->hi2s = hi2s;
-  64              		.loc 1 13 31 discriminator 3 view .LVU16
+  64              		.loc 1 13 31 view .LVU16
   65 0014 7047     		bx	lr
   66              	.LVL4:
   67              	.L4:
   13:Core/Src/microphone_sensor.c ****     mic->hi2s = hi2s;
-  68              		.loc 1 13 31 discriminator 3 view .LVU17
+  68              		.loc 1 13 31 view .LVU17
   69 0016 0120     		movs	r0, #1
   70              	.LVL5:
   19:Core/Src/microphone_sensor.c **** }
@@ -105,9 +105,10 @@ ARM GAS  /tmp/ccj0SbIo.s 			page 1
   79              		.syntax unified
   80              		.thumb
   81              		.thumb_func
-  83              	MIC_Start:
-  84              	.LVL6:
-  85              	.LFB135:
+  82              		.fpu fpv4-sp-d16
+  84              	MIC_Start:
+  85              	.LVL6:
+  86              	.LFB135:
   20:Core/Src/microphone_sensor.c **** 
   21:Core/Src/microphone_sensor.c **** 
   22:Core/Src/microphone_sensor.c **** /**
@@ -115,98 +116,99 @@ ARM GAS  /tmp/ccj0SbIo.s 			page 1
   24:Core/Src/microphone_sensor.c ****  */
   25:Core/Src/microphone_sensor.c **** HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic)
   26:Core/Src/microphone_sensor.c **** {
-  86              		.loc 1 26 1 is_stmt 1 view -0
-  87              		.cfi_startproc
-  88              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccj0SbIo.s 			page 3
+  87              		.loc 1 26 1 is_stmt 1 view -0
+  88              		.cfi_startproc
+ARM GAS  /tmp/ccV5W4wZ.s 			page 3
 
 
-  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
   27:Core/Src/microphone_sensor.c ****     if (!mic || !mic->hi2s) return HAL_ERROR;
-  90              		.loc 1 27 5 view .LVU20
-  91              		.loc 1 27 8 is_stmt 0 view .LVU21
-  92 0000 38B1     		cbz	r0, .L7
+  91              		.loc 1 27 5 view .LVU20
+  92              		.loc 1 27 8 is_stmt 0 view .LVU21
+  93 0000 38B1     		cbz	r0, .L7
   26:Core/Src/microphone_sensor.c ****     if (!mic || !mic->hi2s) return HAL_ERROR;
-  93              		.loc 1 26 1 view .LVU22
-  94 0002 08B5     		push	{r3, lr}
-  95              	.LCFI0:
-  96              		.cfi_def_cfa_offset 8
-  97              		.cfi_offset 3, -8
-  98              		.cfi_offset 14, -4
-  99              		.loc 1 27 21 discriminator 2 view .LVU23
- 100 0004 0068     		ldr	r0, [r0]
- 101              	.LVL7:
- 102              		.loc 1 27 14 discriminator 2 view .LVU24
- 103 0006 30B1     		cbz	r0, .L8
+  94              		.loc 1 26 1 discriminator 2 view .LVU22
+  95 0002 08B5     		push	{r3, lr}
+  96              	.LCFI0:
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 3, -8
+  99              		.cfi_offset 14, -4
+ 100              		.loc 1 27 21 discriminator 2 view .LVU23
+ 101 0004 0068     		ldr	r0, [r0]
+ 102              	.LVL7:
+ 103              		.loc 1 27 14 discriminator 2 view .LVU24
+ 104 0006 30B1     		cbz	r0, .L8
   28:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
- 104              		.loc 1 28 5 is_stmt 1 view .LVU25
- 105              		.loc 1 28 12 is_stmt 0 view .LVU26
- 106 0008 0422     		movs	r2, #4
- 107 000a 0449     		ldr	r1, .L13
- 108 000c FFF7FEFF 		bl	HAL_I2S_Receive_DMA
- 109              	.LVL8:
- 110              	.L6:
+ 105              		.loc 1 28 5 is_stmt 1 view .LVU25
+ 106              		.loc 1 28 12 is_stmt 0 view .LVU26
+ 107 0008 0422     		movs	r2, #4
+ 108 000a 0449     		ldr	r1, .L13
+ 109 000c FFF7FEFF 		bl	HAL_I2S_Receive_DMA
+ 110              	.LVL8:
+ 111              	.L6:
   29:Core/Src/microphone_sensor.c **** }
- 111              		.loc 1 29 1 view .LVU27
- 112 0010 08BD     		pop	{r3, pc}
- 113              	.LVL9:
- 114              	.L7:
- 115              	.LCFI1:
- 116              		.cfi_def_cfa_offset 0
- 117              		.cfi_restore 3
- 118              		.cfi_restore 14
+ 112              		.loc 1 29 1 view .LVU27
+ 113 0010 08BD     		pop	{r3, pc}
+ 114              	.LVL9:
+ 115              	.L7:
+ 116              	.LCFI1:
+ 117              		.cfi_def_cfa_offset 0
+ 118              		.cfi_restore 3
+ 119              		.cfi_restore 14
   27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
- 119              		.loc 1 27 36 discriminator 3 view .LVU28
- 120 0012 0120     		movs	r0, #1
- 121              	.LVL10:
- 122              		.loc 1 29 1 view .LVU29
- 123 0014 7047     		bx	lr
- 124              	.L8:
- 125              	.LCFI2:
- 126              		.cfi_def_cfa_offset 8
- 127              		.cfi_offset 3, -8
- 128              		.cfi_offset 14, -4
+ 120              		.loc 1 27 36 view .LVU28
+ 121 0012 0120     		movs	r0, #1
+ 122              	.LVL10:
+ 123              		.loc 1 29 1 view .LVU29
+ 124 0014 7047     		bx	lr
+ 125              	.L8:
+ 126              	.LCFI2:
+ 127              		.cfi_def_cfa_offset 8
+ 128              		.cfi_offset 3, -8
+ 129              		.cfi_offset 14, -4
   27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
- 129              		.loc 1 27 36 discriminator 3 view .LVU30
- 130 0016 0120     		movs	r0, #1
- 131 0018 FAE7     		b	.L6
- 132              	.L14:
- 133 001a 00BF     		.align	2
- 134              	.L13:
- 135 001c 00000000 		.word	dma_buffer
- 136              		.cfi_endproc
- 137              	.LFE135:
- 139              		.global	dma_buffer
- 140              		.section	.bss,"aw",%nobits
-ARM GAS  /tmp/ccj0SbIo.s 			page 4
+ 130              		.loc 1 27 36 view .LVU30
+ 131 0016 0120     		movs	r0, #1
+ 132 0018 FAE7     		b	.L6
+ 133              	.L14:
+ 134 001a 00BF     		.align	2
+ 135              	.L13:
+ 136 001c 00000000 		.word	.LANCHOR0
+ 137              		.cfi_endproc
+ 138              	.LFE135:
+ 140              		.global	dma_buffer
+ARM GAS  /tmp/ccV5W4wZ.s 			page 4
 
 
- 141              		.align	2
- 144              	dma_buffer:
- 145 0000 00000000 		.space	16
- 145      00000000 
- 145      00000000 
- 145      00000000 
- 146              		.text
- 147              	.Letext0:
- 148              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
- 149              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 150              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 151              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 152              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
- 153              		.file 7 "Core/Inc/microphone_sensor.h"
-ARM GAS  /tmp/ccj0SbIo.s 			page 5
+ 141              		.section	.bss,"aw",%nobits
+ 142              		.align	2
+ 143              		.set	.LANCHOR0,. + 0
+ 146              	dma_buffer:
+ 147 0000 00000000 		.space	16
+ 147      00000000 
+ 147      00000000 
+ 147      00000000 
+ 148              		.text
+ 149              	.Letext0:
+ 150              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 151              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 152              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 153              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 154              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 155              		.file 7 "Core/Inc/microphone_sensor.h"
+ARM GAS  /tmp/ccV5W4wZ.s 			page 5
 
 
 DEFINED SYMBOLS
-                            *ABS*:00000000 microphone_sensor.c
-     /tmp/ccj0SbIo.s:21     .text.MIC_Init:00000000 $t
-     /tmp/ccj0SbIo.s:27     .text.MIC_Init:00000000 MIC_Init
-     /tmp/ccj0SbIo.s:77     .text.MIC_Start:00000000 $t
-     /tmp/ccj0SbIo.s:83     .text.MIC_Start:00000000 MIC_Start
-     /tmp/ccj0SbIo.s:135    .text.MIC_Start:0000001c $d
-     /tmp/ccj0SbIo.s:144    .bss:00000000 dma_buffer
-     /tmp/ccj0SbIo.s:141    .bss:00000000 $d
+                            *ABS*:0000000000000000 microphone_sensor.c
+     /tmp/ccV5W4wZ.s:18     .text.MIC_Init:0000000000000000 $t
+     /tmp/ccV5W4wZ.s:26     .text.MIC_Init:0000000000000000 MIC_Init
+     /tmp/ccV5W4wZ.s:77     .text.MIC_Start:0000000000000000 $t
+     /tmp/ccV5W4wZ.s:84     .text.MIC_Start:0000000000000000 MIC_Start
+     /tmp/ccV5W4wZ.s:136    .text.MIC_Start:000000000000001c $d
+     /tmp/ccV5W4wZ.s:146    .bss:0000000000000000 dma_buffer
+     /tmp/ccV5W4wZ.s:142    .bss:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2S_Receive_DMA

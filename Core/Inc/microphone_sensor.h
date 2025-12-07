@@ -1,14 +1,10 @@
 /**
  * @file microphone_sensor.h
- * @brief ICS-43434 I2S Digital MEMS Microphone Driver (Stereo - 2 Microphones)
- * @version 3.0
- * @date 2025-11
+ * @brief ICS-43434 I2S Digital MEMS Microphone Driver (Left Channel)
+ * @version 1.0
+ * @date 2025-10
  *
- * Reference: TDK InvenSense ICS-43434 Datasheet
- * Configuration: Dual microphones in stereo configuration (Left + Right channels)
- * - 24-bit I2S digital output
- * - MSB-aligned in 32-bit frame (bits [31:8])
- * - SEL pin: Low = Left channel, High = Right channel
+ * Reference: InvenSense ICS-43434 Datasheet (DS-000069 v1.2)
  */
 
 #ifndef __MICROPHONE_SENSOR_H__
@@ -21,19 +17,15 @@
 extern "C" {
 #endif
 
-#define MIC_BUFFER_SIZE 16  // DMA buffer size (stereo: 8 samples, 2 channels each) - increased for better interrupt tolerance
+#define MIC_BUFFER_SIZE 4   // DMA 缓冲长度
 #define MIC_SAMPLE_COUNT (MIC_BUFFER_SIZE / 2)
 
 typedef struct
 {
-    I2S_HandleTypeDef *hi2s;        // I2S handle
-    int32_t audio_left;             // Left channel result
-    int32_t audio_right;            // Right channel result
-    uint8_t half_ready;             // Half buffer ready flag
-    uint8_t full_ready;             // Full buffer ready flag
-    // Debug fields - raw DMA data for troubleshooting
-    uint32_t raw_left;              // Raw left channel data from DMA
-    uint32_t raw_right;             // Raw right channel data from DMA
+    I2S_HandleTypeDef *hi2s;              // I2S句柄
+    int32_t audio_result;
+    uint8_t   half_ready;               // 半缓冲就绪标志
+    uint8_t   full_ready;               // 全缓冲就绪标志
 } MIC_HandleTypeDef;
 
 /* Initialization and startup */

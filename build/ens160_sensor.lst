@@ -1,33 +1,33 @@
-ARM GAS  /tmp/ccEfhofY.s 			page 1
+ARM GAS  /tmp/ccPI81q4.s 			page 1
 
 
    1              		.cpu cortex-m4
-   2              		.arch armv7e-m
-   3              		.fpu fpv4-sp-d16
-   4              		.eabi_attribute 27, 1
-   5              		.eabi_attribute 28, 1
-   6              		.eabi_attribute 20, 1
-   7              		.eabi_attribute 21, 1
-   8              		.eabi_attribute 23, 3
-   9              		.eabi_attribute 24, 1
-  10              		.eabi_attribute 25, 1
-  11              		.eabi_attribute 26, 1
-  12              		.eabi_attribute 30, 1
-  13              		.eabi_attribute 34, 1
-  14              		.eabi_attribute 18, 4
-  15              		.file	"ens160_sensor.c"
-  16              		.text
-  17              	.Ltext0:
-  18              		.cfi_sections	.debug_frame
-  19              		.file 1 "Core/Src/ens160_sensor.c"
-  20              		.section	.text.ENS160_Write8,"ax",%progbits
-  21              		.align	1
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  26              	ENS160_Write8:
-  27              	.LVL0:
-  28              	.LFB134:
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ens160_sensor.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ENS160_Write8,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	ENS160_Write8:
+  26              	.LVL0:
+  27              	.LFB134:
+  28              		.file 1 "Core/Src/ens160_sensor.c"
    1:Core/Src/ens160_sensor.c **** /**
    2:Core/Src/ens160_sensor.c ****  * @file ens160_sensor.c
    3:Core/Src/ens160_sensor.c ****  * @brief ENS160 Gas Sensor Driver (I2C)
@@ -54,11 +54,11 @@ ARM GAS  /tmp/ccEfhofY.s 			page 1
   11:Core/Src/ens160_sensor.c ****     return HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
   42              		.loc 1 11 5 is_stmt 1 view .LVU2
   43              		.loc 1 11 12 is_stmt 0 view .LVU3
-  44 0008 6423     		movs	r3, #100
+  44 0008 0A23     		movs	r3, #10
   45 000a 0293     		str	r3, [sp, #8]
   46 000c 0123     		movs	r3, #1
   47 000e 0193     		str	r3, [sp, #4]
-ARM GAS  /tmp/ccEfhofY.s 			page 2
+ARM GAS  /tmp/ccPI81q4.s 			page 2
 
 
   48 0010 0DF11702 		add	r2, sp, #23
@@ -76,7 +76,7 @@ ARM GAS  /tmp/ccEfhofY.s 			page 1
   60              		.loc 1 11 12 view .LVU7
   61 001c FFF7FEFF 		bl	HAL_I2C_Mem_Write
   62              	.LVL5:
-  12:Core/Src/ens160_sensor.c ****                              I2C_MEMADD_SIZE_8BIT, &value, 1, 100);
+  12:Core/Src/ens160_sensor.c ****                              I2C_MEMADD_SIZE_8BIT, &value, 1, 10);
   13:Core/Src/ens160_sensor.c **** }
   63              		.loc 1 13 1 view .LVU8
   64 0020 07B0     		add	sp, sp, #28
@@ -91,156 +91,159 @@ ARM GAS  /tmp/ccEfhofY.s 			page 1
   74              		.syntax unified
   75              		.thumb
   76              		.thumb_func
-  78              	ENS160_Read8:
-  79              	.LVL6:
-  80              	.LFB135:
+  77              		.fpu fpv4-sp-d16
+  79              	ENS160_Read8:
+  80              	.LVL6:
+  81              	.LFB135:
   14:Core/Src/ens160_sensor.c **** 
   15:Core/Src/ens160_sensor.c **** static HAL_StatusTypeDef ENS160_Read8(ENS160_HandleTypeDef *dev, uint8_t reg, uint8_t *value)
   16:Core/Src/ens160_sensor.c **** {
-  81              		.loc 1 16 1 is_stmt 1 view -0
-  82              		.cfi_startproc
-  83              		@ args = 0, pretend = 0, frame = 0
-  84              		@ frame_needed = 0, uses_anonymous_args = 0
-  85              		.loc 1 16 1 is_stmt 0 view .LVU10
-  86 0000 00B5     		push	{lr}
-  87              	.LCFI3:
-  88              		.cfi_def_cfa_offset 4
-  89              		.cfi_offset 14, -4
-  90 0002 85B0     		sub	sp, sp, #20
-  91              	.LCFI4:
-  92              		.cfi_def_cfa_offset 24
+  82              		.loc 1 16 1 is_stmt 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		.loc 1 16 1 is_stmt 0 view .LVU10
+  87 0000 00B5     		push	{lr}
+  88              	.LCFI3:
+  89              		.cfi_def_cfa_offset 4
+  90              		.cfi_offset 14, -4
+  91 0002 85B0     		sub	sp, sp, #20
+  92              	.LCFI4:
+  93              		.cfi_def_cfa_offset 24
   17:Core/Src/ens160_sensor.c ****     return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
-  93              		.loc 1 17 5 is_stmt 1 view .LVU11
-  94              		.loc 1 17 12 is_stmt 0 view .LVU12
-  95 0004 6423     		movs	r3, #100
-  96 0006 0293     		str	r3, [sp, #8]
-  97 0008 0123     		movs	r3, #1
-  98 000a 0193     		str	r3, [sp, #4]
-  99 000c 0092     		str	r2, [sp]
- 100 000e 0A46     		mov	r2, r1
-ARM GAS  /tmp/ccEfhofY.s 			page 3
+  94              		.loc 1 17 5 is_stmt 1 view .LVU11
+  95              		.loc 1 17 12 is_stmt 0 view .LVU12
+  96 0004 0A23     		movs	r3, #10
+  97 0006 0293     		str	r3, [sp, #8]
+  98 0008 0123     		movs	r3, #1
+  99 000a 0193     		str	r3, [sp, #4]
+ 100 000c 0092     		str	r2, [sp]
+ARM GAS  /tmp/ccPI81q4.s 			page 3
 
 
- 101              	.LVL7:
- 102              		.loc 1 17 12 view .LVU13
- 103 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 104              	.LVL8:
- 105              		.loc 1 17 12 view .LVU14
- 106 0012 0068     		ldr	r0, [r0]
- 107              	.LVL9:
- 108              		.loc 1 17 12 view .LVU15
- 109 0014 FFF7FEFF 		bl	HAL_I2C_Mem_Read
- 110              	.LVL10:
-  18:Core/Src/ens160_sensor.c ****                             I2C_MEMADD_SIZE_8BIT, value, 1, 100);
+ 101 000e 0A46     		mov	r2, r1
+ 102              	.LVL7:
+ 103              		.loc 1 17 12 view .LVU13
+ 104 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 105              	.LVL8:
+ 106              		.loc 1 17 12 view .LVU14
+ 107 0012 0068     		ldr	r0, [r0]
+ 108              	.LVL9:
+ 109              		.loc 1 17 12 view .LVU15
+ 110 0014 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 111              	.LVL10:
+  18:Core/Src/ens160_sensor.c ****                             I2C_MEMADD_SIZE_8BIT, value, 1, 10);
   19:Core/Src/ens160_sensor.c **** }
- 111              		.loc 1 19 1 view .LVU16
- 112 0018 05B0     		add	sp, sp, #20
- 113              	.LCFI5:
- 114              		.cfi_def_cfa_offset 4
- 115              		@ sp needed
- 116 001a 5DF804FB 		ldr	pc, [sp], #4
- 117              		.cfi_endproc
- 118              	.LFE135:
- 120              		.section	.text.ENS160_Read16,"ax",%progbits
- 121              		.align	1
- 122              		.syntax unified
- 123              		.thumb
- 124              		.thumb_func
- 126              	ENS160_Read16:
- 127              	.LVL11:
- 128              	.LFB136:
+ 112              		.loc 1 19 1 view .LVU16
+ 113 0018 05B0     		add	sp, sp, #20
+ 114              	.LCFI5:
+ 115              		.cfi_def_cfa_offset 4
+ 116              		@ sp needed
+ 117 001a 5DF804FB 		ldr	pc, [sp], #4
+ 118              		.cfi_endproc
+ 119              	.LFE135:
+ 121              		.section	.text.ENS160_Read16,"ax",%progbits
+ 122              		.align	1
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 128              	ENS160_Read16:
+ 129              	.LVL11:
+ 130              	.LFB136:
   20:Core/Src/ens160_sensor.c **** 
   21:Core/Src/ens160_sensor.c **** static HAL_StatusTypeDef ENS160_Read16(ENS160_HandleTypeDef *dev, uint8_t reg, uint16_t *value)
   22:Core/Src/ens160_sensor.c **** {
- 129              		.loc 1 22 1 is_stmt 1 view -0
- 130              		.cfi_startproc
- 131              		@ args = 0, pretend = 0, frame = 8
- 132              		@ frame_needed = 0, uses_anonymous_args = 0
- 133              		.loc 1 22 1 is_stmt 0 view .LVU18
- 134 0000 10B5     		push	{r4, lr}
- 135              	.LCFI6:
- 136              		.cfi_def_cfa_offset 8
- 137              		.cfi_offset 4, -8
- 138              		.cfi_offset 14, -4
- 139 0002 86B0     		sub	sp, sp, #24
- 140              	.LCFI7:
- 141              		.cfi_def_cfa_offset 32
- 142 0004 1446     		mov	r4, r2
+ 131              		.loc 1 22 1 is_stmt 1 view -0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 8
+ 134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 135              		.loc 1 22 1 is_stmt 0 view .LVU18
+ 136 0000 10B5     		push	{r4, lr}
+ 137              	.LCFI6:
+ 138              		.cfi_def_cfa_offset 8
+ 139              		.cfi_offset 4, -8
+ 140              		.cfi_offset 14, -4
+ 141 0002 86B0     		sub	sp, sp, #24
+ 142              	.LCFI7:
+ 143              		.cfi_def_cfa_offset 32
+ 144 0004 1446     		mov	r4, r2
   23:Core/Src/ens160_sensor.c ****     uint8_t buf[2];
- 143              		.loc 1 23 5 is_stmt 1 view .LVU19
+ 145              		.loc 1 23 5 is_stmt 1 view .LVU19
   24:Core/Src/ens160_sensor.c ****     HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
- 144              		.loc 1 24 5 view .LVU20
- 145              		.loc 1 24 29 is_stmt 0 view .LVU21
- 146 0006 6423     		movs	r3, #100
- 147 0008 0293     		str	r3, [sp, #8]
- 148 000a 0223     		movs	r3, #2
- 149 000c 0193     		str	r3, [sp, #4]
- 150 000e 05AB     		add	r3, sp, #20
- 151 0010 0093     		str	r3, [sp]
- 152 0012 0123     		movs	r3, #1
-ARM GAS  /tmp/ccEfhofY.s 			page 4
+ 146              		.loc 1 24 5 view .LVU20
+ 147              		.loc 1 24 29 is_stmt 0 view .LVU21
+ 148 0006 0A23     		movs	r3, #10
+ 149 0008 0293     		str	r3, [sp, #8]
+ 150 000a 0223     		movs	r3, #2
+ 151 000c 0193     		str	r3, [sp, #4]
+ 152 000e 05AB     		add	r3, sp, #20
+ARM GAS  /tmp/ccPI81q4.s 			page 4
 
 
- 153 0014 0A46     		mov	r2, r1
- 154              	.LVL12:
- 155              		.loc 1 24 29 view .LVU22
- 156 0016 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 157              	.LVL13:
- 158              		.loc 1 24 29 view .LVU23
- 159 0018 0068     		ldr	r0, [r0]
- 160              	.LVL14:
- 161              		.loc 1 24 29 view .LVU24
- 162 001a FFF7FEFF 		bl	HAL_I2C_Mem_Read
- 163              	.LVL15:
-  25:Core/Src/ens160_sensor.c ****                                              I2C_MEMADD_SIZE_8BIT, buf, 2, 100);
+ 153 0010 0093     		str	r3, [sp]
+ 154 0012 0123     		movs	r3, #1
+ 155 0014 0A46     		mov	r2, r1
+ 156              	.LVL12:
+ 157              		.loc 1 24 29 view .LVU22
+ 158 0016 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 159              	.LVL13:
+ 160              		.loc 1 24 29 view .LVU23
+ 161 0018 0068     		ldr	r0, [r0]
+ 162              	.LVL14:
+ 163              		.loc 1 24 29 view .LVU24
+ 164 001a FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 165              	.LVL15:
+  25:Core/Src/ens160_sensor.c ****                                              I2C_MEMADD_SIZE_8BIT, buf, 2, 10);
   26:Core/Src/ens160_sensor.c ****     if (ret == HAL_OK)
- 164              		.loc 1 26 5 is_stmt 1 view .LVU25
- 165              		.loc 1 26 8 is_stmt 0 view .LVU26
- 166 001e 30B9     		cbnz	r0, .L6
+ 166              		.loc 1 26 5 is_stmt 1 view .LVU25
+ 167              		.loc 1 26 8 is_stmt 0 view .LVU26
+ 168 001e 30B9     		cbnz	r0, .L6
   27:Core/Src/ens160_sensor.c ****         *value = (uint16_t)((buf[1] << 8) | buf[0]);
- 167              		.loc 1 27 9 is_stmt 1 view .LVU27
- 168              		.loc 1 27 33 is_stmt 0 view .LVU28
- 169 0020 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
- 170              		.loc 1 27 48 view .LVU29
- 171 0024 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
- 172              		.loc 1 27 18 view .LVU30
- 173 0028 43EA0223 		orr	r3, r3, r2, lsl #8
- 174              		.loc 1 27 16 view .LVU31
- 175 002c 2380     		strh	r3, [r4]	@ movhi
- 176              	.L6:
+ 169              		.loc 1 27 9 is_stmt 1 view .LVU27
+ 170              		.loc 1 27 33 is_stmt 0 view .LVU28
+ 171 0020 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
+ 172              		.loc 1 27 48 view .LVU29
+ 173 0024 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 174              		.loc 1 27 18 view .LVU30
+ 175 0028 43EA0223 		orr	r3, r3, r2, lsl #8
+ 176              		.loc 1 27 16 view .LVU31
+ 177 002c 2380     		strh	r3, [r4]	@ movhi
+ 178              	.L6:
   28:Core/Src/ens160_sensor.c ****     return ret;
- 177              		.loc 1 28 5 is_stmt 1 view .LVU32
+ 179              		.loc 1 28 5 is_stmt 1 view .LVU32
   29:Core/Src/ens160_sensor.c **** }
- 178              		.loc 1 29 1 is_stmt 0 view .LVU33
- 179 002e 06B0     		add	sp, sp, #24
- 180              	.LCFI8:
- 181              		.cfi_def_cfa_offset 8
- 182              		@ sp needed
- 183 0030 10BD     		pop	{r4, pc}
- 184              		.loc 1 29 1 view .LVU34
- 185              		.cfi_endproc
- 186              	.LFE136:
- 188              		.section	.text.ENS160_SetMode,"ax",%progbits
- 189              		.align	1
- 190              		.global	ENS160_SetMode
- 191              		.syntax unified
- 192              		.thumb
- 193              		.thumb_func
- 195              	ENS160_SetMode:
- 196              	.LVL16:
- 197              	.LFB138:
+ 180              		.loc 1 29 1 is_stmt 0 view .LVU33
+ 181 002e 06B0     		add	sp, sp, #24
+ 182              	.LCFI8:
+ 183              		.cfi_def_cfa_offset 8
+ 184              		@ sp needed
+ 185 0030 10BD     		pop	{r4, pc}
+ 186              		.loc 1 29 1 view .LVU34
+ 187              		.cfi_endproc
+ 188              	.LFE136:
+ 190              		.section	.text.ENS160_SetMode,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	ENS160_SetMode
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu fpv4-sp-d16
+ 198              	ENS160_SetMode:
+ 199              	.LVL16:
+ 200              	.LFB138:
   30:Core/Src/ens160_sensor.c **** 
   31:Core/Src/ens160_sensor.c **** /* ==== PUBLIC FUNCTIONS ==== */
   32:Core/Src/ens160_sensor.c **** 
   33:Core/Src/ens160_sensor.c **** /**
   34:Core/Src/ens160_sensor.c ****  * @brief Initialize ENS160
   35:Core/Src/ens160_sensor.c ****  */
+ARM GAS  /tmp/ccPI81q4.s 			page 5
+
+
   36:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_Init(ENS160_HandleTypeDef *dev,I2C_HandleTypeDef *hi2c,uint8_t address)
   37:Core/Src/ens160_sensor.c **** {
   38:Core/Src/ens160_sensor.c **** 
-ARM GAS  /tmp/ccEfhofY.s 			page 5
-
-
   39:Core/Src/ens160_sensor.c ****     dev->i2c_addr = address;
   40:Core/Src/ens160_sensor.c ****     dev->hi2c = hi2c;
   41:Core/Src/ens160_sensor.c **** 
@@ -264,387 +267,539 @@ ARM GAS  /tmp/ccEfhofY.s 			page 1
   59:Core/Src/ens160_sensor.c ****  */
   60:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_SetMode(ENS160_HandleTypeDef *dev, uint8_t mode)
   61:Core/Src/ens160_sensor.c **** {
- 198              		.loc 1 61 1 is_stmt 1 view -0
- 199              		.cfi_startproc
- 200              		@ args = 0, pretend = 0, frame = 0
- 201              		@ frame_needed = 0, uses_anonymous_args = 0
- 202              		.loc 1 61 1 is_stmt 0 view .LVU36
- 203 0000 08B5     		push	{r3, lr}
- 204              	.LCFI9:
- 205              		.cfi_def_cfa_offset 8
- 206              		.cfi_offset 3, -8
- 207              		.cfi_offset 14, -4
- 208 0002 0A46     		mov	r2, r1
+ 201              		.loc 1 61 1 is_stmt 1 view -0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              		.loc 1 61 1 is_stmt 0 view .LVU36
+ 206 0000 08B5     		push	{r3, lr}
+ 207              	.LCFI9:
+ 208              		.cfi_def_cfa_offset 8
+ 209              		.cfi_offset 3, -8
+ 210              		.cfi_offset 14, -4
+ 211 0002 0A46     		mov	r2, r1
   62:Core/Src/ens160_sensor.c ****     return ENS160_Write8(dev, ENS160_REG_OPMODE, mode);
- 209              		.loc 1 62 5 is_stmt 1 view .LVU37
- 210              		.loc 1 62 12 is_stmt 0 view .LVU38
- 211 0004 1021     		movs	r1, #16
- 212              	.LVL17:
- 213              		.loc 1 62 12 view .LVU39
- 214 0006 FFF7FEFF 		bl	ENS160_Write8
- 215              	.LVL18:
+ 212              		.loc 1 62 5 is_stmt 1 view .LVU37
+ 213              		.loc 1 62 12 is_stmt 0 view .LVU38
+ 214 0004 1021     		movs	r1, #16
+ 215              	.LVL17:
+ 216              		.loc 1 62 12 view .LVU39
+ 217 0006 FFF7FEFF 		bl	ENS160_Write8
+ 218              	.LVL18:
   63:Core/Src/ens160_sensor.c **** }
- 216              		.loc 1 63 1 view .LVU40
- 217 000a 08BD     		pop	{r3, pc}
- 218              		.cfi_endproc
- 219              	.LFE138:
- 221              		.section	.text.ENS160_ReadAQI,"ax",%progbits
- 222              		.align	1
- 223              		.global	ENS160_ReadAQI
- 224              		.syntax unified
- 225              		.thumb
- 226              		.thumb_func
- 228              	ENS160_ReadAQI:
- 229              	.LVL19:
- 230              	.LFB139:
+ 219              		.loc 1 63 1 view .LVU40
+ 220 000a 08BD     		pop	{r3, pc}
+ 221              		.cfi_endproc
+ 222              	.LFE138:
+ 224              		.section	.text.ENS160_ReadAQI,"ax",%progbits
+ 225              		.align	1
+ 226              		.global	ENS160_ReadAQI
+ 227              		.syntax unified
+ 228              		.thumb
+ 229              		.thumb_func
+ 230              		.fpu fpv4-sp-d16
+ARM GAS  /tmp/ccPI81q4.s 			page 6
+
+
+ 232              	ENS160_ReadAQI:
+ 233              	.LVL19:
+ 234              	.LFB139:
   64:Core/Src/ens160_sensor.c **** 
-ARM GAS  /tmp/ccEfhofY.s 			page 6
-
-
   65:Core/Src/ens160_sensor.c **** /**
   66:Core/Src/ens160_sensor.c ****  * @brief Read Air Quality Index (1–5)
   67:Core/Src/ens160_sensor.c ****  */
   68:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_ReadAQI(ENS160_HandleTypeDef *dev, uint8_t *aqi)
   69:Core/Src/ens160_sensor.c **** {
- 231              		.loc 1 69 1 is_stmt 1 view -0
- 232              		.cfi_startproc
- 233              		@ args = 0, pretend = 0, frame = 0
- 234              		@ frame_needed = 0, uses_anonymous_args = 0
- 235              		.loc 1 69 1 is_stmt 0 view .LVU42
- 236 0000 08B5     		push	{r3, lr}
- 237              	.LCFI10:
- 238              		.cfi_def_cfa_offset 8
- 239              		.cfi_offset 3, -8
- 240              		.cfi_offset 14, -4
- 241 0002 0A46     		mov	r2, r1
+ 235              		.loc 1 69 1 is_stmt 1 view -0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239              		.loc 1 69 1 is_stmt 0 view .LVU42
+ 240 0000 08B5     		push	{r3, lr}
+ 241              	.LCFI10:
+ 242              		.cfi_def_cfa_offset 8
+ 243              		.cfi_offset 3, -8
+ 244              		.cfi_offset 14, -4
+ 245 0002 0A46     		mov	r2, r1
   70:Core/Src/ens160_sensor.c ****     return ENS160_Read8(dev, ENS160_REG_DATA_AQI, aqi);
- 242              		.loc 1 70 5 is_stmt 1 view .LVU43
- 243              		.loc 1 70 12 is_stmt 0 view .LVU44
- 244 0004 2121     		movs	r1, #33
- 245              	.LVL20:
- 246              		.loc 1 70 12 view .LVU45
- 247 0006 FFF7FEFF 		bl	ENS160_Read8
- 248              	.LVL21:
+ 246              		.loc 1 70 5 is_stmt 1 view .LVU43
+ 247              		.loc 1 70 12 is_stmt 0 view .LVU44
+ 248 0004 2121     		movs	r1, #33
+ 249              	.LVL20:
+ 250              		.loc 1 70 12 view .LVU45
+ 251 0006 FFF7FEFF 		bl	ENS160_Read8
+ 252              	.LVL21:
   71:Core/Src/ens160_sensor.c **** }
- 249              		.loc 1 71 1 view .LVU46
- 250 000a 08BD     		pop	{r3, pc}
- 251              		.cfi_endproc
- 252              	.LFE139:
- 254              		.section	.text.ENS160_ReadTVOC,"ax",%progbits
- 255              		.align	1
- 256              		.global	ENS160_ReadTVOC
- 257              		.syntax unified
- 258              		.thumb
- 259              		.thumb_func
- 261              	ENS160_ReadTVOC:
- 262              	.LVL22:
- 263              	.LFB140:
+ 253              		.loc 1 71 1 view .LVU46
+ 254 000a 08BD     		pop	{r3, pc}
+ 255              		.cfi_endproc
+ 256              	.LFE139:
+ 258              		.section	.text.ENS160_ReadTVOC,"ax",%progbits
+ 259              		.align	1
+ 260              		.global	ENS160_ReadTVOC
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.fpu fpv4-sp-d16
+ 266              	ENS160_ReadTVOC:
+ 267              	.LVL22:
+ 268              	.LFB140:
   72:Core/Src/ens160_sensor.c **** 
   73:Core/Src/ens160_sensor.c **** /**
   74:Core/Src/ens160_sensor.c ****  * @brief Read Total Volatile Organic Compounds (ppb)
   75:Core/Src/ens160_sensor.c ****  */
   76:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_ReadTVOC(ENS160_HandleTypeDef *dev, uint16_t *tvoc)
   77:Core/Src/ens160_sensor.c **** {
- 264              		.loc 1 77 1 is_stmt 1 view -0
- 265              		.cfi_startproc
- 266              		@ args = 0, pretend = 0, frame = 0
- 267              		@ frame_needed = 0, uses_anonymous_args = 0
- 268              		.loc 1 77 1 is_stmt 0 view .LVU48
- 269 0000 08B5     		push	{r3, lr}
- 270              	.LCFI11:
- 271              		.cfi_def_cfa_offset 8
- 272              		.cfi_offset 3, -8
- 273              		.cfi_offset 14, -4
- 274 0002 0A46     		mov	r2, r1
+ 269              		.loc 1 77 1 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		.loc 1 77 1 is_stmt 0 view .LVU48
+ 274 0000 08B5     		push	{r3, lr}
+ 275              	.LCFI11:
+ 276              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccPI81q4.s 			page 7
+
+
+ 277              		.cfi_offset 3, -8
+ 278              		.cfi_offset 14, -4
+ 279 0002 0A46     		mov	r2, r1
   78:Core/Src/ens160_sensor.c ****     return ENS160_Read16(dev, ENS160_REG_DATA_TVOC, tvoc);
- 275              		.loc 1 78 5 is_stmt 1 view .LVU49
-ARM GAS  /tmp/ccEfhofY.s 			page 7
-
-
- 276              		.loc 1 78 12 is_stmt 0 view .LVU50
- 277 0004 2221     		movs	r1, #34
- 278              	.LVL23:
- 279              		.loc 1 78 12 view .LVU51
- 280 0006 FFF7FEFF 		bl	ENS160_Read16
- 281              	.LVL24:
+ 280              		.loc 1 78 5 is_stmt 1 view .LVU49
+ 281              		.loc 1 78 12 is_stmt 0 view .LVU50
+ 282 0004 2221     		movs	r1, #34
+ 283              	.LVL23:
+ 284              		.loc 1 78 12 view .LVU51
+ 285 0006 FFF7FEFF 		bl	ENS160_Read16
+ 286              	.LVL24:
   79:Core/Src/ens160_sensor.c **** }
- 282              		.loc 1 79 1 view .LVU52
- 283 000a 08BD     		pop	{r3, pc}
- 284              		.cfi_endproc
- 285              	.LFE140:
- 287              		.section	.text.ENS160_ReadECO2,"ax",%progbits
- 288              		.align	1
- 289              		.global	ENS160_ReadECO2
- 290              		.syntax unified
- 291              		.thumb
- 292              		.thumb_func
- 294              	ENS160_ReadECO2:
- 295              	.LVL25:
- 296              	.LFB141:
+ 287              		.loc 1 79 1 view .LVU52
+ 288 000a 08BD     		pop	{r3, pc}
+ 289              		.cfi_endproc
+ 290              	.LFE140:
+ 292              		.section	.text.ENS160_ReadECO2,"ax",%progbits
+ 293              		.align	1
+ 294              		.global	ENS160_ReadECO2
+ 295              		.syntax unified
+ 296              		.thumb
+ 297              		.thumb_func
+ 298              		.fpu fpv4-sp-d16
+ 300              	ENS160_ReadECO2:
+ 301              	.LVL25:
+ 302              	.LFB141:
   80:Core/Src/ens160_sensor.c **** 
   81:Core/Src/ens160_sensor.c **** /**
   82:Core/Src/ens160_sensor.c ****  * @brief Read equivalent CO2 (ppm)
   83:Core/Src/ens160_sensor.c ****  */
   84:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_ReadECO2(ENS160_HandleTypeDef *dev, uint16_t *eco2)
   85:Core/Src/ens160_sensor.c **** {
- 297              		.loc 1 85 1 is_stmt 1 view -0
- 298              		.cfi_startproc
- 299              		@ args = 0, pretend = 0, frame = 0
- 300              		@ frame_needed = 0, uses_anonymous_args = 0
- 301              		.loc 1 85 1 is_stmt 0 view .LVU54
- 302 0000 08B5     		push	{r3, lr}
- 303              	.LCFI12:
- 304              		.cfi_def_cfa_offset 8
- 305              		.cfi_offset 3, -8
- 306              		.cfi_offset 14, -4
- 307 0002 0A46     		mov	r2, r1
+ 303              		.loc 1 85 1 is_stmt 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		.loc 1 85 1 is_stmt 0 view .LVU54
+ 308 0000 08B5     		push	{r3, lr}
+ 309              	.LCFI12:
+ 310              		.cfi_def_cfa_offset 8
+ 311              		.cfi_offset 3, -8
+ 312              		.cfi_offset 14, -4
+ 313 0002 0A46     		mov	r2, r1
   86:Core/Src/ens160_sensor.c ****     return ENS160_Read16(dev, ENS160_REG_DATA_ECO2, eco2);
- 308              		.loc 1 86 5 is_stmt 1 view .LVU55
- 309              		.loc 1 86 12 is_stmt 0 view .LVU56
- 310 0004 2421     		movs	r1, #36
- 311              	.LVL26:
- 312              		.loc 1 86 12 view .LVU57
- 313 0006 FFF7FEFF 		bl	ENS160_Read16
- 314              	.LVL27:
+ 314              		.loc 1 86 5 is_stmt 1 view .LVU55
+ 315              		.loc 1 86 12 is_stmt 0 view .LVU56
+ 316 0004 2421     		movs	r1, #36
+ 317              	.LVL26:
+ 318              		.loc 1 86 12 view .LVU57
+ 319 0006 FFF7FEFF 		bl	ENS160_Read16
+ 320              	.LVL27:
   87:Core/Src/ens160_sensor.c **** }
- 315              		.loc 1 87 1 view .LVU58
- 316 000a 08BD     		pop	{r3, pc}
- 317              		.cfi_endproc
- 318              	.LFE141:
- 320              		.section	.text.ENS160_ReadStatus,"ax",%progbits
- 321              		.align	1
- 322              		.global	ENS160_ReadStatus
- 323              		.syntax unified
- 324              		.thumb
- 325              		.thumb_func
- 327              	ENS160_ReadStatus:
-ARM GAS  /tmp/ccEfhofY.s 			page 8
+ 321              		.loc 1 87 1 view .LVU58
+ 322 000a 08BD     		pop	{r3, pc}
+ 323              		.cfi_endproc
+ 324              	.LFE141:
+ 326              		.section	.text.ENS160_ReadStatus,"ax",%progbits
+ARM GAS  /tmp/ccPI81q4.s 			page 8
 
 
- 328              	.LVL28:
- 329              	.LFB142:
+ 327              		.align	1
+ 328              		.global	ENS160_ReadStatus
+ 329              		.syntax unified
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.fpu fpv4-sp-d16
+ 334              	ENS160_ReadStatus:
+ 335              	.LVL28:
+ 336              	.LFB142:
   88:Core/Src/ens160_sensor.c **** 
   89:Core/Src/ens160_sensor.c **** /**
   90:Core/Src/ens160_sensor.c ****  * @brief Read device status register
   91:Core/Src/ens160_sensor.c ****  */
   92:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_ReadStatus(ENS160_HandleTypeDef *dev, uint8_t *status)
   93:Core/Src/ens160_sensor.c **** {
- 330              		.loc 1 93 1 is_stmt 1 view -0
- 331              		.cfi_startproc
- 332              		@ args = 0, pretend = 0, frame = 0
- 333              		@ frame_needed = 0, uses_anonymous_args = 0
- 334              		.loc 1 93 1 is_stmt 0 view .LVU60
- 335 0000 08B5     		push	{r3, lr}
- 336              	.LCFI13:
- 337              		.cfi_def_cfa_offset 8
- 338              		.cfi_offset 3, -8
- 339              		.cfi_offset 14, -4
- 340 0002 0A46     		mov	r2, r1
+ 337              		.loc 1 93 1 is_stmt 1 view -0
+ 338              		.cfi_startproc
+ 339              		@ args = 0, pretend = 0, frame = 0
+ 340              		@ frame_needed = 0, uses_anonymous_args = 0
+ 341              		.loc 1 93 1 is_stmt 0 view .LVU60
+ 342 0000 08B5     		push	{r3, lr}
+ 343              	.LCFI13:
+ 344              		.cfi_def_cfa_offset 8
+ 345              		.cfi_offset 3, -8
+ 346              		.cfi_offset 14, -4
+ 347 0002 0A46     		mov	r2, r1
   94:Core/Src/ens160_sensor.c ****     return ENS160_Read8(dev, ENS160_REG_DEVICE_STATUS, status);
- 341              		.loc 1 94 5 is_stmt 1 view .LVU61
- 342              		.loc 1 94 12 is_stmt 0 view .LVU62
- 343 0004 2021     		movs	r1, #32
- 344              	.LVL29:
- 345              		.loc 1 94 12 view .LVU63
- 346 0006 FFF7FEFF 		bl	ENS160_Read8
- 347              	.LVL30:
+ 348              		.loc 1 94 5 is_stmt 1 view .LVU61
+ 349              		.loc 1 94 12 is_stmt 0 view .LVU62
+ 350 0004 2021     		movs	r1, #32
+ 351              	.LVL29:
+ 352              		.loc 1 94 12 view .LVU63
+ 353 0006 FFF7FEFF 		bl	ENS160_Read8
+ 354              	.LVL30:
   95:Core/Src/ens160_sensor.c **** }
- 348              		.loc 1 95 1 view .LVU64
- 349 000a 08BD     		pop	{r3, pc}
- 350              		.cfi_endproc
- 351              	.LFE142:
- 353              		.section	.text.ENS160_ReadID,"ax",%progbits
- 354              		.align	1
- 355              		.global	ENS160_ReadID
- 356              		.syntax unified
- 357              		.thumb
- 358              		.thumb_func
- 360              	ENS160_ReadID:
- 361              	.LVL31:
- 362              	.LFB143:
+ 355              		.loc 1 95 1 view .LVU64
+ 356 000a 08BD     		pop	{r3, pc}
+ 357              		.cfi_endproc
+ 358              	.LFE142:
+ 360              		.section	.text.ENS160_ReadID,"ax",%progbits
+ 361              		.align	1
+ 362              		.global	ENS160_ReadID
+ 363              		.syntax unified
+ 364              		.thumb
+ 365              		.thumb_func
+ 366              		.fpu fpv4-sp-d16
+ 368              	ENS160_ReadID:
+ 369              	.LVL31:
+ 370              	.LFB143:
   96:Core/Src/ens160_sensor.c **** 
   97:Core/Src/ens160_sensor.c **** /**
   98:Core/Src/ens160_sensor.c ****  * @brief Read part ID (should be 0x0160)
   99:Core/Src/ens160_sensor.c ****  */
  100:Core/Src/ens160_sensor.c **** HAL_StatusTypeDef ENS160_ReadID(ENS160_HandleTypeDef *dev, uint16_t *id)
  101:Core/Src/ens160_sensor.c **** {
- 363              		.loc 1 101 1 is_stmt 1 view -0
- 364              		.cfi_startproc
- 365              		@ args = 0, pretend = 0, frame = 0
- 366              		@ frame_needed = 0, uses_anonymous_args = 0
- 367              		.loc 1 101 1 is_stmt 0 view .LVU66
- 368 0000 08B5     		push	{r3, lr}
- 369              	.LCFI14:
- 370              		.cfi_def_cfa_offset 8
- 371              		.cfi_offset 3, -8
- 372              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccEfhofY.s 			page 9
+ 371              		.loc 1 101 1 is_stmt 1 view -0
+ 372              		.cfi_startproc
+ARM GAS  /tmp/ccPI81q4.s 			page 9
 
 
- 373 0002 0A46     		mov	r2, r1
+ 373              		@ args = 0, pretend = 0, frame = 0
+ 374              		@ frame_needed = 0, uses_anonymous_args = 0
+ 375              		.loc 1 101 1 is_stmt 0 view .LVU66
+ 376 0000 08B5     		push	{r3, lr}
+ 377              	.LCFI14:
+ 378              		.cfi_def_cfa_offset 8
+ 379              		.cfi_offset 3, -8
+ 380              		.cfi_offset 14, -4
+ 381 0002 0A46     		mov	r2, r1
  102:Core/Src/ens160_sensor.c ****     return ENS160_Read16(dev, ENS160_REG_PART_ID, id);
- 374              		.loc 1 102 5 is_stmt 1 view .LVU67
- 375              		.loc 1 102 12 is_stmt 0 view .LVU68
- 376 0004 0021     		movs	r1, #0
- 377              	.LVL32:
- 378              		.loc 1 102 12 view .LVU69
- 379 0006 FFF7FEFF 		bl	ENS160_Read16
- 380              	.LVL33:
+ 382              		.loc 1 102 5 is_stmt 1 view .LVU67
+ 383              		.loc 1 102 12 is_stmt 0 view .LVU68
+ 384 0004 0021     		movs	r1, #0
+ 385              	.LVL32:
+ 386              		.loc 1 102 12 view .LVU69
+ 387 0006 FFF7FEFF 		bl	ENS160_Read16
+ 388              	.LVL33:
  103:Core/Src/ens160_sensor.c **** }
- 381              		.loc 1 103 1 view .LVU70
- 382 000a 08BD     		pop	{r3, pc}
- 383              		.cfi_endproc
- 384              	.LFE143:
- 386              		.section	.text.ENS160_Init,"ax",%progbits
- 387              		.align	1
- 388              		.global	ENS160_Init
- 389              		.syntax unified
- 390              		.thumb
- 391              		.thumb_func
- 393              	ENS160_Init:
- 394              	.LVL34:
- 395              	.LFB137:
+ 389              		.loc 1 103 1 view .LVU70
+ 390 000a 08BD     		pop	{r3, pc}
+ 391              		.cfi_endproc
+ 392              	.LFE143:
+ 394              		.section	.text.ENS160_Init,"ax",%progbits
+ 395              		.align	1
+ 396              		.global	ENS160_Init
+ 397              		.syntax unified
+ 398              		.thumb
+ 399              		.thumb_func
+ 400              		.fpu fpv4-sp-d16
+ 402              	ENS160_Init:
+ 403              	.LVL34:
+ 404              	.LFB137:
   37:Core/Src/ens160_sensor.c **** 
- 396              		.loc 1 37 1 is_stmt 1 view -0
- 397              		.cfi_startproc
- 398              		@ args = 0, pretend = 0, frame = 8
- 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 405              		.loc 1 37 1 is_stmt 1 view -0
+ 406              		.cfi_startproc
+ 407              		@ args = 0, pretend = 0, frame = 8
+ 408              		@ frame_needed = 0, uses_anonymous_args = 0
   37:Core/Src/ens160_sensor.c **** 
- 400              		.loc 1 37 1 is_stmt 0 view .LVU72
- 401 0000 30B5     		push	{r4, r5, lr}
- 402              	.LCFI15:
- 403              		.cfi_def_cfa_offset 12
- 404              		.cfi_offset 4, -12
- 405              		.cfi_offset 5, -8
- 406              		.cfi_offset 14, -4
- 407 0002 83B0     		sub	sp, sp, #12
- 408              	.LCFI16:
- 409              		.cfi_def_cfa_offset 24
- 410 0004 0446     		mov	r4, r0
+ 409              		.loc 1 37 1 is_stmt 0 view .LVU72
+ 410 0000 30B5     		push	{r4, r5, lr}
+ 411              	.LCFI15:
+ 412              		.cfi_def_cfa_offset 12
+ 413              		.cfi_offset 4, -12
+ 414              		.cfi_offset 5, -8
+ 415              		.cfi_offset 14, -4
+ 416 0002 83B0     		sub	sp, sp, #12
+ 417              	.LCFI16:
+ 418              		.cfi_def_cfa_offset 24
+ 419 0004 0446     		mov	r4, r0
   39:Core/Src/ens160_sensor.c ****     dev->hi2c = hi2c;
- 411              		.loc 1 39 5 is_stmt 1 view .LVU73
+ 420              		.loc 1 39 5 is_stmt 1 view .LVU73
   39:Core/Src/ens160_sensor.c ****     dev->hi2c = hi2c;
- 412              		.loc 1 39 19 is_stmt 0 view .LVU74
- 413 0006 0271     		strb	r2, [r0, #4]
+ 421              		.loc 1 39 19 is_stmt 0 view .LVU74
+ 422 0006 0271     		strb	r2, [r0, #4]
   40:Core/Src/ens160_sensor.c **** 
- 414              		.loc 1 40 5 is_stmt 1 view .LVU75
+ 423              		.loc 1 40 5 is_stmt 1 view .LVU75
   40:Core/Src/ens160_sensor.c **** 
- 415              		.loc 1 40 15 is_stmt 0 view .LVU76
- 416 0008 0160     		str	r1, [r0]
+ARM GAS  /tmp/ccPI81q4.s 			page 10
+
+
+ 424              		.loc 1 40 15 is_stmt 0 view .LVU76
+ 425 0008 0160     		str	r1, [r0]
   42:Core/Src/ens160_sensor.c ****     if (ENS160_ReadID(dev, &id) != HAL_OK || id != 0x0160)
- 417              		.loc 1 42 5 is_stmt 1 view .LVU77
+ 426              		.loc 1 42 5 is_stmt 1 view .LVU77
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 418              		.loc 1 43 5 view .LVU78
+ 427              		.loc 1 43 5 view .LVU78
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 419              		.loc 1 43 9 is_stmt 0 view .LVU79
- 420 000a 0DF10601 		add	r1, sp, #6
-ARM GAS  /tmp/ccEfhofY.s 			page 10
-
-
- 421              	.LVL35:
+ 428              		.loc 1 43 9 is_stmt 0 view .LVU79
+ 429 000a 0DF10601 		add	r1, sp, #6
+ 430              	.LVL35:
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 422              		.loc 1 43 9 view .LVU80
- 423 000e FFF7FEFF 		bl	ENS160_ReadID
- 424              	.LVL36:
+ 431              		.loc 1 43 9 view .LVU80
+ 432 000e FFF7FEFF 		bl	ENS160_ReadID
+ 433              	.LVL36:
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 425              		.loc 1 43 8 discriminator 1 view .LVU81
- 426 0012 C0B9     		cbnz	r0, .L22
- 427 0014 0546     		mov	r5, r0
+ 434              		.loc 1 43 8 view .LVU81
+ 435 0012 C0B9     		cbnz	r0, .L22
+ 436 0014 0546     		mov	r5, r0
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 428              		.loc 1 43 49 discriminator 1 view .LVU82
- 429 0016 BDF80630 		ldrh	r3, [sp, #6]
+ 437              		.loc 1 43 49 discriminator 1 view .LVU82
+ 438 0016 BDF80630 		ldrh	r3, [sp, #6]
   43:Core/Src/ens160_sensor.c ****         return HAL_ERROR;
- 430              		.loc 1 43 43 discriminator 1 view .LVU83
- 431 001a B3F5B07F 		cmp	r3, #352
- 432 001e 03D0     		beq	.L25
+ 439              		.loc 1 43 43 discriminator 1 view .LVU83
+ 440 001a B3F5B07F 		cmp	r3, #352
+ 441 001e 03D0     		beq	.L25
   44:Core/Src/ens160_sensor.c **** 
- 433              		.loc 1 44 16 view .LVU84
- 434 0020 0125     		movs	r5, #1
- 435              	.L21:
+ 442              		.loc 1 44 16 view .LVU84
+ 443 0020 0125     		movs	r5, #1
+ 444              	.L21:
   55:Core/Src/ens160_sensor.c **** 
- 436              		.loc 1 55 1 view .LVU85
- 437 0022 2846     		mov	r0, r5
- 438 0024 03B0     		add	sp, sp, #12
- 439              	.LCFI17:
- 440              		.cfi_remember_state
- 441              		.cfi_def_cfa_offset 12
- 442              		@ sp needed
- 443 0026 30BD     		pop	{r4, r5, pc}
- 444              	.LVL37:
- 445              	.L25:
- 446              	.LCFI18:
- 447              		.cfi_restore_state
+ 445              		.loc 1 55 1 view .LVU85
+ 446 0022 2846     		mov	r0, r5
+ 447 0024 03B0     		add	sp, sp, #12
+ 448              	.LCFI17:
+ 449              		.cfi_remember_state
+ 450              		.cfi_def_cfa_offset 12
+ 451              		@ sp needed
+ 452 0026 30BD     		pop	{r4, r5, pc}
+ 453              	.LVL37:
+ 454              	.L25:
+ 455              	.LCFI18:
+ 456              		.cfi_restore_state
   47:Core/Src/ens160_sensor.c ****     HAL_Delay(50);
- 448              		.loc 1 47 5 is_stmt 1 view .LVU86
- 449 0028 0121     		movs	r1, #1
- 450 002a 2046     		mov	r0, r4
- 451 002c FFF7FEFF 		bl	ENS160_SetMode
- 452              	.LVL38:
+ 457              		.loc 1 47 5 is_stmt 1 view .LVU86
+ 458 0028 0121     		movs	r1, #1
+ 459 002a 2046     		mov	r0, r4
+ 460 002c FFF7FEFF 		bl	ENS160_SetMode
+ 461              	.LVL38:
   48:Core/Src/ens160_sensor.c **** 
- 453              		.loc 1 48 5 view .LVU87
- 454 0030 3220     		movs	r0, #50
- 455 0032 FFF7FEFF 		bl	HAL_Delay
- 456              	.LVL39:
+ 462              		.loc 1 48 5 view .LVU87
+ 463 0030 3220     		movs	r0, #50
+ 464 0032 FFF7FEFF 		bl	HAL_Delay
+ 465              	.LVL39:
   51:Core/Src/ens160_sensor.c ****     HAL_Delay(200);
- 457              		.loc 1 51 5 view .LVU88
- 458 0036 0221     		movs	r1, #2
- 459 0038 2046     		mov	r0, r4
- 460 003a FFF7FEFF 		bl	ENS160_SetMode
- 461              	.LVL40:
+ 466              		.loc 1 51 5 view .LVU88
+ 467 0036 0221     		movs	r1, #2
+ 468 0038 2046     		mov	r0, r4
+ARM GAS  /tmp/ccPI81q4.s 			page 11
+
+
+ 469 003a FFF7FEFF 		bl	ENS160_SetMode
+ 470              	.LVL40:
   52:Core/Src/ens160_sensor.c **** 
- 462              		.loc 1 52 5 view .LVU89
- 463 003e C820     		movs	r0, #200
- 464 0040 FFF7FEFF 		bl	HAL_Delay
- 465              	.LVL41:
+ 471              		.loc 1 52 5 view .LVU89
+ 472 003e C820     		movs	r0, #200
+ 473 0040 FFF7FEFF 		bl	HAL_Delay
+ 474              	.LVL41:
   54:Core/Src/ens160_sensor.c **** }
- 466              		.loc 1 54 5 view .LVU90
-ARM GAS  /tmp/ccEfhofY.s 			page 11
-
-
+ 475              		.loc 1 54 5 view .LVU90
   54:Core/Src/ens160_sensor.c **** }
- 467              		.loc 1 54 12 is_stmt 0 view .LVU91
- 468 0044 EDE7     		b	.L21
- 469              	.L22:
+ 476              		.loc 1 54 12 is_stmt 0 view .LVU91
+ 477 0044 EDE7     		b	.L21
+ 478              	.L22:
   44:Core/Src/ens160_sensor.c **** 
- 470              		.loc 1 44 16 view .LVU92
- 471 0046 0125     		movs	r5, #1
- 472 0048 EBE7     		b	.L21
- 473              		.cfi_endproc
- 474              	.LFE137:
- 476              		.text
- 477              	.Letext0:
- 478              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
- 479              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 480              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 481              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 482              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 483              		.file 7 "Core/Inc/ens160_sensor.h"
- 484              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  /tmp/ccEfhofY.s 			page 12
+ 479              		.loc 1 44 16 view .LVU92
+ 480 0046 0125     		movs	r5, #1
+ 481 0048 EBE7     		b	.L21
+ 482              		.cfi_endproc
+ 483              	.LFE137:
+ 485              		.section	.text.ENS160_GetValidity,"ax",%progbits
+ 486              		.align	1
+ 487              		.global	ENS160_GetValidity
+ 488              		.syntax unified
+ 489              		.thumb
+ 490              		.thumb_func
+ 491              		.fpu fpv4-sp-d16
+ 493              	ENS160_GetValidity:
+ 494              	.LVL42:
+ 495              	.LFB144:
+ 104:Core/Src/ens160_sensor.c **** 
+ 105:Core/Src/ens160_sensor.c **** /**
+ 106:Core/Src/ens160_sensor.c ****  * @brief Get validity flag from device status
+ 107:Core/Src/ens160_sensor.c ****  * @return 0=Normal, 1=Warm-up, 2=Initial Start-up, 3=Invalid
+ 108:Core/Src/ens160_sensor.c ****  */
+ 109:Core/Src/ens160_sensor.c **** uint8_t ENS160_GetValidity(ENS160_HandleTypeDef *dev)
+ 110:Core/Src/ens160_sensor.c **** {
+ 496              		.loc 1 110 1 is_stmt 1 view -0
+ 497              		.cfi_startproc
+ 498              		@ args = 0, pretend = 0, frame = 8
+ 499              		@ frame_needed = 0, uses_anonymous_args = 0
+ 500              		.loc 1 110 1 is_stmt 0 view .LVU94
+ 501 0000 00B5     		push	{lr}
+ 502              	.LCFI19:
+ 503              		.cfi_def_cfa_offset 4
+ 504              		.cfi_offset 14, -4
+ 505 0002 83B0     		sub	sp, sp, #12
+ 506              	.LCFI20:
+ 507              		.cfi_def_cfa_offset 16
+ 111:Core/Src/ens160_sensor.c ****     uint8_t status = 0;
+ 508              		.loc 1 111 5 is_stmt 1 view .LVU95
+ 509              		.loc 1 111 13 is_stmt 0 view .LVU96
+ 510 0004 0023     		movs	r3, #0
+ 511 0006 8DF80730 		strb	r3, [sp, #7]
+ 112:Core/Src/ens160_sensor.c ****     if (ENS160_ReadStatus(dev, &status) == HAL_OK) {
+ 512              		.loc 1 112 5 is_stmt 1 view .LVU97
+ 513              		.loc 1 112 9 is_stmt 0 view .LVU98
+ 514 000a 0DF10701 		add	r1, sp, #7
+ARM GAS  /tmp/ccPI81q4.s 			page 12
+
+
+ 515 000e FFF7FEFF 		bl	ENS160_ReadStatus
+ 516              	.LVL43:
+ 517              		.loc 1 112 8 view .LVU99
+ 518 0012 18B1     		cbz	r0, .L30
+ 113:Core/Src/ens160_sensor.c ****         return (status >> 2) & 0x03;  // Bits 2-3
+ 114:Core/Src/ens160_sensor.c ****     }
+ 115:Core/Src/ens160_sensor.c ****     return ENS160_VALIDITY_INVALID;
+ 519              		.loc 1 115 12 view .LVU100
+ 520 0014 0320     		movs	r0, #3
+ 521              	.L27:
+ 116:Core/Src/ens160_sensor.c **** }
+ 522              		.loc 1 116 1 view .LVU101
+ 523 0016 03B0     		add	sp, sp, #12
+ 524              	.LCFI21:
+ 525              		.cfi_remember_state
+ 526              		.cfi_def_cfa_offset 4
+ 527              		@ sp needed
+ 528 0018 5DF804FB 		ldr	pc, [sp], #4
+ 529              	.L30:
+ 530              	.LCFI22:
+ 531              		.cfi_restore_state
+ 113:Core/Src/ens160_sensor.c ****         return (status >> 2) & 0x03;  // Bits 2-3
+ 532              		.loc 1 113 9 is_stmt 1 view .LVU102
+ 113:Core/Src/ens160_sensor.c ****         return (status >> 2) & 0x03;  // Bits 2-3
+ 533              		.loc 1 113 30 is_stmt 0 view .LVU103
+ 534 001c 9DF80700 		ldrb	r0, [sp, #7]	@ zero_extendqisi2
+ 535 0020 C0F38100 		ubfx	r0, r0, #2, #2
+ 536 0024 F7E7     		b	.L27
+ 537              		.cfi_endproc
+ 538              	.LFE144:
+ 540              		.section	.text.ENS160_IsDataReady,"ax",%progbits
+ 541              		.align	1
+ 542              		.global	ENS160_IsDataReady
+ 543              		.syntax unified
+ 544              		.thumb
+ 545              		.thumb_func
+ 546              		.fpu fpv4-sp-d16
+ 548              	ENS160_IsDataReady:
+ 549              	.LVL44:
+ 550              	.LFB145:
+ 117:Core/Src/ens160_sensor.c **** 
+ 118:Core/Src/ens160_sensor.c **** /**
+ 119:Core/Src/ens160_sensor.c ****  * @brief Check if new data is available
+ 120:Core/Src/ens160_sensor.c ****  * @return 1 if new data ready, 0 otherwise
+ 121:Core/Src/ens160_sensor.c ****  */
+ 122:Core/Src/ens160_sensor.c **** uint8_t ENS160_IsDataReady(ENS160_HandleTypeDef *dev)
+ 123:Core/Src/ens160_sensor.c **** {
+ 551              		.loc 1 123 1 is_stmt 1 view -0
+ 552              		.cfi_startproc
+ 553              		@ args = 0, pretend = 0, frame = 8
+ 554              		@ frame_needed = 0, uses_anonymous_args = 0
+ 555              		.loc 1 123 1 is_stmt 0 view .LVU105
+ 556 0000 00B5     		push	{lr}
+ 557              	.LCFI23:
+ 558              		.cfi_def_cfa_offset 4
+ 559              		.cfi_offset 14, -4
+ 560 0002 83B0     		sub	sp, sp, #12
+ARM GAS  /tmp/ccPI81q4.s 			page 13
+
+
+ 561              	.LCFI24:
+ 562              		.cfi_def_cfa_offset 16
+ 124:Core/Src/ens160_sensor.c ****     uint8_t status = 0;
+ 563              		.loc 1 124 5 is_stmt 1 view .LVU106
+ 564              		.loc 1 124 13 is_stmt 0 view .LVU107
+ 565 0004 0023     		movs	r3, #0
+ 566 0006 8DF80730 		strb	r3, [sp, #7]
+ 125:Core/Src/ens160_sensor.c ****     if (ENS160_ReadStatus(dev, &status) == HAL_OK) {
+ 567              		.loc 1 125 5 is_stmt 1 view .LVU108
+ 568              		.loc 1 125 9 is_stmt 0 view .LVU109
+ 569 000a 0DF10701 		add	r1, sp, #7
+ 570 000e FFF7FEFF 		bl	ENS160_ReadStatus
+ 571              	.LVL45:
+ 572              		.loc 1 125 8 view .LVU110
+ 573 0012 18B1     		cbz	r0, .L35
+ 126:Core/Src/ens160_sensor.c ****         return (status & ENS160_STATUS_NEWDAT) ? 1 : 0;
+ 127:Core/Src/ens160_sensor.c ****     }
+ 128:Core/Src/ens160_sensor.c ****     return 0;
+ 574              		.loc 1 128 12 view .LVU111
+ 575 0014 0020     		movs	r0, #0
+ 576              	.L32:
+ 129:Core/Src/ens160_sensor.c **** }
+ 577              		.loc 1 129 1 view .LVU112
+ 578 0016 03B0     		add	sp, sp, #12
+ 579              	.LCFI25:
+ 580              		.cfi_remember_state
+ 581              		.cfi_def_cfa_offset 4
+ 582              		@ sp needed
+ 583 0018 5DF804FB 		ldr	pc, [sp], #4
+ 584              	.L35:
+ 585              	.LCFI26:
+ 586              		.cfi_restore_state
+ 126:Core/Src/ens160_sensor.c ****         return (status & ENS160_STATUS_NEWDAT) ? 1 : 0;
+ 587              		.loc 1 126 9 is_stmt 1 view .LVU113
+ 126:Core/Src/ens160_sensor.c ****         return (status & ENS160_STATUS_NEWDAT) ? 1 : 0;
+ 588              		.loc 1 126 52 is_stmt 0 view .LVU114
+ 589 001c 9DF80700 		ldrb	r0, [sp, #7]	@ zero_extendqisi2
+ 590 0020 C0F34000 		ubfx	r0, r0, #1, #1
+ 591 0024 F7E7     		b	.L32
+ 592              		.cfi_endproc
+ 593              	.LFE145:
+ 595              		.text
+ 596              	.Letext0:
+ 597              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 598              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 599              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 600              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 601              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 602              		.file 7 "Core/Inc/ens160_sensor.h"
+ 603              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  /tmp/ccPI81q4.s 			page 14
 
 
 DEFINED SYMBOLS
-                            *ABS*:00000000 ens160_sensor.c
-     /tmp/ccEfhofY.s:21     .text.ENS160_Write8:00000000 $t
-     /tmp/ccEfhofY.s:26     .text.ENS160_Write8:00000000 ENS160_Write8
-     /tmp/ccEfhofY.s:73     .text.ENS160_Read8:00000000 $t
-     /tmp/ccEfhofY.s:78     .text.ENS160_Read8:00000000 ENS160_Read8
-     /tmp/ccEfhofY.s:121    .text.ENS160_Read16:00000000 $t
-     /tmp/ccEfhofY.s:126    .text.ENS160_Read16:00000000 ENS160_Read16
-     /tmp/ccEfhofY.s:189    .text.ENS160_SetMode:00000000 $t
-     /tmp/ccEfhofY.s:195    .text.ENS160_SetMode:00000000 ENS160_SetMode
-     /tmp/ccEfhofY.s:222    .text.ENS160_ReadAQI:00000000 $t
-     /tmp/ccEfhofY.s:228    .text.ENS160_ReadAQI:00000000 ENS160_ReadAQI
-     /tmp/ccEfhofY.s:255    .text.ENS160_ReadTVOC:00000000 $t
-     /tmp/ccEfhofY.s:261    .text.ENS160_ReadTVOC:00000000 ENS160_ReadTVOC
-     /tmp/ccEfhofY.s:288    .text.ENS160_ReadECO2:00000000 $t
-     /tmp/ccEfhofY.s:294    .text.ENS160_ReadECO2:00000000 ENS160_ReadECO2
-     /tmp/ccEfhofY.s:321    .text.ENS160_ReadStatus:00000000 $t
-     /tmp/ccEfhofY.s:327    .text.ENS160_ReadStatus:00000000 ENS160_ReadStatus
-     /tmp/ccEfhofY.s:354    .text.ENS160_ReadID:00000000 $t
-     /tmp/ccEfhofY.s:360    .text.ENS160_ReadID:00000000 ENS160_ReadID
-     /tmp/ccEfhofY.s:387    .text.ENS160_Init:00000000 $t
-     /tmp/ccEfhofY.s:393    .text.ENS160_Init:00000000 ENS160_Init
+                            *ABS*:0000000000000000 ens160_sensor.c
+     /tmp/ccPI81q4.s:18     .text.ENS160_Write8:0000000000000000 $t
+     /tmp/ccPI81q4.s:25     .text.ENS160_Write8:0000000000000000 ENS160_Write8
+     /tmp/ccPI81q4.s:73     .text.ENS160_Read8:0000000000000000 $t
+     /tmp/ccPI81q4.s:79     .text.ENS160_Read8:0000000000000000 ENS160_Read8
+     /tmp/ccPI81q4.s:122    .text.ENS160_Read16:0000000000000000 $t
+     /tmp/ccPI81q4.s:128    .text.ENS160_Read16:0000000000000000 ENS160_Read16
+     /tmp/ccPI81q4.s:191    .text.ENS160_SetMode:0000000000000000 $t
+     /tmp/ccPI81q4.s:198    .text.ENS160_SetMode:0000000000000000 ENS160_SetMode
+     /tmp/ccPI81q4.s:225    .text.ENS160_ReadAQI:0000000000000000 $t
+     /tmp/ccPI81q4.s:232    .text.ENS160_ReadAQI:0000000000000000 ENS160_ReadAQI
+     /tmp/ccPI81q4.s:259    .text.ENS160_ReadTVOC:0000000000000000 $t
+     /tmp/ccPI81q4.s:266    .text.ENS160_ReadTVOC:0000000000000000 ENS160_ReadTVOC
+     /tmp/ccPI81q4.s:293    .text.ENS160_ReadECO2:0000000000000000 $t
+     /tmp/ccPI81q4.s:300    .text.ENS160_ReadECO2:0000000000000000 ENS160_ReadECO2
+     /tmp/ccPI81q4.s:327    .text.ENS160_ReadStatus:0000000000000000 $t
+     /tmp/ccPI81q4.s:334    .text.ENS160_ReadStatus:0000000000000000 ENS160_ReadStatus
+     /tmp/ccPI81q4.s:361    .text.ENS160_ReadID:0000000000000000 $t
+     /tmp/ccPI81q4.s:368    .text.ENS160_ReadID:0000000000000000 ENS160_ReadID
+     /tmp/ccPI81q4.s:395    .text.ENS160_Init:0000000000000000 $t
+     /tmp/ccPI81q4.s:402    .text.ENS160_Init:0000000000000000 ENS160_Init
+     /tmp/ccPI81q4.s:486    .text.ENS160_GetValidity:0000000000000000 $t
+     /tmp/ccPI81q4.s:493    .text.ENS160_GetValidity:0000000000000000 ENS160_GetValidity
+     /tmp/ccPI81q4.s:541    .text.ENS160_IsDataReady:0000000000000000 $t
+     /tmp/ccPI81q4.s:548    .text.ENS160_IsDataReady:0000000000000000 ENS160_IsDataReady
 
 UNDEFINED SYMBOLS
 HAL_I2C_Mem_Write

@@ -50,20 +50,12 @@ void MX_DMA_Init(void)
   HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 3, 0);
   HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
   /* DMA2_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 3, 0);  // I2S DMA: 优先级3（略高于I2C的4，避免完全阻塞I2C）
   HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
 
 }
 
 /* USER CODE BEGIN 2 */
-
-// Fix I2S DMA priority to avoid I2C conflict
-// Call this after MX_DMA_Init() in main.c
-void DMA_Fix_Priority(void)
-{
-  // Lower I2S DMA priority to avoid interrupting I2C blocking operations
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
-}
 
 /* USER CODE END 2 */
 

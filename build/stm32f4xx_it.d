@@ -29,8 +29,10 @@ build/stm32f4xx_it.o: Core/Src/stm32f4xx_it.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Core/Inc/main.h \
- Core/Inc/usart.h Core/Inc/stm32f4xx_it.h Core/Inc/microphone_sensor.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
+ Core/Inc/stm32f4xx_it.h Core/Inc/my_main.h Core/Inc/main.h \
+ Core/Inc/vcnl4040_sensor.h Core/Inc/icm42688_sensor.h \
+ Core/Inc/microphone_sensor.h
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
@@ -65,7 +67,9 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h:
-Core/Inc/main.h:
-Core/Inc/usart.h:
 Core/Inc/stm32f4xx_it.h:
+Core/Inc/my_main.h:
+Core/Inc/main.h:
+Core/Inc/vcnl4040_sensor.h:
+Core/Inc/icm42688_sensor.h:
 Core/Inc/microphone_sensor.h:

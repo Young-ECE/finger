@@ -29,42 +29,18 @@ static HAL_StatusTypeDef BME280_ReadReg(BME280_HandleTypeDef *dev, uint8_t reg, 
 /* ==== TCA9548A: SELECT MULTIPLEXER CHANNEL ==== */
 HAL_StatusTypeDef TCA9548A_SelectChannel(I2C_HandleTypeDef *hi2c, uint8_t mux_addr, uint8_t channel)
 {
-    uint8_t control_byte, readback;
-    HAL_StatusTypeDef status;
+    uint8_t control_byte;
 
     if (channel > 7)
         return HAL_ERROR;
 
     control_byte = (1 << channel);
 
-    /* Always write channel selection (don't trust cached state) */
-    for (int retry = 0; retry < 2; retry++) {  // Reduced from 3 to 2 retries
-        /* Write channel selection */
-        status = HAL_I2C_Master_Transmit(hi2c, mux_addr, &control_byte, 1, 50);
-        if (status != HAL_OK) {
-            continue;  // No delay between retries
-        }
-
-        /* Small delay for multiplexer to settle */
-        for (volatile int i = 0; i < 50; i++);  // Reduced delay
-
-        /* Verify channel switched correctly by reading back control register */
-        status = HAL_I2C_Master_Receive(hi2c, mux_addr, &readback, 1, 50);
-        if (status != HAL_OK) {
-            continue;  // No delay between retries
-        }
-
-        /* Check if expected channel is active */
-        if (readback == control_byte) {
-            return HAL_OK;
-        }
-        
-        /* Retry on mismatch - minimal delay */
-        for (volatile int i = 0; i < 100; i++);
-    }
-
-    /* All retries failed */
-    return HAL_ERROR;
+    /* Optimized: single write, no verification, no retry
+     * This reduces switching time from ~1-5ms to ~0.5ms
+     * to avoid blocking I2S interrupts (8kHz, 125μs period)
+     */
+    return HAL_I2C_Master_Transmit(hi2c, mux_addr, &control_byte, 1, 10);
 }
 
 /* ==== BME280: READ CALIBRATION DATA ==== */

@@ -1,33 +1,33 @@
-ARM GAS  /tmp/ccU1BmZ5.s 			page 1
+ARM GAS  /tmp/cc0veSP4.s 			page 1
 
 
    1              		.cpu cortex-m4
-   2              		.arch armv7e-m
-   3              		.fpu fpv4-sp-d16
-   4              		.eabi_attribute 27, 1
-   5              		.eabi_attribute 28, 1
-   6              		.eabi_attribute 20, 1
-   7              		.eabi_attribute 21, 1
-   8              		.eabi_attribute 23, 3
-   9              		.eabi_attribute 24, 1
-  10              		.eabi_attribute 25, 1
-  11              		.eabi_attribute 26, 1
-  12              		.eabi_attribute 30, 1
-  13              		.eabi_attribute 34, 1
-  14              		.eabi_attribute 18, 4
-  15              		.file	"vcnl4040_sensor.c"
-  16              		.text
-  17              	.Ltext0:
-  18              		.cfi_sections	.debug_frame
-  19              		.file 1 "Core/Src/vcnl4040_sensor.c"
-  20              		.section	.text.VCNL4040_Write16,"ax",%progbits
-  21              		.align	1
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  26              	VCNL4040_Write16:
-  27              	.LVL0:
-  28              	.LFB134:
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"vcnl4040_sensor.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.VCNL4040_Write16,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	VCNL4040_Write16:
+  26              	.LVL0:
+  27              	.LFB134:
+  28              		.file 1 "Core/Src/vcnl4040_sensor.c"
    1:Core/Src/vcnl4040_sensor.c **** /**
    2:Core/Src/vcnl4040_sensor.c ****  * @file vcnl4040_sensor.c
    3:Core/Src/vcnl4040_sensor.c ****  * @brief VCNL4040 driver implementation
@@ -58,11 +58,11 @@ ARM GAS  /tmp/ccU1BmZ5.s 			page 1
   44 0008 8DF81530 		strb	r3, [sp, #21]
   13:Core/Src/vcnl4040_sensor.c ****     return HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
   45              		.loc 1 13 5 is_stmt 1 view .LVU4
-ARM GAS  /tmp/ccU1BmZ5.s 			page 2
+ARM GAS  /tmp/cc0veSP4.s 			page 2
 
 
   46              		.loc 1 13 12 is_stmt 0 view .LVU5
-  47 000c 6423     		movs	r3, #100
+  47 000c 3223     		movs	r3, #50
   48              	.LVL1:
   49              		.loc 1 13 12 view .LVU6
   50 000e 0293     		str	r3, [sp, #8]
@@ -82,7 +82,7 @@ ARM GAS  /tmp/ccU1BmZ5.s 			page 1
   64              		.loc 1 13 12 view .LVU9
   65 0020 FFF7FEFF 		bl	HAL_I2C_Mem_Write
   66              	.LVL5:
-  14:Core/Src/vcnl4040_sensor.c ****                              I2C_MEMADD_SIZE_8BIT, buf, 2, 100);
+  14:Core/Src/vcnl4040_sensor.c ****                              I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
   15:Core/Src/vcnl4040_sensor.c **** }
   67              		.loc 1 15 1 view .LVU10
   68 0024 07B0     		add	sp, sp, #28
@@ -97,448 +97,508 @@ ARM GAS  /tmp/ccU1BmZ5.s 			page 1
   78              		.syntax unified
   79              		.thumb
   80              		.thumb_func
-  82              	VCNL4040_Read16:
-  83              	.LVL6:
-  84              	.LFB135:
+  81              		.fpu fpv4-sp-d16
+  83              	VCNL4040_Read16:
+  84              	.LVL6:
+  85              	.LFB135:
   16:Core/Src/vcnl4040_sensor.c **** 
   17:Core/Src/vcnl4040_sensor.c **** static HAL_StatusTypeDef VCNL4040_Read16(VCNL4040_HandleTypeDef *dev, uint8_t reg, uint16_t *out)
   18:Core/Src/vcnl4040_sensor.c **** {
-  85              		.loc 1 18 1 is_stmt 1 view -0
-  86              		.cfi_startproc
-  87              		@ args = 0, pretend = 0, frame = 8
-  88              		@ frame_needed = 0, uses_anonymous_args = 0
-  89              		.loc 1 18 1 is_stmt 0 view .LVU12
-  90 0000 10B5     		push	{r4, lr}
-  91              	.LCFI3:
-  92              		.cfi_def_cfa_offset 8
-  93              		.cfi_offset 4, -8
-  94              		.cfi_offset 14, -4
-  95 0002 86B0     		sub	sp, sp, #24
-  96              	.LCFI4:
-  97              		.cfi_def_cfa_offset 32
-  98 0004 1446     		mov	r4, r2
+  86              		.loc 1 18 1 is_stmt 1 view -0
+  87              		.cfi_startproc
+  88              		@ args = 0, pretend = 0, frame = 8
+  89              		@ frame_needed = 0, uses_anonymous_args = 0
+  90              		.loc 1 18 1 is_stmt 0 view .LVU12
+  91 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  92              	.LCFI3:
+  93              		.cfi_def_cfa_offset 24
+  94              		.cfi_offset 4, -24
+  95              		.cfi_offset 5, -20
+  96              		.cfi_offset 6, -16
+  97              		.cfi_offset 7, -12
+  98              		.cfi_offset 8, -8
+  99              		.cfi_offset 14, -4
+ARM GAS  /tmp/cc0veSP4.s 			page 3
+
+
+ 100 0004 86B0     		sub	sp, sp, #24
+ 101              	.LCFI4:
+ 102              		.cfi_def_cfa_offset 48
+ 103 0006 0546     		mov	r5, r0
+ 104 0008 0F46     		mov	r7, r1
+ 105 000a 9046     		mov	r8, r2
+ 106 000c 0026     		movs	r6, #0
   19:Core/Src/vcnl4040_sensor.c ****     uint8_t buf[2];
-ARM GAS  /tmp/ccU1BmZ5.s 			page 3
+ 107              		.loc 1 19 5 is_stmt 1 view .LVU13
+  20:Core/Src/vcnl4040_sensor.c ****     HAL_StatusTypeDef ret;
+ 108              		.loc 1 20 5 view .LVU14
+  21:Core/Src/vcnl4040_sensor.c ****     
+  22:Core/Src/vcnl4040_sensor.c ****     /* Try with retry on failure */
+  23:Core/Src/vcnl4040_sensor.c ****     for (int retry = 0; retry < 2; retry++) {
+ 109              		.loc 1 23 5 view .LVU15
+ 110              	.LBB2:
+ 111              		.loc 1 23 10 view .LVU16
+ 112              	.LVL7:
+ 113              		.loc 1 23 14 is_stmt 0 view .LVU17
+ 114 000e 3446     		mov	r4, r6
+ 115              	.LVL8:
+ 116              	.L4:
+ 117              		.loc 1 23 25 is_stmt 1 discriminator 1 view .LVU18
+ 118              		.loc 1 23 5 is_stmt 0 discriminator 1 view .LVU19
+ 119 0010 012C     		cmp	r4, #1
+ 120 0012 1ADC     		bgt	.L6
+  24:Core/Src/vcnl4040_sensor.c ****         ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+ 121              		.loc 1 24 9 is_stmt 1 view .LVU20
+ 122              		.loc 1 24 15 is_stmt 0 view .LVU21
+ 123 0014 3223     		movs	r3, #50
+ 124 0016 0293     		str	r3, [sp, #8]
+ 125 0018 0223     		movs	r3, #2
+ 126 001a 0193     		str	r3, [sp, #4]
+ 127 001c 05AB     		add	r3, sp, #20
+ 128 001e 0093     		str	r3, [sp]
+ 129 0020 0123     		movs	r3, #1
+ 130 0022 3A46     		mov	r2, r7
+ 131 0024 2979     		ldrb	r1, [r5, #4]	@ zero_extendqisi2
+ 132 0026 2868     		ldr	r0, [r5]
+ 133 0028 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 134              	.LVL9:
+  25:Core/Src/vcnl4040_sensor.c ****                                I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
+  26:Core/Src/vcnl4040_sensor.c ****         if (ret == HAL_OK) {
+ 135              		.loc 1 26 9 is_stmt 1 view .LVU22
+ 136              		.loc 1 26 12 is_stmt 0 view .LVU23
+ 137 002c 0646     		mov	r6, r0
+ 138 002e 20B1     		cbz	r0, .L9
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+  28:Core/Src/vcnl4040_sensor.c ****             return HAL_OK;
+  29:Core/Src/vcnl4040_sensor.c ****         }
+  30:Core/Src/vcnl4040_sensor.c ****         HAL_Delay(1);
+ 139              		.loc 1 30 9 is_stmt 1 discriminator 2 view .LVU24
+ 140 0030 0120     		movs	r0, #1
+ 141              	.LVL10:
+ 142              		.loc 1 30 9 is_stmt 0 discriminator 2 view .LVU25
+ 143 0032 FFF7FEFF 		bl	HAL_Delay
+ 144              	.LVL11:
+ARM GAS  /tmp/cc0veSP4.s 			page 4
 
 
-  99              		.loc 1 19 5 is_stmt 1 view .LVU13
-  20:Core/Src/vcnl4040_sensor.c ****     HAL_StatusTypeDef ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
- 100              		.loc 1 20 5 view .LVU14
- 101              		.loc 1 20 29 is_stmt 0 view .LVU15
- 102 0006 6423     		movs	r3, #100
- 103 0008 0293     		str	r3, [sp, #8]
- 104 000a 0223     		movs	r3, #2
- 105 000c 0193     		str	r3, [sp, #4]
- 106 000e 05AB     		add	r3, sp, #20
- 107 0010 0093     		str	r3, [sp]
- 108 0012 0123     		movs	r3, #1
- 109 0014 0A46     		mov	r2, r1
- 110              	.LVL7:
- 111              		.loc 1 20 29 view .LVU16
- 112 0016 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 113              	.LVL8:
- 114              		.loc 1 20 29 view .LVU17
- 115 0018 0068     		ldr	r0, [r0]
- 116              	.LVL9:
- 117              		.loc 1 20 29 view .LVU18
- 118 001a FFF7FEFF 		bl	HAL_I2C_Mem_Read
- 119              	.LVL10:
-  21:Core/Src/vcnl4040_sensor.c ****                                              I2C_MEMADD_SIZE_8BIT, buf, 2, 100);
-  22:Core/Src/vcnl4040_sensor.c ****     if (ret == HAL_OK)
- 120              		.loc 1 22 5 is_stmt 1 view .LVU19
- 121              		.loc 1 22 8 is_stmt 0 view .LVU20
- 122 001e 30B9     		cbnz	r0, .L4
-  23:Core/Src/vcnl4040_sensor.c ****         *out = (uint16_t)((buf[1] << 8) | buf[0]);
- 123              		.loc 1 23 9 is_stmt 1 view .LVU21
- 124              		.loc 1 23 31 is_stmt 0 view .LVU22
- 125 0020 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
- 126              		.loc 1 23 46 view .LVU23
- 127 0024 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
- 128              		.loc 1 23 16 view .LVU24
- 129 0028 43EA0223 		orr	r3, r3, r2, lsl #8
- 130              		.loc 1 23 14 view .LVU25
- 131 002c 2380     		strh	r3, [r4]	@ movhi
- 132              	.L4:
-  24:Core/Src/vcnl4040_sensor.c ****     return ret;
- 133              		.loc 1 24 5 is_stmt 1 view .LVU26
-  25:Core/Src/vcnl4040_sensor.c **** }
- 134              		.loc 1 25 1 is_stmt 0 view .LVU27
- 135 002e 06B0     		add	sp, sp, #24
- 136              	.LCFI5:
- 137              		.cfi_def_cfa_offset 8
- 138              		@ sp needed
- 139 0030 10BD     		pop	{r4, pc}
- 140              		.loc 1 25 1 view .LVU28
- 141              		.cfi_endproc
- 142              	.LFE135:
- 144              		.section	.text.VCNL4040_ReadALS,"ax",%progbits
- 145              		.align	1
- 146              		.global	VCNL4040_ReadALS
- 147              		.syntax unified
- 148              		.thumb
- 149              		.thumb_func
- 151              	VCNL4040_ReadALS:
-ARM GAS  /tmp/ccU1BmZ5.s 			page 4
+  23:Core/Src/vcnl4040_sensor.c ****         ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+ 145              		.loc 1 23 36 is_stmt 1 discriminator 2 view .LVU26
+  23:Core/Src/vcnl4040_sensor.c ****         ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+ 146              		.loc 1 23 41 is_stmt 0 discriminator 2 view .LVU27
+ 147 0036 0134     		adds	r4, r4, #1
+ 148              	.LVL12:
+  23:Core/Src/vcnl4040_sensor.c ****         ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+ 149              		.loc 1 23 41 discriminator 2 view .LVU28
+ 150 0038 EAE7     		b	.L4
+ 151              	.LVL13:
+ 152              	.L9:
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+ 153              		.loc 1 27 13 is_stmt 1 view .LVU29
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+ 154              		.loc 1 27 35 is_stmt 0 view .LVU30
+ 155 003a 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+ 156              		.loc 1 27 50 view .LVU31
+ 157 003e 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+ 158              		.loc 1 27 20 view .LVU32
+ 159 0042 43EA0223 		orr	r3, r3, r2, lsl #8
+  27:Core/Src/vcnl4040_sensor.c ****             *out = (uint16_t)((buf[1] << 8) | buf[0]);
+ 160              		.loc 1 27 18 view .LVU33
+ 161 0046 A8F80030 		strh	r3, [r8]	@ movhi
+  28:Core/Src/vcnl4040_sensor.c ****         }
+ 162              		.loc 1 28 13 is_stmt 1 view .LVU34
+ 163              	.LVL14:
+ 164              	.L6:
+  28:Core/Src/vcnl4040_sensor.c ****         }
+ 165              		.loc 1 28 13 is_stmt 0 view .LVU35
+ 166              	.LBE2:
+  31:Core/Src/vcnl4040_sensor.c ****     }
+  32:Core/Src/vcnl4040_sensor.c ****     
+  33:Core/Src/vcnl4040_sensor.c ****     return ret;
+  34:Core/Src/vcnl4040_sensor.c **** }
+ 167              		.loc 1 34 1 view .LVU36
+ 168 004a 3046     		mov	r0, r6
+ 169 004c 06B0     		add	sp, sp, #24
+ 170              	.LCFI5:
+ 171              		.cfi_def_cfa_offset 24
+ 172              		@ sp needed
+ 173 004e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 174              		.loc 1 34 1 view .LVU37
+ 175              		.cfi_endproc
+ 176              	.LFE135:
+ 178              		.section	.text.VCNL4040_ReadALS,"ax",%progbits
+ 179              		.align	1
+ 180              		.global	VCNL4040_ReadALS
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu fpv4-sp-d16
+ 186              	VCNL4040_ReadALS:
+ 187              	.LVL15:
+ 188              	.LFB137:
+  35:Core/Src/vcnl4040_sensor.c **** 
+ARM GAS  /tmp/cc0veSP4.s 			page 5
 
 
- 152              	.LVL11:
- 153              	.LFB137:
-  26:Core/Src/vcnl4040_sensor.c **** 
-  27:Core/Src/vcnl4040_sensor.c **** /* ==== PUBLIC API ==== */
-  28:Core/Src/vcnl4040_sensor.c **** 
-  29:Core/Src/vcnl4040_sensor.c **** /**
-  30:Core/Src/vcnl4040_sensor.c ****  * @brief Initialize VCNL4040
-  31:Core/Src/vcnl4040_sensor.c ****  */
-  32:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_Init(VCNL4040_HandleTypeDef *dev,I2C_HandleTypeDef *hi2c,uint8_t address
-  33:Core/Src/vcnl4040_sensor.c **** {
-  34:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
-  35:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
-  36:Core/Src/vcnl4040_sensor.c **** 
-  37:Core/Src/vcnl4040_sensor.c ****     /* Check device ID */
-  38:Core/Src/vcnl4040_sensor.c ****     uint16_t id;
-  39:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_ReadID(dev, &id) != HAL_OK || id != 0x0186)
-  40:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-  41:Core/Src/vcnl4040_sensor.c **** 
-  42:Core/Src/vcnl4040_sensor.c ****     /* Enable ALS (160ms), power on */
-  43:Core/Src/vcnl4040_sensor.c ****     uint8_t als_conf_L = VCNL4040_ALS_IT_160MS | VCNL4040_ALS_SD_OFF;
-  44:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_ALS_CONF, als_conf_L, 0x00) != HAL_OK)
-  45:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-  46:Core/Src/vcnl4040_sensor.c **** 
-  47:Core/Src/vcnl4040_sensor.c ****     /* Enable PS (normal operation, LED current 120mA) */
-  48:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_L = 0x00;  // PS_SD=0, duty=1/40, IT=1T
-  49:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_H = 0x00;  // 16-bit mode, interrupt disable
-  50:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF1_2, ps_conf1_L, ps_conf1_H) != HAL_OK)
-  51:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-  52:Core/Src/vcnl4040_sensor.c **** 
-  53:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_L = 0x00;
-  54:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_H = (0x00 << 6) | VCNL4040_LED_I_120MA;
-  55:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF3_MS, ps_conf3_L, ps_conf3_H) != HAL_OK)
-  56:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-  57:Core/Src/vcnl4040_sensor.c **** 
-  58:Core/Src/vcnl4040_sensor.c ****     HAL_Delay(50);
-  59:Core/Src/vcnl4040_sensor.c ****     return HAL_OK;
-  60:Core/Src/vcnl4040_sensor.c **** }
+  36:Core/Src/vcnl4040_sensor.c **** /* ==== PUBLIC API ==== */
+  37:Core/Src/vcnl4040_sensor.c **** 
+  38:Core/Src/vcnl4040_sensor.c **** /**
+  39:Core/Src/vcnl4040_sensor.c ****  * @brief Initialize VCNL4040
+  40:Core/Src/vcnl4040_sensor.c ****  */
+  41:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_Init(VCNL4040_HandleTypeDef *dev,I2C_HandleTypeDef *hi2c,uint8_t address
+  42:Core/Src/vcnl4040_sensor.c **** {
+  43:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
+  44:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
+  45:Core/Src/vcnl4040_sensor.c **** 
+  46:Core/Src/vcnl4040_sensor.c ****     /* Check device ID */
+  47:Core/Src/vcnl4040_sensor.c ****     uint16_t id;
+  48:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_ReadID(dev, &id) != HAL_OK || id != 0x0186)
+  49:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+  50:Core/Src/vcnl4040_sensor.c **** 
+  51:Core/Src/vcnl4040_sensor.c ****     /* Enable ALS (160ms), power on */
+  52:Core/Src/vcnl4040_sensor.c ****     uint8_t als_conf_L = VCNL4040_ALS_IT_160MS | VCNL4040_ALS_SD_OFF;
+  53:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_ALS_CONF, als_conf_L, 0x00) != HAL_OK)
+  54:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+  55:Core/Src/vcnl4040_sensor.c **** 
+  56:Core/Src/vcnl4040_sensor.c ****     /* Enable PS (normal operation, LED current 120mA) */
+  57:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_L = 0x00;  // PS_SD=0, duty=1/40, IT=1T
+  58:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_H = 0x00;  // 16-bit mode, interrupt disable
+  59:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF1_2, ps_conf1_L, ps_conf1_H) != HAL_OK)
+  60:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
   61:Core/Src/vcnl4040_sensor.c **** 
-  62:Core/Src/vcnl4040_sensor.c **** /**
-  63:Core/Src/vcnl4040_sensor.c ****  * @brief Read ambient light (ALS)
-  64:Core/Src/vcnl4040_sensor.c ****  */
-  65:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadALS(VCNL4040_HandleTypeDef *dev, uint16_t *als)
-  66:Core/Src/vcnl4040_sensor.c **** {
- 154              		.loc 1 66 1 is_stmt 1 view -0
- 155              		.cfi_startproc
- 156              		@ args = 0, pretend = 0, frame = 0
- 157              		@ frame_needed = 0, uses_anonymous_args = 0
- 158              		.loc 1 66 1 is_stmt 0 view .LVU30
- 159 0000 08B5     		push	{r3, lr}
- 160              	.LCFI6:
- 161              		.cfi_def_cfa_offset 8
- 162              		.cfi_offset 3, -8
- 163              		.cfi_offset 14, -4
- 164 0002 0A46     		mov	r2, r1
-  67:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_ALS_DATA, als);
- 165              		.loc 1 67 5 is_stmt 1 view .LVU31
- 166              		.loc 1 67 12 is_stmt 0 view .LVU32
-ARM GAS  /tmp/ccU1BmZ5.s 			page 5
+  62:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_L = 0x00;
+  63:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_H = (0x00 << 6) | VCNL4040_LED_I_120MA;
+  64:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF3_MS, ps_conf3_L, ps_conf3_H) != HAL_OK)
+  65:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+  66:Core/Src/vcnl4040_sensor.c **** 
+  67:Core/Src/vcnl4040_sensor.c ****     HAL_Delay(50);
+  68:Core/Src/vcnl4040_sensor.c ****     return HAL_OK;
+  69:Core/Src/vcnl4040_sensor.c **** }
+  70:Core/Src/vcnl4040_sensor.c **** 
+  71:Core/Src/vcnl4040_sensor.c **** /**
+  72:Core/Src/vcnl4040_sensor.c ****  * @brief Read ambient light (ALS)
+  73:Core/Src/vcnl4040_sensor.c ****  */
+  74:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadALS(VCNL4040_HandleTypeDef *dev, uint16_t *als)
+  75:Core/Src/vcnl4040_sensor.c **** {
+ 189              		.loc 1 75 1 is_stmt 1 view -0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193              		.loc 1 75 1 is_stmt 0 view .LVU39
+ 194 0000 08B5     		push	{r3, lr}
+ 195              	.LCFI6:
+ 196              		.cfi_def_cfa_offset 8
+ 197              		.cfi_offset 3, -8
+ 198              		.cfi_offset 14, -4
+ 199 0002 0A46     		mov	r2, r1
+  76:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_ALS_DATA, als);
+ 200              		.loc 1 76 5 is_stmt 1 view .LVU40
+ 201              		.loc 1 76 12 is_stmt 0 view .LVU41
+ 202 0004 0921     		movs	r1, #9
+ 203              	.LVL16:
+ 204              		.loc 1 76 12 view .LVU42
+ARM GAS  /tmp/cc0veSP4.s 			page 6
 
 
- 167 0004 0921     		movs	r1, #9
- 168              	.LVL12:
- 169              		.loc 1 67 12 view .LVU33
- 170 0006 FFF7FEFF 		bl	VCNL4040_Read16
- 171              	.LVL13:
-  68:Core/Src/vcnl4040_sensor.c **** }
- 172              		.loc 1 68 1 view .LVU34
- 173 000a 08BD     		pop	{r3, pc}
- 174              		.cfi_endproc
- 175              	.LFE137:
- 177              		.section	.text.VCNL4040_ReadPS,"ax",%progbits
- 178              		.align	1
- 179              		.global	VCNL4040_ReadPS
- 180              		.syntax unified
- 181              		.thumb
- 182              		.thumb_func
- 184              	VCNL4040_ReadPS:
- 185              	.LVL14:
- 186              	.LFB138:
-  69:Core/Src/vcnl4040_sensor.c **** 
-  70:Core/Src/vcnl4040_sensor.c **** /**
-  71:Core/Src/vcnl4040_sensor.c ****  * @brief Read proximity sensor data (PS)
-  72:Core/Src/vcnl4040_sensor.c ****  */
-  73:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadPS(VCNL4040_HandleTypeDef *dev, uint16_t *ps)
-  74:Core/Src/vcnl4040_sensor.c **** {
- 187              		.loc 1 74 1 is_stmt 1 view -0
- 188              		.cfi_startproc
- 189              		@ args = 0, pretend = 0, frame = 0
- 190              		@ frame_needed = 0, uses_anonymous_args = 0
- 191              		.loc 1 74 1 is_stmt 0 view .LVU36
- 192 0000 08B5     		push	{r3, lr}
- 193              	.LCFI7:
- 194              		.cfi_def_cfa_offset 8
- 195              		.cfi_offset 3, -8
- 196              		.cfi_offset 14, -4
- 197 0002 0A46     		mov	r2, r1
-  75:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_PS_DATA, ps);
- 198              		.loc 1 75 5 is_stmt 1 view .LVU37
- 199              		.loc 1 75 12 is_stmt 0 view .LVU38
- 200 0004 0821     		movs	r1, #8
- 201              	.LVL15:
- 202              		.loc 1 75 12 view .LVU39
- 203 0006 FFF7FEFF 		bl	VCNL4040_Read16
- 204              	.LVL16:
-  76:Core/Src/vcnl4040_sensor.c **** }
- 205              		.loc 1 76 1 view .LVU40
- 206 000a 08BD     		pop	{r3, pc}
- 207              		.cfi_endproc
- 208              	.LFE138:
- 210              		.section	.text.VCNL4040_ReadID,"ax",%progbits
- 211              		.align	1
- 212              		.global	VCNL4040_ReadID
- 213              		.syntax unified
- 214              		.thumb
- 215              		.thumb_func
- 217              	VCNL4040_ReadID:
- 218              	.LVL17:
-ARM GAS  /tmp/ccU1BmZ5.s 			page 6
-
-
- 219              	.LFB139:
-  77:Core/Src/vcnl4040_sensor.c **** 
-  78:Core/Src/vcnl4040_sensor.c **** /**
-  79:Core/Src/vcnl4040_sensor.c ****  * @brief Read device ID (0x0186 expected)
-  80:Core/Src/vcnl4040_sensor.c ****  */
-  81:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadID(VCNL4040_HandleTypeDef *dev, uint16_t *id)
-  82:Core/Src/vcnl4040_sensor.c **** {
- 220              		.loc 1 82 1 is_stmt 1 view -0
- 221              		.cfi_startproc
- 222              		@ args = 0, pretend = 0, frame = 0
- 223              		@ frame_needed = 0, uses_anonymous_args = 0
- 224              		.loc 1 82 1 is_stmt 0 view .LVU42
- 225 0000 08B5     		push	{r3, lr}
- 226              	.LCFI8:
- 227              		.cfi_def_cfa_offset 8
- 228              		.cfi_offset 3, -8
- 229              		.cfi_offset 14, -4
- 230 0002 0A46     		mov	r2, r1
-  83:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_DEVICE_ID, id);
- 231              		.loc 1 83 5 is_stmt 1 view .LVU43
- 232              		.loc 1 83 12 is_stmt 0 view .LVU44
- 233 0004 0C21     		movs	r1, #12
- 234              	.LVL18:
- 235              		.loc 1 83 12 view .LVU45
- 236 0006 FFF7FEFF 		bl	VCNL4040_Read16
+ 205 0006 FFF7FEFF 		bl	VCNL4040_Read16
+ 206              	.LVL17:
+  77:Core/Src/vcnl4040_sensor.c **** }
+ 207              		.loc 1 77 1 view .LVU43
+ 208 000a 08BD     		pop	{r3, pc}
+ 209              		.cfi_endproc
+ 210              	.LFE137:
+ 212              		.section	.text.VCNL4040_ReadPS,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	VCNL4040_ReadPS
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 220              	VCNL4040_ReadPS:
+ 221              	.LVL18:
+ 222              	.LFB138:
+  78:Core/Src/vcnl4040_sensor.c **** 
+  79:Core/Src/vcnl4040_sensor.c **** /**
+  80:Core/Src/vcnl4040_sensor.c ****  * @brief Read proximity sensor data (PS)
+  81:Core/Src/vcnl4040_sensor.c ****  */
+  82:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadPS(VCNL4040_HandleTypeDef *dev, uint16_t *ps)
+  83:Core/Src/vcnl4040_sensor.c **** {
+ 223              		.loc 1 83 1 is_stmt 1 view -0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		.loc 1 83 1 is_stmt 0 view .LVU45
+ 228 0000 08B5     		push	{r3, lr}
+ 229              	.LCFI7:
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 3, -8
+ 232              		.cfi_offset 14, -4
+ 233 0002 0A46     		mov	r2, r1
+  84:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_PS_DATA, ps);
+ 234              		.loc 1 84 5 is_stmt 1 view .LVU46
+ 235              		.loc 1 84 12 is_stmt 0 view .LVU47
+ 236 0004 0821     		movs	r1, #8
  237              	.LVL19:
-  84:Core/Src/vcnl4040_sensor.c **** }
- 238              		.loc 1 84 1 view .LVU46
- 239 000a 08BD     		pop	{r3, pc}
- 240              		.cfi_endproc
- 241              	.LFE139:
- 243              		.section	.text.VCNL4040_Init,"ax",%progbits
- 244              		.align	1
- 245              		.global	VCNL4040_Init
- 246              		.syntax unified
- 247              		.thumb
- 248              		.thumb_func
- 250              	VCNL4040_Init:
- 251              	.LVL20:
- 252              	.LFB136:
-  33:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
- 253              		.loc 1 33 1 is_stmt 1 view -0
- 254              		.cfi_startproc
- 255              		@ args = 0, pretend = 0, frame = 8
- 256              		@ frame_needed = 0, uses_anonymous_args = 0
-  33:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
- 257              		.loc 1 33 1 is_stmt 0 view .LVU48
- 258 0000 10B5     		push	{r4, lr}
- 259              	.LCFI9:
- 260              		.cfi_def_cfa_offset 8
- 261              		.cfi_offset 4, -8
- 262              		.cfi_offset 14, -4
- 263 0002 82B0     		sub	sp, sp, #8
- 264              	.LCFI10:
- 265              		.cfi_def_cfa_offset 16
- 266 0004 0446     		mov	r4, r0
-  34:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
-ARM GAS  /tmp/ccU1BmZ5.s 			page 7
+ 238              		.loc 1 84 12 view .LVU48
+ 239 0006 FFF7FEFF 		bl	VCNL4040_Read16
+ 240              	.LVL20:
+  85:Core/Src/vcnl4040_sensor.c **** }
+ 241              		.loc 1 85 1 view .LVU49
+ 242 000a 08BD     		pop	{r3, pc}
+ 243              		.cfi_endproc
+ 244              	.LFE138:
+ 246              		.section	.text.VCNL4040_ReadID,"ax",%progbits
+ 247              		.align	1
+ 248              		.global	VCNL4040_ReadID
+ 249              		.syntax unified
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.fpu fpv4-sp-d16
+ 254              	VCNL4040_ReadID:
+ 255              	.LVL21:
+ 256              	.LFB139:
+ARM GAS  /tmp/cc0veSP4.s 			page 7
 
 
- 267              		.loc 1 34 5 is_stmt 1 view .LVU49
-  34:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
- 268              		.loc 1 34 19 is_stmt 0 view .LVU50
- 269 0006 0271     		strb	r2, [r0, #4]
-  35:Core/Src/vcnl4040_sensor.c **** 
- 270              		.loc 1 35 5 is_stmt 1 view .LVU51
-  35:Core/Src/vcnl4040_sensor.c **** 
- 271              		.loc 1 35 15 is_stmt 0 view .LVU52
- 272 0008 0160     		str	r1, [r0]
-  38:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_ReadID(dev, &id) != HAL_OK || id != 0x0186)
- 273              		.loc 1 38 5 is_stmt 1 view .LVU53
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 274              		.loc 1 39 5 view .LVU54
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 275              		.loc 1 39 9 is_stmt 0 view .LVU55
- 276 000a 0DF10601 		add	r1, sp, #6
- 277              	.LVL21:
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 278              		.loc 1 39 9 view .LVU56
- 279 000e FFF7FEFF 		bl	VCNL4040_ReadID
- 280              	.LVL22:
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 281              		.loc 1 39 8 discriminator 1 view .LVU57
- 282 0012 40BB     		cbnz	r0, .L14
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 283              		.loc 1 39 51 discriminator 1 view .LVU58
- 284 0014 BDF80630 		ldrh	r3, [sp, #6]
-  39:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 285              		.loc 1 39 45 discriminator 1 view .LVU59
- 286 0018 B3F5C37F 		cmp	r3, #390
- 287 001c 03D0     		beq	.L20
-  40:Core/Src/vcnl4040_sensor.c **** 
- 288              		.loc 1 40 16 view .LVU60
- 289 001e 0124     		movs	r4, #1
- 290              	.LVL23:
- 291              	.L13:
+  86:Core/Src/vcnl4040_sensor.c **** 
+  87:Core/Src/vcnl4040_sensor.c **** /**
+  88:Core/Src/vcnl4040_sensor.c ****  * @brief Read device ID (0x0186 expected)
+  89:Core/Src/vcnl4040_sensor.c ****  */
+  90:Core/Src/vcnl4040_sensor.c **** HAL_StatusTypeDef VCNL4040_ReadID(VCNL4040_HandleTypeDef *dev, uint16_t *id)
+  91:Core/Src/vcnl4040_sensor.c **** {
+ 257              		.loc 1 91 1 is_stmt 1 view -0
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261              		.loc 1 91 1 is_stmt 0 view .LVU51
+ 262 0000 08B5     		push	{r3, lr}
+ 263              	.LCFI8:
+ 264              		.cfi_def_cfa_offset 8
+ 265              		.cfi_offset 3, -8
+ 266              		.cfi_offset 14, -4
+ 267 0002 0A46     		mov	r2, r1
+  92:Core/Src/vcnl4040_sensor.c ****     return VCNL4040_Read16(dev, VCNL4040_REG_DEVICE_ID, id);
+ 268              		.loc 1 92 5 is_stmt 1 view .LVU52
+ 269              		.loc 1 92 12 is_stmt 0 view .LVU53
+ 270 0004 0C21     		movs	r1, #12
+ 271              	.LVL22:
+ 272              		.loc 1 92 12 view .LVU54
+ 273 0006 FFF7FEFF 		bl	VCNL4040_Read16
+ 274              	.LVL23:
+  93:Core/Src/vcnl4040_sensor.c **** }
+ 275              		.loc 1 93 1 view .LVU55
+ 276 000a 08BD     		pop	{r3, pc}
+ 277              		.cfi_endproc
+ 278              	.LFE139:
+ 280              		.section	.text.VCNL4040_Init,"ax",%progbits
+ 281              		.align	1
+ 282              		.global	VCNL4040_Init
+ 283              		.syntax unified
+ 284              		.thumb
+ 285              		.thumb_func
+ 286              		.fpu fpv4-sp-d16
+ 288              	VCNL4040_Init:
+ 289              	.LVL24:
+ 290              	.LFB136:
+  42:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
+ 291              		.loc 1 42 1 is_stmt 1 view -0
+ 292              		.cfi_startproc
+ 293              		@ args = 0, pretend = 0, frame = 8
+ 294              		@ frame_needed = 0, uses_anonymous_args = 0
+  42:Core/Src/vcnl4040_sensor.c ****     dev->i2c_addr = address;
+ 295              		.loc 1 42 1 is_stmt 0 view .LVU57
+ 296 0000 10B5     		push	{r4, lr}
+ 297              	.LCFI9:
+ 298              		.cfi_def_cfa_offset 8
+ 299              		.cfi_offset 4, -8
+ 300              		.cfi_offset 14, -4
+ 301 0002 82B0     		sub	sp, sp, #8
+ 302              	.LCFI10:
+ 303              		.cfi_def_cfa_offset 16
+ 304 0004 0446     		mov	r4, r0
+  43:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
+ARM GAS  /tmp/cc0veSP4.s 			page 8
+
+
+ 305              		.loc 1 43 5 is_stmt 1 view .LVU58
+  43:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
+ 306              		.loc 1 43 19 is_stmt 0 view .LVU59
+ 307 0006 0271     		strb	r2, [r0, #4]
+  44:Core/Src/vcnl4040_sensor.c **** 
+ 308              		.loc 1 44 5 is_stmt 1 view .LVU60
+  44:Core/Src/vcnl4040_sensor.c **** 
+ 309              		.loc 1 44 15 is_stmt 0 view .LVU61
+ 310 0008 0160     		str	r1, [r0]
+  47:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_ReadID(dev, &id) != HAL_OK || id != 0x0186)
+ 311              		.loc 1 47 5 is_stmt 1 view .LVU62
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 312              		.loc 1 48 5 view .LVU63
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 313              		.loc 1 48 9 is_stmt 0 view .LVU64
+ 314 000a 0DF10601 		add	r1, sp, #6
+ 315              	.LVL25:
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 316              		.loc 1 48 9 view .LVU65
+ 317 000e FFF7FEFF 		bl	VCNL4040_ReadID
+ 318              	.LVL26:
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 319              		.loc 1 48 8 view .LVU66
+ 320 0012 40BB     		cbnz	r0, .L18
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 321              		.loc 1 48 51 discriminator 1 view .LVU67
+ 322 0014 BDF80630 		ldrh	r3, [sp, #6]
+  48:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 323              		.loc 1 48 45 discriminator 1 view .LVU68
+ 324 0018 B3F5C37F 		cmp	r3, #390
+ 325 001c 03D0     		beq	.L24
+  49:Core/Src/vcnl4040_sensor.c **** 
+ 326              		.loc 1 49 16 view .LVU69
+ 327 001e 0124     		movs	r4, #1
+ 328              	.LVL27:
+ 329              	.L17:
+  69:Core/Src/vcnl4040_sensor.c **** 
+ 330              		.loc 1 69 1 view .LVU70
+ 331 0020 2046     		mov	r0, r4
+ 332 0022 02B0     		add	sp, sp, #8
+ 333              	.LCFI11:
+ 334              		.cfi_remember_state
+ 335              		.cfi_def_cfa_offset 8
+ 336              		@ sp needed
+ 337 0024 10BD     		pop	{r4, pc}
+ 338              	.LVL28:
+ 339              	.L24:
+ 340              	.LCFI12:
+ 341              		.cfi_restore_state
+  52:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_ALS_CONF, als_conf_L, 0x00) != HAL_OK)
+ 342              		.loc 1 52 5 is_stmt 1 view .LVU71
+  53:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 343              		.loc 1 53 5 view .LVU72
+  53:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 344              		.loc 1 53 9 is_stmt 0 view .LVU73
+ 345 0026 0023     		movs	r3, #0
+ 346 0028 4022     		movs	r2, #64
+ARM GAS  /tmp/cc0veSP4.s 			page 9
+
+
+ 347 002a 1946     		mov	r1, r3
+ 348 002c 2046     		mov	r0, r4
+ 349 002e FFF7FEFF 		bl	VCNL4040_Write16
+ 350              	.LVL29:
+  53:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 351              		.loc 1 53 8 view .LVU74
+ 352 0032 08B1     		cbz	r0, .L25
+  54:Core/Src/vcnl4040_sensor.c **** 
+ 353              		.loc 1 54 16 view .LVU75
+ 354 0034 0124     		movs	r4, #1
+ 355              	.LVL30:
+  54:Core/Src/vcnl4040_sensor.c **** 
+ 356              		.loc 1 54 16 view .LVU76
+ 357 0036 F3E7     		b	.L17
+ 358              	.LVL31:
+ 359              	.L25:
+  57:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_H = 0x00;  // 16-bit mode, interrupt disable
+ 360              		.loc 1 57 5 is_stmt 1 view .LVU77
+  58:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF1_2, ps_conf1_L, ps_conf1_H) != HAL_OK)
+ 361              		.loc 1 58 5 view .LVU78
+  59:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 362              		.loc 1 59 5 view .LVU79
+  59:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 363              		.loc 1 59 9 is_stmt 0 view .LVU80
+ 364 0038 0023     		movs	r3, #0
+ 365 003a 1A46     		mov	r2, r3
+ 366 003c 0321     		movs	r1, #3
+ 367 003e 2046     		mov	r0, r4
+ 368 0040 FFF7FEFF 		bl	VCNL4040_Write16
+ 369              	.LVL32:
+  59:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 370              		.loc 1 59 8 view .LVU81
+ 371 0044 08B1     		cbz	r0, .L26
   60:Core/Src/vcnl4040_sensor.c **** 
- 292              		.loc 1 60 1 view .LVU61
- 293 0020 2046     		mov	r0, r4
- 294 0022 02B0     		add	sp, sp, #8
- 295              	.LCFI11:
- 296              		.cfi_remember_state
- 297              		.cfi_def_cfa_offset 8
- 298              		@ sp needed
- 299 0024 10BD     		pop	{r4, pc}
- 300              	.LVL24:
- 301              	.L20:
- 302              	.LCFI12:
- 303              		.cfi_restore_state
-  43:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_ALS_CONF, als_conf_L, 0x00) != HAL_OK)
- 304              		.loc 1 43 5 is_stmt 1 view .LVU62
-  44:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 305              		.loc 1 44 5 view .LVU63
-  44:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 306              		.loc 1 44 9 is_stmt 0 view .LVU64
- 307 0026 0023     		movs	r3, #0
- 308 0028 4022     		movs	r2, #64
-ARM GAS  /tmp/ccU1BmZ5.s 			page 8
+ 372              		.loc 1 60 16 view .LVU82
+ 373 0046 0124     		movs	r4, #1
+ 374              	.LVL33:
+  60:Core/Src/vcnl4040_sensor.c **** 
+ 375              		.loc 1 60 16 view .LVU83
+ 376 0048 EAE7     		b	.L17
+ 377              	.LVL34:
+ 378              	.L26:
+  62:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_H = (0x00 << 6) | VCNL4040_LED_I_120MA;
+ 379              		.loc 1 62 5 is_stmt 1 view .LVU84
+  63:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF3_MS, ps_conf3_L, ps_conf3_H) != HAL_OK)
+ 380              		.loc 1 63 5 view .LVU85
+  64:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 381              		.loc 1 64 5 view .LVU86
+  64:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 382              		.loc 1 64 9 is_stmt 0 view .LVU87
+ 383 004a 0323     		movs	r3, #3
+ 384 004c 0022     		movs	r2, #0
+ 385 004e 0421     		movs	r1, #4
+ 386 0050 2046     		mov	r0, r4
+ 387 0052 FFF7FEFF 		bl	VCNL4040_Write16
+ 388              	.LVL35:
+  64:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ARM GAS  /tmp/cc0veSP4.s 			page 10
 
 
- 309 002a 1946     		mov	r1, r3
- 310 002c 2046     		mov	r0, r4
- 311 002e FFF7FEFF 		bl	VCNL4040_Write16
- 312              	.LVL25:
-  44:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 313              		.loc 1 44 8 discriminator 1 view .LVU65
- 314 0032 08B1     		cbz	r0, .L21
-  45:Core/Src/vcnl4040_sensor.c **** 
- 315              		.loc 1 45 16 view .LVU66
- 316 0034 0124     		movs	r4, #1
- 317              	.LVL26:
-  45:Core/Src/vcnl4040_sensor.c **** 
- 318              		.loc 1 45 16 view .LVU67
- 319 0036 F3E7     		b	.L13
- 320              	.LVL27:
- 321              	.L21:
-  48:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf1_H = 0x00;  // 16-bit mode, interrupt disable
- 322              		.loc 1 48 5 is_stmt 1 view .LVU68
-  49:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF1_2, ps_conf1_L, ps_conf1_H) != HAL_OK)
- 323              		.loc 1 49 5 view .LVU69
-  50:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 324              		.loc 1 50 5 view .LVU70
-  50:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 325              		.loc 1 50 9 is_stmt 0 view .LVU71
- 326 0038 0023     		movs	r3, #0
- 327 003a 1A46     		mov	r2, r3
- 328 003c 0321     		movs	r1, #3
- 329 003e 2046     		mov	r0, r4
- 330 0040 FFF7FEFF 		bl	VCNL4040_Write16
- 331              	.LVL28:
-  50:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 332              		.loc 1 50 8 discriminator 1 view .LVU72
- 333 0044 08B1     		cbz	r0, .L22
-  51:Core/Src/vcnl4040_sensor.c **** 
- 334              		.loc 1 51 16 view .LVU73
- 335 0046 0124     		movs	r4, #1
- 336              	.LVL29:
-  51:Core/Src/vcnl4040_sensor.c **** 
- 337              		.loc 1 51 16 view .LVU74
- 338 0048 EAE7     		b	.L13
- 339              	.LVL30:
- 340              	.L22:
-  53:Core/Src/vcnl4040_sensor.c ****     uint8_t ps_conf3_H = (0x00 << 6) | VCNL4040_LED_I_120MA;
- 341              		.loc 1 53 5 is_stmt 1 view .LVU75
-  54:Core/Src/vcnl4040_sensor.c ****     if (VCNL4040_Write16(dev, VCNL4040_REG_PS_CONF3_MS, ps_conf3_L, ps_conf3_H) != HAL_OK)
- 342              		.loc 1 54 5 view .LVU76
-  55:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 343              		.loc 1 55 5 view .LVU77
-  55:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 344              		.loc 1 55 9 is_stmt 0 view .LVU78
- 345 004a 0323     		movs	r3, #3
- 346 004c 0022     		movs	r2, #0
- 347 004e 0421     		movs	r1, #4
- 348 0050 2046     		mov	r0, r4
- 349 0052 FFF7FEFF 		bl	VCNL4040_Write16
- 350              	.LVL31:
-  55:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-ARM GAS  /tmp/ccU1BmZ5.s 			page 9
-
-
- 351              		.loc 1 55 8 discriminator 1 view .LVU79
- 352 0056 0446     		mov	r4, r0
- 353              	.LVL32:
-  55:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
- 354              		.loc 1 55 8 discriminator 1 view .LVU80
- 355 0058 08B1     		cbz	r0, .L23
-  56:Core/Src/vcnl4040_sensor.c **** 
- 356              		.loc 1 56 16 view .LVU81
- 357 005a 0124     		movs	r4, #1
- 358 005c E0E7     		b	.L13
- 359              	.L23:
-  58:Core/Src/vcnl4040_sensor.c ****     return HAL_OK;
- 360              		.loc 1 58 5 is_stmt 1 view .LVU82
- 361 005e 3220     		movs	r0, #50
- 362 0060 FFF7FEFF 		bl	HAL_Delay
- 363              	.LVL33:
-  59:Core/Src/vcnl4040_sensor.c **** }
- 364              		.loc 1 59 5 view .LVU83
-  59:Core/Src/vcnl4040_sensor.c **** }
- 365              		.loc 1 59 12 is_stmt 0 view .LVU84
- 366 0064 DCE7     		b	.L13
- 367              	.LVL34:
- 368              	.L14:
-  40:Core/Src/vcnl4040_sensor.c **** 
- 369              		.loc 1 40 16 view .LVU85
- 370 0066 0124     		movs	r4, #1
- 371              	.LVL35:
-  40:Core/Src/vcnl4040_sensor.c **** 
- 372              		.loc 1 40 16 view .LVU86
- 373 0068 DAE7     		b	.L13
- 374              		.cfi_endproc
- 375              	.LFE136:
- 377              		.text
- 378              	.Letext0:
- 379              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
- 380              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 381              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 382              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 383              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 384              		.file 7 "Core/Inc/vcnl4040_sensor.h"
- 385              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  /tmp/ccU1BmZ5.s 			page 10
+ 389              		.loc 1 64 8 view .LVU88
+ 390 0056 0446     		mov	r4, r0
+ 391              	.LVL36:
+  64:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
+ 392              		.loc 1 64 8 view .LVU89
+ 393 0058 08B1     		cbz	r0, .L27
+  65:Core/Src/vcnl4040_sensor.c **** 
+ 394              		.loc 1 65 16 view .LVU90
+ 395 005a 0124     		movs	r4, #1
+ 396 005c E0E7     		b	.L17
+ 397              	.L27:
+  67:Core/Src/vcnl4040_sensor.c ****     return HAL_OK;
+ 398              		.loc 1 67 5 is_stmt 1 view .LVU91
+ 399 005e 3220     		movs	r0, #50
+ 400 0060 FFF7FEFF 		bl	HAL_Delay
+ 401              	.LVL37:
+  68:Core/Src/vcnl4040_sensor.c **** }
+ 402              		.loc 1 68 5 view .LVU92
+  68:Core/Src/vcnl4040_sensor.c **** }
+ 403              		.loc 1 68 12 is_stmt 0 view .LVU93
+ 404 0064 DCE7     		b	.L17
+ 405              	.LVL38:
+ 406              	.L18:
+  49:Core/Src/vcnl4040_sensor.c **** 
+ 407              		.loc 1 49 16 view .LVU94
+ 408 0066 0124     		movs	r4, #1
+ 409              	.LVL39:
+  49:Core/Src/vcnl4040_sensor.c **** 
+ 410              		.loc 1 49 16 view .LVU95
+ 411 0068 DAE7     		b	.L17
+ 412              		.cfi_endproc
+ 413              	.LFE136:
+ 415              		.text
+ 416              	.Letext0:
+ 417              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 418              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 419              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 420              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 421              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 422              		.file 7 "Core/Inc/vcnl4040_sensor.h"
+ 423              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  /tmp/cc0veSP4.s 			page 11
 
 
 DEFINED SYMBOLS
-                            *ABS*:00000000 vcnl4040_sensor.c
-     /tmp/ccU1BmZ5.s:21     .text.VCNL4040_Write16:00000000 $t
-     /tmp/ccU1BmZ5.s:26     .text.VCNL4040_Write16:00000000 VCNL4040_Write16
-     /tmp/ccU1BmZ5.s:77     .text.VCNL4040_Read16:00000000 $t
-     /tmp/ccU1BmZ5.s:82     .text.VCNL4040_Read16:00000000 VCNL4040_Read16
-     /tmp/ccU1BmZ5.s:145    .text.VCNL4040_ReadALS:00000000 $t
-     /tmp/ccU1BmZ5.s:151    .text.VCNL4040_ReadALS:00000000 VCNL4040_ReadALS
-     /tmp/ccU1BmZ5.s:178    .text.VCNL4040_ReadPS:00000000 $t
-     /tmp/ccU1BmZ5.s:184    .text.VCNL4040_ReadPS:00000000 VCNL4040_ReadPS
-     /tmp/ccU1BmZ5.s:211    .text.VCNL4040_ReadID:00000000 $t
-     /tmp/ccU1BmZ5.s:217    .text.VCNL4040_ReadID:00000000 VCNL4040_ReadID
-     /tmp/ccU1BmZ5.s:244    .text.VCNL4040_Init:00000000 $t
-     /tmp/ccU1BmZ5.s:250    .text.VCNL4040_Init:00000000 VCNL4040_Init
+                            *ABS*:0000000000000000 vcnl4040_sensor.c
+     /tmp/cc0veSP4.s:18     .text.VCNL4040_Write16:0000000000000000 $t
+     /tmp/cc0veSP4.s:25     .text.VCNL4040_Write16:0000000000000000 VCNL4040_Write16
+     /tmp/cc0veSP4.s:77     .text.VCNL4040_Read16:0000000000000000 $t
+     /tmp/cc0veSP4.s:83     .text.VCNL4040_Read16:0000000000000000 VCNL4040_Read16
+     /tmp/cc0veSP4.s:179    .text.VCNL4040_ReadALS:0000000000000000 $t
+     /tmp/cc0veSP4.s:186    .text.VCNL4040_ReadALS:0000000000000000 VCNL4040_ReadALS
+     /tmp/cc0veSP4.s:213    .text.VCNL4040_ReadPS:0000000000000000 $t
+     /tmp/cc0veSP4.s:220    .text.VCNL4040_ReadPS:0000000000000000 VCNL4040_ReadPS
+     /tmp/cc0veSP4.s:247    .text.VCNL4040_ReadID:0000000000000000 $t
+     /tmp/cc0veSP4.s:254    .text.VCNL4040_ReadID:0000000000000000 VCNL4040_ReadID
+     /tmp/cc0veSP4.s:281    .text.VCNL4040_Init:0000000000000000 $t
+     /tmp/cc0veSP4.s:288    .text.VCNL4040_Init:0000000000000000 VCNL4040_Init
 
 UNDEFINED SYMBOLS
 HAL_I2C_Mem_Write
