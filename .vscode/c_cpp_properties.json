@@ -1,20 +1,48 @@
 {
   "configurations": [
     {
-      "name": "Linux",
+      "name": "STM32F446",
       "includePath": [
         "${workspaceFolder}/**",
-        "${workspaceFolder}/Drivers/CMSIS/Include",
+        "${workspaceFolder}/Core/Inc",
+        "${workspaceFolder}/Core/Src",
         "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
-        "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include"
+        "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+        "${workspaceFolder}/Drivers/CMSIS/Include",
+        "${workspaceFolder}/USB_DEVICE/App",
+        "${workspaceFolder}/USB_DEVICE/Target",
+        "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
+        "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc",
+        "/usr/lib/gcc/arm-none-eabi/9.2.1/include",
+        "/usr/lib/gcc/arm-none-eabi/9.2.1/include-fixed",
+        "/usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/include"
       ],
       "defines": [
         "USE_HAL_DRIVER",
-        "STM32F446xx"  // 根据你的MCU型号修改        
+        "STM32F446xx",
+        "__weak=__attribute__((weak))",
+        "__packed=__attribute__((__packed__))",
+        "__ASM=__asm",
+        "__INLINE=inline",
+        "__STATIC_INLINE=static inline"
       ],
       "compilerPath": "/usr/bin/arm-none-eabi-gcc",
       "cStandard": "c11",
-      "cppStandard": "gnu++14"
+      "cppStandard": "gnu++14",
+      "intelliSenseMode": "gcc-arm",
+      "compilerArgs": [
+        "-mcpu=cortex-m4",
+        "-mthumb",
+        "-mfpu=fpv4-sp-d16",
+        "-mfloat-abi=hard"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}"
+        ],
+        "limitSymbolsToIncludedHeaders": false
+      }
     }
   ],
   "version": 4

@@ -101,7 +101,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Initialize all sensors
-  // My_Application_Init();
+  My_Application_Init();
 
   /* USER CODE END 2 */
 
@@ -111,12 +111,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   // Run main sensor loop (never returns)
-  // My_Application_Run();
-  while(1){
-    const char *msg="CDC Transmit\r\n";
-    CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-    HAL_Delay(100);
-  }
+  My_Application_Run();
+
   /* USER CODE END 3 */
 }
 

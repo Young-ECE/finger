@@ -1,11 +1,38 @@
 {
-    "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
-    "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
-    "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
-    "idf.pythonInstallPath": "/usr/bin/python3",
-    "cortex-debug.variableUseNaturalFormat": false,
-    "files.associations": {
-        "humidity_temp_sensor.h": "c",
-        "main.h": "c"
-    }
+  "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
+  "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
+  "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
+  "cortex-debug.variableUseNaturalFormat": false,
+  "idf.pythonInstallPath": "/usr/bin/python3",
+  "files.associations": {
+    "*.h": "c",
+    "stm32f4xx*.h": "c",
+    "usbd_*.h": "c"
+  },
+  "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.errorSquiggles": "enabled",
+  "C_Cpp.autocomplete": "default",
+  "C_Cpp.suggestSnippets": true,
+  "C_Cpp.enhancedColorization": "enabled",
+  "C_Cpp.default.includePath": [],
+  "C_Cpp.default.defines": [],
+  "C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-gcc",
+  "C_Cpp.default.cStandard": "c11",
+  "C_Cpp.default.cppStandard": "gnu++14",
+  "C_Cpp.default.intelliSenseMode": "gcc-arm",
+  "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
+  "C_Cpp.files.exclude": {
+    "**/build": true,
+    "**/build/**": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/build/**": true
+  },
+  "C_Cpp_Runner.msvcBatchPath": ""
 }
