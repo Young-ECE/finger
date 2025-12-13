@@ -1,0 +1,994 @@
+ARM GAS  /tmp/ccmESs82.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"i2c_dma_manager.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.I2C_DMA_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	I2C_DMA_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	I2C_DMA_Init:
+  27              	.LFB134:
+  28              		.file 1 "Core/Src/i2c_dma_manager.c"
+   1:Core/Src/i2c_dma_manager.c **** /**
+   2:Core/Src/i2c_dma_manager.c ****  * @file i2c_dma_manager.c
+   3:Core/Src/i2c_dma_manager.c ****  * @brief I2C DMA/中断模式非阻塞读取管理器实现
+   4:Core/Src/i2c_dma_manager.c ****  */
+   5:Core/Src/i2c_dma_manager.c **** 
+   6:Core/Src/i2c_dma_manager.c **** #include "i2c_dma_manager.h"
+   7:Core/Src/i2c_dma_manager.c **** #include "my_main.h"
+   8:Core/Src/i2c_dma_manager.c **** #include "humidity_temp_sensor.h"
+   9:Core/Src/i2c_dma_manager.c **** #include <string.h>
+  10:Core/Src/i2c_dma_manager.c **** 
+  11:Core/Src/i2c_dma_manager.c **** /* 全局数据缓冲区 */
+  12:Core/Src/i2c_dma_manager.c **** I2C_DMA_DataTypeDef i2c_dma_data = {0};
+  13:Core/Src/i2c_dma_manager.c **** 
+  14:Core/Src/i2c_dma_manager.c **** /* 外部传感器句柄（从my_main.c引用） */
+  15:Core/Src/i2c_dma_manager.c **** extern BME280_HandleTypeDef bme[8];
+  16:Core/Src/i2c_dma_manager.c **** extern I2C_HandleTypeDef hi2c1;
+  17:Core/Src/i2c_dma_manager.c **** 
+  18:Core/Src/i2c_dma_manager.c **** /* 前置声明 */
+  19:Core/Src/i2c_dma_manager.c **** HAL_StatusTypeDef TCA9548A_SelectChannel(I2C_HandleTypeDef *hi2c, uint8_t mux_addr, uint8_t channel
+  20:Core/Src/i2c_dma_manager.c **** 
+  21:Core/Src/i2c_dma_manager.c **** /* 状态机 */
+  22:Core/Src/i2c_dma_manager.c **** typedef enum {
+  23:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_IDLE = 0,
+  24:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_VCNL_ALS,
+  25:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_VCNL_PS,
+  26:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_IMU_ACCEL,
+  27:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_IMU_GYRO,
+  28:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_IMU_TEMP,
+  29:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH0,
+  30:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH1,
+ARM GAS  /tmp/ccmESs82.s 			page 2
+
+
+  31:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH2,
+  32:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH3,
+  33:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH4,
+  34:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH5,
+  35:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH6,
+  36:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_BME_CH7,
+  37:Core/Src/i2c_dma_manager.c ****     SENSOR_STATE_DONE
+  38:Core/Src/i2c_dma_manager.c **** } SensorReadState_t;
+  39:Core/Src/i2c_dma_manager.c **** 
+  40:Core/Src/i2c_dma_manager.c **** static volatile SensorReadState_t current_state = SENSOR_STATE_IDLE;
+  41:Core/Src/i2c_dma_manager.c **** static volatile uint8_t reading_in_progress = 0;
+  42:Core/Src/i2c_dma_manager.c **** 
+  43:Core/Src/i2c_dma_manager.c **** /**
+  44:Core/Src/i2c_dma_manager.c ****  * @brief 初始化DMA管理器
+  45:Core/Src/i2c_dma_manager.c ****  */
+  46:Core/Src/i2c_dma_manager.c **** void I2C_DMA_Init(void) {
+  29              		.loc 1 46 25 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  47:Core/Src/i2c_dma_manager.c ****     memset(&i2c_dma_data, 0, sizeof(i2c_dma_data));
+  38              		.loc 1 47 5 view .LVU1
+  39 0002 6422     		movs	r2, #100
+  40 0004 0021     		movs	r1, #0
+  41 0006 0448     		ldr	r0, .L3
+  42 0008 FFF7FEFF 		bl	memset
+  43              	.LVL0:
+  48:Core/Src/i2c_dma_manager.c ****     current_state = SENSOR_STATE_IDLE;
+  44              		.loc 1 48 5 view .LVU2
+  45              		.loc 1 48 19 is_stmt 0 view .LVU3
+  46 000c 0023     		movs	r3, #0
+  47 000e 034A     		ldr	r2, .L3+4
+  48 0010 1370     		strb	r3, [r2]
+  49:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 0;
+  49              		.loc 1 49 5 is_stmt 1 view .LVU4
+  50              		.loc 1 49 25 is_stmt 0 view .LVU5
+  51 0012 034A     		ldr	r2, .L3+8
+  52 0014 1370     		strb	r3, [r2]
+  50:Core/Src/i2c_dma_manager.c **** }
+  53              		.loc 1 50 1 view .LVU6
+  54 0016 08BD     		pop	{r3, pc}
+  55              	.L4:
+  56              		.align	2
+  57              	.L3:
+  58 0018 00000000 		.word	.LANCHOR0
+  59 001c 00000000 		.word	.LANCHOR1
+  60 0020 00000000 		.word	.LANCHOR2
+  61              		.cfi_endproc
+  62              	.LFE134:
+  64              		.section	.text.I2C_DMA_IsAllReady,"ax",%progbits
+  65              		.align	1
+  66              		.global	I2C_DMA_IsAllReady
+ARM GAS  /tmp/ccmESs82.s 			page 3
+
+
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  70              		.fpu fpv4-sp-d16
+  72              	I2C_DMA_IsAllReady:
+  73              	.LFB136:
+  51:Core/Src/i2c_dma_manager.c **** 
+  52:Core/Src/i2c_dma_manager.c **** /**
+  53:Core/Src/i2c_dma_manager.c ****  * @brief 启动所有传感器的非阻塞读取（DMA模式，状态机驱动）
+  54:Core/Src/i2c_dma_manager.c ****  */
+  55:Core/Src/i2c_dma_manager.c **** HAL_StatusTypeDef I2C_DMA_StartSensorReading(I2C_HandleTypeDef *hi2c) {
+  56:Core/Src/i2c_dma_manager.c ****     if (reading_in_progress) {
+  57:Core/Src/i2c_dma_manager.c ****         return HAL_BUSY;
+  58:Core/Src/i2c_dma_manager.c ****     }
+  59:Core/Src/i2c_dma_manager.c ****     
+  60:Core/Src/i2c_dma_manager.c ****     // 清除标志
+  61:Core/Src/i2c_dma_manager.c ****     I2C_DMA_ClearFlags();
+  62:Core/Src/i2c_dma_manager.c ****     
+  63:Core/Src/i2c_dma_manager.c ****     // 启动状态机
+  64:Core/Src/i2c_dma_manager.c ****     current_state = SENSOR_STATE_VCNL_ALS;
+  65:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 1;
+  66:Core/Src/i2c_dma_manager.c ****     
+  67:Core/Src/i2c_dma_manager.c ****     // 启动第一个读取（VCNL4040 ALS）- 使用DMA模式
+  68:Core/Src/i2c_dma_manager.c ****     return HAL_I2C_Mem_Read_DMA(hi2c, vcnl4040.i2c_addr, VCNL4040_REG_ALS_DATA,
+  69:Core/Src/i2c_dma_manager.c ****                                 I2C_MEMADD_SIZE_8BIT, i2c_dma_data.vcnl_als_buf, 2);
+  70:Core/Src/i2c_dma_manager.c **** }
+  71:Core/Src/i2c_dma_manager.c **** 
+  72:Core/Src/i2c_dma_manager.c **** /**
+  73:Core/Src/i2c_dma_manager.c ****  * @brief 检查所有传感器是否读取完成
+  74:Core/Src/i2c_dma_manager.c ****  */
+  75:Core/Src/i2c_dma_manager.c **** uint8_t I2C_DMA_IsAllReady(void) {
+  74              		.loc 1 75 34 is_stmt 1 view -0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  76:Core/Src/i2c_dma_manager.c ****     return (current_state == SENSOR_STATE_DONE);
+  79              		.loc 1 76 5 view .LVU8
+  80              		.loc 1 76 27 is_stmt 0 view .LVU9
+  81 0000 034B     		ldr	r3, .L6
+  82 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+  83 0004 C0B2     		uxtb	r0, r0
+  77:Core/Src/i2c_dma_manager.c **** }
+  84              		.loc 1 77 1 view .LVU10
+  85 0006 0E28     		cmp	r0, #14
+  86 0008 14BF     		ite	ne
+  87 000a 0020     		movne	r0, #0
+  88 000c 0120     		moveq	r0, #1
+  89 000e 7047     		bx	lr
+  90              	.L7:
+  91              		.align	2
+  92              	.L6:
+  93 0010 00000000 		.word	.LANCHOR1
+  94              		.cfi_endproc
+  95              	.LFE136:
+  97              		.section	.text.I2C_DMA_ClearFlags,"ax",%progbits
+  98              		.align	1
+ARM GAS  /tmp/ccmESs82.s 			page 4
+
+
+  99              		.global	I2C_DMA_ClearFlags
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.fpu fpv4-sp-d16
+ 105              	I2C_DMA_ClearFlags:
+ 106              	.LFB137:
+  78:Core/Src/i2c_dma_manager.c **** 
+  79:Core/Src/i2c_dma_manager.c **** /**
+  80:Core/Src/i2c_dma_manager.c ****  * @brief 清除就绪标志
+  81:Core/Src/i2c_dma_manager.c ****  */
+  82:Core/Src/i2c_dma_manager.c **** void I2C_DMA_ClearFlags(void) {
+ 107              		.loc 1 82 31 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+  83:Core/Src/i2c_dma_manager.c ****     i2c_dma_data.vcnl_als_ready = 0;
+ 112              		.loc 1 83 5 view .LVU12
+ 113              		.loc 1 83 33 is_stmt 0 view .LVU13
+ 114 0000 084A     		ldr	r2, .L11
+ 115 0002 0023     		movs	r3, #0
+ 116 0004 82F85230 		strb	r3, [r2, #82]
+  84:Core/Src/i2c_dma_manager.c ****     i2c_dma_data.vcnl_ps_ready = 0;
+ 117              		.loc 1 84 5 is_stmt 1 view .LVU14
+ 118              		.loc 1 84 32 is_stmt 0 view .LVU15
+ 119 0008 82F85330 		strb	r3, [r2, #83]
+  85:Core/Src/i2c_dma_manager.c ****     i2c_dma_data.imu_ready = 0;
+ 120              		.loc 1 85 5 is_stmt 1 view .LVU16
+ 121              		.loc 1 85 28 is_stmt 0 view .LVU17
+ 122 000c 82F85430 		strb	r3, [r2, #84]
+  86:Core/Src/i2c_dma_manager.c ****     for (int i = 0; i < 8; i++) {
+ 123              		.loc 1 86 5 is_stmt 1 view .LVU18
+ 124              	.LBB2:
+ 125              		.loc 1 86 10 view .LVU19
+ 126              	.LVL1:
+ 127              		.loc 1 86 5 is_stmt 0 view .LVU20
+ 128 0010 05E0     		b	.L9
+ 129              	.LVL2:
+ 130              	.L10:
+  87:Core/Src/i2c_dma_manager.c ****         i2c_dma_data.bme_ready[i] = 0;
+ 131              		.loc 1 87 9 is_stmt 1 discriminator 3 view .LVU21
+ 132              		.loc 1 87 35 is_stmt 0 discriminator 3 view .LVU22
+ 133 0012 044A     		ldr	r2, .L11
+ 134 0014 1A44     		add	r2, r2, r3
+ 135 0016 0021     		movs	r1, #0
+ 136 0018 82F85510 		strb	r1, [r2, #85]
+  86:Core/Src/i2c_dma_manager.c ****     for (int i = 0; i < 8; i++) {
+ 137              		.loc 1 86 28 is_stmt 1 discriminator 3 view .LVU23
+  86:Core/Src/i2c_dma_manager.c ****     for (int i = 0; i < 8; i++) {
+ 138              		.loc 1 86 29 is_stmt 0 discriminator 3 view .LVU24
+ 139 001c 0133     		adds	r3, r3, #1
+ 140              	.LVL3:
+ 141              	.L9:
+  86:Core/Src/i2c_dma_manager.c ****     for (int i = 0; i < 8; i++) {
+ 142              		.loc 1 86 21 is_stmt 1 discriminator 1 view .LVU25
+  86:Core/Src/i2c_dma_manager.c ****     for (int i = 0; i < 8; i++) {
+ARM GAS  /tmp/ccmESs82.s 			page 5
+
+
+ 143              		.loc 1 86 5 is_stmt 0 discriminator 1 view .LVU26
+ 144 001e 072B     		cmp	r3, #7
+ 145 0020 F7DD     		ble	.L10
+ 146              	.LBE2:
+  88:Core/Src/i2c_dma_manager.c ****     }
+  89:Core/Src/i2c_dma_manager.c **** }
+ 147              		.loc 1 89 1 view .LVU27
+ 148 0022 7047     		bx	lr
+ 149              	.L12:
+ 150              		.align	2
+ 151              	.L11:
+ 152 0024 00000000 		.word	.LANCHOR0
+ 153              		.cfi_endproc
+ 154              	.LFE137:
+ 156              		.section	.text.I2C_DMA_StartSensorReading,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	I2C_DMA_StartSensorReading
+ 159              		.syntax unified
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.fpu fpv4-sp-d16
+ 164              	I2C_DMA_StartSensorReading:
+ 165              	.LVL4:
+ 166              	.LFB135:
+  55:Core/Src/i2c_dma_manager.c ****     if (reading_in_progress) {
+ 167              		.loc 1 55 71 is_stmt 1 view -0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+  56:Core/Src/i2c_dma_manager.c ****         return HAL_BUSY;
+ 171              		.loc 1 56 5 view .LVU29
+  56:Core/Src/i2c_dma_manager.c ****         return HAL_BUSY;
+ 172              		.loc 1 56 9 is_stmt 0 view .LVU30
+ 173 0000 0D4B     		ldr	r3, .L20
+ 174 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  56:Core/Src/i2c_dma_manager.c ****         return HAL_BUSY;
+ 175              		.loc 1 56 8 view .LVU31
+ 176 0004 ABB9     		cbnz	r3, .L15
+  55:Core/Src/i2c_dma_manager.c ****     if (reading_in_progress) {
+ 177              		.loc 1 55 71 view .LVU32
+ 178 0006 10B5     		push	{r4, lr}
+ 179              	.LCFI1:
+ 180              		.cfi_def_cfa_offset 8
+ 181              		.cfi_offset 4, -8
+ 182              		.cfi_offset 14, -4
+ 183 0008 82B0     		sub	sp, sp, #8
+ 184              	.LCFI2:
+ 185              		.cfi_def_cfa_offset 16
+ 186 000a 0446     		mov	r4, r0
+  61:Core/Src/i2c_dma_manager.c ****     
+ 187              		.loc 1 61 5 is_stmt 1 view .LVU33
+ 188 000c FFF7FEFF 		bl	I2C_DMA_ClearFlags
+ 189              	.LVL5:
+  64:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 1;
+ 190              		.loc 1 64 5 view .LVU34
+  64:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 1;
+ 191              		.loc 1 64 19 is_stmt 0 view .LVU35
+ARM GAS  /tmp/ccmESs82.s 			page 6
+
+
+ 192 0010 0123     		movs	r3, #1
+ 193 0012 0A4A     		ldr	r2, .L20+4
+ 194 0014 1370     		strb	r3, [r2]
+  65:Core/Src/i2c_dma_manager.c ****     
+ 195              		.loc 1 65 5 is_stmt 1 view .LVU36
+  65:Core/Src/i2c_dma_manager.c ****     
+ 196              		.loc 1 65 25 is_stmt 0 view .LVU37
+ 197 0016 084A     		ldr	r2, .L20
+ 198 0018 1370     		strb	r3, [r2]
+  68:Core/Src/i2c_dma_manager.c ****                                 I2C_MEMADD_SIZE_8BIT, i2c_dma_data.vcnl_als_buf, 2);
+ 199              		.loc 1 68 5 is_stmt 1 view .LVU38
+  68:Core/Src/i2c_dma_manager.c ****                                 I2C_MEMADD_SIZE_8BIT, i2c_dma_data.vcnl_als_buf, 2);
+ 200              		.loc 1 68 12 is_stmt 0 view .LVU39
+ 201 001a 0222     		movs	r2, #2
+ 202 001c 0192     		str	r2, [sp, #4]
+ 203 001e 084A     		ldr	r2, .L20+8
+ 204 0020 0092     		str	r2, [sp]
+ 205 0022 0922     		movs	r2, #9
+ 206 0024 0749     		ldr	r1, .L20+12
+ 207 0026 0979     		ldrb	r1, [r1, #4]	@ zero_extendqisi2
+ 208 0028 2046     		mov	r0, r4
+ 209 002a FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 210              	.LVL6:
+  70:Core/Src/i2c_dma_manager.c **** 
+ 211              		.loc 1 70 1 view .LVU40
+ 212 002e 02B0     		add	sp, sp, #8
+ 213              	.LCFI3:
+ 214              		.cfi_def_cfa_offset 8
+ 215              		@ sp needed
+ 216 0030 10BD     		pop	{r4, pc}
+ 217              	.LVL7:
+ 218              	.L15:
+ 219              	.LCFI4:
+ 220              		.cfi_def_cfa_offset 0
+ 221              		.cfi_restore 4
+ 222              		.cfi_restore 14
+  57:Core/Src/i2c_dma_manager.c ****     }
+ 223              		.loc 1 57 16 view .LVU41
+ 224 0032 0220     		movs	r0, #2
+ 225              	.LVL8:
+  70:Core/Src/i2c_dma_manager.c **** 
+ 226              		.loc 1 70 1 view .LVU42
+ 227 0034 7047     		bx	lr
+ 228              	.L21:
+ 229 0036 00BF     		.align	2
+ 230              	.L20:
+ 231 0038 00000000 		.word	.LANCHOR2
+ 232 003c 00000000 		.word	.LANCHOR1
+ 233 0040 00000000 		.word	.LANCHOR0
+ 234 0044 00000000 		.word	vcnl4040
+ 235              		.cfi_endproc
+ 236              	.LFE135:
+ 238              		.section	.text.HAL_I2C_MemRxCpltCallback,"ax",%progbits
+ 239              		.align	1
+ 240              		.global	HAL_I2C_MemRxCpltCallback
+ 241              		.syntax unified
+ 242              		.thumb
+ARM GAS  /tmp/ccmESs82.s 			page 7
+
+
+ 243              		.thumb_func
+ 244              		.fpu fpv4-sp-d16
+ 246              	HAL_I2C_MemRxCpltCallback:
+ 247              	.LVL9:
+ 248              	.LFB138:
+  90:Core/Src/i2c_dma_manager.c **** 
+  91:Core/Src/i2c_dma_manager.c **** /**
+  92:Core/Src/i2c_dma_manager.c ****  * @brief I2C Memory Read完成回调（DMA模式状态机）
+  93:Core/Src/i2c_dma_manager.c ****  */
+  94:Core/Src/i2c_dma_manager.c **** void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c) {
+ 249              		.loc 1 94 57 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+  95:Core/Src/i2c_dma_manager.c ****     if (hi2c != &hi2c1) return;
+ 253              		.loc 1 95 5 view .LVU44
+ 254              		.loc 1 95 8 is_stmt 0 view .LVU45
+ 255 0000 5C4B     		ldr	r3, .L41
+ 256 0002 9842     		cmp	r0, r3
+ 257 0004 00D0     		beq	.L38
+ 258 0006 7047     		bx	lr
+ 259              	.L38:
+  94:Core/Src/i2c_dma_manager.c ****     if (hi2c != &hi2c1) return;
+ 260              		.loc 1 94 57 view .LVU46
+ 261 0008 30B5     		push	{r4, r5, lr}
+ 262              	.LCFI5:
+ 263              		.cfi_def_cfa_offset 12
+ 264              		.cfi_offset 4, -12
+ 265              		.cfi_offset 5, -8
+ 266              		.cfi_offset 14, -4
+ 267 000a 83B0     		sub	sp, sp, #12
+ 268              	.LCFI6:
+ 269              		.cfi_def_cfa_offset 24
+ 270 000c 0446     		mov	r4, r0
+  96:Core/Src/i2c_dma_manager.c ****     
+  97:Core/Src/i2c_dma_manager.c ****     HAL_StatusTypeDef status;
+ 271              		.loc 1 97 5 is_stmt 1 view .LVU47
+  98:Core/Src/i2c_dma_manager.c ****     
+  99:Core/Src/i2c_dma_manager.c ****     switch (current_state) {
+ 272              		.loc 1 99 5 view .LVU48
+ 273 000e 5A4B     		ldr	r3, .L41+4
+ 274 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 275 0012 013B     		subs	r3, r3, #1
+ 276 0014 0C2B     		cmp	r3, #12
+ 277 0016 59D8     		bhi	.L24
+ 278 0018 DFE803F0 		tbb	[pc, r3]
+ 279              	.L26:
+ 280 001c 07       		.byte	(.L32-.L26)/2
+ 281 001d 1A       		.byte	(.L31-.L26)/2
+ 282 001e 2E       		.byte	(.L30-.L26)/2
+ 283 001f 3D       		.byte	(.L29-.L26)/2
+ 284 0020 4C       		.byte	(.L28-.L26)/2
+ 285 0021 71       		.byte	(.L27-.L26)/2
+ 286 0022 71       		.byte	(.L27-.L26)/2
+ 287 0023 71       		.byte	(.L27-.L26)/2
+ 288 0024 71       		.byte	(.L27-.L26)/2
+ 289 0025 71       		.byte	(.L27-.L26)/2
+ARM GAS  /tmp/ccmESs82.s 			page 8
+
+
+ 290 0026 71       		.byte	(.L27-.L26)/2
+ 291 0027 71       		.byte	(.L27-.L26)/2
+ 292 0028 A0       		.byte	(.L25-.L26)/2
+ 293 0029 00       		.p2align 1
+ 294              	.L32:
+ 100:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_VCNL_ALS:
+ 101:Core/Src/i2c_dma_manager.c ****             i2c_dma_data.vcnl_als_ready = 1;
+ 295              		.loc 1 101 13 view .LVU49
+ 296              		.loc 1 101 41 is_stmt 0 view .LVU50
+ 297 002a 544A     		ldr	r2, .L41+8
+ 298 002c 0123     		movs	r3, #1
+ 299 002e 82F85230 		strb	r3, [r2, #82]
+ 102:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_VCNL_PS;
+ 300              		.loc 1 102 13 is_stmt 1 view .LVU51
+ 301              		.loc 1 102 27 is_stmt 0 view .LVU52
+ 302 0032 0221     		movs	r1, #2
+ 303 0034 5048     		ldr	r0, .L41+4
+ 304              	.LVL10:
+ 305              		.loc 1 102 27 view .LVU53
+ 306 0036 0170     		strb	r1, [r0]
+ 103:Core/Src/i2c_dma_manager.c ****             status = HAL_I2C_Mem_Read_DMA(hi2c, vcnl4040.i2c_addr, VCNL4040_REG_PS_DATA,
+ 307              		.loc 1 103 13 is_stmt 1 view .LVU54
+ 308              		.loc 1 103 22 is_stmt 0 view .LVU55
+ 309 0038 0191     		str	r1, [sp, #4]
+ 310 003a 0A44     		add	r2, r2, r1
+ 311 003c 0092     		str	r2, [sp]
+ 312 003e 0822     		movs	r2, #8
+ 313 0040 4F49     		ldr	r1, .L41+12
+ 314 0042 0979     		ldrb	r1, [r1, #4]	@ zero_extendqisi2
+ 315 0044 2046     		mov	r0, r4
+ 316 0046 FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 317              	.LVL11:
+ 104:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.vcnl_ps_buf, 2);
+ 105:Core/Src/i2c_dma_manager.c ****             if (status != HAL_OK) goto error;
+ 318              		.loc 1 105 13 is_stmt 1 view .LVU56
+ 319              		.loc 1 105 16 is_stmt 0 view .LVU57
+ 320 004a 0028     		cmp	r0, #0
+ 321 004c 48D0     		beq	.L22
+ 322 004e 3DE0     		b	.L24
+ 323              	.LVL12:
+ 324              	.L31:
+ 106:Core/Src/i2c_dma_manager.c ****             break;
+ 107:Core/Src/i2c_dma_manager.c ****             
+ 108:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_VCNL_PS:
+ 109:Core/Src/i2c_dma_manager.c ****             i2c_dma_data.vcnl_ps_ready = 1;
+ 325              		.loc 1 109 13 is_stmt 1 view .LVU58
+ 326              		.loc 1 109 40 is_stmt 0 view .LVU59
+ 327 0050 4A4A     		ldr	r2, .L41+8
+ 328 0052 0123     		movs	r3, #1
+ 329 0054 82F85330 		strb	r3, [r2, #83]
+ 110:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_IMU_ACCEL;
+ 330              		.loc 1 110 13 is_stmt 1 view .LVU60
+ 331              		.loc 1 110 27 is_stmt 0 view .LVU61
+ 332 0058 4749     		ldr	r1, .L41+4
+ 333 005a 0320     		movs	r0, #3
+ 334              	.LVL13:
+ 335              		.loc 1 110 27 view .LVU62
+ARM GAS  /tmp/ccmESs82.s 			page 9
+
+
+ 336 005c 0870     		strb	r0, [r1]
+ 111:Core/Src/i2c_dma_manager.c ****             status = HAL_I2C_Mem_Read_DMA(hi2c, icm42688.i2c_addr, 0x1F,
+ 337              		.loc 1 111 13 is_stmt 1 view .LVU63
+ 338              		.loc 1 111 22 is_stmt 0 view .LVU64
+ 339 005e 0621     		movs	r1, #6
+ 340 0060 0191     		str	r1, [sp, #4]
+ 341 0062 0432     		adds	r2, r2, #4
+ 342 0064 0092     		str	r2, [sp]
+ 343 0066 1F22     		movs	r2, #31
+ 344 0068 4649     		ldr	r1, .L41+16
+ 345 006a 0979     		ldrb	r1, [r1, #4]	@ zero_extendqisi2
+ 346 006c 2046     		mov	r0, r4
+ 347 006e FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 348              	.LVL14:
+ 112:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.imu_accel_buf, 6);
+ 113:Core/Src/i2c_dma_manager.c ****             if (status != HAL_OK) goto error;
+ 349              		.loc 1 113 13 is_stmt 1 view .LVU65
+ 350              		.loc 1 113 16 is_stmt 0 view .LVU66
+ 351 0072 0028     		cmp	r0, #0
+ 352 0074 34D0     		beq	.L22
+ 353 0076 29E0     		b	.L24
+ 354              	.LVL15:
+ 355              	.L30:
+ 114:Core/Src/i2c_dma_manager.c ****             break;
+ 115:Core/Src/i2c_dma_manager.c ****             
+ 116:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_IMU_ACCEL:
+ 117:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_IMU_GYRO;
+ 356              		.loc 1 117 13 is_stmt 1 view .LVU67
+ 357              		.loc 1 117 27 is_stmt 0 view .LVU68
+ 358 0078 3F4B     		ldr	r3, .L41+4
+ 359 007a 0422     		movs	r2, #4
+ 360 007c 1A70     		strb	r2, [r3]
+ 118:Core/Src/i2c_dma_manager.c ****             status = HAL_I2C_Mem_Read_DMA(hi2c, icm42688.i2c_addr, 0x25,
+ 361              		.loc 1 118 13 is_stmt 1 view .LVU69
+ 362              		.loc 1 118 22 is_stmt 0 view .LVU70
+ 363 007e 0623     		movs	r3, #6
+ 364 0080 0193     		str	r3, [sp, #4]
+ 365 0082 414B     		ldr	r3, .L41+20
+ 366 0084 0093     		str	r3, [sp]
+ 367 0086 0123     		movs	r3, #1
+ 368 0088 2522     		movs	r2, #37
+ 369 008a 3E49     		ldr	r1, .L41+16
+ 370 008c 0979     		ldrb	r1, [r1, #4]	@ zero_extendqisi2
+ 371 008e FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 372              	.LVL16:
+ 119:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.imu_gyro_buf, 6);
+ 120:Core/Src/i2c_dma_manager.c ****             if (status != HAL_OK) goto error;
+ 373              		.loc 1 120 13 is_stmt 1 view .LVU71
+ 374              		.loc 1 120 16 is_stmt 0 view .LVU72
+ 375 0092 28B3     		cbz	r0, .L22
+ 376 0094 1AE0     		b	.L24
+ 377              	.LVL17:
+ 378              	.L29:
+ 121:Core/Src/i2c_dma_manager.c ****             break;
+ 122:Core/Src/i2c_dma_manager.c ****             
+ 123:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_IMU_GYRO:
+ 124:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_IMU_TEMP;
+ARM GAS  /tmp/ccmESs82.s 			page 10
+
+
+ 379              		.loc 1 124 13 is_stmt 1 view .LVU73
+ 380              		.loc 1 124 27 is_stmt 0 view .LVU74
+ 381 0096 384B     		ldr	r3, .L41+4
+ 382 0098 0522     		movs	r2, #5
+ 383 009a 1A70     		strb	r2, [r3]
+ 125:Core/Src/i2c_dma_manager.c ****             status = HAL_I2C_Mem_Read_DMA(hi2c, icm42688.i2c_addr, 0x1D,
+ 384              		.loc 1 125 13 is_stmt 1 view .LVU75
+ 385              		.loc 1 125 22 is_stmt 0 view .LVU76
+ 386 009c 0223     		movs	r3, #2
+ 387 009e 0193     		str	r3, [sp, #4]
+ 388 00a0 3A4B     		ldr	r3, .L41+24
+ 389 00a2 0093     		str	r3, [sp]
+ 390 00a4 0123     		movs	r3, #1
+ 391 00a6 1D22     		movs	r2, #29
+ 392 00a8 3649     		ldr	r1, .L41+16
+ 393 00aa 0979     		ldrb	r1, [r1, #4]	@ zero_extendqisi2
+ 394 00ac FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 395              	.LVL18:
+ 126:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.imu_temp_buf, 2);
+ 127:Core/Src/i2c_dma_manager.c ****             if (status != HAL_OK) goto error;
+ 396              		.loc 1 127 13 is_stmt 1 view .LVU77
+ 397              		.loc 1 127 16 is_stmt 0 view .LVU78
+ 398 00b0 B0B1     		cbz	r0, .L22
+ 399 00b2 0BE0     		b	.L24
+ 400              	.LVL19:
+ 401              	.L28:
+ 128:Core/Src/i2c_dma_manager.c ****             break;
+ 129:Core/Src/i2c_dma_manager.c ****             
+ 130:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_IMU_TEMP:
+ 131:Core/Src/i2c_dma_manager.c ****             i2c_dma_data.imu_ready = 1;
+ 402              		.loc 1 131 13 is_stmt 1 view .LVU79
+ 403              		.loc 1 131 36 is_stmt 0 view .LVU80
+ 404 00b4 314B     		ldr	r3, .L41+8
+ 405 00b6 0122     		movs	r2, #1
+ 406 00b8 83F85420 		strb	r2, [r3, #84]
+ 132:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_BME_CH0;
+ 407              		.loc 1 132 13 is_stmt 1 view .LVU81
+ 408              		.loc 1 132 27 is_stmt 0 view .LVU82
+ 409 00bc 2E4B     		ldr	r3, .L41+4
+ 410 00be 0622     		movs	r2, #6
+ 411 00c0 1A70     		strb	r2, [r3]
+ 133:Core/Src/i2c_dma_manager.c ****             // 选择BME280通道0（这里仍需轮询模式，但很快）
+ 134:Core/Src/i2c_dma_manager.c ****             if (TCA9548A_SelectChannel(hi2c, TCA9548A_ADDR_70, 0) != HAL_OK) goto error;
+ 412              		.loc 1 134 13 is_stmt 1 view .LVU83
+ 413              		.loc 1 134 17 is_stmt 0 view .LVU84
+ 414 00c2 0022     		movs	r2, #0
+ 415 00c4 E021     		movs	r1, #224
+ 416 00c6 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 417              	.LVL20:
+ 418              		.loc 1 134 16 view .LVU85
+ 419 00ca 58B1     		cbz	r0, .L39
+ 420              	.L24:
+ 135:Core/Src/i2c_dma_manager.c ****             status = HAL_I2C_Mem_Read_DMA(hi2c, BME280_ADDR_76, 0xF7,
+ 136:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[0], 8);
+ 137:Core/Src/i2c_dma_manager.c ****             if (status != HAL_OK) goto error;
+ 138:Core/Src/i2c_dma_manager.c ****             break;
+ 139:Core/Src/i2c_dma_manager.c ****             
+ARM GAS  /tmp/ccmESs82.s 			page 11
+
+
+ 140:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH0:
+ 141:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH1:
+ 142:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH2:
+ 143:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH3:
+ 144:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH4:
+ 145:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH5:
+ 146:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH6:
+ 147:Core/Src/i2c_dma_manager.c ****             {
+ 148:Core/Src/i2c_dma_manager.c ****                 uint8_t ch = current_state - SENSOR_STATE_BME_CH0;
+ 149:Core/Src/i2c_dma_manager.c ****                 i2c_dma_data.bme_ready[ch] = 1;
+ 150:Core/Src/i2c_dma_manager.c ****                 ch++;
+ 151:Core/Src/i2c_dma_manager.c ****                 current_state = SENSOR_STATE_BME_CH0 + ch;
+ 152:Core/Src/i2c_dma_manager.c ****                 if (ch < 8) {
+ 153:Core/Src/i2c_dma_manager.c ****                     // 继续下一个BME280
+ 154:Core/Src/i2c_dma_manager.c ****                     if (TCA9548A_SelectChannel(hi2c, TCA9548A_ADDR_70, ch) != HAL_OK) goto error;
+ 155:Core/Src/i2c_dma_manager.c ****                     status = HAL_I2C_Mem_Read_DMA(hi2c, BME280_ADDR_76, 0xF7,
+ 156:Core/Src/i2c_dma_manager.c ****                                                  I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[ch
+ 157:Core/Src/i2c_dma_manager.c ****                     if (status != HAL_OK) goto error;
+ 158:Core/Src/i2c_dma_manager.c ****                 } else {
+ 159:Core/Src/i2c_dma_manager.c ****                     // 所有传感器读取完成
+ 160:Core/Src/i2c_dma_manager.c ****                     current_state = SENSOR_STATE_DONE;
+ 161:Core/Src/i2c_dma_manager.c ****                     reading_in_progress = 0;
+ 162:Core/Src/i2c_dma_manager.c ****                 }
+ 163:Core/Src/i2c_dma_manager.c ****             }
+ 164:Core/Src/i2c_dma_manager.c ****             break;
+ 165:Core/Src/i2c_dma_manager.c ****             
+ 166:Core/Src/i2c_dma_manager.c ****         case SENSOR_STATE_BME_CH7:
+ 167:Core/Src/i2c_dma_manager.c ****             i2c_dma_data.bme_ready[7] = 1;
+ 168:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_DONE;
+ 169:Core/Src/i2c_dma_manager.c ****             reading_in_progress = 0;
+ 170:Core/Src/i2c_dma_manager.c ****             break;
+ 171:Core/Src/i2c_dma_manager.c ****             
+ 172:Core/Src/i2c_dma_manager.c ****         default:
+ 173:Core/Src/i2c_dma_manager.c ****             goto error;
+ 174:Core/Src/i2c_dma_manager.c ****     }
+ 175:Core/Src/i2c_dma_manager.c ****     
+ 176:Core/Src/i2c_dma_manager.c ****     return;
+ 177:Core/Src/i2c_dma_manager.c ****     
+ 178:Core/Src/i2c_dma_manager.c **** error:
+ 179:Core/Src/i2c_dma_manager.c ****     i2c_dma_data.error_count++;
+ 421              		.loc 1 179 5 is_stmt 1 view .LVU86
+ 422              		.loc 1 179 17 is_stmt 0 view .LVU87
+ 423 00cc 2B4A     		ldr	r2, .L41+8
+ 424 00ce 136E     		ldr	r3, [r2, #96]
+ 425              		.loc 1 179 29 view .LVU88
+ 426 00d0 0133     		adds	r3, r3, #1
+ 427 00d2 1366     		str	r3, [r2, #96]
+ 180:Core/Src/i2c_dma_manager.c ****     current_state = SENSOR_STATE_DONE;
+ 428              		.loc 1 180 5 is_stmt 1 view .LVU89
+ 429              		.loc 1 180 19 is_stmt 0 view .LVU90
+ 430 00d4 284B     		ldr	r3, .L41+4
+ 431 00d6 0E22     		movs	r2, #14
+ 432 00d8 1A70     		strb	r2, [r3]
+ 181:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 0;
+ 433              		.loc 1 181 5 is_stmt 1 view .LVU91
+ 434              		.loc 1 181 25 is_stmt 0 view .LVU92
+ 435 00da 2D4B     		ldr	r3, .L41+28
+ARM GAS  /tmp/ccmESs82.s 			page 12
+
+
+ 436 00dc 0022     		movs	r2, #0
+ 437 00de 1A70     		strb	r2, [r3]
+ 438              	.L22:
+ 182:Core/Src/i2c_dma_manager.c **** }
+ 439              		.loc 1 182 1 view .LVU93
+ 440 00e0 03B0     		add	sp, sp, #12
+ 441              	.LCFI7:
+ 442              		.cfi_remember_state
+ 443              		.cfi_def_cfa_offset 12
+ 444              		@ sp needed
+ 445 00e2 30BD     		pop	{r4, r5, pc}
+ 446              	.LVL21:
+ 447              	.L39:
+ 448              	.LCFI8:
+ 449              		.cfi_restore_state
+ 135:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[0], 8);
+ 450              		.loc 1 135 13 is_stmt 1 view .LVU94
+ 135:Core/Src/i2c_dma_manager.c ****                                          I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[0], 8);
+ 451              		.loc 1 135 22 is_stmt 0 view .LVU95
+ 452 00e4 0823     		movs	r3, #8
+ 453 00e6 0193     		str	r3, [sp, #4]
+ 454 00e8 2A4B     		ldr	r3, .L41+32
+ 455 00ea 0093     		str	r3, [sp]
+ 456 00ec 0123     		movs	r3, #1
+ 457 00ee F722     		movs	r2, #247
+ 458 00f0 EC21     		movs	r1, #236
+ 459 00f2 2046     		mov	r0, r4
+ 460 00f4 FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 461              	.LVL22:
+ 137:Core/Src/i2c_dma_manager.c ****             break;
+ 462              		.loc 1 137 13 is_stmt 1 view .LVU96
+ 137:Core/Src/i2c_dma_manager.c ****             break;
+ 463              		.loc 1 137 16 is_stmt 0 view .LVU97
+ 464 00f8 0028     		cmp	r0, #0
+ 465 00fa F1D0     		beq	.L22
+ 466 00fc E6E7     		b	.L24
+ 467              	.LVL23:
+ 468              	.L27:
+ 469              	.LBB3:
+ 148:Core/Src/i2c_dma_manager.c ****                 i2c_dma_data.bme_ready[ch] = 1;
+ 470              		.loc 1 148 17 is_stmt 1 view .LVU98
+ 148:Core/Src/i2c_dma_manager.c ****                 i2c_dma_data.bme_ready[ch] = 1;
+ 471              		.loc 1 148 44 is_stmt 0 view .LVU99
+ 472 00fe 1E49     		ldr	r1, .L41+4
+ 473 0100 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 148:Core/Src/i2c_dma_manager.c ****                 i2c_dma_data.bme_ready[ch] = 1;
+ 474              		.loc 1 148 25 view .LVU100
+ 475 0102 9A1F     		subs	r2, r3, #6
+ 476              	.LVL24:
+ 149:Core/Src/i2c_dma_manager.c ****                 ch++;
+ 477              		.loc 1 149 17 is_stmt 1 view .LVU101
+ 149:Core/Src/i2c_dma_manager.c ****                 ch++;
+ 478              		.loc 1 149 44 is_stmt 0 view .LVU102
+ 479 0104 1D48     		ldr	r0, .L41+8
+ 480              	.LVL25:
+ 149:Core/Src/i2c_dma_manager.c ****                 ch++;
+ 481              		.loc 1 149 44 view .LVU103
+ARM GAS  /tmp/ccmESs82.s 			page 13
+
+
+ 482 0106 50FA82F2 		uxtab	r2, r0, r2
+ 483              	.LVL26:
+ 149:Core/Src/i2c_dma_manager.c ****                 ch++;
+ 484              		.loc 1 149 44 view .LVU104
+ 485 010a 0120     		movs	r0, #1
+ 486 010c 82F85500 		strb	r0, [r2, #85]
+ 150:Core/Src/i2c_dma_manager.c ****                 current_state = SENSOR_STATE_BME_CH0 + ch;
+ 487              		.loc 1 150 17 is_stmt 1 view .LVU105
+ 150:Core/Src/i2c_dma_manager.c ****                 current_state = SENSOR_STATE_BME_CH0 + ch;
+ 488              		.loc 1 150 19 is_stmt 0 view .LVU106
+ 489 0110 5D1F     		subs	r5, r3, #5
+ 490 0112 EDB2     		uxtb	r5, r5
+ 491              	.LVL27:
+ 151:Core/Src/i2c_dma_manager.c ****                 if (ch < 8) {
+ 492              		.loc 1 151 17 is_stmt 1 view .LVU107
+ 151:Core/Src/i2c_dma_manager.c ****                 if (ch < 8) {
+ 493              		.loc 1 151 54 is_stmt 0 view .LVU108
+ 494 0114 0344     		add	r3, r3, r0
+ 495 0116 DBB2     		uxtb	r3, r3
+ 151:Core/Src/i2c_dma_manager.c ****                 if (ch < 8) {
+ 496              		.loc 1 151 31 view .LVU109
+ 497 0118 0B70     		strb	r3, [r1]
+ 152:Core/Src/i2c_dma_manager.c ****                     // 继续下一个BME280
+ 498              		.loc 1 152 17 is_stmt 1 view .LVU110
+ 152:Core/Src/i2c_dma_manager.c ****                     // 继续下一个BME280
+ 499              		.loc 1 152 20 is_stmt 0 view .LVU111
+ 500 011a 072D     		cmp	r5, #7
+ 501 011c 06D9     		bls	.L40
+ 160:Core/Src/i2c_dma_manager.c ****                     reading_in_progress = 0;
+ 502              		.loc 1 160 21 is_stmt 1 view .LVU112
+ 160:Core/Src/i2c_dma_manager.c ****                     reading_in_progress = 0;
+ 503              		.loc 1 160 35 is_stmt 0 view .LVU113
+ 504 011e 164B     		ldr	r3, .L41+4
+ 505 0120 0E22     		movs	r2, #14
+ 506 0122 1A70     		strb	r2, [r3]
+ 161:Core/Src/i2c_dma_manager.c ****                 }
+ 507              		.loc 1 161 21 is_stmt 1 view .LVU114
+ 161:Core/Src/i2c_dma_manager.c ****                 }
+ 508              		.loc 1 161 41 is_stmt 0 view .LVU115
+ 509 0124 1A4B     		ldr	r3, .L41+28
+ 510 0126 0022     		movs	r2, #0
+ 511 0128 1A70     		strb	r2, [r3]
+ 512 012a D9E7     		b	.L22
+ 513              	.L40:
+ 154:Core/Src/i2c_dma_manager.c ****                     status = HAL_I2C_Mem_Read_DMA(hi2c, BME280_ADDR_76, 0xF7,
+ 514              		.loc 1 154 21 is_stmt 1 view .LVU116
+ 154:Core/Src/i2c_dma_manager.c ****                     status = HAL_I2C_Mem_Read_DMA(hi2c, BME280_ADDR_76, 0xF7,
+ 515              		.loc 1 154 25 is_stmt 0 view .LVU117
+ 516 012c 2A46     		mov	r2, r5
+ 517 012e E021     		movs	r1, #224
+ 518 0130 2046     		mov	r0, r4
+ 519 0132 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 520              	.LVL28:
+ 154:Core/Src/i2c_dma_manager.c ****                     status = HAL_I2C_Mem_Read_DMA(hi2c, BME280_ADDR_76, 0xF7,
+ 521              		.loc 1 154 24 view .LVU118
+ 522 0136 0028     		cmp	r0, #0
+ 523 0138 C8D1     		bne	.L24
+ARM GAS  /tmp/ccmESs82.s 			page 14
+
+
+ 155:Core/Src/i2c_dma_manager.c ****                                                  I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[ch
+ 524              		.loc 1 155 21 is_stmt 1 view .LVU119
+ 156:Core/Src/i2c_dma_manager.c ****                     if (status != HAL_OK) goto error;
+ 525              		.loc 1 156 97 is_stmt 0 view .LVU120
+ 526 013a 0235     		adds	r5, r5, #2
+ 527              	.LVL29:
+ 156:Core/Src/i2c_dma_manager.c ****                     if (status != HAL_OK) goto error;
+ 528              		.loc 1 156 97 view .LVU121
+ 529 013c 0F4B     		ldr	r3, .L41+8
+ 530 013e 03EBC505 		add	r5, r3, r5, lsl #3
+ 531              	.LVL30:
+ 156:Core/Src/i2c_dma_manager.c ****                     if (status != HAL_OK) goto error;
+ 532              		.loc 1 156 97 view .LVU122
+ 533 0142 0235     		adds	r5, r5, #2
+ 155:Core/Src/i2c_dma_manager.c ****                                                  I2C_MEMADD_SIZE_8BIT, i2c_dma_data.bme_data_buf[ch
+ 534              		.loc 1 155 30 view .LVU123
+ 535 0144 0822     		movs	r2, #8
+ 536 0146 0192     		str	r2, [sp, #4]
+ 537 0148 0095     		str	r5, [sp]
+ 538 014a 0123     		movs	r3, #1
+ 539 014c F722     		movs	r2, #247
+ 540 014e EC21     		movs	r1, #236
+ 541 0150 2046     		mov	r0, r4
+ 542 0152 FFF7FEFF 		bl	HAL_I2C_Mem_Read_DMA
+ 543              	.LVL31:
+ 157:Core/Src/i2c_dma_manager.c ****                 } else {
+ 544              		.loc 1 157 21 is_stmt 1 view .LVU124
+ 157:Core/Src/i2c_dma_manager.c ****                 } else {
+ 545              		.loc 1 157 24 is_stmt 0 view .LVU125
+ 546 0156 0028     		cmp	r0, #0
+ 547 0158 C2D0     		beq	.L22
+ 548 015a B7E7     		b	.L24
+ 549              	.LVL32:
+ 550              	.L25:
+ 157:Core/Src/i2c_dma_manager.c ****                 } else {
+ 551              		.loc 1 157 24 view .LVU126
+ 552              	.LBE3:
+ 167:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_DONE;
+ 553              		.loc 1 167 13 is_stmt 1 view .LVU127
+ 167:Core/Src/i2c_dma_manager.c ****             current_state = SENSOR_STATE_DONE;
+ 554              		.loc 1 167 39 is_stmt 0 view .LVU128
+ 555 015c 074B     		ldr	r3, .L41+8
+ 556 015e 0122     		movs	r2, #1
+ 557 0160 83F85C20 		strb	r2, [r3, #92]
+ 168:Core/Src/i2c_dma_manager.c ****             reading_in_progress = 0;
+ 558              		.loc 1 168 13 is_stmt 1 view .LVU129
+ 168:Core/Src/i2c_dma_manager.c ****             reading_in_progress = 0;
+ 559              		.loc 1 168 27 is_stmt 0 view .LVU130
+ 560 0164 044B     		ldr	r3, .L41+4
+ 561 0166 0E22     		movs	r2, #14
+ 562 0168 1A70     		strb	r2, [r3]
+ 169:Core/Src/i2c_dma_manager.c ****             break;
+ 563              		.loc 1 169 13 is_stmt 1 view .LVU131
+ 169:Core/Src/i2c_dma_manager.c ****             break;
+ 564              		.loc 1 169 33 is_stmt 0 view .LVU132
+ 565 016a 094B     		ldr	r3, .L41+28
+ 566 016c 0022     		movs	r2, #0
+ARM GAS  /tmp/ccmESs82.s 			page 15
+
+
+ 567 016e 1A70     		strb	r2, [r3]
+ 170:Core/Src/i2c_dma_manager.c ****             
+ 568              		.loc 1 170 13 is_stmt 1 view .LVU133
+ 569 0170 B6E7     		b	.L22
+ 570              	.L42:
+ 571 0172 00BF     		.align	2
+ 572              	.L41:
+ 573 0174 00000000 		.word	hi2c1
+ 574 0178 00000000 		.word	.LANCHOR1
+ 575 017c 00000000 		.word	.LANCHOR0
+ 576 0180 00000000 		.word	vcnl4040
+ 577 0184 00000000 		.word	icm42688
+ 578 0188 0A000000 		.word	.LANCHOR0+10
+ 579 018c 10000000 		.word	.LANCHOR0+16
+ 580 0190 00000000 		.word	.LANCHOR2
+ 581 0194 12000000 		.word	.LANCHOR0+18
+ 582              		.cfi_endproc
+ 583              	.LFE138:
+ 585              		.section	.text.I2C_DMA_HandleError,"ax",%progbits
+ 586              		.align	1
+ 587              		.global	I2C_DMA_HandleError
+ 588              		.syntax unified
+ 589              		.thumb
+ 590              		.thumb_func
+ 591              		.fpu fpv4-sp-d16
+ 593              	I2C_DMA_HandleError:
+ 594              	.LFB139:
+ 183:Core/Src/i2c_dma_manager.c **** 
+ 184:Core/Src/i2c_dma_manager.c **** /**
+ 185:Core/Src/i2c_dma_manager.c ****  * @brief I2C状态机错误处理（由i2c_error_handler调用）
+ 186:Core/Src/i2c_dma_manager.c ****  */
+ 187:Core/Src/i2c_dma_manager.c **** void I2C_DMA_HandleError(void) {
+ 595              		.loc 1 187 32 view -0
+ 596              		.cfi_startproc
+ 597              		@ args = 0, pretend = 0, frame = 0
+ 598              		@ frame_needed = 0, uses_anonymous_args = 0
+ 599              		@ link register save eliminated.
+ 188:Core/Src/i2c_dma_manager.c ****     i2c_dma_data.error_count++;
+ 600              		.loc 1 188 5 view .LVU135
+ 601              		.loc 1 188 17 is_stmt 0 view .LVU136
+ 602 0000 054A     		ldr	r2, .L44
+ 603 0002 136E     		ldr	r3, [r2, #96]
+ 604              		.loc 1 188 29 view .LVU137
+ 605 0004 0133     		adds	r3, r3, #1
+ 606 0006 1366     		str	r3, [r2, #96]
+ 189:Core/Src/i2c_dma_manager.c ****     current_state = SENSOR_STATE_DONE;
+ 607              		.loc 1 189 5 is_stmt 1 view .LVU138
+ 608              		.loc 1 189 19 is_stmt 0 view .LVU139
+ 609 0008 044B     		ldr	r3, .L44+4
+ 610 000a 0E22     		movs	r2, #14
+ 611 000c 1A70     		strb	r2, [r3]
+ 190:Core/Src/i2c_dma_manager.c ****     reading_in_progress = 0;
+ 612              		.loc 1 190 5 is_stmt 1 view .LVU140
+ 613              		.loc 1 190 25 is_stmt 0 view .LVU141
+ 614 000e 044B     		ldr	r3, .L44+8
+ 615 0010 0022     		movs	r2, #0
+ 616 0012 1A70     		strb	r2, [r3]
+ARM GAS  /tmp/ccmESs82.s 			page 16
+
+
+ 191:Core/Src/i2c_dma_manager.c **** }
+ 617              		.loc 1 191 1 view .LVU142
+ 618 0014 7047     		bx	lr
+ 619              	.L45:
+ 620 0016 00BF     		.align	2
+ 621              	.L44:
+ 622 0018 00000000 		.word	.LANCHOR0
+ 623 001c 00000000 		.word	.LANCHOR1
+ 624 0020 00000000 		.word	.LANCHOR2
+ 625              		.cfi_endproc
+ 626              	.LFE139:
+ 628              		.global	i2c_dma_data
+ 629              		.section	.bss.current_state,"aw",%nobits
+ 630              		.set	.LANCHOR1,. + 0
+ 633              	current_state:
+ 634 0000 00       		.space	1
+ 635              		.section	.bss.i2c_dma_data,"aw",%nobits
+ 636              		.align	2
+ 637              		.set	.LANCHOR0,. + 0
+ 640              	i2c_dma_data:
+ 641 0000 00000000 		.space	100
+ 641      00000000 
+ 641      00000000 
+ 641      00000000 
+ 641      00000000 
+ 642              		.section	.bss.reading_in_progress,"aw",%nobits
+ 643              		.set	.LANCHOR2,. + 0
+ 646              	reading_in_progress:
+ 647 0000 00       		.space	1
+ 648              		.text
+ 649              	.Letext0:
+ 650              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 651              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 652              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 653              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 654              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 655              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 656              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 657              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 658              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 659              		.file 11 "Core/Inc/vcnl4040_sensor.h"
+ 660              		.file 12 "Core/Inc/icm42688_sensor.h"
+ 661              		.file 13 "Core/Inc/humidity_temp_sensor.h"
+ 662              		.file 14 "Core/Inc/i2c_dma_manager.h"
+ 663              		.file 15 "Core/Inc/microphone_sensor.h"
+ 664              		.file 16 "Core/Inc/my_main.h"
+ 665              		.file 17 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 666              		.file 18 "/usr/include/newlib/sys/_types.h"
+ 667              		.file 19 "/usr/include/newlib/sys/reent.h"
+ 668              		.file 20 "/usr/include/newlib/sys/lock.h"
+ 669              		.file 21 "<built-in>"
+ARM GAS  /tmp/ccmESs82.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 i2c_dma_manager.c
+     /tmp/ccmESs82.s:18     .text.I2C_DMA_Init:0000000000000000 $t
+     /tmp/ccmESs82.s:26     .text.I2C_DMA_Init:0000000000000000 I2C_DMA_Init
+     /tmp/ccmESs82.s:58     .text.I2C_DMA_Init:0000000000000018 $d
+     /tmp/ccmESs82.s:65     .text.I2C_DMA_IsAllReady:0000000000000000 $t
+     /tmp/ccmESs82.s:72     .text.I2C_DMA_IsAllReady:0000000000000000 I2C_DMA_IsAllReady
+     /tmp/ccmESs82.s:93     .text.I2C_DMA_IsAllReady:0000000000000010 $d
+     /tmp/ccmESs82.s:98     .text.I2C_DMA_ClearFlags:0000000000000000 $t
+     /tmp/ccmESs82.s:105    .text.I2C_DMA_ClearFlags:0000000000000000 I2C_DMA_ClearFlags
+     /tmp/ccmESs82.s:152    .text.I2C_DMA_ClearFlags:0000000000000024 $d
+     /tmp/ccmESs82.s:157    .text.I2C_DMA_StartSensorReading:0000000000000000 $t
+     /tmp/ccmESs82.s:164    .text.I2C_DMA_StartSensorReading:0000000000000000 I2C_DMA_StartSensorReading
+     /tmp/ccmESs82.s:231    .text.I2C_DMA_StartSensorReading:0000000000000038 $d
+     /tmp/ccmESs82.s:239    .text.HAL_I2C_MemRxCpltCallback:0000000000000000 $t
+     /tmp/ccmESs82.s:246    .text.HAL_I2C_MemRxCpltCallback:0000000000000000 HAL_I2C_MemRxCpltCallback
+     /tmp/ccmESs82.s:280    .text.HAL_I2C_MemRxCpltCallback:000000000000001c $d
+     /tmp/ccmESs82.s:573    .text.HAL_I2C_MemRxCpltCallback:0000000000000174 $d
+     /tmp/ccmESs82.s:586    .text.I2C_DMA_HandleError:0000000000000000 $t
+     /tmp/ccmESs82.s:593    .text.I2C_DMA_HandleError:0000000000000000 I2C_DMA_HandleError
+     /tmp/ccmESs82.s:622    .text.I2C_DMA_HandleError:0000000000000018 $d
+     /tmp/ccmESs82.s:640    .bss.i2c_dma_data:0000000000000000 i2c_dma_data
+     /tmp/ccmESs82.s:633    .bss.current_state:0000000000000000 current_state
+     /tmp/ccmESs82.s:634    .bss.current_state:0000000000000000 $d
+     /tmp/ccmESs82.s:636    .bss.i2c_dma_data:0000000000000000 $d
+     /tmp/ccmESs82.s:646    .bss.reading_in_progress:0000000000000000 reading_in_progress
+     /tmp/ccmESs82.s:647    .bss.reading_in_progress:0000000000000000 $d
+     /tmp/ccmESs82.s:293    .text.HAL_I2C_MemRxCpltCallback:0000000000000029 $d
+     /tmp/ccmESs82.s:293    .text.HAL_I2C_MemRxCpltCallback:000000000000002a $t
+
+UNDEFINED SYMBOLS
+memset
+HAL_I2C_Mem_Read_DMA
+vcnl4040
+TCA9548A_SelectChannel
+hi2c1
+icm42688

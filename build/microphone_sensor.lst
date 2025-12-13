@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccV5W4wZ.s 			page 1
+ARM GAS  /tmp/ccvwWlpc.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccV5W4wZ.s 			page 1
   42              		.loc 1 14 15 is_stmt 0 view .LVU5
   43 0006 0160     		str	r1, [r0]
   15:Core/Src/microphone_sensor.c ****     mic->half_ready = 0;
-ARM GAS  /tmp/ccV5W4wZ.s 			page 2
+ARM GAS  /tmp/ccvwWlpc.s 			page 2
 
 
   44              		.loc 1 15 5 is_stmt 1 view .LVU6
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccV5W4wZ.s 			page 1
   26:Core/Src/microphone_sensor.c **** {
   87              		.loc 1 26 1 is_stmt 1 view -0
   88              		.cfi_startproc
-ARM GAS  /tmp/ccV5W4wZ.s 			page 3
+ARM GAS  /tmp/ccvwWlpc.s 			page 3
 
 
   89              		@ args = 0, pretend = 0, frame = 0
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccV5W4wZ.s 			page 1
  137              		.cfi_endproc
  138              	.LFE135:
  140              		.global	dma_buffer
-ARM GAS  /tmp/ccV5W4wZ.s 			page 4
+ARM GAS  /tmp/ccvwWlpc.s 			page 4
 
 
  141              		.section	.bss,"aw",%nobits
@@ -191,24 +191,31 @@ ARM GAS  /tmp/ccV5W4wZ.s 			page 1
  147      00000000 
  148              		.text
  149              	.Letext0:
- 150              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 151              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 152              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 153              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 154              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
- 155              		.file 7 "Core/Inc/microphone_sensor.h"
-ARM GAS  /tmp/ccV5W4wZ.s 			page 5
+ 150              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 151              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 152              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 153              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 154              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 155              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 156              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 157              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 158              		.file 10 "Core/Inc/microphone_sensor.h"
+ 159              		.file 11 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 160              		.file 12 "/usr/include/newlib/sys/_types.h"
+ 161              		.file 13 "/usr/include/newlib/sys/reent.h"
+ 162              		.file 14 "/usr/include/newlib/sys/lock.h"
+ARM GAS  /tmp/ccvwWlpc.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 microphone_sensor.c
-     /tmp/ccV5W4wZ.s:18     .text.MIC_Init:0000000000000000 $t
-     /tmp/ccV5W4wZ.s:26     .text.MIC_Init:0000000000000000 MIC_Init
-     /tmp/ccV5W4wZ.s:77     .text.MIC_Start:0000000000000000 $t
-     /tmp/ccV5W4wZ.s:84     .text.MIC_Start:0000000000000000 MIC_Start
-     /tmp/ccV5W4wZ.s:136    .text.MIC_Start:000000000000001c $d
-     /tmp/ccV5W4wZ.s:146    .bss:0000000000000000 dma_buffer
-     /tmp/ccV5W4wZ.s:142    .bss:0000000000000000 $d
+     /tmp/ccvwWlpc.s:18     .text.MIC_Init:0000000000000000 $t
+     /tmp/ccvwWlpc.s:26     .text.MIC_Init:0000000000000000 MIC_Init
+     /tmp/ccvwWlpc.s:77     .text.MIC_Start:0000000000000000 $t
+     /tmp/ccvwWlpc.s:84     .text.MIC_Start:0000000000000000 MIC_Start
+     /tmp/ccvwWlpc.s:136    .text.MIC_Start:000000000000001c $d
+     /tmp/ccvwWlpc.s:146    .bss:0000000000000000 dma_buffer
+     /tmp/ccvwWlpc.s:142    .bss:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2S_Receive_DMA

@@ -184,7 +184,9 @@ void My_Main_Run(void)
       imu_temp, mic.audio_result
     );
 
-    CDC_Transmit_FS((uint8_t*)msg, len);
-    HAL_Delay(10);  // 短暂延迟，避免USB传输过快
+    // CDC_Transmit_FS((uint8_t*)msg, len);
+    // HAL_Delay(10);  // 短暂延迟，避免USB传输过快
+    const char *msg="CDC Transmit\r\n";
+    CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   }
 }

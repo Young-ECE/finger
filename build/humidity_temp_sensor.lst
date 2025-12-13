@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccO31j78.s 			page 1
+ARM GAS  /tmp/ccbJE9BT.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
   28:Core/Src/humidity_temp_sensor.c **** 
   29:Core/Src/humidity_temp_sensor.c **** /* ==== TCA9548A: SELECT MULTIPLEXER CHANNEL ==== */
   30:Core/Src/humidity_temp_sensor.c **** HAL_StatusTypeDef TCA9548A_SelectChannel(I2C_HandleTypeDef *hi2c, uint8_t mux_addr, uint8_t channel
-ARM GAS  /tmp/ccO31j78.s 			page 2
+ARM GAS  /tmp/ccbJE9BT.s 			page 2
 
 
   31:Core/Src/humidity_temp_sensor.c **** {
@@ -118,1123 +118,1150 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
   29              		.loc 1 84 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccO31j78.s 			page 3
+ARM GAS  /tmp/ccbJE9BT.s 			page 3
 
 
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              		@ link register save eliminated.
+  34              		.loc 1 84 1 is_stmt 0 view .LVU1
+  35 0000 10B4     		push	{r4}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 4
+  38              		.cfi_offset 4, -4
   85:Core/Src/humidity_temp_sensor.c ****     int32_t var1, var2, T;
-  34              		.loc 1 85 5 view .LVU1
+  39              		.loc 1 85 5 is_stmt 1 view .LVU2
   86:Core/Src/humidity_temp_sensor.c ****     var1 = ((((adc_T >> 3) - ((int32_t)dev->calib.dig_T1 << 1))) * ((int32_t)dev->calib.dig_T2)) >>
-  35              		.loc 1 86 5 view .LVU2
-  36              		.loc 1 86 50 is_stmt 0 view .LVU3
-  37 0000 0289     		ldrh	r2, [r0, #8]
-  38              		.loc 1 86 58 view .LVU4
-  39 0002 5300     		lsls	r3, r2, #1
-  40              		.loc 1 86 28 view .LVU5
-  41 0004 C3EBE103 		rsb	r3, r3, r1, asr #3
-  42              		.loc 1 86 88 view .LVU6
-  43 0008 B0F90AC0 		ldrsh	ip, [r0, #10]
-  44              		.loc 1 86 66 view .LVU7
-  45 000c 0CFB03FC 		mul	ip, ip, r3
-  46              	.LVL1:
+  40              		.loc 1 86 5 view .LVU3
+  41              		.loc 1 86 50 is_stmt 0 view .LVU4
+  42 0002 0289     		ldrh	r2, [r0, #8]
+  43              		.loc 1 86 58 view .LVU5
+  44 0004 5400     		lsls	r4, r2, #1
+  45              		.loc 1 86 28 view .LVU6
+  46 0006 C4EBE104 		rsb	r4, r4, r1, asr #3
+  47              		.loc 1 86 88 view .LVU7
+  48 000a B0F90A30 		ldrsh	r3, [r0, #10]
+  49              		.loc 1 86 66 view .LVU8
+  50 000e 03FB04F4 		mul	r4, r3, r4
+  51              	.LVL1:
   87:Core/Src/humidity_temp_sensor.c ****     var2 = (((((adc_T >> 4) - ((int32_t)dev->calib.dig_T1)) * ((adc_T >> 4) - ((int32_t)dev->calib.
-  47              		.loc 1 87 5 is_stmt 1 view .LVU8
-  48              		.loc 1 87 29 is_stmt 0 view .LVU9
-  49 0010 C2EB2111 		rsb	r1, r2, r1, asr #4
-  50              	.LVL2:
-  51              		.loc 1 87 61 view .LVU10
-  52 0014 01FB01F3 		mul	r3, r1, r1
-  53              		.loc 1 87 110 view .LVU11
-  54 0018 1B13     		asrs	r3, r3, #12
-  55              		.loc 1 87 139 view .LVU12
-  56 001a B0F90C10 		ldrsh	r1, [r0, #12]
-  57              		.loc 1 87 117 view .LVU13
-  58 001e 01FB03F3 		mul	r3, r1, r3
-  59              		.loc 1 87 10 view .LVU14
-  60 0022 9B13     		asrs	r3, r3, #14
-  61              	.LVL3:
+  52              		.loc 1 87 5 is_stmt 1 view .LVU9
+  53              		.loc 1 87 29 is_stmt 0 view .LVU10
+  54 0012 C2EB2111 		rsb	r1, r2, r1, asr #4
+  55              	.LVL2:
+  56              		.loc 1 87 61 view .LVU11
+  57 0016 01FB01F1 		mul	r1, r1, r1
+  58              		.loc 1 87 110 view .LVU12
+  59 001a 0913     		asrs	r1, r1, #12
+  60              		.loc 1 87 139 view .LVU13
+  61 001c B0F90C30 		ldrsh	r3, [r0, #12]
+  62              		.loc 1 87 117 view .LVU14
+  63 0020 03FB01F3 		mul	r3, r3, r1
+  64              		.loc 1 87 10 view .LVU15
+  65 0024 9B13     		asrs	r3, r3, #14
+  66              	.LVL3:
   88:Core/Src/humidity_temp_sensor.c ****     dev->calib.t_fine = var1 + var2;
-  62              		.loc 1 88 5 is_stmt 1 view .LVU15
-  63              		.loc 1 88 30 is_stmt 0 view .LVU16
-  64 0024 03EBEC23 		add	r3, r3, ip, asr #11
-  65              	.LVL4:
-  66              		.loc 1 88 23 view .LVU17
-  67 0028 C362     		str	r3, [r0, #44]
+  67              		.loc 1 88 5 is_stmt 1 view .LVU16
+  68              		.loc 1 88 30 is_stmt 0 view .LVU17
+  69 0026 03EBE423 		add	r3, r3, r4, asr #11
+  70              	.LVL4:
+  71              		.loc 1 88 23 view .LVU18
+  72 002a C362     		str	r3, [r0, #44]
   89:Core/Src/humidity_temp_sensor.c ****     T = (dev->calib.t_fine * 5 + 128) >> 8;
-  68              		.loc 1 89 5 is_stmt 1 view .LVU18
-  69              		.loc 1 89 28 is_stmt 0 view .LVU19
-  70 002a 03EB8303 		add	r3, r3, r3, lsl #2
-  71              		.loc 1 89 32 view .LVU20
-  72 002e 03F18000 		add	r0, r3, #128
-  73              	.LVL5:
+  73              		.loc 1 89 5 is_stmt 1 view .LVU19
+  74              		.loc 1 89 28 is_stmt 0 view .LVU20
+  75 002c 03EB8303 		add	r3, r3, r3, lsl #2
+  76              		.loc 1 89 32 view .LVU21
+  77 0030 03F18000 		add	r0, r3, #128
+  78              	.LVL5:
   90:Core/Src/humidity_temp_sensor.c ****     return T;
-  74              		.loc 1 90 5 is_stmt 1 view .LVU21
+  79              		.loc 1 90 5 is_stmt 1 view .LVU22
   91:Core/Src/humidity_temp_sensor.c **** }
-  75              		.loc 1 91 1 is_stmt 0 view .LVU22
-  76 0032 0012     		asrs	r0, r0, #8
-  77              	.LVL6:
-  78              		.loc 1 91 1 view .LVU23
-  79 0034 7047     		bx	lr
-  80              		.cfi_endproc
-  81              	.LFE138:
-ARM GAS  /tmp/ccO31j78.s 			page 4
+  80              		.loc 1 91 1 is_stmt 0 view .LVU23
+  81 0034 0012     		asrs	r0, r0, #8
+ARM GAS  /tmp/ccbJE9BT.s 			page 4
 
 
-  83              		.global	__aeabi_ldivmod
-  84              		.section	.text.BME280_CompensatePressure,"ax",%progbits
-  85              		.align	1
-  86              		.syntax unified
-  87              		.thumb
-  88              		.thumb_func
-  89              		.fpu fpv4-sp-d16
-  91              	BME280_CompensatePressure:
-  92              	.LVL7:
-  93              	.LFB139:
+  82              	.LVL6:
+  83              		.loc 1 91 1 view .LVU24
+  84 0036 5DF8044B 		ldr	r4, [sp], #4
+  85              	.LCFI1:
+  86              		.cfi_restore 4
+  87              		.cfi_def_cfa_offset 0
+  88              	.LVL7:
+  89              		.loc 1 91 1 view .LVU25
+  90 003a 7047     		bx	lr
+  91              		.cfi_endproc
+  92              	.LFE138:
+  94              		.global	__aeabi_ldivmod
+  95              		.section	.text.BME280_CompensatePressure,"ax",%progbits
+  96              		.align	1
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 100              		.fpu fpv4-sp-d16
+ 102              	BME280_CompensatePressure:
+ 103              	.LVL8:
+ 104              	.LFB139:
   92:Core/Src/humidity_temp_sensor.c **** 
   93:Core/Src/humidity_temp_sensor.c **** /* ==== BME280: COMPENSATE PRESSURE ==== */
   94:Core/Src/humidity_temp_sensor.c **** static uint32_t BME280_CompensatePressure(BME280_HandleTypeDef *dev, int32_t adc_P)
   95:Core/Src/humidity_temp_sensor.c **** {
-  94              		.loc 1 95 1 is_stmt 1 view -0
-  95              		.cfi_startproc
-  96              		@ args = 0, pretend = 0, frame = 0
-  97              		@ frame_needed = 0, uses_anonymous_args = 0
-  98              		.loc 1 95 1 is_stmt 0 view .LVU25
-  99 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
- 100              	.LCFI0:
- 101              		.cfi_def_cfa_offset 24
- 102              		.cfi_offset 4, -24
- 103              		.cfi_offset 5, -20
- 104              		.cfi_offset 6, -16
- 105              		.cfi_offset 7, -12
- 106              		.cfi_offset 8, -8
- 107              		.cfi_offset 14, -4
- 108 0004 0446     		mov	r4, r0
+ 105              		.loc 1 95 1 is_stmt 1 view -0
+ 106              		.cfi_startproc
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		.loc 1 95 1 is_stmt 0 view .LVU27
+ 110 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 111              	.LCFI2:
+ 112              		.cfi_def_cfa_offset 32
+ 113              		.cfi_offset 3, -32
+ 114              		.cfi_offset 4, -28
+ 115              		.cfi_offset 5, -24
+ 116              		.cfi_offset 6, -20
+ 117              		.cfi_offset 7, -16
+ 118              		.cfi_offset 8, -12
+ 119              		.cfi_offset 9, -8
+ 120              		.cfi_offset 14, -4
+ 121 0004 0446     		mov	r4, r0
+ 122 0006 8E46     		mov	lr, r1
   96:Core/Src/humidity_temp_sensor.c ****     int64_t var1, var2, p;
- 109              		.loc 1 96 5 is_stmt 1 view .LVU26
+ 123              		.loc 1 96 5 is_stmt 1 view .LVU28
   97:Core/Src/humidity_temp_sensor.c ****     var1 = ((int64_t)dev->calib.t_fine) - 128000;
- 110              		.loc 1 97 5 view .LVU27
- 111              		.loc 1 97 32 is_stmt 0 view .LVU28
- 112 0006 C36A     		ldr	r3, [r0, #44]
- 113              		.loc 1 97 13 view .LVU29
- 114 0008 DA17     		asrs	r2, r3, #31
- 115              		.loc 1 97 10 view .LVU30
- 116 000a B3F5FA3C 		subs	ip, r3, #128000
- 117 000e 42F1FF32 		adc	r2, r2, #-1
- 118              	.LVL8:
+ 124              		.loc 1 97 5 view .LVU29
+ 125              		.loc 1 97 32 is_stmt 0 view .LVU30
+ 126 0008 C26A     		ldr	r2, [r0, #44]
+ 127              		.loc 1 97 13 view .LVU31
+ 128 000a D317     		asrs	r3, r2, #31
+ 129              		.loc 1 97 10 view .LVU32
+ 130 000c B2F5FA3C 		subs	ip, r2, #128000
+ 131 0010 43F1FF35 		adc	r5, r3, #-1
+ 132              	.LVL9:
   98:Core/Src/humidity_temp_sensor.c ****     var2 = var1 * var1 * (int64_t)dev->calib.dig_P6;
- 119              		.loc 1 98 5 is_stmt 1 view .LVU31
- 120              		.loc 1 98 17 is_stmt 0 view .LVU32
- 121 0012 0CFB02F7 		mul	r7, ip, r2
- 122 0016 ACFB0C08 		umull	r0, r8, ip, ip
- 123              	.LVL9:
- 124              		.loc 1 98 17 view .LVU33
- 125 001a 08EB4708 		add	r8, r8, r7, lsl #1
- 126              		.loc 1 98 45 view .LVU34
- 127 001e B4F918E0 		ldrsh	lr, [r4, #24]
- 128              		.loc 1 98 26 view .LVU35
- 129 0022 4FEAEE75 		asr	r5, lr, #31
- 130              		.loc 1 98 10 view .LVU36
- 131 0026 00FB05F5 		mul	r5, r0, r5
- 132 002a 0EFB0855 		mla	r5, lr, r8, r5
- 133 002e A0FB0E3E 		umull	r3, lr, r0, lr
-ARM GAS  /tmp/ccO31j78.s 			page 5
+ 133              		.loc 1 98 5 is_stmt 1 view .LVU33
+ARM GAS  /tmp/ccbJE9BT.s 			page 5
 
 
- 134 0032 7544     		add	r5, r5, lr
- 135              	.LVL10:
+ 134              		.loc 1 98 17 is_stmt 0 view .LVU34
+ 135 0014 0CFB05F3 		mul	r3, ip, r5
+ 136 0018 ACFB0C89 		umull	r8, r9, ip, ip
+ 137 001c 09EB4309 		add	r9, r9, r3, lsl #1
+ 138              		.loc 1 98 26 view .LVU35
+ 139 0020 B0F91860 		ldrsh	r6, [r0, #24]
+ 140 0024 F717     		asrs	r7, r6, #31
+ 141              		.loc 1 98 10 view .LVU36
+ 142 0026 08FB07F3 		mul	r3, r8, r7
+ 143 002a 06FB0933 		mla	r3, r6, r9, r3
+ 144 002e A8FB0667 		umull	r6, r7, r8, r6
+ 145 0032 1F44     		add	r7, r7, r3
+ 146              	.LVL10:
   99:Core/Src/humidity_temp_sensor.c ****     var2 = var2 + ((var1 * (int64_t)dev->calib.dig_P5) << 17);
- 136              		.loc 1 99 5 is_stmt 1 view .LVU37
- 137              		.loc 1 99 47 is_stmt 0 view .LVU38
- 138 0034 B4F916E0 		ldrsh	lr, [r4, #22]
- 139              		.loc 1 99 28 view .LVU39
- 140 0038 4FEAEE77 		asr	r7, lr, #31
- 141              		.loc 1 99 26 view .LVU40
- 142 003c 0EFB02F6 		mul	r6, lr, r2
- 143 0040 0CFB0766 		mla	r6, ip, r7, r6
- 144 0044 AEFB0CE7 		umull	lr, r7, lr, ip
- 145 0048 3E44     		add	r6, r6, r7
- 146              		.loc 1 99 56 view .LVU41
- 147 004a 7604     		lsls	r6, r6, #17
- 148 004c 46EADE36 		orr	r6, r6, lr, lsr #15
- 149 0050 4FEA4E4E 		lsl	lr, lr, #17
- 150              		.loc 1 99 10 view .LVU42
- 151 0054 1EEB030E 		adds	lr, lr, r3
- 152 0058 45EB0605 		adc	r5, r5, r6
- 153              	.LVL11:
+ 147              		.loc 1 99 5 is_stmt 1 view .LVU37
+ 148              		.loc 1 99 28 is_stmt 0 view .LVU38
+ 149 0034 B4F91600 		ldrsh	r0, [r4, #22]
+ 150              	.LVL11:
+ 151              		.loc 1 99 28 view .LVU39
+ 152 0038 C117     		asrs	r1, r0, #31
+ 153              	.LVL12:
+ 154              		.loc 1 99 26 view .LVU40
+ 155 003a 00FB05F3 		mul	r3, r0, r5
+ 156 003e 0CFB0133 		mla	r3, ip, r1, r3
+ 157 0042 A0FB0C01 		umull	r0, r1, r0, ip
+ 158 0046 1944     		add	r1, r1, r3
+ 159              		.loc 1 99 56 view .LVU41
+ 160 0048 4A04     		lsls	r2, r1, #17
+ 161 004a 42EAD032 		orr	r2, r2, r0, lsr #15
+ 162 004e 4304     		lsls	r3, r0, #17
+ 163              		.loc 1 99 10 view .LVU42
+ 164 0050 9819     		adds	r0, r3, r6
+ 165 0052 42EB0706 		adc	r6, r2, r7
+ 166              	.LVL13:
  100:Core/Src/humidity_temp_sensor.c ****     var2 = var2 + (((int64_t)dev->calib.dig_P4) << 35);
- 154              		.loc 1 100 5 is_stmt 1 view .LVU43
- 155              		.loc 1 100 40 is_stmt 0 view .LVU44
- 156 005c B4F91430 		ldrsh	r3, [r4, #20]
- 157              		.loc 1 100 10 view .LVU45
- 158 0060 05EBC305 		add	r5, r5, r3, lsl #3
- 159              	.LVL12:
+ 167              		.loc 1 100 5 is_stmt 1 view .LVU43
+ 168              		.loc 1 100 21 is_stmt 0 view .LVU44
+ 169 0056 B4F91420 		ldrsh	r2, [r4, #20]
+ 170              		.loc 1 100 49 view .LVU45
+ 171 005a 0027     		movs	r7, #0
+ 172 005c D100     		lsls	r1, r2, #3
+ 173              		.loc 1 100 10 view .LVU46
+ 174 005e 3818     		adds	r0, r7, r0
+ 175              	.LVL14:
+ 176              		.loc 1 100 10 view .LVU47
+ 177 0060 41EB0606 		adc	r6, r1, r6
+ 178              	.LVL15:
  101:Core/Src/humidity_temp_sensor.c ****     var1 = ((var1 * var1 * (int64_t)dev->calib.dig_P3) >> 8) + ((var1 * (int64_t)dev->calib.dig_P2)
- 160              		.loc 1 101 5 is_stmt 1 view .LVU46
- 161              		.loc 1 101 47 is_stmt 0 view .LVU47
- 162 0064 B4F91260 		ldrsh	r6, [r4, #18]
- 163              		.loc 1 101 28 view .LVU48
- 164 0068 F317     		asrs	r3, r6, #31
- 165              		.loc 1 101 26 view .LVU49
- 166 006a 00FB03F3 		mul	r3, r0, r3
- 167 006e 06FB0833 		mla	r3, r6, r8, r3
- 168 0072 A0FB0606 		umull	r0, r6, r0, r6
- 169 0076 9F19     		adds	r7, r3, r6
- 170              		.loc 1 101 56 view .LVU50
- 171 0078 000A     		lsrs	r0, r0, #8
- 172 007a 40EA0760 		orr	r0, r0, r7, lsl #24
- 173              		.loc 1 101 92 view .LVU51
- 174 007e B4F91060 		ldrsh	r6, [r4, #16]
- 175              		.loc 1 101 73 view .LVU52
- 176 0082 F317     		asrs	r3, r6, #31
- 177              		.loc 1 101 71 view .LVU53
- 178 0084 06FB02F2 		mul	r2, r6, r2
- 179              	.LVL13:
- 180              		.loc 1 101 71 view .LVU54
- 181 0088 0CFB0323 		mla	r3, ip, r3, r2
- 182 008c A6FB0C6C 		umull	r6, ip, r6, ip
- 183              	.LVL14:
- 184              		.loc 1 101 71 view .LVU55
- 185 0090 6344     		add	r3, r3, ip
- 186              		.loc 1 101 101 view .LVU56
- 187 0092 1B03     		lsls	r3, r3, #12
-ARM GAS  /tmp/ccO31j78.s 			page 6
+ 179              		.loc 1 101 5 is_stmt 1 view .LVU48
+ 180              		.loc 1 101 28 is_stmt 0 view .LVU49
+ 181 0064 B4F91210 		ldrsh	r1, [r4, #18]
+ 182 0068 CA17     		asrs	r2, r1, #31
+ 183              		.loc 1 101 26 view .LVU50
+ 184 006a 08FB02F3 		mul	r3, r8, r2
+ 185 006e 01FB0933 		mla	r3, r1, r9, r3
+ 186 0072 A8FB0189 		umull	r8, r9, r8, r1
+ 187 0076 9944     		add	r9, r9, r3
+ARM GAS  /tmp/ccbJE9BT.s 			page 6
 
 
- 188 0094 43EA1653 		orr	r3, r3, r6, lsr #20
- 189 0098 4FEA063C 		lsl	ip, r6, #12
- 190              		.loc 1 101 10 view .LVU57
- 191 009c 10EB0C0C 		adds	ip, r0, ip
- 192 00a0 43EB2723 		adc	r3, r3, r7, asr #8
- 193              	.LVL15:
- 102:Core/Src/humidity_temp_sensor.c ****     var1 = (((((int64_t)1) << 47) + var1)) * ((int64_t)dev->calib.dig_P1) >> 33;
- 194              		.loc 1 102 5 is_stmt 1 view .LVU58
- 195              		.loc 1 102 35 is_stmt 0 view .LVU59
- 196 00a4 03F50043 		add	r3, r3, #32768
+ 188              		.loc 1 101 56 view .LVU51
+ 189 0078 4FEA1821 		lsr	r1, r8, #8
+ 190 007c 41EA0961 		orr	r1, r1, r9, lsl #24
+ 191 0080 4FEA2927 		asr	r7, r9, #8
+ 192              		.loc 1 101 73 view .LVU52
+ 193 0084 B4F91020 		ldrsh	r2, [r4, #16]
+ 194 0088 D317     		asrs	r3, r2, #31
+ 195              		.loc 1 101 71 view .LVU53
+ 196 008a 02FB05F5 		mul	r5, r2, r5
  197              	.LVL16:
- 198              		.loc 1 102 66 view .LVU60
- 199 00a8 E289     		ldrh	r2, [r4, #14]
- 200              		.loc 1 102 44 view .LVU61
- 201 00aa ACFB02C0 		umull	ip, r0, ip, r2
- 202              	.LVL17:
- 203              		.loc 1 102 44 view .LVU62
- 204 00ae 02FB030C 		mla	ip, r2, r3, r0
- 205              		.loc 1 102 10 view .LVU63
- 206 00b2 4FEAEC73 		asr	r3, ip, #31
- 207              	.LVL18:
+ 198              		.loc 1 101 71 view .LVU54
+ 199 008e 0CFB0355 		mla	r5, ip, r3, r5
+ 200 0092 A2FB0C23 		umull	r2, r3, r2, ip
+ 201 0096 2B44     		add	r3, r3, r5
+ 202              		.loc 1 101 101 view .LVU55
+ 203 0098 1D03     		lsls	r5, r3, #12
+ 204 009a 45EA1255 		orr	r5, r5, r2, lsr #20
+ 205 009e 4FEA0238 		lsl	r8, r2, #12
+ 206              		.loc 1 101 10 view .LVU56
+ 207 00a2 11EB0801 		adds	r1, r1, r8
+ 208 00a6 45EB0707 		adc	r7, r5, r7
+ 209              	.LVL17:
+ 102:Core/Src/humidity_temp_sensor.c ****     var1 = (((((int64_t)1) << 47) + var1)) * ((int64_t)dev->calib.dig_P1) >> 33;
+ 210              		.loc 1 102 5 is_stmt 1 view .LVU57
+ 211              		.loc 1 102 35 is_stmt 0 view .LVU58
+ 212 00aa 0031     		adds	r1, r1, #0
+ 213              		.loc 1 102 35 view .LVU59
+ 214 00ac 47F50047 		adc	r7, r7, #32768
+ 215              	.LVL18:
+ 216              		.loc 1 102 47 view .LVU60
+ 217 00b0 E289     		ldrh	r2, [r4, #14]
+ 218              		.loc 1 102 44 view .LVU61
+ 219 00b2 A1FB0289 		umull	r8, r9, r1, r2
+ 220 00b6 02FB0799 		mla	r9, r2, r7, r9
+ 221              		.loc 1 102 10 view .LVU62
+ 222 00ba 4FEA6902 		asr	r2, r9, #1
+ 223 00be 4FEAE973 		asr	r3, r9, #31
+ 224              	.LVL19:
  103:Core/Src/humidity_temp_sensor.c ****     if (var1 == 0) return 0;
- 208              		.loc 1 103 5 is_stmt 1 view .LVU64
- 209              		.loc 1 103 8 is_stmt 0 view .LVU65
- 210 00b6 53EA6C00 		orrs	r0, r3, ip, asr #1
- 211 00ba 65D0     		beq	.L4
- 212 00bc 4FEA6C02 		asr	r2, ip, #1
- 213              	.LVL19:
+ 225              		.loc 1 103 5 is_stmt 1 view .LVU63
+ 226              		.loc 1 103 8 is_stmt 0 view .LVU64
+ 227 00c2 52EA0301 		orrs	r1, r2, r3
+ 228 00c6 62D0     		beq	.L5
  104:Core/Src/humidity_temp_sensor.c ****     p = 1048576 - adc_P;
- 214              		.loc 1 104 5 is_stmt 1 view .LVU66
- 215              		.loc 1 104 17 is_stmt 0 view .LVU67
- 216 00c0 C1F58011 		rsb	r1, r1, #1048576
- 217              	.LVL20:
+ 229              		.loc 1 104 5 is_stmt 1 view .LVU65
+ 230              		.loc 1 104 17 is_stmt 0 view .LVU66
+ 231 00c8 CEF5801E 		rsb	lr, lr, #1048576
+ 232              	.LVL20:
  105:Core/Src/humidity_temp_sensor.c ****     p = (((p << 31) - var2) * 3125) / var1;
- 218              		.loc 1 105 5 is_stmt 1 view .LVU68
- 219              		.loc 1 105 14 is_stmt 0 view .LVU69
- 220 00c4 4E10     		asrs	r6, r1, #1
- 221 00c6 C807     		lsls	r0, r1, #31
- 222              		.loc 1 105 21 view .LVU70
- 223 00c8 B0EB0E0E 		subs	lr, r0, lr
- 224              	.LVL21:
- 225              		.loc 1 105 21 view .LVU71
- 226 00cc 66EB0505 		sbc	r5, r6, r5
- 227              	.LVL22:
- 228              		.loc 1 105 29 view .LVU72
- 229 00d0 1EEB0E0C 		adds	ip, lr, lr
- 230 00d4 45EB0501 		adc	r1, r5, r5
- 231              	.LVL23:
- 232              		.loc 1 105 29 view .LVU73
- 233 00d8 1CEB0E0C 		adds	ip, ip, lr
- 234 00dc 45EB0101 		adc	r1, r5, r1
- 235 00e0 8E01     		lsls	r6, r1, #6
- 236 00e2 46EA9C66 		orr	r6, r6, ip, lsr #26
- 237 00e6 4FEA8C10 		lsl	r0, ip, #6
- 238 00ea 1CEB000C 		adds	ip, ip, r0
- 239 00ee 41EB0601 		adc	r1, r1, r6
- 240 00f2 8900     		lsls	r1, r1, #2
-ARM GAS  /tmp/ccO31j78.s 			page 7
+ 233              		.loc 1 105 5 is_stmt 1 view .LVU67
+ 234              		.loc 1 105 14 is_stmt 0 view .LVU68
+ 235 00cc 4FEA6E01 		asr	r1, lr, #1
+ 236 00d0 4FEACE75 		lsl	r5, lr, #31
+ 237              		.loc 1 105 21 view .LVU69
+ 238 00d4 281A     		subs	r0, r5, r0
+ 239              	.LVL21:
+ 240              		.loc 1 105 21 view .LVU70
+ARM GAS  /tmp/ccbJE9BT.s 			page 7
 
 
- 241 00f4 41EA9C71 		orr	r1, r1, ip, lsr #30
- 242 00f8 4FEA8C0C 		lsl	ip, ip, #2
- 243 00fc 1CEB0E0C 		adds	ip, ip, lr
- 244 0100 45EB0101 		adc	r1, r5, r1
- 245 0104 8900     		lsls	r1, r1, #2
- 246 0106 41EA9C71 		orr	r1, r1, ip, lsr #30
- 247 010a 4FEA8C00 		lsl	r0, ip, #2
- 248 010e 10EB0E00 		adds	r0, r0, lr
- 249              		.loc 1 105 7 view .LVU74
- 250 0112 45EB0101 		adc	r1, r5, r1
- 251 0116 FFF7FEFF 		bl	__aeabi_ldivmod
- 252              	.LVL24:
- 253              		.loc 1 105 7 view .LVU75
- 254 011a 0346     		mov	r3, r0
- 255              	.LVL25:
+ 241 00d6 61EB0606 		sbc	r6, r1, r6
+ 242              		.loc 1 105 29 view .LVU71
+ 243 00da 0518     		adds	r5, r0, r0
+ 244 00dc 46EB0607 		adc	r7, r6, r6
+ 245 00e0 2D18     		adds	r5, r5, r0
+ 246 00e2 46EB0707 		adc	r7, r6, r7
+ 247 00e6 B901     		lsls	r1, r7, #6
+ 248 00e8 41EA9561 		orr	r1, r1, r5, lsr #26
+ 249 00ec 4FEA851C 		lsl	ip, r5, #6
+ 250 00f0 15EB0C05 		adds	r5, r5, ip
+ 251 00f4 41EB0707 		adc	r7, r1, r7
+ 252 00f8 B900     		lsls	r1, r7, #2
+ 253 00fa 41EA9571 		orr	r1, r1, r5, lsr #30
+ 254 00fe 4FEA850C 		lsl	ip, r5, #2
+ 255 0102 0F46     		mov	r7, r1
+ 256 0104 1CEB0005 		adds	r5, ip, r0
+ 257 0108 46EB0707 		adc	r7, r6, r7
+ 258 010c B900     		lsls	r1, r7, #2
+ 259 010e 41EA9571 		orr	r1, r1, r5, lsr #30
+ 260 0112 4FEA850C 		lsl	ip, r5, #2
+ 261              		.loc 1 105 7 view .LVU72
+ 262 0116 1CEB0000 		adds	r0, ip, r0
+ 263 011a 7141     		adcs	r1, r1, r6
+ 264 011c FFF7FEFF 		bl	__aeabi_ldivmod
+ 265              	.LVL22:
  106:Core/Src/humidity_temp_sensor.c ****     var1 = (((int64_t)dev->calib.dig_P9) * (p >> 13) * (p >> 13)) >> 25;
- 256              		.loc 1 106 5 is_stmt 1 view .LVU76
- 257              		.loc 1 106 33 is_stmt 0 view .LVU77
- 258 011c B4F91E60 		ldrsh	r6, [r4, #30]
- 259              		.loc 1 106 14 view .LVU78
- 260 0120 4FEAE67C 		asr	ip, r6, #31
- 261              		.loc 1 106 47 view .LVU79
- 262 0124 420B     		lsrs	r2, r0, #13
- 263 0126 42EAC142 		orr	r2, r2, r1, lsl #19
- 264 012a 4F13     		asrs	r7, r1, #13
- 265              		.loc 1 106 42 view .LVU80
- 266 012c 06FB07F5 		mul	r5, r6, r7
- 267 0130 02FB0C55 		mla	r5, r2, ip, r5
- 268 0134 A6FB026C 		umull	r6, ip, r6, r2
- 269 0138 6544     		add	r5, r5, ip
- 270              		.loc 1 106 54 view .LVU81
- 271 013a 02FB05F5 		mul	r5, r2, r5
- 272 013e 06FB0755 		mla	r5, r6, r7, r5
- 273 0142 A2FB0626 		umull	r2, r6, r2, r6
- 274 0146 3544     		add	r5, r5, r6
- 275              		.loc 1 106 10 view .LVU82
- 276 0148 520E     		lsrs	r2, r2, #25
- 277 014a 42EAC512 		orr	r2, r2, r5, lsl #7
- 278              	.LVL26:
+ 266              		.loc 1 106 5 is_stmt 1 view .LVU73
+ 267              		.loc 1 106 14 is_stmt 0 view .LVU74
+ 268 0120 B4F91E20 		ldrsh	r2, [r4, #30]
+ 269 0124 D317     		asrs	r3, r2, #31
+ 270              		.loc 1 106 47 view .LVU75
+ 271 0126 450B     		lsrs	r5, r0, #13
+ 272 0128 45EAC145 		orr	r5, r5, r1, lsl #19
+ 273 012c 4E13     		asrs	r6, r1, #13
+ 274              		.loc 1 106 42 view .LVU76
+ 275 012e 02FB06F7 		mul	r7, r2, r6
+ 276 0132 05FB0377 		mla	r7, r5, r3, r7
+ 277 0136 A2FB0589 		umull	r8, r9, r2, r5
+ 278 013a B944     		add	r9, r9, r7
+ 279              		.loc 1 106 54 view .LVU77
+ 280 013c 05FB09F3 		mul	r3, r5, r9
+ 281 0140 06FB0836 		mla	r6, r6, r8, r3
+ 282 0144 A5FB0823 		umull	r2, r3, r5, r8
+ 283 0148 3344     		add	r3, r3, r6
+ 284              		.loc 1 106 10 view .LVU78
+ 285 014a 560E     		lsrs	r6, r2, #25
+ 286 014c 46EAC316 		orr	r6, r6, r3, lsl #7
+ 287 0150 5F16     		asrs	r7, r3, #25
+ 288              	.LVL23:
  107:Core/Src/humidity_temp_sensor.c ****     var2 = (((int64_t)dev->calib.dig_P8) * p) >> 19;
- 279              		.loc 1 107 5 is_stmt 1 view .LVU83
- 280              		.loc 1 107 33 is_stmt 0 view .LVU84
- 281 014e B4F91C60 		ldrsh	r6, [r4, #28]
- 282              		.loc 1 107 14 view .LVU85
- 283 0152 4FEAE67C 		asr	ip, r6, #31
- 284              		.loc 1 107 42 view .LVU86
- 285 0156 06FB01F7 		mul	r7, r6, r1
- 286 015a 0CFB0077 		mla	r7, ip, r0, r7
- 287 015e A6FB0006 		umull	r0, r6, r6, r0
- 288              	.LVL27:
- 289              		.loc 1 107 42 view .LVU87
- 290 0162 3E44     		add	r6, r6, r7
- 291              		.loc 1 107 10 view .LVU88
- 292 0164 C00C     		lsrs	r0, r0, #19
- 293 0166 40EA4630 		orr	r0, r0, r6, lsl #13
- 294              	.LVL28:
+ 289              		.loc 1 107 5 is_stmt 1 view .LVU79
+ 290              		.loc 1 107 14 is_stmt 0 view .LVU80
+ 291 0152 B4F91C20 		ldrsh	r2, [r4, #28]
+ 292 0156 D317     		asrs	r3, r2, #31
+ 293              		.loc 1 107 42 view .LVU81
+ 294 0158 02FB01F5 		mul	r5, r2, r1
+ 295 015c 00FB0355 		mla	r5, r0, r3, r5
+ARM GAS  /tmp/ccbJE9BT.s 			page 8
+
+
+ 296 0160 A2FB0023 		umull	r2, r3, r2, r0
+ 297 0164 2B44     		add	r3, r3, r5
+ 298              		.loc 1 107 10 view .LVU82
+ 299 0166 D50C     		lsrs	r5, r2, #19
+ 300 0168 45EA4335 		orr	r5, r5, r3, lsl #13
+ 301 016c 4FEAE34C 		asr	ip, r3, #19
+ 302              	.LVL24:
  108:Core/Src/humidity_temp_sensor.c ****     p = ((p + var1 + var2) >> 8) + (((int64_t)dev->calib.dig_P7) << 4);
-ARM GAS  /tmp/ccO31j78.s 			page 8
-
-
- 295              		.loc 1 108 5 is_stmt 1 view .LVU89
- 296              		.loc 1 108 13 is_stmt 0 view .LVU90
- 297 016a 9B18     		adds	r3, r3, r2
- 298              	.LVL29:
- 299              		.loc 1 108 13 view .LVU91
- 300 016c 41EB6561 		adc	r1, r1, r5, asr #25
- 301              		.loc 1 108 20 view .LVU92
- 302 0170 1B18     		adds	r3, r3, r0
- 303 0172 41EBE641 		adc	r1, r1, r6, asr #19
- 304              		.loc 1 108 28 view .LVU93
- 305 0176 180A     		lsrs	r0, r3, #8
- 306              	.LVL30:
- 307              		.loc 1 108 28 view .LVU94
- 308 0178 40EA0160 		orr	r0, r0, r1, lsl #24
- 309              		.loc 1 108 57 view .LVU95
- 310 017c B4F91A30 		ldrsh	r3, [r4, #26]
- 311              	.LVL31:
+ 303              		.loc 1 108 5 is_stmt 1 view .LVU83
+ 304              		.loc 1 108 13 is_stmt 0 view .LVU84
+ 305 0170 8019     		adds	r0, r0, r6
+ 306              	.LVL25:
+ 307              		.loc 1 108 13 view .LVU85
+ 308 0172 47EB0101 		adc	r1, r7, r1
+ 309              		.loc 1 108 20 view .LVU86
+ 310 0176 4019     		adds	r0, r0, r5
+ 311 0178 41EB0C01 		adc	r1, r1, ip
+ 312              		.loc 1 108 28 view .LVU87
+ 313 017c 030A     		lsrs	r3, r0, #8
+ 314 017e 43EA0163 		orr	r3, r3, r1, lsl #24
+ 315              		.loc 1 108 38 view .LVU88
+ 316 0182 B4F91A40 		ldrsh	r4, [r4, #26]
+ 317              	.LVL26:
+ 318              		.loc 1 108 66 view .LVU89
+ 319 0186 2001     		lsls	r0, r4, #4
  109:Core/Src/humidity_temp_sensor.c ****     return (uint32_t)p;
- 312              		.loc 1 109 5 is_stmt 1 view .LVU96
- 313              		.loc 1 109 12 is_stmt 0 view .LVU97
- 314 0180 00EB0310 		add	r0, r0, r3, lsl #4
- 315              	.LVL32:
- 316              	.L2:
+ 320              		.loc 1 109 5 is_stmt 1 view .LVU90
+ 321              		.loc 1 109 12 is_stmt 0 view .LVU91
+ 322 0188 1844     		add	r0, r0, r3
+ 323              	.LVL27:
+ 324              	.L3:
  110:Core/Src/humidity_temp_sensor.c **** }
- 317              		.loc 1 110 1 view .LVU98
- 318 0184 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
- 319              	.LVL33:
- 320              	.L4:
+ 325              		.loc 1 110 1 view .LVU92
+ 326 018a BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 327              	.LVL28:
+ 328              	.L5:
  103:Core/Src/humidity_temp_sensor.c ****     p = 1048576 - adc_P;
- 321              		.loc 1 103 27 view .LVU99
- 322 0188 0020     		movs	r0, #0
- 323 018a FBE7     		b	.L2
- 324              		.cfi_endproc
- 325              	.LFE139:
- 327              		.section	.text.BME280_CompensateHumidity,"ax",%progbits
- 328              		.align	1
- 329              		.syntax unified
- 330              		.thumb
- 331              		.thumb_func
- 332              		.fpu fpv4-sp-d16
- 334              	BME280_CompensateHumidity:
- 335              	.LVL34:
- 336              	.LFB140:
+ 329              		.loc 1 103 27 view .LVU93
+ 330 018e 0020     		movs	r0, #0
+ 331              	.LVL29:
+ 103:Core/Src/humidity_temp_sensor.c ****     p = 1048576 - adc_P;
+ 332              		.loc 1 103 27 view .LVU94
+ 333 0190 FBE7     		b	.L3
+ 334              		.cfi_endproc
+ 335              	.LFE139:
+ 337              		.section	.text.BME280_CompensateHumidity,"ax",%progbits
+ 338              		.align	1
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 342              		.fpu fpv4-sp-d16
+ 344              	BME280_CompensateHumidity:
+ 345              	.LVL30:
+ 346              	.LFB140:
  111:Core/Src/humidity_temp_sensor.c **** 
  112:Core/Src/humidity_temp_sensor.c **** /* ==== BME280: COMPENSATE HUMIDITY ==== */
  113:Core/Src/humidity_temp_sensor.c **** static uint32_t BME280_CompensateHumidity(BME280_HandleTypeDef *dev, int32_t adc_H)
+ARM GAS  /tmp/ccbJE9BT.s 			page 9
+
+
  114:Core/Src/humidity_temp_sensor.c **** {
- 337              		.loc 1 114 1 is_stmt 1 view -0
- 338              		.cfi_startproc
- 339              		@ args = 0, pretend = 0, frame = 0
- 340              		@ frame_needed = 0, uses_anonymous_args = 0
- 341              		@ link register save eliminated.
+ 347              		.loc 1 114 1 is_stmt 1 view -0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351              		@ link register save eliminated.
+ 352              		.loc 1 114 1 is_stmt 0 view .LVU96
+ 353 0000 10B4     		push	{r4}
+ 354              	.LCFI3:
+ 355              		.cfi_def_cfa_offset 4
+ 356              		.cfi_offset 4, -4
  115:Core/Src/humidity_temp_sensor.c ****     int32_t v_x1_u32r;
- 342              		.loc 1 115 5 view .LVU101
+ 357              		.loc 1 115 5 is_stmt 1 view .LVU97
  116:Core/Src/humidity_temp_sensor.c ****     v_x1_u32r = (dev->calib.t_fine - ((int32_t)76800));
- 343              		.loc 1 116 5 view .LVU102
- 344              		.loc 1 116 15 is_stmt 0 view .LVU103
-ARM GAS  /tmp/ccO31j78.s 			page 9
-
-
- 345 0000 C36A     		ldr	r3, [r0, #44]
- 346 0002 A3F5963C 		sub	ip, r3, #76800
- 347              	.LVL35:
+ 358              		.loc 1 116 5 view .LVU98
+ 359              		.loc 1 116 28 is_stmt 0 view .LVU99
+ 360 0002 C36A     		ldr	r3, [r0, #44]
+ 361              		.loc 1 116 15 view .LVU100
+ 362 0004 A3F59633 		sub	r3, r3, #76800
+ 363              	.LVL31:
  117:Core/Src/humidity_temp_sensor.c ****     v_x1_u32r = (((((adc_H << 14) - (((int32_t)dev->calib.dig_H4) << 20) - (((int32_t)dev->calib.di
- 348              		.loc 1 117 5 is_stmt 1 view .LVU104
- 349              		.loc 1 117 58 is_stmt 0 view .LVU105
- 350 0006 B0F92630 		ldrsh	r3, [r0, #38]
- 351              		.loc 1 117 67 view .LVU106
- 352 000a 1B05     		lsls	r3, r3, #20
- 353              		.loc 1 117 35 view .LVU107
- 354 000c C3EB8133 		rsb	r3, r3, r1, lsl #14
- 355              		.loc 1 117 97 view .LVU108
- 356 0010 B0F92820 		ldrsh	r2, [r0, #40]
- 357              		.loc 1 117 74 view .LVU109
- 358 0014 0CFB1233 		mls	r3, ip, r2, r3
- 359              		.loc 1 117 120 view .LVU110
- 360 0018 03F58043 		add	r3, r3, #16384
- 361              		.loc 1 117 140 view .LVU111
- 362 001c DA13     		asrs	r2, r3, #15
- 363              		.loc 1 117 188 view .LVU112
- 364 001e 90F92A30 		ldrsb	r3, [r0, #42]
- 365              		.loc 1 117 166 view .LVU113
- 366 0022 0CFB03F3 		mul	r3, ip, r3
- 367              		.loc 1 117 198 view .LVU114
- 368 0026 9B12     		asrs	r3, r3, #10
- 369              		.loc 1 117 242 view .LVU115
- 370 0028 90F82410 		ldrb	r1, [r0, #36]	@ zero_extendqisi2
- 371              	.LVL36:
- 372              		.loc 1 117 220 view .LVU116
- 373 002c 0CFB01F1 		mul	r1, ip, r1
- 374              		.loc 1 117 252 view .LVU117
- 375 0030 C912     		asrs	r1, r1, #11
- 376              		.loc 1 117 259 view .LVU118
- 377 0032 01F50041 		add	r1, r1, #32768
- 378              		.loc 1 117 205 view .LVU119
- 379 0036 01FB03F3 		mul	r3, r1, r3
- 380              		.loc 1 117 280 view .LVU120
- 381 003a 9B12     		asrs	r3, r3, #10
- 382              		.loc 1 117 287 view .LVU121
- 383 003c 03F50013 		add	r3, r3, #2097152
- 384              		.loc 1 117 331 view .LVU122
- 385 0040 B0F92210 		ldrsh	r1, [r0, #34]
- 386              		.loc 1 117 309 view .LVU123
- 387 0044 01FB03F3 		mul	r3, r1, r3
- 388              		.loc 1 117 340 view .LVU124
- 389 0048 03F50053 		add	r3, r3, #8192
- 390              		.loc 1 117 348 view .LVU125
- 391 004c 9B13     		asrs	r3, r3, #14
- 392              		.loc 1 117 15 view .LVU126
- 393 004e 02FB03F3 		mul	r3, r2, r3
- 394              	.LVL37:
+ 364              		.loc 1 117 5 is_stmt 1 view .LVU101
+ 365              		.loc 1 117 58 is_stmt 0 view .LVU102
+ 366 0008 B0F92620 		ldrsh	r2, [r0, #38]
+ 367              		.loc 1 117 67 view .LVU103
+ 368 000c 1205     		lsls	r2, r2, #20
+ 369              		.loc 1 117 35 view .LVU104
+ 370 000e C2EB8132 		rsb	r2, r2, r1, lsl #14
+ 371              		.loc 1 117 97 view .LVU105
+ 372 0012 B0F92810 		ldrsh	r1, [r0, #40]
+ 373              	.LVL32:
+ 374              		.loc 1 117 74 view .LVU106
+ 375 0016 03FB1121 		mls	r1, r3, r1, r2
+ 376              		.loc 1 117 120 view .LVU107
+ 377 001a 01F58041 		add	r1, r1, #16384
+ 378              		.loc 1 117 140 view .LVU108
+ 379 001e C913     		asrs	r1, r1, #15
+ 380              		.loc 1 117 188 view .LVU109
+ 381 0020 90F92A20 		ldrsb	r2, [r0, #42]
+ 382              		.loc 1 117 166 view .LVU110
+ 383 0024 03FB02F2 		mul	r2, r3, r2
+ 384              		.loc 1 117 198 view .LVU111
+ 385 0028 9212     		asrs	r2, r2, #10
+ 386              		.loc 1 117 242 view .LVU112
+ 387 002a 90F82440 		ldrb	r4, [r0, #36]	@ zero_extendqisi2
+ 388              		.loc 1 117 220 view .LVU113
+ 389 002e 03FB04F3 		mul	r3, r3, r4
+ 390              	.LVL33:
+ 391              		.loc 1 117 252 view .LVU114
+ 392 0032 DB12     		asrs	r3, r3, #11
+ 393              		.loc 1 117 259 view .LVU115
+ 394 0034 03F50043 		add	r3, r3, #32768
+ 395              		.loc 1 117 205 view .LVU116
+ 396 0038 03FB02F3 		mul	r3, r3, r2
+ 397              		.loc 1 117 280 view .LVU117
+ 398 003c 9B12     		asrs	r3, r3, #10
+ 399              		.loc 1 117 287 view .LVU118
+ARM GAS  /tmp/ccbJE9BT.s 			page 10
+
+
+ 400 003e 03F50013 		add	r3, r3, #2097152
+ 401              		.loc 1 117 331 view .LVU119
+ 402 0042 B0F92220 		ldrsh	r2, [r0, #34]
+ 403              		.loc 1 117 309 view .LVU120
+ 404 0046 02FB03F3 		mul	r3, r2, r3
+ 405              		.loc 1 117 340 view .LVU121
+ 406 004a 03F50053 		add	r3, r3, #8192
+ 407              		.loc 1 117 348 view .LVU122
+ 408 004e 9B13     		asrs	r3, r3, #14
+ 409              		.loc 1 117 15 view .LVU123
+ 410 0050 03FB01F3 		mul	r3, r3, r1
+ 411              	.LVL34:
  118:Core/Src/humidity_temp_sensor.c ****     v_x1_u32r = (v_x1_u32r - (((((v_x1_u32r >> 15) * (v_x1_u32r >> 15)) >> 7) * ((int32_t)dev->cali
- 395              		.loc 1 118 5 is_stmt 1 view .LVU127
- 396              		.loc 1 118 45 is_stmt 0 view .LVU128
- 397 0052 DA13     		asrs	r2, r3, #15
- 398              		.loc 1 118 52 view .LVU129
- 399 0054 02FB02F2 		mul	r2, r2, r2
-ARM GAS  /tmp/ccO31j78.s 			page 10
-
-
- 400              		.loc 1 118 73 view .LVU130
- 401 0058 D211     		asrs	r2, r2, #7
- 402              		.loc 1 118 101 view .LVU131
- 403 005a 90F82000 		ldrb	r0, [r0, #32]	@ zero_extendqisi2
- 404              	.LVL38:
- 405              		.loc 1 118 79 view .LVU132
- 406 005e 02FB00F0 		mul	r0, r2, r0
- 407              		.loc 1 118 15 view .LVU133
- 408 0062 A3EB2013 		sub	r3, r3, r0, asr #4
- 409              	.LVL39:
+ 412              		.loc 1 118 5 is_stmt 1 view .LVU124
+ 413              		.loc 1 118 45 is_stmt 0 view .LVU125
+ 414 0054 DA13     		asrs	r2, r3, #15
+ 415              		.loc 1 118 52 view .LVU126
+ 416 0056 02FB02F2 		mul	r2, r2, r2
+ 417              		.loc 1 118 73 view .LVU127
+ 418 005a D211     		asrs	r2, r2, #7
+ 419              		.loc 1 118 101 view .LVU128
+ 420 005c 90F82000 		ldrb	r0, [r0, #32]	@ zero_extendqisi2
+ 421              	.LVL35:
+ 422              		.loc 1 118 79 view .LVU129
+ 423 0060 00FB02F0 		mul	r0, r0, r2
+ 424              		.loc 1 118 15 view .LVU130
+ 425 0064 A3EB2010 		sub	r0, r3, r0, asr #4
+ 426              	.LVL36:
  119:Core/Src/humidity_temp_sensor.c ****     v_x1_u32r = (v_x1_u32r < 0 ? 0 : v_x1_u32r);
- 410              		.loc 1 119 5 is_stmt 1 view .LVU134
- 411              		.loc 1 119 15 is_stmt 0 view .LVU135
- 412 0066 23EAE373 		bic	r3, r3, r3, asr #31
- 413              	.LVL40:
+ 427              		.loc 1 119 5 is_stmt 1 view .LVU131
+ 428              		.loc 1 119 15 is_stmt 0 view .LVU132
+ 429 0068 20EAE070 		bic	r0, r0, r0, asr #31
+ 430              	.LVL37:
  120:Core/Src/humidity_temp_sensor.c ****     v_x1_u32r = (v_x1_u32r > 419430400 ? 419430400 : v_x1_u32r);
- 414              		.loc 1 120 5 is_stmt 1 view .LVU136
- 415              		.loc 1 120 15 is_stmt 0 view .LVU137
- 416 006a B3F1C85F 		cmp	r3, #419430400
- 417 006e A8BF     		it	ge
- 418 0070 4FF0C853 		movge	r3, #419430400
- 419              	.LVL41:
+ 431              		.loc 1 120 5 is_stmt 1 view .LVU133
+ 432              		.loc 1 120 15 is_stmt 0 view .LVU134
+ 433 006c B0F1C85F 		cmp	r0, #419430400
+ 434 0070 A8BF     		it	ge
+ 435 0072 4FF0C850 		movge	r0, #419430400
+ 436              	.LVL38:
  121:Core/Src/humidity_temp_sensor.c ****     return (uint32_t)(v_x1_u32r >> 12);
- 420              		.loc 1 121 5 is_stmt 1 view .LVU138
+ 437              		.loc 1 121 5 is_stmt 1 view .LVU135
  122:Core/Src/humidity_temp_sensor.c **** }
- 421              		.loc 1 122 1 is_stmt 0 view .LVU139
- 422 0074 1813     		asrs	r0, r3, #12
- 423 0076 7047     		bx	lr
- 424              		.cfi_endproc
- 425              	.LFE140:
- 427              		.section	.text.TCA9548A_SelectChannel,"ax",%progbits
- 428              		.align	1
- 429              		.global	TCA9548A_SelectChannel
- 430              		.syntax unified
- 431              		.thumb
- 432              		.thumb_func
- 433              		.fpu fpv4-sp-d16
- 435              	TCA9548A_SelectChannel:
- 436              	.LVL42:
- 437              	.LFB136:
+ 438              		.loc 1 122 1 is_stmt 0 view .LVU136
+ 439 0076 0013     		asrs	r0, r0, #12
+ 440              	.LVL39:
+ 441              		.loc 1 122 1 view .LVU137
+ 442 0078 5DF8044B 		ldr	r4, [sp], #4
+ 443              	.LCFI4:
+ 444              		.cfi_restore 4
+ 445              		.cfi_def_cfa_offset 0
+ 446 007c 7047     		bx	lr
+ 447              		.cfi_endproc
+ 448              	.LFE140:
+ 450              		.section	.text.TCA9548A_SelectChannel,"ax",%progbits
+ 451              		.align	1
+ 452              		.global	TCA9548A_SelectChannel
+ARM GAS  /tmp/ccbJE9BT.s 			page 11
+
+
+ 453              		.syntax unified
+ 454              		.thumb
+ 455              		.thumb_func
+ 456              		.fpu fpv4-sp-d16
+ 458              	TCA9548A_SelectChannel:
+ 459              	.LVL40:
+ 460              	.LFB136:
   31:Core/Src/humidity_temp_sensor.c ****     uint8_t control_byte;
- 438              		.loc 1 31 1 is_stmt 1 view -0
- 439              		.cfi_startproc
- 440              		@ args = 0, pretend = 0, frame = 8
- 441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 461              		.loc 1 31 1 is_stmt 1 view -0
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 8
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
   32:Core/Src/humidity_temp_sensor.c **** 
- 442              		.loc 1 32 5 view .LVU141
+ 465              		.loc 1 32 5 view .LVU139
   34:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 443              		.loc 1 34 5 view .LVU142
+ 466              		.loc 1 34 5 view .LVU140
   34:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 444              		.loc 1 34 8 is_stmt 0 view .LVU143
- 445 0000 072A     		cmp	r2, #7
- 446 0002 01D9     		bls	.L14
+ 467              		.loc 1 34 8 is_stmt 0 view .LVU141
+ 468 0000 072A     		cmp	r2, #7
+ 469 0002 01D9     		bls	.L16
   35:Core/Src/humidity_temp_sensor.c **** 
- 447              		.loc 1 35 16 view .LVU144
- 448 0004 0120     		movs	r0, #1
- 449              	.LVL43:
-ARM GAS  /tmp/ccO31j78.s 			page 11
-
-
+ 470              		.loc 1 35 16 view .LVU142
+ 471 0004 0120     		movs	r0, #1
+ 472              	.LVL41:
   44:Core/Src/humidity_temp_sensor.c **** 
- 450              		.loc 1 44 1 view .LVU145
- 451 0006 7047     		bx	lr
- 452              	.LVL44:
- 453              	.L14:
+ 473              		.loc 1 44 1 view .LVU143
+ 474 0006 7047     		bx	lr
+ 475              	.LVL42:
+ 476              	.L16:
   31:Core/Src/humidity_temp_sensor.c ****     uint8_t control_byte;
- 454              		.loc 1 31 1 view .LVU146
- 455 0008 00B5     		push	{lr}
- 456              	.LCFI1:
- 457              		.cfi_def_cfa_offset 4
- 458              		.cfi_offset 14, -4
- 459 000a 85B0     		sub	sp, sp, #20
- 460              	.LCFI2:
- 461              		.cfi_def_cfa_offset 24
+ 477              		.loc 1 31 1 view .LVU144
+ 478 0008 00B5     		push	{lr}
+ 479              	.LCFI5:
+ 480              		.cfi_def_cfa_offset 4
+ 481              		.cfi_offset 14, -4
+ 482 000a 85B0     		sub	sp, sp, #20
+ 483              	.LCFI6:
+ 484              		.cfi_def_cfa_offset 24
   37:Core/Src/humidity_temp_sensor.c **** 
- 462              		.loc 1 37 5 is_stmt 1 view .LVU147
+ 485              		.loc 1 37 5 is_stmt 1 view .LVU145
   37:Core/Src/humidity_temp_sensor.c **** 
- 463              		.loc 1 37 23 is_stmt 0 view .LVU148
- 464 000c 0123     		movs	r3, #1
- 465 000e 03FA02F2 		lsl	r2, r3, r2
- 466              	.LVL45:
+ 486              		.loc 1 37 23 is_stmt 0 view .LVU146
+ 487 000c 0123     		movs	r3, #1
+ 488 000e 03FA02F2 		lsl	r2, r3, r2
+ 489              	.LVL43:
   37:Core/Src/humidity_temp_sensor.c **** 
- 467              		.loc 1 37 18 view .LVU149
- 468 0012 8DF80F20 		strb	r2, [sp, #15]
+ 490              		.loc 1 37 18 view .LVU147
+ 491 0012 8DF80F20 		strb	r2, [sp, #15]
   43:Core/Src/humidity_temp_sensor.c **** }
- 469              		.loc 1 43 5 is_stmt 1 view .LVU150
+ 492              		.loc 1 43 5 is_stmt 1 view .LVU148
   43:Core/Src/humidity_temp_sensor.c **** }
- 470              		.loc 1 43 12 is_stmt 0 view .LVU151
- 471 0016 0A22     		movs	r2, #10
- 472 0018 0092     		str	r2, [sp]
- 473 001a 0DF10F02 		add	r2, sp, #15
- 474 001e FFF7FEFF 		bl	HAL_I2C_Master_Transmit
- 475              	.LVL46:
+ 493              		.loc 1 43 12 is_stmt 0 view .LVU149
+ 494 0016 0A22     		movs	r2, #10
+ 495 0018 0092     		str	r2, [sp]
+ 496 001a 0DF10F02 		add	r2, sp, #15
+ 497 001e FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 498              	.LVL44:
+ARM GAS  /tmp/ccbJE9BT.s 			page 12
+
+
   44:Core/Src/humidity_temp_sensor.c **** 
- 476              		.loc 1 44 1 view .LVU152
- 477 0022 05B0     		add	sp, sp, #20
- 478              	.LCFI3:
- 479              		.cfi_def_cfa_offset 4
- 480              		@ sp needed
- 481 0024 5DF804FB 		ldr	pc, [sp], #4
- 482              		.cfi_endproc
- 483              	.LFE136:
- 485              		.section	.text.BME280_ReadReg,"ax",%progbits
- 486              		.align	1
- 487              		.syntax unified
- 488              		.thumb
- 489              		.thumb_func
- 490              		.fpu fpv4-sp-d16
- 492              	BME280_ReadReg:
- 493              	.LVL47:
- 494              	.LFB135:
+ 499              		.loc 1 44 1 view .LVU150
+ 500 0022 05B0     		add	sp, sp, #20
+ 501              	.LCFI7:
+ 502              		.cfi_def_cfa_offset 4
+ 503              		@ sp needed
+ 504 0024 5DF804FB 		ldr	pc, [sp], #4
+ 505              		.cfi_endproc
+ 506              	.LFE136:
+ 508              		.section	.text.BME280_ReadReg,"ax",%progbits
+ 509              		.align	1
+ 510              		.syntax unified
+ 511              		.thumb
+ 512              		.thumb_func
+ 513              		.fpu fpv4-sp-d16
+ 515              	BME280_ReadReg:
+ 516              	.LVL45:
+ 517              	.LFB135:
   22:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
- 495              		.loc 1 22 1 is_stmt 1 view -0
- 496              		.cfi_startproc
- 497              		@ args = 0, pretend = 0, frame = 0
- 498              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              		.loc 1 22 1 is_stmt 1 view -0
+ 519              		.cfi_startproc
+ 520              		@ args = 0, pretend = 0, frame = 0
+ 521              		@ frame_needed = 0, uses_anonymous_args = 0
   22:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
-ARM GAS  /tmp/ccO31j78.s 			page 12
-
-
- 499              		.loc 1 22 1 is_stmt 0 view .LVU154
- 500 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 501              	.LCFI4:
- 502              		.cfi_def_cfa_offset 20
- 503              		.cfi_offset 4, -20
- 504              		.cfi_offset 5, -16
- 505              		.cfi_offset 6, -12
- 506              		.cfi_offset 7, -8
- 507              		.cfi_offset 14, -4
- 508 0002 85B0     		sub	sp, sp, #20
- 509              	.LCFI5:
- 510              		.cfi_def_cfa_offset 40
- 511 0004 0446     		mov	r4, r0
- 512 0006 0F46     		mov	r7, r1
- 513 0008 1546     		mov	r5, r2
- 514 000a 1E46     		mov	r6, r3
+ 522              		.loc 1 22 1 is_stmt 0 view .LVU152
+ 523 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 524              	.LCFI8:
+ 525              		.cfi_def_cfa_offset 20
+ 526              		.cfi_offset 4, -20
+ 527              		.cfi_offset 5, -16
+ 528              		.cfi_offset 6, -12
+ 529              		.cfi_offset 7, -8
+ 530              		.cfi_offset 14, -4
+ 531 0002 85B0     		sub	sp, sp, #20
+ 532              	.LCFI9:
+ 533              		.cfi_def_cfa_offset 40
+ 534 0004 0446     		mov	r4, r0
+ 535 0006 0F46     		mov	r7, r1
+ 536 0008 1546     		mov	r5, r2
+ 537 000a 1E46     		mov	r6, r3
   23:Core/Src/humidity_temp_sensor.c ****     status = TCA9548A_SelectChannel(dev->hi2c, dev->mux_addr, dev->mux_channel);
- 515              		.loc 1 23 5 is_stmt 1 view .LVU155
+ 538              		.loc 1 23 5 is_stmt 1 view .LVU153
   24:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 516              		.loc 1 24 5 view .LVU156
+ 539              		.loc 1 24 5 view .LVU154
   24:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 517              		.loc 1 24 14 is_stmt 0 view .LVU157
- 518 000c 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
- 519              	.LVL48:
+ 540              		.loc 1 24 14 is_stmt 0 view .LVU155
+ 541 000c 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
+ 542              	.LVL46:
   24:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 520              		.loc 1 24 14 view .LVU158
- 521 000e 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 522              	.LVL49:
+ 543              		.loc 1 24 14 view .LVU156
+ 544 000e 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 545              	.LVL47:
   24:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 523              		.loc 1 24 14 view .LVU159
- 524 0010 0068     		ldr	r0, [r0]
- 525              	.LVL50:
+ 546              		.loc 1 24 14 view .LVU157
+ 547 0010 0068     		ldr	r0, [r0]
+ 548              	.LVL48:
   24:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 526              		.loc 1 24 14 view .LVU160
- 527 0012 FFF7FEFF 		bl	TCA9548A_SelectChannel
- 528              	.LVL51:
+ARM GAS  /tmp/ccbJE9BT.s 			page 13
+
+
+ 549              		.loc 1 24 14 view .LVU158
+ 550 0012 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 551              	.LVL49:
   25:Core/Src/humidity_temp_sensor.c ****     return HAL_I2C_Mem_Read(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 10
- 529              		.loc 1 25 5 is_stmt 1 view .LVU161
+ 552              		.loc 1 25 5 is_stmt 1 view .LVU159
   25:Core/Src/humidity_temp_sensor.c ****     return HAL_I2C_Mem_Read(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 10
- 530              		.loc 1 25 8 is_stmt 0 view .LVU162
- 531 0016 08B1     		cbz	r0, .L18
- 532              	.L16:
+ 553              		.loc 1 25 8 is_stmt 0 view .LVU160
+ 554 0016 08B1     		cbz	r0, .L20
+ 555              	.L18:
   27:Core/Src/humidity_temp_sensor.c **** 
- 533              		.loc 1 27 1 view .LVU163
- 534 0018 05B0     		add	sp, sp, #20
- 535              	.LCFI6:
- 536              		.cfi_remember_state
- 537              		.cfi_def_cfa_offset 20
- 538              		@ sp needed
- 539 001a F0BD     		pop	{r4, r5, r6, r7, pc}
- 540              	.LVL52:
- 541              	.L18:
- 542              	.LCFI7:
- 543              		.cfi_restore_state
+ 556              		.loc 1 27 1 view .LVU161
+ 557 0018 05B0     		add	sp, sp, #20
+ 558              	.LCFI10:
+ 559              		.cfi_remember_state
+ 560              		.cfi_def_cfa_offset 20
+ 561              		@ sp needed
+ 562 001a F0BD     		pop	{r4, r5, r6, r7, pc}
+ 563              	.LVL50:
+ 564              	.L20:
+ 565              	.LCFI11:
+ 566              		.cfi_restore_state
   26:Core/Src/humidity_temp_sensor.c **** }
- 544              		.loc 1 26 5 is_stmt 1 view .LVU164
+ 567              		.loc 1 26 5 is_stmt 1 view .LVU162
   26:Core/Src/humidity_temp_sensor.c **** }
-ARM GAS  /tmp/ccO31j78.s 			page 13
+ 568              		.loc 1 26 12 is_stmt 0 view .LVU163
+ 569 001c 6423     		movs	r3, #100
+ 570 001e 0293     		str	r3, [sp, #8]
+ 571 0020 0196     		str	r6, [sp, #4]
+ 572 0022 0095     		str	r5, [sp]
+ 573 0024 0123     		movs	r3, #1
+ 574 0026 3A46     		mov	r2, r7
+ 575 0028 A179     		ldrb	r1, [r4, #6]	@ zero_extendqisi2
+ 576 002a 2068     		ldr	r0, [r4]
+ 577 002c FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 578              	.LVL51:
+ 579 0030 F2E7     		b	.L18
+ 580              		.cfi_endproc
+ 581              	.LFE135:
+ 583              		.section	.text.BME280_ReadCalibration,"ax",%progbits
+ 584              		.align	1
+ 585              		.syntax unified
+ 586              		.thumb
+ 587              		.thumb_func
+ 588              		.fpu fpv4-sp-d16
+ 590              	BME280_ReadCalibration:
+ 591              	.LVL52:
+ 592              	.LFB137:
+  48:Core/Src/humidity_temp_sensor.c ****     uint8_t calib[32];
+ 593              		.loc 1 48 1 is_stmt 1 view -0
+ 594              		.cfi_startproc
+ 595              		@ args = 0, pretend = 0, frame = 32
+ 596              		@ frame_needed = 0, uses_anonymous_args = 0
+  48:Core/Src/humidity_temp_sensor.c ****     uint8_t calib[32];
+ 597              		.loc 1 48 1 is_stmt 0 view .LVU165
+ 598 0000 10B5     		push	{r4, lr}
+ 599              	.LCFI12:
+ 600              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccbJE9BT.s 			page 14
 
 
- 545              		.loc 1 26 12 is_stmt 0 view .LVU165
- 546 001c 6423     		movs	r3, #100
- 547 001e 0293     		str	r3, [sp, #8]
- 548 0020 0196     		str	r6, [sp, #4]
- 549 0022 0095     		str	r5, [sp]
- 550 0024 0123     		movs	r3, #1
- 551 0026 3A46     		mov	r2, r7
- 552 0028 A179     		ldrb	r1, [r4, #6]	@ zero_extendqisi2
- 553 002a 2068     		ldr	r0, [r4]
- 554 002c FFF7FEFF 		bl	HAL_I2C_Mem_Read
- 555              	.LVL53:
- 556 0030 F2E7     		b	.L16
- 557              		.cfi_endproc
- 558              	.LFE135:
- 560              		.section	.text.BME280_ReadCalibration,"ax",%progbits
- 561              		.align	1
- 562              		.syntax unified
- 563              		.thumb
- 564              		.thumb_func
- 565              		.fpu fpv4-sp-d16
- 567              	BME280_ReadCalibration:
- 568              	.LVL54:
- 569              	.LFB137:
-  48:Core/Src/humidity_temp_sensor.c ****     uint8_t calib[32];
- 570              		.loc 1 48 1 is_stmt 1 view -0
- 571              		.cfi_startproc
- 572              		@ args = 0, pretend = 0, frame = 32
- 573              		@ frame_needed = 0, uses_anonymous_args = 0
-  48:Core/Src/humidity_temp_sensor.c ****     uint8_t calib[32];
- 574              		.loc 1 48 1 is_stmt 0 view .LVU167
- 575 0000 10B5     		push	{r4, lr}
- 576              	.LCFI8:
- 577              		.cfi_def_cfa_offset 8
- 578              		.cfi_offset 4, -8
- 579              		.cfi_offset 14, -4
- 580 0002 88B0     		sub	sp, sp, #32
- 581              	.LCFI9:
- 582              		.cfi_def_cfa_offset 40
- 583 0004 0446     		mov	r4, r0
+ 601              		.cfi_offset 4, -8
+ 602              		.cfi_offset 14, -4
+ 603 0002 88B0     		sub	sp, sp, #32
+ 604              	.LCFI13:
+ 605              		.cfi_def_cfa_offset 40
+ 606 0004 0446     		mov	r4, r0
   49:Core/Src/humidity_temp_sensor.c **** 
- 584              		.loc 1 49 5 is_stmt 1 view .LVU168
+ 607              		.loc 1 49 5 is_stmt 1 view .LVU166
   52:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 585              		.loc 1 52 5 view .LVU169
+ 608              		.loc 1 52 5 view .LVU167
   52:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 586              		.loc 1 52 9 is_stmt 0 view .LVU170
- 587 0006 1A23     		movs	r3, #26
- 588 0008 6A46     		mov	r2, sp
- 589 000a 8821     		movs	r1, #136
- 590 000c FFF7FEFF 		bl	BME280_ReadReg
- 591              	.LVL55:
+ 609              		.loc 1 52 9 is_stmt 0 view .LVU168
+ 610 0006 1A23     		movs	r3, #26
+ 611 0008 6A46     		mov	r2, sp
+ 612 000a 8821     		movs	r1, #136
+ 613 000c FFF7FEFF 		bl	BME280_ReadReg
+ 614              	.LVL53:
   52:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 592              		.loc 1 52 8 view .LVU171
- 593 0010 10B1     		cbz	r0, .L24
+ 615              		.loc 1 52 8 view .LVU169
+ 616 0010 10B1     		cbz	r0, .L26
   53:Core/Src/humidity_temp_sensor.c **** 
- 594              		.loc 1 53 16 view .LVU172
- 595 0012 0120     		movs	r0, #1
- 596              	.L20:
-ARM GAS  /tmp/ccO31j78.s 			page 14
-
-
+ 617              		.loc 1 53 16 view .LVU170
+ 618 0012 0120     		movs	r0, #1
+ 619              	.L22:
   80:Core/Src/humidity_temp_sensor.c **** 
- 597              		.loc 1 80 1 view .LVU173
- 598 0014 08B0     		add	sp, sp, #32
- 599              	.LCFI10:
- 600              		.cfi_remember_state
- 601              		.cfi_def_cfa_offset 8
- 602              		@ sp needed
- 603 0016 10BD     		pop	{r4, pc}
- 604              	.LVL56:
- 605              	.L24:
- 606              	.LCFI11:
- 607              		.cfi_restore_state
+ 620              		.loc 1 80 1 view .LVU171
+ 621 0014 08B0     		add	sp, sp, #32
+ 622              	.LCFI14:
+ 623              		.cfi_remember_state
+ 624              		.cfi_def_cfa_offset 8
+ 625              		@ sp needed
+ 626 0016 10BD     		pop	{r4, pc}
+ 627              	.LVL54:
+ 628              	.L26:
+ 629              	.LCFI15:
+ 630              		.cfi_restore_state
   55:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T2 = (calib[3] << 8) | calib[2];
- 608              		.loc 1 55 5 is_stmt 1 view .LVU174
+ 631              		.loc 1 55 5 is_stmt 1 view .LVU172
   55:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T2 = (calib[3] << 8) | calib[2];
- 609              		.loc 1 55 31 is_stmt 0 view .LVU175
- 610 0018 9DF80120 		ldrb	r2, [sp, #1]	@ zero_extendqisi2
+ 632              		.loc 1 55 31 is_stmt 0 view .LVU173
+ 633 0018 9DF80120 		ldrb	r2, [sp, #1]	@ zero_extendqisi2
   55:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T2 = (calib[3] << 8) | calib[2];
- 611              		.loc 1 55 48 view .LVU176
- 612 001c 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
+ 634              		.loc 1 55 48 view .LVU174
+ 635 001c 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
   55:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T2 = (calib[3] << 8) | calib[2];
- 613              		.loc 1 55 41 view .LVU177
- 614 0020 43EA0223 		orr	r3, r3, r2, lsl #8
+ 636              		.loc 1 55 41 view .LVU175
+ 637 0020 43EA0223 		orr	r3, r3, r2, lsl #8
   55:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T2 = (calib[3] << 8) | calib[2];
- 615              		.loc 1 55 23 view .LVU178
- 616 0024 2381     		strh	r3, [r4, #8]	@ movhi
+ 638              		.loc 1 55 23 view .LVU176
+ 639 0024 2381     		strh	r3, [r4, #8]	@ movhi
   56:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T3 = (calib[5] << 8) | calib[4];
- 617              		.loc 1 56 5 is_stmt 1 view .LVU179
+ 640              		.loc 1 56 5 is_stmt 1 view .LVU177
   56:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T3 = (calib[5] << 8) | calib[4];
- 618              		.loc 1 56 31 is_stmt 0 view .LVU180
- 619 0026 9DF80320 		ldrb	r2, [sp, #3]	@ zero_extendqisi2
+ 641              		.loc 1 56 31 is_stmt 0 view .LVU178
+ 642 0026 9DF80320 		ldrb	r2, [sp, #3]	@ zero_extendqisi2
   56:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T3 = (calib[5] << 8) | calib[4];
- 620              		.loc 1 56 48 view .LVU181
- 621 002a 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
+ 643              		.loc 1 56 48 view .LVU179
+ARM GAS  /tmp/ccbJE9BT.s 			page 15
+
+
+ 644 002a 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
   56:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T3 = (calib[5] << 8) | calib[4];
- 622              		.loc 1 56 41 view .LVU182
- 623 002e 43EA0223 		orr	r3, r3, r2, lsl #8
+ 645              		.loc 1 56 41 view .LVU180
+ 646 002e 43EA0223 		orr	r3, r3, r2, lsl #8
   56:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_T3 = (calib[5] << 8) | calib[4];
- 624              		.loc 1 56 23 view .LVU183
- 625 0032 6381     		strh	r3, [r4, #10]	@ movhi
+ 647              		.loc 1 56 23 view .LVU181
+ 648 0032 6381     		strh	r3, [r4, #10]	@ movhi
   57:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P1 = (calib[7] << 8) | calib[6];
- 626              		.loc 1 57 5 is_stmt 1 view .LVU184
+ 649              		.loc 1 57 5 is_stmt 1 view .LVU182
   57:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P1 = (calib[7] << 8) | calib[6];
- 627              		.loc 1 57 31 is_stmt 0 view .LVU185
- 628 0034 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
+ 650              		.loc 1 57 31 is_stmt 0 view .LVU183
+ 651 0034 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
   57:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P1 = (calib[7] << 8) | calib[6];
- 629              		.loc 1 57 48 view .LVU186
- 630 0038 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 652              		.loc 1 57 48 view .LVU184
+ 653 0038 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
   57:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P1 = (calib[7] << 8) | calib[6];
- 631              		.loc 1 57 41 view .LVU187
- 632 003c 43EA0223 		orr	r3, r3, r2, lsl #8
+ 654              		.loc 1 57 41 view .LVU185
+ 655 003c 43EA0223 		orr	r3, r3, r2, lsl #8
   57:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P1 = (calib[7] << 8) | calib[6];
- 633              		.loc 1 57 23 view .LVU188
- 634 0040 A381     		strh	r3, [r4, #12]	@ movhi
+ 656              		.loc 1 57 23 view .LVU186
+ 657 0040 A381     		strh	r3, [r4, #12]	@ movhi
   58:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P2 = (calib[9] << 8) | calib[8];
- 635              		.loc 1 58 5 is_stmt 1 view .LVU189
+ 658              		.loc 1 58 5 is_stmt 1 view .LVU187
   58:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P2 = (calib[9] << 8) | calib[8];
-ARM GAS  /tmp/ccO31j78.s 			page 15
-
-
- 636              		.loc 1 58 31 is_stmt 0 view .LVU190
- 637 0042 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
+ 659              		.loc 1 58 31 is_stmt 0 view .LVU188
+ 660 0042 9DF80720 		ldrb	r2, [sp, #7]	@ zero_extendqisi2
   58:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P2 = (calib[9] << 8) | calib[8];
- 638              		.loc 1 58 48 view .LVU191
- 639 0046 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 661              		.loc 1 58 48 view .LVU189
+ 662 0046 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
   58:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P2 = (calib[9] << 8) | calib[8];
- 640              		.loc 1 58 41 view .LVU192
- 641 004a 43EA0223 		orr	r3, r3, r2, lsl #8
+ 663              		.loc 1 58 41 view .LVU190
+ 664 004a 43EA0223 		orr	r3, r3, r2, lsl #8
   58:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P2 = (calib[9] << 8) | calib[8];
- 642              		.loc 1 58 23 view .LVU193
- 643 004e E381     		strh	r3, [r4, #14]	@ movhi
+ 665              		.loc 1 58 23 view .LVU191
+ 666 004e E381     		strh	r3, [r4, #14]	@ movhi
   59:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P3 = (calib[11] << 8) | calib[10];
- 644              		.loc 1 59 5 is_stmt 1 view .LVU194
+ 667              		.loc 1 59 5 is_stmt 1 view .LVU192
   59:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P3 = (calib[11] << 8) | calib[10];
- 645              		.loc 1 59 31 is_stmt 0 view .LVU195
- 646 0050 9DF80920 		ldrb	r2, [sp, #9]	@ zero_extendqisi2
+ 668              		.loc 1 59 31 is_stmt 0 view .LVU193
+ 669 0050 9DF80920 		ldrb	r2, [sp, #9]	@ zero_extendqisi2
   59:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P3 = (calib[11] << 8) | calib[10];
- 647              		.loc 1 59 48 view .LVU196
- 648 0054 9DF80830 		ldrb	r3, [sp, #8]	@ zero_extendqisi2
+ 670              		.loc 1 59 48 view .LVU194
+ 671 0054 9DF80830 		ldrb	r3, [sp, #8]	@ zero_extendqisi2
   59:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P3 = (calib[11] << 8) | calib[10];
- 649              		.loc 1 59 41 view .LVU197
- 650 0058 43EA0223 		orr	r3, r3, r2, lsl #8
+ 672              		.loc 1 59 41 view .LVU195
+ 673 0058 43EA0223 		orr	r3, r3, r2, lsl #8
   59:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P3 = (calib[11] << 8) | calib[10];
- 651              		.loc 1 59 23 view .LVU198
- 652 005c 2382     		strh	r3, [r4, #16]	@ movhi
+ 674              		.loc 1 59 23 view .LVU196
+ 675 005c 2382     		strh	r3, [r4, #16]	@ movhi
   60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
- 653              		.loc 1 60 5 is_stmt 1 view .LVU199
+ 676              		.loc 1 60 5 is_stmt 1 view .LVU197
   60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
- 654              		.loc 1 60 31 is_stmt 0 view .LVU200
- 655 005e 9DF80B20 		ldrb	r2, [sp, #11]	@ zero_extendqisi2
+ 677              		.loc 1 60 31 is_stmt 0 view .LVU198
+ 678 005e 9DF80B20 		ldrb	r2, [sp, #11]	@ zero_extendqisi2
   60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
- 656              		.loc 1 60 49 view .LVU201
- 657 0062 9DF80A30 		ldrb	r3, [sp, #10]	@ zero_extendqisi2
-  60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
- 658              		.loc 1 60 42 view .LVU202
- 659 0066 43EA0223 		orr	r3, r3, r2, lsl #8
-  60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
- 660              		.loc 1 60 23 view .LVU203
- 661 006a 6382     		strh	r3, [r4, #18]	@ movhi
-  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
- 662              		.loc 1 61 5 is_stmt 1 view .LVU204
-  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
- 663              		.loc 1 61 31 is_stmt 0 view .LVU205
- 664 006c 9DF80D20 		ldrb	r2, [sp, #13]	@ zero_extendqisi2
-  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
- 665              		.loc 1 61 49 view .LVU206
- 666 0070 9DF80C30 		ldrb	r3, [sp, #12]	@ zero_extendqisi2
-  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
- 667              		.loc 1 61 42 view .LVU207
- 668 0074 43EA0223 		orr	r3, r3, r2, lsl #8
-  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
- 669              		.loc 1 61 23 view .LVU208
- 670 0078 A382     		strh	r3, [r4, #20]	@ movhi
-  62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
- 671              		.loc 1 62 5 is_stmt 1 view .LVU209
-  62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
- 672              		.loc 1 62 31 is_stmt 0 view .LVU210
-ARM GAS  /tmp/ccO31j78.s 			page 16
+ 679              		.loc 1 60 49 view .LVU199
+ 680 0062 9DF80A30 		ldrb	r3, [sp, #10]	@ zero_extendqisi2
+ARM GAS  /tmp/ccbJE9BT.s 			page 16
 
 
- 673 007a 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
+  60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
+ 681              		.loc 1 60 42 view .LVU200
+ 682 0066 43EA0223 		orr	r3, r3, r2, lsl #8
+  60:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P4 = (calib[13] << 8) | calib[12];
+ 683              		.loc 1 60 23 view .LVU201
+ 684 006a 6382     		strh	r3, [r4, #18]	@ movhi
+  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
+ 685              		.loc 1 61 5 is_stmt 1 view .LVU202
+  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
+ 686              		.loc 1 61 31 is_stmt 0 view .LVU203
+ 687 006c 9DF80D20 		ldrb	r2, [sp, #13]	@ zero_extendqisi2
+  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
+ 688              		.loc 1 61 49 view .LVU204
+ 689 0070 9DF80C30 		ldrb	r3, [sp, #12]	@ zero_extendqisi2
+  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
+ 690              		.loc 1 61 42 view .LVU205
+ 691 0074 43EA0223 		orr	r3, r3, r2, lsl #8
+  61:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P5 = (calib[15] << 8) | calib[14];
+ 692              		.loc 1 61 23 view .LVU206
+ 693 0078 A382     		strh	r3, [r4, #20]	@ movhi
   62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
- 674              		.loc 1 62 49 view .LVU211
- 675 007e 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2
+ 694              		.loc 1 62 5 is_stmt 1 view .LVU207
   62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
- 676              		.loc 1 62 42 view .LVU212
- 677 0082 43EA0223 		orr	r3, r3, r2, lsl #8
+ 695              		.loc 1 62 31 is_stmt 0 view .LVU208
+ 696 007a 9DF80F20 		ldrb	r2, [sp, #15]	@ zero_extendqisi2
   62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
- 678              		.loc 1 62 23 view .LVU213
- 679 0086 E382     		strh	r3, [r4, #22]	@ movhi
+ 697              		.loc 1 62 49 view .LVU209
+ 698 007e 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2
+  62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
+ 699              		.loc 1 62 42 view .LVU210
+ 700 0082 43EA0223 		orr	r3, r3, r2, lsl #8
+  62:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P6 = (calib[17] << 8) | calib[16];
+ 701              		.loc 1 62 23 view .LVU211
+ 702 0086 E382     		strh	r3, [r4, #22]	@ movhi
   63:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P7 = (calib[19] << 8) | calib[18];
- 680              		.loc 1 63 5 is_stmt 1 view .LVU214
+ 703              		.loc 1 63 5 is_stmt 1 view .LVU212
   63:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P7 = (calib[19] << 8) | calib[18];
- 681              		.loc 1 63 31 is_stmt 0 view .LVU215
- 682 0088 9DF81120 		ldrb	r2, [sp, #17]	@ zero_extendqisi2
+ 704              		.loc 1 63 31 is_stmt 0 view .LVU213
+ 705 0088 9DF81120 		ldrb	r2, [sp, #17]	@ zero_extendqisi2
   63:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P7 = (calib[19] << 8) | calib[18];
- 683              		.loc 1 63 49 view .LVU216
- 684 008c 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2
+ 706              		.loc 1 63 49 view .LVU214
+ 707 008c 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2
   63:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P7 = (calib[19] << 8) | calib[18];
- 685              		.loc 1 63 42 view .LVU217
- 686 0090 43EA0223 		orr	r3, r3, r2, lsl #8
+ 708              		.loc 1 63 42 view .LVU215
+ 709 0090 43EA0223 		orr	r3, r3, r2, lsl #8
   63:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P7 = (calib[19] << 8) | calib[18];
- 687              		.loc 1 63 23 view .LVU218
- 688 0094 2383     		strh	r3, [r4, #24]	@ movhi
+ 710              		.loc 1 63 23 view .LVU216
+ 711 0094 2383     		strh	r3, [r4, #24]	@ movhi
   64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
- 689              		.loc 1 64 5 is_stmt 1 view .LVU219
+ 712              		.loc 1 64 5 is_stmt 1 view .LVU217
   64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
- 690              		.loc 1 64 31 is_stmt 0 view .LVU220
- 691 0096 9DF81320 		ldrb	r2, [sp, #19]	@ zero_extendqisi2
+ 713              		.loc 1 64 31 is_stmt 0 view .LVU218
+ 714 0096 9DF81320 		ldrb	r2, [sp, #19]	@ zero_extendqisi2
   64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
- 692              		.loc 1 64 49 view .LVU221
- 693 009a 9DF81230 		ldrb	r3, [sp, #18]	@ zero_extendqisi2
+ 715              		.loc 1 64 49 view .LVU219
+ 716 009a 9DF81230 		ldrb	r3, [sp, #18]	@ zero_extendqisi2
   64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
- 694              		.loc 1 64 42 view .LVU222
- 695 009e 43EA0223 		orr	r3, r3, r2, lsl #8
-  64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
- 696              		.loc 1 64 23 view .LVU223
- 697 00a2 6383     		strh	r3, [r4, #26]	@ movhi
-  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
- 698              		.loc 1 65 5 is_stmt 1 view .LVU224
-  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
- 699              		.loc 1 65 31 is_stmt 0 view .LVU225
- 700 00a4 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
-  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
- 701              		.loc 1 65 49 view .LVU226
- 702 00a8 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
-  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
- 703              		.loc 1 65 42 view .LVU227
- 704 00ac 43EA0223 		orr	r3, r3, r2, lsl #8
-  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
- 705              		.loc 1 65 23 view .LVU228
- 706 00b0 A383     		strh	r3, [r4, #28]	@ movhi
-  66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
- 707              		.loc 1 66 5 is_stmt 1 view .LVU229
-  66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
- 708              		.loc 1 66 31 is_stmt 0 view .LVU230
- 709 00b2 9DF81720 		ldrb	r2, [sp, #23]	@ zero_extendqisi2
-ARM GAS  /tmp/ccO31j78.s 			page 17
+ARM GAS  /tmp/ccbJE9BT.s 			page 17
 
 
+ 717              		.loc 1 64 42 view .LVU220
+ 718 009e 43EA0223 		orr	r3, r3, r2, lsl #8
+  64:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P8 = (calib[21] << 8) | calib[20];
+ 719              		.loc 1 64 23 view .LVU221
+ 720 00a2 6383     		strh	r3, [r4, #26]	@ movhi
+  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
+ 721              		.loc 1 65 5 is_stmt 1 view .LVU222
+  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
+ 722              		.loc 1 65 31 is_stmt 0 view .LVU223
+ 723 00a4 9DF81520 		ldrb	r2, [sp, #21]	@ zero_extendqisi2
+  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
+ 724              		.loc 1 65 49 view .LVU224
+ 725 00a8 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
+ 726              		.loc 1 65 42 view .LVU225
+ 727 00ac 43EA0223 		orr	r3, r3, r2, lsl #8
+  65:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_P9 = (calib[23] << 8) | calib[22];
+ 728              		.loc 1 65 23 view .LVU226
+ 729 00b0 A383     		strh	r3, [r4, #28]	@ movhi
   66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
- 710              		.loc 1 66 49 view .LVU231
- 711 00b6 9DF81630 		ldrb	r3, [sp, #22]	@ zero_extendqisi2
+ 730              		.loc 1 66 5 is_stmt 1 view .LVU227
   66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
- 712              		.loc 1 66 42 view .LVU232
- 713 00ba 43EA0223 		orr	r3, r3, r2, lsl #8
+ 731              		.loc 1 66 31 is_stmt 0 view .LVU228
+ 732 00b2 9DF81720 		ldrb	r2, [sp, #23]	@ zero_extendqisi2
   66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
- 714              		.loc 1 66 23 view .LVU233
- 715 00be E383     		strh	r3, [r4, #30]	@ movhi
+ 733              		.loc 1 66 49 view .LVU229
+ 734 00b6 9DF81630 		ldrb	r3, [sp, #22]	@ zero_extendqisi2
+  66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
+ 735              		.loc 1 66 42 view .LVU230
+ 736 00ba 43EA0223 		orr	r3, r3, r2, lsl #8
+  66:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H1 = calib[25];
+ 737              		.loc 1 66 23 view .LVU231
+ 738 00be E383     		strh	r3, [r4, #30]	@ movhi
   67:Core/Src/humidity_temp_sensor.c **** 
- 716              		.loc 1 67 5 is_stmt 1 view .LVU234
+ 739              		.loc 1 67 5 is_stmt 1 view .LVU232
   67:Core/Src/humidity_temp_sensor.c **** 
- 717              		.loc 1 67 30 is_stmt 0 view .LVU235
- 718 00c0 9DF81930 		ldrb	r3, [sp, #25]	@ zero_extendqisi2
+ 740              		.loc 1 67 30 is_stmt 0 view .LVU233
+ 741 00c0 9DF81930 		ldrb	r3, [sp, #25]	@ zero_extendqisi2
   67:Core/Src/humidity_temp_sensor.c **** 
- 719              		.loc 1 67 23 view .LVU236
- 720 00c4 84F82030 		strb	r3, [r4, #32]
+ 742              		.loc 1 67 23 view .LVU234
+ 743 00c4 84F82030 		strb	r3, [r4, #32]
   70:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 721              		.loc 1 70 5 is_stmt 1 view .LVU237
+ 744              		.loc 1 70 5 is_stmt 1 view .LVU235
   70:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 722              		.loc 1 70 9 is_stmt 0 view .LVU238
- 723 00c8 0723     		movs	r3, #7
- 724 00ca 6A46     		mov	r2, sp
- 725 00cc E121     		movs	r1, #225
- 726 00ce 2046     		mov	r0, r4
- 727 00d0 FFF7FEFF 		bl	BME280_ReadReg
- 728              	.LVL57:
+ 745              		.loc 1 70 9 is_stmt 0 view .LVU236
+ 746 00c8 0723     		movs	r3, #7
+ 747 00ca 6A46     		mov	r2, sp
+ 748 00cc E121     		movs	r1, #225
+ 749 00ce 2046     		mov	r0, r4
+ 750 00d0 FFF7FEFF 		bl	BME280_ReadReg
+ 751              	.LVL55:
   70:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 729              		.loc 1 70 8 view .LVU239
- 730 00d4 F0B9     		cbnz	r0, .L22
+ 752              		.loc 1 70 8 view .LVU237
+ 753 00d4 F0B9     		cbnz	r0, .L24
   73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
- 731              		.loc 1 73 5 is_stmt 1 view .LVU240
+ 754              		.loc 1 73 5 is_stmt 1 view .LVU238
   73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
- 732              		.loc 1 73 31 is_stmt 0 view .LVU241
- 733 00d6 9DF80120 		ldrb	r2, [sp, #1]	@ zero_extendqisi2
-  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
- 734              		.loc 1 73 48 view .LVU242
- 735 00da 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
-  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
- 736              		.loc 1 73 41 view .LVU243
- 737 00de 43EA0223 		orr	r3, r3, r2, lsl #8
-  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
- 738              		.loc 1 73 23 view .LVU244
- 739 00e2 6384     		strh	r3, [r4, #34]	@ movhi
-  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
- 740              		.loc 1 74 5 is_stmt 1 view .LVU245
-  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
- 741              		.loc 1 74 30 is_stmt 0 view .LVU246
- 742 00e4 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
-  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
- 743              		.loc 1 74 23 view .LVU247
- 744 00e8 84F82430 		strb	r3, [r4, #36]
-  75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 745              		.loc 1 75 5 is_stmt 1 view .LVU248
-  75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 746              		.loc 1 75 31 is_stmt 0 view .LVU249
- 747 00ec 9DF80310 		ldrb	r1, [sp, #3]	@ zero_extendqisi2
-ARM GAS  /tmp/ccO31j78.s 			page 18
+ARM GAS  /tmp/ccbJE9BT.s 			page 18
 
 
+ 755              		.loc 1 73 31 is_stmt 0 view .LVU239
+ 756 00d6 9DF80120 		ldrb	r2, [sp, #1]	@ zero_extendqisi2
+  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
+ 757              		.loc 1 73 48 view .LVU240
+ 758 00da 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
+  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
+ 759              		.loc 1 73 41 view .LVU241
+ 760 00de 43EA0223 		orr	r3, r3, r2, lsl #8
+  73:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H3 = calib[2];
+ 761              		.loc 1 73 23 view .LVU242
+ 762 00e2 6384     		strh	r3, [r4, #34]	@ movhi
+  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
+ 763              		.loc 1 74 5 is_stmt 1 view .LVU243
+  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
+ 764              		.loc 1 74 30 is_stmt 0 view .LVU244
+ 765 00e4 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
+  74:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H4 = (calib[3] << 4) | (calib[4] & 0x0F);
+ 766              		.loc 1 74 23 view .LVU245
+ 767 00e8 84F82430 		strb	r3, [r4, #36]
   75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 748              		.loc 1 75 49 view .LVU250
- 749 00f0 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 768              		.loc 1 75 5 is_stmt 1 view .LVU246
   75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 750              		.loc 1 75 53 view .LVU251
- 751 00f4 03F00F02 		and	r2, r3, #15
+ 769              		.loc 1 75 31 is_stmt 0 view .LVU247
+ 770 00ec 9DF80310 		ldrb	r1, [sp, #3]	@ zero_extendqisi2
   75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 752              		.loc 1 75 41 view .LVU252
- 753 00f8 42EA0112 		orr	r2, r2, r1, lsl #4
+ 771              		.loc 1 75 49 view .LVU248
+ 772 00f0 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
   75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
- 754              		.loc 1 75 23 view .LVU253
- 755 00fc E284     		strh	r2, [r4, #38]	@ movhi
+ 773              		.loc 1 75 53 view .LVU249
+ 774 00f4 03F00F02 		and	r2, r3, #15
+  75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
+ 775              		.loc 1 75 41 view .LVU250
+ 776 00f8 42EA0112 		orr	r2, r2, r1, lsl #4
+  75:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H5 = (calib[5] << 4) | (calib[4] >> 4);
+ 777              		.loc 1 75 23 view .LVU251
+ 778 00fc E284     		strh	r2, [r4, #38]	@ movhi
   76:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H6 = calib[6];
- 756              		.loc 1 76 5 is_stmt 1 view .LVU254
+ 779              		.loc 1 76 5 is_stmt 1 view .LVU252
   76:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H6 = calib[6];
- 757              		.loc 1 76 31 is_stmt 0 view .LVU255
- 758 00fe 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
+ 780              		.loc 1 76 31 is_stmt 0 view .LVU253
+ 781 00fe 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
   76:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H6 = calib[6];
- 759              		.loc 1 76 41 view .LVU256
- 760 0102 1B09     		lsrs	r3, r3, #4
- 761 0104 43EA0213 		orr	r3, r3, r2, lsl #4
+ 782              		.loc 1 76 41 view .LVU254
+ 783 0102 1B09     		lsrs	r3, r3, #4
+ 784 0104 43EA0213 		orr	r3, r3, r2, lsl #4
   76:Core/Src/humidity_temp_sensor.c ****     dev->calib.dig_H6 = calib[6];
- 762              		.loc 1 76 23 view .LVU257
- 763 0108 2385     		strh	r3, [r4, #40]	@ movhi
+ 785              		.loc 1 76 23 view .LVU255
+ 786 0108 2385     		strh	r3, [r4, #40]	@ movhi
   77:Core/Src/humidity_temp_sensor.c **** 
- 764              		.loc 1 77 5 is_stmt 1 view .LVU258
+ 787              		.loc 1 77 5 is_stmt 1 view .LVU256
   77:Core/Src/humidity_temp_sensor.c **** 
- 765              		.loc 1 77 30 is_stmt 0 view .LVU259
- 766 010a 9DF90630 		ldrsb	r3, [sp, #6]
+ 788              		.loc 1 77 30 is_stmt 0 view .LVU257
+ 789 010a 9DF90630 		ldrsb	r3, [sp, #6]
   77:Core/Src/humidity_temp_sensor.c **** 
- 767              		.loc 1 77 23 view .LVU260
- 768 010e 84F82A30 		strb	r3, [r4, #42]
+ 790              		.loc 1 77 23 view .LVU258
+ 791 010e 84F82A30 		strb	r3, [r4, #42]
   79:Core/Src/humidity_temp_sensor.c **** }
- 769              		.loc 1 79 5 is_stmt 1 view .LVU261
+ARM GAS  /tmp/ccbJE9BT.s 			page 19
+
+
+ 792              		.loc 1 79 5 is_stmt 1 view .LVU259
   79:Core/Src/humidity_temp_sensor.c **** }
- 770              		.loc 1 79 12 is_stmt 0 view .LVU262
- 771 0112 7FE7     		b	.L20
- 772              	.L22:
+ 793              		.loc 1 79 12 is_stmt 0 view .LVU260
+ 794 0112 7FE7     		b	.L22
+ 795              	.L24:
   71:Core/Src/humidity_temp_sensor.c **** 
- 773              		.loc 1 71 16 view .LVU263
- 774 0114 0120     		movs	r0, #1
- 775 0116 7DE7     		b	.L20
- 776              		.cfi_endproc
- 777              	.LFE137:
- 779              		.section	.text.BME280_WriteReg,"ax",%progbits
- 780              		.align	1
- 781              		.syntax unified
- 782              		.thumb
- 783              		.thumb_func
- 784              		.fpu fpv4-sp-d16
- 786              	BME280_WriteReg:
- 787              	.LVL58:
- 788              	.LFB134:
+ 796              		.loc 1 71 16 view .LVU261
+ 797 0114 0120     		movs	r0, #1
+ 798 0116 7DE7     		b	.L22
+ 799              		.cfi_endproc
+ 800              	.LFE137:
+ 802              		.section	.text.BME280_WriteReg,"ax",%progbits
+ 803              		.align	1
+ 804              		.syntax unified
+ 805              		.thumb
+ 806              		.thumb_func
+ 807              		.fpu fpv4-sp-d16
+ 809              	BME280_WriteReg:
+ 810              	.LVL56:
+ 811              	.LFB134:
   13:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
- 789              		.loc 1 13 1 is_stmt 1 view -0
- 790              		.cfi_startproc
- 791              		@ args = 0, pretend = 0, frame = 8
-ARM GAS  /tmp/ccO31j78.s 			page 19
-
-
- 792              		@ frame_needed = 0, uses_anonymous_args = 0
+ 812              		.loc 1 13 1 is_stmt 1 view -0
+ 813              		.cfi_startproc
+ 814              		@ args = 0, pretend = 0, frame = 8
+ 815              		@ frame_needed = 0, uses_anonymous_args = 0
   13:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
- 793              		.loc 1 13 1 is_stmt 0 view .LVU265
- 794 0000 30B5     		push	{r4, r5, lr}
- 795              	.LCFI12:
- 796              		.cfi_def_cfa_offset 12
- 797              		.cfi_offset 4, -12
- 798              		.cfi_offset 5, -8
- 799              		.cfi_offset 14, -4
- 800 0002 87B0     		sub	sp, sp, #28
- 801              	.LCFI13:
- 802              		.cfi_def_cfa_offset 40
- 803 0004 0446     		mov	r4, r0
- 804 0006 0D46     		mov	r5, r1
- 805 0008 8DF81720 		strb	r2, [sp, #23]
+ 816              		.loc 1 13 1 is_stmt 0 view .LVU263
+ 817 0000 30B5     		push	{r4, r5, lr}
+ 818              	.LCFI16:
+ 819              		.cfi_def_cfa_offset 12
+ 820              		.cfi_offset 4, -12
+ 821              		.cfi_offset 5, -8
+ 822              		.cfi_offset 14, -4
+ 823 0002 87B0     		sub	sp, sp, #28
+ 824              	.LCFI17:
+ 825              		.cfi_def_cfa_offset 40
+ 826 0004 0446     		mov	r4, r0
+ 827 0006 0D46     		mov	r5, r1
+ 828 0008 8DF81720 		strb	r2, [sp, #23]
   14:Core/Src/humidity_temp_sensor.c ****     status = TCA9548A_SelectChannel(dev->hi2c, dev->mux_addr, dev->mux_channel);
- 806              		.loc 1 14 5 is_stmt 1 view .LVU266
+ 829              		.loc 1 14 5 is_stmt 1 view .LVU264
   15:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 807              		.loc 1 15 5 view .LVU267
+ 830              		.loc 1 15 5 view .LVU265
   15:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 808              		.loc 1 15 14 is_stmt 0 view .LVU268
- 809 000c 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
- 810              	.LVL59:
+ 831              		.loc 1 15 14 is_stmt 0 view .LVU266
+ 832 000c 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
+ 833              	.LVL57:
   15:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 811              		.loc 1 15 14 view .LVU269
- 812 000e 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 813              	.LVL60:
+ 834              		.loc 1 15 14 view .LVU267
+ 835 000e 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 836              	.LVL58:
   15:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 814              		.loc 1 15 14 view .LVU270
- 815 0010 0068     		ldr	r0, [r0]
- 816              	.LVL61:
+ 837              		.loc 1 15 14 view .LVU268
+ 838 0010 0068     		ldr	r0, [r0]
+ 839              	.LVL59:
   15:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) return status;
- 817              		.loc 1 15 14 view .LVU271
- 818 0012 FFF7FEFF 		bl	TCA9548A_SelectChannel
- 819              	.LVL62:
+ 840              		.loc 1 15 14 view .LVU269
+ARM GAS  /tmp/ccbJE9BT.s 			page 20
+
+
+ 841 0012 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 842              	.LVL60:
   16:Core/Src/humidity_temp_sensor.c ****     return HAL_I2C_Mem_Write(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, 100
- 820              		.loc 1 16 5 is_stmt 1 view .LVU272
+ 843              		.loc 1 16 5 is_stmt 1 view .LVU270
   16:Core/Src/humidity_temp_sensor.c ****     return HAL_I2C_Mem_Write(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, 100
- 821              		.loc 1 16 8 is_stmt 0 view .LVU273
- 822 0016 08B1     		cbz	r0, .L28
- 823              	.L26:
+ 844              		.loc 1 16 8 is_stmt 0 view .LVU271
+ 845 0016 08B1     		cbz	r0, .L30
+ 846              	.L28:
   18:Core/Src/humidity_temp_sensor.c **** 
- 824              		.loc 1 18 1 view .LVU274
- 825 0018 07B0     		add	sp, sp, #28
- 826              	.LCFI14:
- 827              		.cfi_remember_state
- 828              		.cfi_def_cfa_offset 12
- 829              		@ sp needed
- 830 001a 30BD     		pop	{r4, r5, pc}
- 831              	.LVL63:
- 832              	.L28:
- 833              	.LCFI15:
- 834              		.cfi_restore_state
+ 847              		.loc 1 18 1 view .LVU272
+ 848 0018 07B0     		add	sp, sp, #28
+ 849              	.LCFI18:
+ 850              		.cfi_remember_state
+ 851              		.cfi_def_cfa_offset 12
+ 852              		@ sp needed
+ 853 001a 30BD     		pop	{r4, r5, pc}
+ 854              	.LVL61:
+ 855              	.L30:
+ 856              	.LCFI19:
+ 857              		.cfi_restore_state
   17:Core/Src/humidity_temp_sensor.c **** }
- 835              		.loc 1 17 5 is_stmt 1 view .LVU275
+ 858              		.loc 1 17 5 is_stmt 1 view .LVU273
   17:Core/Src/humidity_temp_sensor.c **** }
- 836              		.loc 1 17 12 is_stmt 0 view .LVU276
-ARM GAS  /tmp/ccO31j78.s 			page 20
-
-
- 837 001c 6423     		movs	r3, #100
- 838 001e 0293     		str	r3, [sp, #8]
- 839 0020 0123     		movs	r3, #1
- 840 0022 0193     		str	r3, [sp, #4]
- 841 0024 0DF11702 		add	r2, sp, #23
- 842 0028 0092     		str	r2, [sp]
- 843 002a 2A46     		mov	r2, r5
- 844 002c A179     		ldrb	r1, [r4, #6]	@ zero_extendqisi2
- 845 002e 2068     		ldr	r0, [r4]
- 846 0030 FFF7FEFF 		bl	HAL_I2C_Mem_Write
- 847              	.LVL64:
- 848 0034 F0E7     		b	.L26
- 849              		.cfi_endproc
- 850              	.LFE134:
- 852              		.section	.text.BME280_Init,"ax",%progbits
- 853              		.align	1
- 854              		.global	BME280_Init
- 855              		.syntax unified
- 856              		.thumb
- 857              		.thumb_func
- 858              		.fpu fpv4-sp-d16
- 860              	BME280_Init:
- 861              	.LVL65:
- 862              	.LFB141:
+ 859              		.loc 1 17 12 is_stmt 0 view .LVU274
+ 860 001c 6423     		movs	r3, #100
+ 861 001e 0293     		str	r3, [sp, #8]
+ 862 0020 0123     		movs	r3, #1
+ 863 0022 0193     		str	r3, [sp, #4]
+ 864 0024 0DF11702 		add	r2, sp, #23
+ 865 0028 0092     		str	r2, [sp]
+ 866 002a 2A46     		mov	r2, r5
+ 867 002c A179     		ldrb	r1, [r4, #6]	@ zero_extendqisi2
+ 868 002e 2068     		ldr	r0, [r4]
+ 869 0030 FFF7FEFF 		bl	HAL_I2C_Mem_Write
+ 870              	.LVL62:
+ 871 0034 F0E7     		b	.L28
+ 872              		.cfi_endproc
+ 873              	.LFE134:
+ 875              		.section	.text.BME280_Init,"ax",%progbits
+ 876              		.align	1
+ 877              		.global	BME280_Init
+ 878              		.syntax unified
+ 879              		.thumb
+ 880              		.thumb_func
+ 881              		.fpu fpv4-sp-d16
+ 883              	BME280_Init:
+ 884              	.LVL63:
+ 885              	.LFB141:
  123:Core/Src/humidity_temp_sensor.c **** 
  124:Core/Src/humidity_temp_sensor.c **** /* ==== DEVICE INITIALIZATION ==== */
  125:Core/Src/humidity_temp_sensor.c **** HAL_StatusTypeDef BME280_Init(BME280_HandleTypeDef *dev, I2C_HandleTypeDef *hi2c,
  126:Core/Src/humidity_temp_sensor.c ****                                uint8_t mux_addr, uint8_t mux_channel, uint8_t sensor_addr)
  127:Core/Src/humidity_temp_sensor.c **** {
- 863              		.loc 1 127 1 is_stmt 1 view -0
- 864              		.cfi_startproc
- 865              		@ args = 4, pretend = 0, frame = 8
- 866              		@ frame_needed = 0, uses_anonymous_args = 0
- 867              		.loc 1 127 1 is_stmt 0 view .LVU278
- 868 0000 10B5     		push	{r4, lr}
- 869              	.LCFI16:
- 870              		.cfi_def_cfa_offset 8
- 871              		.cfi_offset 4, -8
- 872              		.cfi_offset 14, -4
- 873 0002 82B0     		sub	sp, sp, #8
- 874              	.LCFI17:
- 875              		.cfi_def_cfa_offset 16
- 876 0004 0446     		mov	r4, r0
- 877 0006 0846     		mov	r0, r1
- 878              	.LVL66:
- 879              		.loc 1 127 1 view .LVU279
- 880 0008 1146     		mov	r1, r2
- 881              	.LVL67:
- 882              		.loc 1 127 1 view .LVU280
- 883 000a 1A46     		mov	r2, r3
- 884              	.LVL68:
+ 886              		.loc 1 127 1 is_stmt 1 view -0
+ 887              		.cfi_startproc
+ 888              		@ args = 4, pretend = 0, frame = 8
+ 889              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccbJE9BT.s 			page 21
+
+
+ 890              		.loc 1 127 1 is_stmt 0 view .LVU276
+ 891 0000 10B5     		push	{r4, lr}
+ 892              	.LCFI20:
+ 893              		.cfi_def_cfa_offset 8
+ 894              		.cfi_offset 4, -8
+ 895              		.cfi_offset 14, -4
+ 896 0002 82B0     		sub	sp, sp, #8
+ 897              	.LCFI21:
+ 898              		.cfi_def_cfa_offset 16
+ 899 0004 0446     		mov	r4, r0
+ 900 0006 0846     		mov	r0, r1
+ 901              	.LVL64:
+ 902              		.loc 1 127 1 view .LVU277
+ 903 0008 1146     		mov	r1, r2
+ 904              	.LVL65:
+ 905              		.loc 1 127 1 view .LVU278
+ 906 000a 1A46     		mov	r2, r3
+ 907              	.LVL66:
  128:Core/Src/humidity_temp_sensor.c ****     uint8_t chip_id;
- 885              		.loc 1 128 5 is_stmt 1 view .LVU281
+ 908              		.loc 1 128 5 is_stmt 1 view .LVU279
  129:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
- 886              		.loc 1 129 5 view .LVU282
+ 909              		.loc 1 129 5 view .LVU280
  130:Core/Src/humidity_temp_sensor.c **** 
  131:Core/Src/humidity_temp_sensor.c ****     dev->hi2c = hi2c;
-ARM GAS  /tmp/ccO31j78.s 			page 21
-
-
- 887              		.loc 1 131 5 view .LVU283
- 888              		.loc 1 131 15 is_stmt 0 view .LVU284
- 889 000c 2060     		str	r0, [r4]
+ 910              		.loc 1 131 5 view .LVU281
+ 911              		.loc 1 131 15 is_stmt 0 view .LVU282
+ 912 000c 2060     		str	r0, [r4]
  132:Core/Src/humidity_temp_sensor.c ****     dev->mux_addr = mux_addr;
- 890              		.loc 1 132 5 is_stmt 1 view .LVU285
- 891              		.loc 1 132 19 is_stmt 0 view .LVU286
- 892 000e 2171     		strb	r1, [r4, #4]
+ 913              		.loc 1 132 5 is_stmt 1 view .LVU283
+ 914              		.loc 1 132 19 is_stmt 0 view .LVU284
+ 915 000e 2171     		strb	r1, [r4, #4]
  133:Core/Src/humidity_temp_sensor.c ****     dev->mux_channel = mux_channel;
- 893              		.loc 1 133 5 is_stmt 1 view .LVU287
- 894              		.loc 1 133 22 is_stmt 0 view .LVU288
- 895 0010 6371     		strb	r3, [r4, #5]
+ 916              		.loc 1 133 5 is_stmt 1 view .LVU285
+ 917              		.loc 1 133 22 is_stmt 0 view .LVU286
+ 918 0010 6371     		strb	r3, [r4, #5]
  134:Core/Src/humidity_temp_sensor.c ****     dev->sensor_addr = sensor_addr;
- 896              		.loc 1 134 5 is_stmt 1 view .LVU289
- 897              		.loc 1 134 22 is_stmt 0 view .LVU290
- 898 0012 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2
- 899              	.LVL69:
- 900              		.loc 1 134 22 view .LVU291
- 901 0016 A371     		strb	r3, [r4, #6]
+ 919              		.loc 1 134 5 is_stmt 1 view .LVU287
+ 920              		.loc 1 134 22 is_stmt 0 view .LVU288
+ 921 0012 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2
+ 922              	.LVL67:
+ 923              		.loc 1 134 22 view .LVU289
+ 924 0016 A371     		strb	r3, [r4, #6]
  135:Core/Src/humidity_temp_sensor.c **** 
  136:Core/Src/humidity_temp_sensor.c ****     // Select multiplexer channel
  137:Core/Src/humidity_temp_sensor.c ****     status = TCA9548A_SelectChannel(hi2c, mux_addr, mux_channel);
- 902              		.loc 1 137 5 is_stmt 1 view .LVU292
- 903              		.loc 1 137 14 is_stmt 0 view .LVU293
- 904 0018 FFF7FEFF 		bl	TCA9548A_SelectChannel
- 905              	.LVL70:
+ 925              		.loc 1 137 5 is_stmt 1 view .LVU290
+ 926              		.loc 1 137 14 is_stmt 0 view .LVU291
+ 927 0018 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 928              	.LVL68:
  138:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 906              		.loc 1 138 5 is_stmt 1 view .LVU294
- 907              		.loc 1 138 8 is_stmt 0 view .LVU295
- 908 001c 10B1     		cbz	r0, .L40
+ 929              		.loc 1 138 5 is_stmt 1 view .LVU292
+ 930              		.loc 1 138 8 is_stmt 0 view .LVU293
+ 931 001c 10B1     		cbz	r0, .L42
  139:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Mux selection failed
- 909              		.loc 1 139 16 view .LVU296
- 910 001e 0120     		movs	r0, #1
- 911              	.LVL71:
- 912              	.L30:
+ 932              		.loc 1 139 16 view .LVU294
+ 933 001e 0120     		movs	r0, #1
+ 934              	.LVL69:
+ARM GAS  /tmp/ccbJE9BT.s 			page 22
+
+
+ 935              	.L32:
  140:Core/Src/humidity_temp_sensor.c ****     }
  141:Core/Src/humidity_temp_sensor.c ****     HAL_Delay(1);
  142:Core/Src/humidity_temp_sensor.c **** 
@@ -1258,9 +1285,6 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
  160:Core/Src/humidity_temp_sensor.c ****     if (BME280_ReadCalibration(dev) != HAL_OK)
  161:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
  162:Core/Src/humidity_temp_sensor.c **** 
-ARM GAS  /tmp/ccO31j78.s 			page 22
-
-
  163:Core/Src/humidity_temp_sensor.c ****     // Configure humidity oversampling (must be written before CTRL_MEAS)
  164:Core/Src/humidity_temp_sensor.c ****     if (BME280_WriteReg(dev, BME280_REG_CTRL_HUM, BME280_OVERSAMPLE_1X) != HAL_OK)
  165:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
@@ -1276,248 +1300,248 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
  175:Core/Src/humidity_temp_sensor.c **** 
  176:Core/Src/humidity_temp_sensor.c ****     return HAL_OK;
  177:Core/Src/humidity_temp_sensor.c **** }
- 913              		.loc 1 177 1 view .LVU297
- 914 0020 02B0     		add	sp, sp, #8
- 915              	.LCFI18:
- 916              		.cfi_remember_state
- 917              		.cfi_def_cfa_offset 8
- 918              		@ sp needed
- 919 0022 10BD     		pop	{r4, pc}
- 920              	.LVL72:
- 921              	.L40:
- 922              	.LCFI19:
- 923              		.cfi_restore_state
+ 936              		.loc 1 177 1 view .LVU295
+ 937 0020 02B0     		add	sp, sp, #8
+ 938              	.LCFI22:
+ 939              		.cfi_remember_state
+ 940              		.cfi_def_cfa_offset 8
+ 941              		@ sp needed
+ 942 0022 10BD     		pop	{r4, pc}
+ 943              	.LVL70:
+ 944              	.L42:
+ 945              	.LCFI23:
+ 946              		.cfi_restore_state
  141:Core/Src/humidity_temp_sensor.c **** 
- 924              		.loc 1 141 5 is_stmt 1 view .LVU298
- 925 0024 0120     		movs	r0, #1
- 926              	.LVL73:
+ 947              		.loc 1 141 5 is_stmt 1 view .LVU296
+ 948 0024 0120     		movs	r0, #1
+ 949              	.LVL71:
  141:Core/Src/humidity_temp_sensor.c **** 
- 927              		.loc 1 141 5 is_stmt 0 view .LVU299
- 928 0026 FFF7FEFF 		bl	HAL_Delay
- 929              	.LVL74:
- 144:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 930              		.loc 1 144 5 is_stmt 1 view .LVU300
- 144:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 931              		.loc 1 144 14 is_stmt 0 view .LVU301
- 932 002a 0123     		movs	r3, #1
- 933 002c 0DF10702 		add	r2, sp, #7
- 934 0030 D021     		movs	r1, #208
- 935 0032 2046     		mov	r0, r4
- 936 0034 FFF7FEFF 		bl	BME280_ReadReg
- 937              	.LVL75:
- 145:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // I2C read failed
- 938              		.loc 1 145 5 is_stmt 1 view .LVU302
- 145:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // I2C read failed
- 939              		.loc 1 145 8 is_stmt 0 view .LVU303
- 940 0038 78BB     		cbnz	r0, .L32
- 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
- 941              		.loc 1 149 5 is_stmt 1 view .LVU304
- 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
- 942              		.loc 1 149 17 is_stmt 0 view .LVU305
- 943 003a 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
- 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
- 944              		.loc 1 149 8 view .LVU306
- 945 003e 602B     		cmp	r3, #96
-ARM GAS  /tmp/ccO31j78.s 			page 23
+ 950              		.loc 1 141 5 is_stmt 0 view .LVU297
+ 951 0026 FFF7FEFF 		bl	HAL_Delay
+ARM GAS  /tmp/ccbJE9BT.s 			page 23
 
 
- 946 0040 01D0     		beq	.L41
+ 952              	.LVL72:
+ 144:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
+ 953              		.loc 1 144 5 is_stmt 1 view .LVU298
+ 144:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
+ 954              		.loc 1 144 14 is_stmt 0 view .LVU299
+ 955 002a 0123     		movs	r3, #1
+ 956 002c 0DF10702 		add	r2, sp, #7
+ 957 0030 D021     		movs	r1, #208
+ 958 0032 2046     		mov	r0, r4
+ 959 0034 FFF7FEFF 		bl	BME280_ReadReg
+ 960              	.LVL73:
+ 145:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // I2C read failed
+ 961              		.loc 1 145 5 is_stmt 1 view .LVU300
+ 145:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // I2C read failed
+ 962              		.loc 1 145 8 is_stmt 0 view .LVU301
+ 963 0038 78BB     		cbnz	r0, .L34
+ 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
+ 964              		.loc 1 149 5 is_stmt 1 view .LVU302
+ 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
+ 965              		.loc 1 149 17 is_stmt 0 view .LVU303
+ 966 003a 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 149:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;  // Wrong chip ID (expected 0x60)
+ 967              		.loc 1 149 8 view .LVU304
+ 968 003e 602B     		cmp	r3, #96
+ 969 0040 01D0     		beq	.L43
  150:Core/Src/humidity_temp_sensor.c ****     }
- 947              		.loc 1 150 16 view .LVU307
- 948 0042 0120     		movs	r0, #1
- 949              	.LVL76:
+ 970              		.loc 1 150 16 view .LVU305
+ 971 0042 0120     		movs	r0, #1
+ 972              	.LVL74:
  150:Core/Src/humidity_temp_sensor.c ****     }
- 950              		.loc 1 150 16 view .LVU308
- 951 0044 ECE7     		b	.L30
- 952              	.LVL77:
- 953              	.L41:
+ 973              		.loc 1 150 16 view .LVU306
+ 974 0044 ECE7     		b	.L32
+ 975              	.LVL75:
+ 976              	.L43:
  154:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 954              		.loc 1 154 5 is_stmt 1 view .LVU309
+ 977              		.loc 1 154 5 is_stmt 1 view .LVU307
  154:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 955              		.loc 1 154 9 is_stmt 0 view .LVU310
- 956 0046 B622     		movs	r2, #182
- 957 0048 E021     		movs	r1, #224
- 958 004a 2046     		mov	r0, r4
- 959              	.LVL78:
+ 978              		.loc 1 154 9 is_stmt 0 view .LVU308
+ 979 0046 B622     		movs	r2, #182
+ 980 0048 E021     		movs	r1, #224
+ 981 004a 2046     		mov	r0, r4
+ 982              	.LVL76:
  154:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 960              		.loc 1 154 9 view .LVU311
- 961 004c FFF7FEFF 		bl	BME280_WriteReg
- 962              	.LVL79:
+ 983              		.loc 1 154 9 view .LVU309
+ 984 004c FFF7FEFF 		bl	BME280_WriteReg
+ 985              	.LVL77:
  154:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 963              		.loc 1 154 8 view .LVU312
- 964 0050 08B1     		cbz	r0, .L42
+ 986              		.loc 1 154 8 view .LVU310
+ 987 0050 08B1     		cbz	r0, .L44
  155:Core/Src/humidity_temp_sensor.c **** 
- 965              		.loc 1 155 16 view .LVU313
- 966 0052 0120     		movs	r0, #1
- 967 0054 E4E7     		b	.L30
- 968              	.L42:
+ 988              		.loc 1 155 16 view .LVU311
+ 989 0052 0120     		movs	r0, #1
+ 990 0054 E4E7     		b	.L32
+ 991              	.L44:
  157:Core/Src/humidity_temp_sensor.c **** 
- 969              		.loc 1 157 5 is_stmt 1 view .LVU314
- 970 0056 0A20     		movs	r0, #10
- 971 0058 FFF7FEFF 		bl	HAL_Delay
- 972              	.LVL80:
+ 992              		.loc 1 157 5 is_stmt 1 view .LVU312
+ 993 0056 0A20     		movs	r0, #10
+ARM GAS  /tmp/ccbJE9BT.s 			page 24
+
+
+ 994 0058 FFF7FEFF 		bl	HAL_Delay
+ 995              	.LVL78:
  160:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 973              		.loc 1 160 5 view .LVU315
+ 996              		.loc 1 160 5 view .LVU313
  160:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 974              		.loc 1 160 9 is_stmt 0 view .LVU316
- 975 005c 2046     		mov	r0, r4
- 976 005e FFF7FEFF 		bl	BME280_ReadCalibration
- 977              	.LVL81:
+ 997              		.loc 1 160 9 is_stmt 0 view .LVU314
+ 998 005c 2046     		mov	r0, r4
+ 999 005e FFF7FEFF 		bl	BME280_ReadCalibration
+ 1000              	.LVL79:
  160:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 978              		.loc 1 160 8 view .LVU317
- 979 0062 08B1     		cbz	r0, .L43
+ 1001              		.loc 1 160 8 view .LVU315
+ 1002 0062 08B1     		cbz	r0, .L45
  161:Core/Src/humidity_temp_sensor.c **** 
- 980              		.loc 1 161 16 view .LVU318
- 981 0064 0120     		movs	r0, #1
- 982 0066 DBE7     		b	.L30
- 983              	.L43:
+ 1003              		.loc 1 161 16 view .LVU316
+ 1004 0064 0120     		movs	r0, #1
+ 1005 0066 DBE7     		b	.L32
+ 1006              	.L45:
  164:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 984              		.loc 1 164 5 is_stmt 1 view .LVU319
+ 1007              		.loc 1 164 5 is_stmt 1 view .LVU317
  164:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 985              		.loc 1 164 9 is_stmt 0 view .LVU320
- 986 0068 0122     		movs	r2, #1
- 987 006a F221     		movs	r1, #242
- 988 006c 2046     		mov	r0, r4
-ARM GAS  /tmp/ccO31j78.s 			page 24
-
-
- 989 006e FFF7FEFF 		bl	BME280_WriteReg
- 990              	.LVL82:
+ 1008              		.loc 1 164 9 is_stmt 0 view .LVU318
+ 1009 0068 0122     		movs	r2, #1
+ 1010 006a F221     		movs	r1, #242
+ 1011 006c 2046     		mov	r0, r4
+ 1012 006e FFF7FEFF 		bl	BME280_WriteReg
+ 1013              	.LVL80:
  164:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 991              		.loc 1 164 8 view .LVU321
- 992 0072 08B1     		cbz	r0, .L44
+ 1014              		.loc 1 164 8 view .LVU319
+ 1015 0072 08B1     		cbz	r0, .L46
  165:Core/Src/humidity_temp_sensor.c **** 
- 993              		.loc 1 165 16 view .LVU322
- 994 0074 0120     		movs	r0, #1
- 995 0076 D3E7     		b	.L30
- 996              	.L44:
+ 1016              		.loc 1 165 16 view .LVU320
+ 1017 0074 0120     		movs	r0, #1
+ 1018 0076 D3E7     		b	.L32
+ 1019              	.L46:
  168:Core/Src/humidity_temp_sensor.c ****     if (BME280_WriteReg(dev, BME280_REG_CTRL_MEAS, ctrl_meas) != HAL_OK)
- 997              		.loc 1 168 5 is_stmt 1 view .LVU323
- 998              	.LVL83:
+ 1020              		.loc 1 168 5 is_stmt 1 view .LVU321
+ 1021              	.LVL81:
  169:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 999              		.loc 1 169 5 view .LVU324
+ 1022              		.loc 1 169 5 view .LVU322
  169:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1000              		.loc 1 169 9 is_stmt 0 view .LVU325
- 1001 0078 2522     		movs	r2, #37
- 1002 007a F421     		movs	r1, #244
- 1003 007c 2046     		mov	r0, r4
- 1004 007e FFF7FEFF 		bl	BME280_WriteReg
- 1005              	.LVL84:
+ 1023              		.loc 1 169 9 is_stmt 0 view .LVU323
+ 1024 0078 2522     		movs	r2, #37
+ 1025 007a F421     		movs	r1, #244
+ 1026 007c 2046     		mov	r0, r4
+ 1027 007e FFF7FEFF 		bl	BME280_WriteReg
+ 1028              	.LVL82:
  169:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1006              		.loc 1 169 8 view .LVU326
- 1007 0082 08B1     		cbz	r0, .L45
+ 1029              		.loc 1 169 8 view .LVU324
+ 1030 0082 08B1     		cbz	r0, .L47
  170:Core/Src/humidity_temp_sensor.c **** 
- 1008              		.loc 1 170 16 view .LVU327
- 1009 0084 0120     		movs	r0, #1
- 1010 0086 CBE7     		b	.L30
- 1011              	.L45:
+ 1031              		.loc 1 170 16 view .LVU325
+ 1032 0084 0120     		movs	r0, #1
+ 1033 0086 CBE7     		b	.L32
+ 1034              	.L47:
  173:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1012              		.loc 1 173 5 is_stmt 1 view .LVU328
+ 1035              		.loc 1 173 5 is_stmt 1 view .LVU326
  173:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1013              		.loc 1 173 9 is_stmt 0 view .LVU329
- 1014 0088 0022     		movs	r2, #0
- 1015 008a F521     		movs	r1, #245
- 1016 008c 2046     		mov	r0, r4
- 1017 008e FFF7FEFF 		bl	BME280_WriteReg
- 1018              	.LVL85:
+ARM GAS  /tmp/ccbJE9BT.s 			page 25
+
+
+ 1036              		.loc 1 173 9 is_stmt 0 view .LVU327
+ 1037 0088 0022     		movs	r2, #0
+ 1038 008a F521     		movs	r1, #245
+ 1039 008c 2046     		mov	r0, r4
+ 1040 008e FFF7FEFF 		bl	BME280_WriteReg
+ 1041              	.LVL83:
  173:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1019              		.loc 1 173 8 view .LVU330
- 1020 0092 0028     		cmp	r0, #0
- 1021 0094 C4D0     		beq	.L30
+ 1042              		.loc 1 173 8 view .LVU328
+ 1043 0092 0028     		cmp	r0, #0
+ 1044 0094 C4D0     		beq	.L32
  174:Core/Src/humidity_temp_sensor.c **** 
- 1022              		.loc 1 174 16 view .LVU331
- 1023 0096 0120     		movs	r0, #1
- 1024 0098 C2E7     		b	.L30
- 1025              	.LVL86:
- 1026              	.L32:
+ 1045              		.loc 1 174 16 view .LVU329
+ 1046 0096 0120     		movs	r0, #1
+ 1047 0098 C2E7     		b	.L32
+ 1048              	.LVL84:
+ 1049              	.L34:
  146:Core/Src/humidity_temp_sensor.c ****     }
- 1027              		.loc 1 146 16 view .LVU332
- 1028 009a 0120     		movs	r0, #1
- 1029              	.LVL87:
+ 1050              		.loc 1 146 16 view .LVU330
+ 1051 009a 0120     		movs	r0, #1
+ 1052              	.LVL85:
  146:Core/Src/humidity_temp_sensor.c ****     }
- 1030              		.loc 1 146 16 view .LVU333
- 1031 009c C0E7     		b	.L30
- 1032              		.cfi_endproc
-ARM GAS  /tmp/ccO31j78.s 			page 25
-
-
- 1033              	.LFE141:
- 1035              		.section	.text.BME280_ReadData,"ax",%progbits
- 1036              		.align	1
- 1037              		.global	BME280_ReadData
- 1038              		.syntax unified
- 1039              		.thumb
- 1040              		.thumb_func
- 1041              		.fpu fpv4-sp-d16
- 1043              	BME280_ReadData:
- 1044              	.LVL88:
- 1045              	.LFB142:
+ 1053              		.loc 1 146 16 view .LVU331
+ 1054 009c C0E7     		b	.L32
+ 1055              		.cfi_endproc
+ 1056              	.LFE141:
+ 1058              		.section	.text.BME280_ReadData,"ax",%progbits
+ 1059              		.align	1
+ 1060              		.global	BME280_ReadData
+ 1061              		.syntax unified
+ 1062              		.thumb
+ 1063              		.thumb_func
+ 1064              		.fpu fpv4-sp-d16
+ 1066              	BME280_ReadData:
+ 1067              	.LVL86:
+ 1068              	.LFB142:
  178:Core/Src/humidity_temp_sensor.c **** 
  179:Core/Src/humidity_temp_sensor.c **** /* ==== SINGLE MEASUREMENT READ ==== */
  180:Core/Src/humidity_temp_sensor.c **** HAL_StatusTypeDef BME280_ReadData(BME280_HandleTypeDef *dev, float *temperature,
  181:Core/Src/humidity_temp_sensor.c ****                                    float *humidity, float *pressure)
  182:Core/Src/humidity_temp_sensor.c **** {
- 1046              		.loc 1 182 1 is_stmt 1 view -0
- 1047              		.cfi_startproc
- 1048              		@ args = 0, pretend = 0, frame = 8
- 1049              		@ frame_needed = 0, uses_anonymous_args = 0
- 1050              		.loc 1 182 1 is_stmt 0 view .LVU335
- 1051 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
- 1052              	.LCFI20:
- 1053              		.cfi_def_cfa_offset 32
- 1054              		.cfi_offset 4, -32
- 1055              		.cfi_offset 5, -28
- 1056              		.cfi_offset 6, -24
- 1057              		.cfi_offset 7, -20
- 1058              		.cfi_offset 8, -16
- 1059              		.cfi_offset 9, -12
- 1060              		.cfi_offset 10, -8
- 1061              		.cfi_offset 14, -4
- 1062 0004 82B0     		sub	sp, sp, #8
- 1063              	.LCFI21:
- 1064              		.cfi_def_cfa_offset 40
- 1065 0006 0446     		mov	r4, r0
- 1066 0008 8846     		mov	r8, r1
- 1067 000a 1746     		mov	r7, r2
- 1068 000c 1E46     		mov	r6, r3
+ 1069              		.loc 1 182 1 is_stmt 1 view -0
+ 1070              		.cfi_startproc
+ 1071              		@ args = 0, pretend = 0, frame = 8
+ 1072              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1073              		.loc 1 182 1 is_stmt 0 view .LVU333
+ 1074 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 1075              	.LCFI24:
+ 1076              		.cfi_def_cfa_offset 32
+ 1077              		.cfi_offset 4, -32
+ 1078              		.cfi_offset 5, -28
+ 1079              		.cfi_offset 6, -24
+ 1080              		.cfi_offset 7, -20
+ 1081              		.cfi_offset 8, -16
+ 1082              		.cfi_offset 9, -12
+ 1083              		.cfi_offset 10, -8
+ 1084              		.cfi_offset 14, -4
+ 1085 0004 82B0     		sub	sp, sp, #8
+ARM GAS  /tmp/ccbJE9BT.s 			page 26
+
+
+ 1086              	.LCFI25:
+ 1087              		.cfi_def_cfa_offset 40
+ 1088 0006 0446     		mov	r4, r0
+ 1089 0008 8846     		mov	r8, r1
+ 1090 000a 1746     		mov	r7, r2
+ 1091 000c 1E46     		mov	r6, r3
  183:Core/Src/humidity_temp_sensor.c ****     uint8_t data[8];
- 1069              		.loc 1 183 5 is_stmt 1 view .LVU336
+ 1092              		.loc 1 183 5 is_stmt 1 view .LVU334
  184:Core/Src/humidity_temp_sensor.c ****     int32_t adc_T, adc_P, adc_H;
- 1070              		.loc 1 184 5 view .LVU337
+ 1093              		.loc 1 184 5 view .LVU335
  185:Core/Src/humidity_temp_sensor.c ****     int32_t temp_comp;
- 1071              		.loc 1 185 5 view .LVU338
+ 1094              		.loc 1 185 5 view .LVU336
  186:Core/Src/humidity_temp_sensor.c ****     uint32_t press_comp, hum_comp;
- 1072              		.loc 1 186 5 view .LVU339
+ 1095              		.loc 1 186 5 view .LVU337
  187:Core/Src/humidity_temp_sensor.c ****     HAL_StatusTypeDef status;
- 1073              		.loc 1 187 5 view .LVU340
+ 1096              		.loc 1 187 5 view .LVU338
  188:Core/Src/humidity_temp_sensor.c **** 
  189:Core/Src/humidity_temp_sensor.c ****     // Force re-select channel before every read (don't trust state)
  190:Core/Src/humidity_temp_sensor.c ****     status = TCA9548A_SelectChannel(dev->hi2c, dev->mux_addr, dev->mux_channel);
- 1074              		.loc 1 190 5 view .LVU341
- 1075              		.loc 1 190 14 is_stmt 0 view .LVU342
- 1076 000e 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
- 1077              	.LVL89:
- 1078              		.loc 1 190 14 view .LVU343
-ARM GAS  /tmp/ccO31j78.s 			page 26
-
-
- 1079 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
- 1080              	.LVL90:
- 1081              		.loc 1 190 14 view .LVU344
- 1082 0012 0068     		ldr	r0, [r0]
- 1083              	.LVL91:
- 1084              		.loc 1 190 14 view .LVU345
- 1085 0014 FFF7FEFF 		bl	TCA9548A_SelectChannel
- 1086              	.LVL92:
+ 1097              		.loc 1 190 5 view .LVU339
+ 1098              		.loc 1 190 14 is_stmt 0 view .LVU340
+ 1099 000e 4279     		ldrb	r2, [r0, #5]	@ zero_extendqisi2
+ 1100              	.LVL87:
+ 1101              		.loc 1 190 14 view .LVU341
+ 1102 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 1103              	.LVL88:
+ 1104              		.loc 1 190 14 view .LVU342
+ 1105 0012 0068     		ldr	r0, [r0]
+ 1106              	.LVL89:
+ 1107              		.loc 1 190 14 view .LVU343
+ 1108 0014 FFF7FEFF 		bl	TCA9548A_SelectChannel
+ 1109              	.LVL90:
  191:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1087              		.loc 1 191 5 is_stmt 1 view .LVU346
- 1088              		.loc 1 191 8 is_stmt 0 view .LVU347
- 1089 0018 20B1     		cbz	r0, .L54
+ 1110              		.loc 1 191 5 is_stmt 1 view .LVU344
+ 1111              		.loc 1 191 8 is_stmt 0 view .LVU345
+ 1112 0018 20B1     		cbz	r0, .L56
  192:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1090              		.loc 1 192 16 view .LVU348
- 1091 001a 0125     		movs	r5, #1
- 1092              	.LVL93:
- 1093              	.L47:
+ 1113              		.loc 1 192 16 view .LVU346
+ 1114 001a 0125     		movs	r5, #1
+ 1115              	.LVL91:
+ 1116              	.L49:
  193:Core/Src/humidity_temp_sensor.c ****     }
  194:Core/Src/humidity_temp_sensor.c **** 
  195:Core/Src/humidity_temp_sensor.c ****     // Trigger forced mode measurement - single attempt, no retry
@@ -1534,6 +1558,9 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
  206:Core/Src/humidity_temp_sensor.c ****     status = BME280_ReadReg(dev, BME280_REG_PRESS_MSB, data, 8);
  207:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
  208:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
+ARM GAS  /tmp/ccbJE9BT.s 			page 27
+
+
  209:Core/Src/humidity_temp_sensor.c ****     }
  210:Core/Src/humidity_temp_sensor.c **** 
  211:Core/Src/humidity_temp_sensor.c ****     // Parse raw ADC values
@@ -1558,281 +1585,284 @@ ARM GAS  /tmp/ccO31j78.s 			page 1
  230:Core/Src/humidity_temp_sensor.c ****     hum_comp = BME280_CompensateHumidity(dev, adc_H);
  231:Core/Src/humidity_temp_sensor.c ****     *humidity = hum_comp / 1024.0f;
  232:Core/Src/humidity_temp_sensor.c **** 
-ARM GAS  /tmp/ccO31j78.s 			page 27
-
-
  233:Core/Src/humidity_temp_sensor.c ****     return HAL_OK;
  234:Core/Src/humidity_temp_sensor.c **** }
- 1094              		.loc 1 234 1 view .LVU349
- 1095 001c 2846     		mov	r0, r5
- 1096 001e 02B0     		add	sp, sp, #8
- 1097              	.LCFI22:
- 1098              		.cfi_remember_state
- 1099              		.cfi_def_cfa_offset 32
- 1100              		@ sp needed
- 1101 0020 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
- 1102              	.LVL94:
- 1103              	.L54:
- 1104              	.LCFI23:
- 1105              		.cfi_restore_state
+ 1117              		.loc 1 234 1 view .LVU347
+ 1118 001c 2846     		mov	r0, r5
+ 1119 001e 02B0     		add	sp, sp, #8
+ 1120              	.LCFI26:
+ 1121              		.cfi_remember_state
+ 1122              		.cfi_def_cfa_offset 32
+ 1123              		@ sp needed
+ 1124 0020 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 1125              	.LVL92:
+ 1126              	.L56:
+ 1127              	.LCFI27:
+ 1128              		.cfi_restore_state
  196:Core/Src/humidity_temp_sensor.c ****     status = BME280_WriteReg(dev, BME280_REG_CTRL_MEAS, ctrl_meas);
- 1106              		.loc 1 196 5 is_stmt 1 view .LVU350
+ 1129              		.loc 1 196 5 is_stmt 1 view .LVU348
  197:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1107              		.loc 1 197 5 view .LVU351
+ 1130              		.loc 1 197 5 view .LVU349
  197:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1108              		.loc 1 197 14 is_stmt 0 view .LVU352
- 1109 0024 2522     		movs	r2, #37
- 1110 0026 F421     		movs	r1, #244
- 1111 0028 2046     		mov	r0, r4
- 1112              	.LVL95:
+ 1131              		.loc 1 197 14 is_stmt 0 view .LVU350
+ 1132 0024 2522     		movs	r2, #37
+ 1133 0026 F421     		movs	r1, #244
+ 1134 0028 2046     		mov	r0, r4
+ 1135              	.LVL93:
  197:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1113              		.loc 1 197 14 view .LVU353
- 1114 002a FFF7FEFF 		bl	BME280_WriteReg
- 1115              	.LVL96:
+ 1136              		.loc 1 197 14 view .LVU351
+ 1137 002a FFF7FEFF 		bl	BME280_WriteReg
+ 1138              	.LVL94:
  198:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1116              		.loc 1 198 5 is_stmt 1 view .LVU354
+ 1139              		.loc 1 198 5 is_stmt 1 view .LVU352
  198:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1117              		.loc 1 198 8 is_stmt 0 view .LVU355
- 1118 002e 08B1     		cbz	r0, .L55
+ 1140              		.loc 1 198 8 is_stmt 0 view .LVU353
+ 1141 002e 08B1     		cbz	r0, .L57
+ARM GAS  /tmp/ccbJE9BT.s 			page 28
+
+
  199:Core/Src/humidity_temp_sensor.c ****     }
- 1119              		.loc 1 199 16 view .LVU356
- 1120 0030 0125     		movs	r5, #1
- 1121 0032 F3E7     		b	.L47
- 1122              	.L55:
+ 1142              		.loc 1 199 16 view .LVU354
+ 1143 0030 0125     		movs	r5, #1
+ 1144 0032 F3E7     		b	.L49
+ 1145              	.L57:
  203:Core/Src/humidity_temp_sensor.c **** 
- 1123              		.loc 1 203 5 is_stmt 1 view .LVU357
- 1124 0034 0F20     		movs	r0, #15
- 1125              	.LVL97:
+ 1146              		.loc 1 203 5 is_stmt 1 view .LVU355
+ 1147 0034 0F20     		movs	r0, #15
+ 1148              	.LVL95:
  203:Core/Src/humidity_temp_sensor.c **** 
- 1126              		.loc 1 203 5 is_stmt 0 view .LVU358
- 1127 0036 FFF7FEFF 		bl	HAL_Delay
- 1128              	.LVL98:
+ 1149              		.loc 1 203 5 is_stmt 0 view .LVU356
+ 1150 0036 FFF7FEFF 		bl	HAL_Delay
+ 1151              	.LVL96:
  206:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1129              		.loc 1 206 5 is_stmt 1 view .LVU359
+ 1152              		.loc 1 206 5 is_stmt 1 view .LVU357
  206:Core/Src/humidity_temp_sensor.c ****     if (status != HAL_OK) {
- 1130              		.loc 1 206 14 is_stmt 0 view .LVU360
- 1131 003a 0823     		movs	r3, #8
- 1132 003c 6A46     		mov	r2, sp
- 1133 003e F721     		movs	r1, #247
- 1134 0040 2046     		mov	r0, r4
- 1135 0042 FFF7FEFF 		bl	BME280_ReadReg
- 1136              	.LVL99:
+ 1153              		.loc 1 206 14 is_stmt 0 view .LVU358
+ 1154 003a 0823     		movs	r3, #8
+ 1155 003c 6A46     		mov	r2, sp
+ 1156 003e F721     		movs	r1, #247
+ 1157 0040 2046     		mov	r0, r4
+ 1158 0042 FFF7FEFF 		bl	BME280_ReadReg
+ 1159              	.LVL97:
  207:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
-ARM GAS  /tmp/ccO31j78.s 			page 28
-
-
- 1137              		.loc 1 207 5 is_stmt 1 view .LVU361
+ 1160              		.loc 1 207 5 is_stmt 1 view .LVU359
  207:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1138              		.loc 1 207 8 is_stmt 0 view .LVU362
- 1139 0046 0546     		mov	r5, r0
- 1140 0048 0028     		cmp	r0, #0
- 1141 004a 4DD1     		bne	.L51
+ 1161              		.loc 1 207 8 is_stmt 0 view .LVU360
+ 1162 0046 0546     		mov	r5, r0
+ 1163 0048 0028     		cmp	r0, #0
+ 1164 004a 4DD1     		bne	.L53
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1142              		.loc 1 212 5 is_stmt 1 view .LVU363
+ 1165              		.loc 1 212 5 is_stmt 1 view .LVU361
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1143              		.loc 1 212 27 is_stmt 0 view .LVU364
- 1144 004c 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
+ 1166              		.loc 1 212 27 is_stmt 0 view .LVU362
+ 1167 004c 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1145              		.loc 1 212 54 view .LVU365
- 1146 0050 9DF80190 		ldrb	r9, [sp, #1]	@ zero_extendqisi2
+ 1168              		.loc 1 212 54 view .LVU363
+ 1169 0050 9DF80190 		ldrb	r9, [sp, #1]	@ zero_extendqisi2
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1147              		.loc 1 212 58 view .LVU366
- 1148 0054 4FEA0919 		lsl	r9, r9, #4
+ 1170              		.loc 1 212 58 view .LVU364
+ 1171 0054 4FEA0919 		lsl	r9, r9, #4
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1149              		.loc 1 212 38 view .LVU367
- 1150 0058 49EA0339 		orr	r9, r9, r3, lsl #12
+ 1172              		.loc 1 212 38 view .LVU365
+ 1173 0058 49EA0339 		orr	r9, r9, r3, lsl #12
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1151              		.loc 1 212 80 view .LVU368
- 1152 005c 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
+ 1174              		.loc 1 212 80 view .LVU366
+ 1175 005c 9DF80230 		ldrb	r3, [sp, #2]	@ zero_extendqisi2
  212:Core/Src/humidity_temp_sensor.c ****     adc_T = ((int32_t)data[3] << 12) | ((int32_t)data[4] << 4) | ((int32_t)data[5] >> 4);
- 1153              		.loc 1 212 11 view .LVU369
- 1154 0060 49EA1319 		orr	r9, r9, r3, lsr #4
- 1155              	.LVL100:
+ 1176              		.loc 1 212 11 view .LVU367
+ 1177 0060 49EA1319 		orr	r9, r9, r3, lsr #4
+ 1178              	.LVL98:
  213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1156              		.loc 1 213 5 is_stmt 1 view .LVU370
+ 1179              		.loc 1 213 5 is_stmt 1 view .LVU368
  213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1157              		.loc 1 213 27 is_stmt 0 view .LVU371
- 1158 0064 9DF80310 		ldrb	r1, [sp, #3]	@ zero_extendqisi2
+ 1180              		.loc 1 213 27 is_stmt 0 view .LVU369
+ 1181 0064 9DF80310 		ldrb	r1, [sp, #3]	@ zero_extendqisi2
  213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1159              		.loc 1 213 54 view .LVU372
- 1160 0068 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
- 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1161              		.loc 1 213 58 view .LVU373
- 1162 006c 1B01     		lsls	r3, r3, #4
- 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1163              		.loc 1 213 38 view .LVU374
- 1164 006e 43EA0133 		orr	r3, r3, r1, lsl #12
- 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
- 1165              		.loc 1 213 80 view .LVU375
- 1166 0072 9DF80510 		ldrb	r1, [sp, #5]	@ zero_extendqisi2
- 1167              	.LVL101:
- 214:Core/Src/humidity_temp_sensor.c **** 
- 1168              		.loc 1 214 5 is_stmt 1 view .LVU376
- 214:Core/Src/humidity_temp_sensor.c **** 
- 1169              		.loc 1 214 27 is_stmt 0 view .LVU377
- 1170 0076 9DF80620 		ldrb	r2, [sp, #6]	@ zero_extendqisi2
- 214:Core/Src/humidity_temp_sensor.c **** 
- 1171              		.loc 1 214 52 view .LVU378
- 1172 007a 9DF807A0 		ldrb	r10, [sp, #7]	@ zero_extendqisi2
- 214:Core/Src/humidity_temp_sensor.c **** 
- 1173              		.loc 1 214 11 view .LVU379
- 1174 007e 4AEA022A 		orr	r10, r10, r2, lsl #8
- 1175              	.LVL102:
-ARM GAS  /tmp/ccO31j78.s 			page 29
+ARM GAS  /tmp/ccbJE9BT.s 			page 29
 
 
+ 1182              		.loc 1 213 54 view .LVU370
+ 1183 0068 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
+ 1184              		.loc 1 213 58 view .LVU371
+ 1185 006c 1B01     		lsls	r3, r3, #4
+ 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
+ 1186              		.loc 1 213 38 view .LVU372
+ 1187 006e 43EA0133 		orr	r3, r3, r1, lsl #12
+ 213:Core/Src/humidity_temp_sensor.c ****     adc_H = ((int32_t)data[6] << 8) | (int32_t)data[7];
+ 1188              		.loc 1 213 80 view .LVU373
+ 1189 0072 9DF80510 		ldrb	r1, [sp, #5]	@ zero_extendqisi2
+ 1190              	.LVL99:
+ 214:Core/Src/humidity_temp_sensor.c **** 
+ 1191              		.loc 1 214 5 is_stmt 1 view .LVU374
+ 214:Core/Src/humidity_temp_sensor.c **** 
+ 1192              		.loc 1 214 27 is_stmt 0 view .LVU375
+ 1193 0076 9DF80620 		ldrb	r2, [sp, #6]	@ zero_extendqisi2
+ 214:Core/Src/humidity_temp_sensor.c **** 
+ 1194              		.loc 1 214 52 view .LVU376
+ 1195 007a 9DF807A0 		ldrb	r10, [sp, #7]	@ zero_extendqisi2
+ 214:Core/Src/humidity_temp_sensor.c **** 
+ 1196              		.loc 1 214 11 view .LVU377
+ 1197 007e 4AEA022A 		orr	r10, r10, r2, lsl #8
+ 1198              	.LVL100:
  217:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1176              		.loc 1 217 5 is_stmt 1 view .LVU380
+ 1199              		.loc 1 217 5 is_stmt 1 view .LVU378
  217:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1177              		.loc 1 217 8 is_stmt 0 view .LVU381
- 1178 0082 53EA1111 		orrs	r1, r3, r1, lsr #4
- 1179              	.LVL103:
+ 1200              		.loc 1 217 8 is_stmt 0 view .LVU379
+ 1201 0082 53EA1111 		orrs	r1, r3, r1, lsr #4
+ 1202              	.LVL101:
  217:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1180              		.loc 1 217 8 view .LVU382
- 1181 0086 05D1     		bne	.L48
+ 1203              		.loc 1 217 8 view .LVU380
+ 1204 0086 05D1     		bne	.L50
  217:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1182              		.loc 1 217 20 discriminator 1 view .LVU383
- 1183 0088 B9F1000F 		cmp	r9, #0
- 1184 008c 02D1     		bne	.L48
+ 1205              		.loc 1 217 20 discriminator 1 view .LVU381
+ 1206 0088 B9F1000F 		cmp	r9, #0
+ 1207 008c 02D1     		bne	.L50
  217:Core/Src/humidity_temp_sensor.c ****         return HAL_ERROR;
- 1185              		.loc 1 217 34 discriminator 2 view .LVU384
- 1186 008e BAF1000F 		cmp	r10, #0
- 1187 0092 2BD0     		beq	.L52
- 1188              	.L48:
+ 1208              		.loc 1 217 34 discriminator 2 view .LVU382
+ 1209 008e BAF1000F 		cmp	r10, #0
+ 1210 0092 2BD0     		beq	.L54
+ 1211              	.L50:
  222:Core/Src/humidity_temp_sensor.c ****     *temperature = temp_comp / 100.0f;
- 1189              		.loc 1 222 5 is_stmt 1 view .LVU385
+ 1212              		.loc 1 222 5 is_stmt 1 view .LVU383
  222:Core/Src/humidity_temp_sensor.c ****     *temperature = temp_comp / 100.0f;
- 1190              		.loc 1 222 17 is_stmt 0 view .LVU386
- 1191 0094 2046     		mov	r0, r4
- 1192              	.LVL104:
+ 1213              		.loc 1 222 17 is_stmt 0 view .LVU384
+ 1214 0094 2046     		mov	r0, r4
+ 1215              	.LVL102:
  222:Core/Src/humidity_temp_sensor.c ****     *temperature = temp_comp / 100.0f;
- 1193              		.loc 1 222 17 view .LVU387
- 1194 0096 FFF7FEFF 		bl	BME280_CompensateTemperature
- 1195              	.LVL105:
+ 1216              		.loc 1 222 17 view .LVU385
+ 1217 0096 FFF7FEFF 		bl	BME280_CompensateTemperature
+ 1218              	.LVL103:
  222:Core/Src/humidity_temp_sensor.c ****     *temperature = temp_comp / 100.0f;
- 1196              		.loc 1 222 17 view .LVU388
- 1197 009a 07EE900A 		vmov	s15, r0	@ int
- 1198              	.LVL106:
+ 1219              		.loc 1 222 17 view .LVU386
+ 1220 009a 07EE900A 		vmov	s15, r0	@ int
+ 1221              	.LVL104:
  223:Core/Src/humidity_temp_sensor.c **** 
- 1199              		.loc 1 223 5 is_stmt 1 view .LVU389
- 223:Core/Src/humidity_temp_sensor.c **** 
- 1200              		.loc 1 223 30 is_stmt 0 view .LVU390
- 1201 009e F8EEE77A 		vcvt.f32.s32	s15, s15
- 1202 00a2 DFED136A 		vldr.32	s13, .L56
- 1203 00a6 87EEA67A 		vdiv.f32	s14, s15, s13
- 223:Core/Src/humidity_temp_sensor.c **** 
- 1204              		.loc 1 223 18 view .LVU391
- 1205 00aa 88ED007A 		vstr.32	s14, [r8]
- 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
- 1206              		.loc 1 226 5 is_stmt 1 view .LVU392
- 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
- 1207              		.loc 1 226 18 is_stmt 0 view .LVU393
- 1208 00ae 4946     		mov	r1, r9
- 1209 00b0 2046     		mov	r0, r4
- 1210              	.LVL107:
- 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
- 1211              		.loc 1 226 18 view .LVU394
- 1212 00b2 FFF7FEFF 		bl	BME280_CompensatePressure
- 1213              	.LVL108:
- 1214 00b6 07EE900A 		vmov	s15, r0	@ int
- 1215              	.LVL109:
- 227:Core/Src/humidity_temp_sensor.c **** 
- 1216              		.loc 1 227 5 is_stmt 1 view .LVU395
-ARM GAS  /tmp/ccO31j78.s 			page 30
+ARM GAS  /tmp/ccbJE9BT.s 			page 30
 
 
+ 1222              		.loc 1 223 5 is_stmt 1 view .LVU387
+ 223:Core/Src/humidity_temp_sensor.c **** 
+ 1223              		.loc 1 223 30 is_stmt 0 view .LVU388
+ 1224 009e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1225 00a2 DFED136A 		vldr.32	s13, .L58
+ 1226 00a6 87EEA67A 		vdiv.f32	s14, s15, s13
+ 223:Core/Src/humidity_temp_sensor.c **** 
+ 1227              		.loc 1 223 18 view .LVU389
+ 1228 00aa 88ED007A 		vstr.32	s14, [r8]
+ 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
+ 1229              		.loc 1 226 5 is_stmt 1 view .LVU390
+ 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
+ 1230              		.loc 1 226 18 is_stmt 0 view .LVU391
+ 1231 00ae 4946     		mov	r1, r9
+ 1232 00b0 2046     		mov	r0, r4
+ 1233              	.LVL105:
+ 226:Core/Src/humidity_temp_sensor.c ****     *pressure = press_comp / 25600.0f; // Pa / 256 -> hPa
+ 1234              		.loc 1 226 18 view .LVU392
+ 1235 00b2 FFF7FEFF 		bl	BME280_CompensatePressure
+ 1236              	.LVL106:
+ 1237 00b6 07EE900A 		vmov	s15, r0	@ int
+ 1238              	.LVL107:
  227:Core/Src/humidity_temp_sensor.c **** 
- 1217              		.loc 1 227 28 is_stmt 0 view .LVU396
- 1218 00ba F8EE677A 		vcvt.f32.u32	s15, s15
- 1219 00be DFED0D6A 		vldr.32	s13, .L56+4
- 1220 00c2 87EEA67A 		vdiv.f32	s14, s15, s13
+ 1239              		.loc 1 227 5 is_stmt 1 view .LVU393
  227:Core/Src/humidity_temp_sensor.c **** 
- 1221              		.loc 1 227 15 view .LVU397
- 1222 00c6 86ED007A 		vstr.32	s14, [r6]
+ 1240              		.loc 1 227 28 is_stmt 0 view .LVU394
+ 1241 00ba F8EE677A 		vcvt.f32.u32	s15, s15
+ 1242 00be DFED0D6A 		vldr.32	s13, .L58+4
+ 1243 00c2 87EEA67A 		vdiv.f32	s14, s15, s13
+ 227:Core/Src/humidity_temp_sensor.c **** 
+ 1244              		.loc 1 227 15 view .LVU395
+ 1245 00c6 86ED007A 		vstr.32	s14, [r6]
  230:Core/Src/humidity_temp_sensor.c ****     *humidity = hum_comp / 1024.0f;
- 1223              		.loc 1 230 5 is_stmt 1 view .LVU398
+ 1246              		.loc 1 230 5 is_stmt 1 view .LVU396
  230:Core/Src/humidity_temp_sensor.c ****     *humidity = hum_comp / 1024.0f;
- 1224              		.loc 1 230 16 is_stmt 0 view .LVU399
- 1225 00ca 5146     		mov	r1, r10
- 1226 00cc 2046     		mov	r0, r4
- 1227              	.LVL110:
+ 1247              		.loc 1 230 16 is_stmt 0 view .LVU397
+ 1248 00ca 5146     		mov	r1, r10
+ 1249 00cc 2046     		mov	r0, r4
+ 1250              	.LVL108:
  230:Core/Src/humidity_temp_sensor.c ****     *humidity = hum_comp / 1024.0f;
- 1228              		.loc 1 230 16 view .LVU400
- 1229 00ce FFF7FEFF 		bl	BME280_CompensateHumidity
- 1230              	.LVL111:
- 1231 00d2 07EE900A 		vmov	s15, r0	@ int
- 1232              	.LVL112:
+ 1251              		.loc 1 230 16 view .LVU398
+ 1252 00ce FFF7FEFF 		bl	BME280_CompensateHumidity
+ 1253              	.LVL109:
+ 1254 00d2 07EE900A 		vmov	s15, r0	@ int
+ 1255              	.LVL110:
  231:Core/Src/humidity_temp_sensor.c **** 
- 1233              		.loc 1 231 5 is_stmt 1 view .LVU401
+ 1256              		.loc 1 231 5 is_stmt 1 view .LVU399
  231:Core/Src/humidity_temp_sensor.c **** 
- 1234              		.loc 1 231 26 is_stmt 0 view .LVU402
- 1235 00d6 F8EE677A 		vcvt.f32.u32	s15, s15
- 1236 00da 9FED077A 		vldr.32	s14, .L56+8
- 1237 00de 67EE877A 		vmul.f32	s15, s15, s14
+ 1257              		.loc 1 231 26 is_stmt 0 view .LVU400
+ 1258 00d6 F8EE677A 		vcvt.f32.u32	s15, s15
+ 1259 00da 9FED077A 		vldr.32	s14, .L58+8
+ 1260 00de 67EE877A 		vmul.f32	s15, s15, s14
  231:Core/Src/humidity_temp_sensor.c **** 
- 1238              		.loc 1 231 15 view .LVU403
- 1239 00e2 C7ED007A 		vstr.32	s15, [r7]
+ 1261              		.loc 1 231 15 view .LVU401
+ 1262 00e2 C7ED007A 		vstr.32	s15, [r7]
  233:Core/Src/humidity_temp_sensor.c **** }
- 1240              		.loc 1 233 5 is_stmt 1 view .LVU404
+ 1263              		.loc 1 233 5 is_stmt 1 view .LVU402
+ARM GAS  /tmp/ccbJE9BT.s 			page 31
+
+
  233:Core/Src/humidity_temp_sensor.c **** }
- 1241              		.loc 1 233 12 is_stmt 0 view .LVU405
- 1242 00e6 99E7     		b	.L47
- 1243              	.LVL113:
- 1244              	.L51:
+ 1264              		.loc 1 233 12 is_stmt 0 view .LVU403
+ 1265 00e6 99E7     		b	.L49
+ 1266              	.LVL111:
+ 1267              	.L53:
  208:Core/Src/humidity_temp_sensor.c ****     }
- 1245              		.loc 1 208 16 view .LVU406
- 1246 00e8 0125     		movs	r5, #1
- 1247 00ea 97E7     		b	.L47
- 1248              	.LVL114:
- 1249              	.L52:
+ 1268              		.loc 1 208 16 view .LVU404
+ 1269 00e8 0125     		movs	r5, #1
+ 1270 00ea 97E7     		b	.L49
+ 1271              	.LVL112:
+ 1272              	.L54:
  218:Core/Src/humidity_temp_sensor.c ****     }
- 1250              		.loc 1 218 16 view .LVU407
- 1251 00ec 0125     		movs	r5, #1
- 1252 00ee 95E7     		b	.L47
- 1253              	.L57:
- 1254              		.align	2
- 1255              	.L56:
- 1256 00f0 0000C842 		.word	1120403456
- 1257 00f4 0000C846 		.word	1187512320
- 1258 00f8 0000803A 		.word	981467136
- 1259              		.cfi_endproc
- 1260              	.LFE142:
- 1262              		.text
-ARM GAS  /tmp/ccO31j78.s 			page 31
-
-
- 1263              	.Letext0:
- 1264              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 1265              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 1266              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 1267              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 1268              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 1269              		.file 7 "Core/Inc/humidity_temp_sensor.h"
- 1270              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  /tmp/ccO31j78.s 			page 32
+ 1273              		.loc 1 218 16 view .LVU405
+ 1274 00ec 0125     		movs	r5, #1
+ 1275 00ee 95E7     		b	.L49
+ 1276              	.L59:
+ 1277              		.align	2
+ 1278              	.L58:
+ 1279 00f0 0000C842 		.word	1120403456
+ 1280 00f4 0000C846 		.word	1187512320
+ 1281 00f8 0000803A 		.word	981467136
+ 1282              		.cfi_endproc
+ 1283              	.LFE142:
+ 1285              		.text
+ 1286              	.Letext0:
+ 1287              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 1288              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 1289              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 1290              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 1291              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1292              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1293              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 1294              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 1295              		.file 10 "Core/Inc/humidity_temp_sensor.h"
+ 1296              		.file 11 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 1297              		.file 12 "/usr/include/newlib/sys/_types.h"
+ 1298              		.file 13 "/usr/include/newlib/sys/reent.h"
+ 1299              		.file 14 "/usr/include/newlib/sys/lock.h"
+ARM GAS  /tmp/ccbJE9BT.s 			page 32
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 humidity_temp_sensor.c
-     /tmp/ccO31j78.s:18     .text.BME280_CompensateTemperature:0000000000000000 $t
-     /tmp/ccO31j78.s:25     .text.BME280_CompensateTemperature:0000000000000000 BME280_CompensateTemperature
-     /tmp/ccO31j78.s:85     .text.BME280_CompensatePressure:0000000000000000 $t
-     /tmp/ccO31j78.s:91     .text.BME280_CompensatePressure:0000000000000000 BME280_CompensatePressure
-     /tmp/ccO31j78.s:328    .text.BME280_CompensateHumidity:0000000000000000 $t
-     /tmp/ccO31j78.s:334    .text.BME280_CompensateHumidity:0000000000000000 BME280_CompensateHumidity
-     /tmp/ccO31j78.s:428    .text.TCA9548A_SelectChannel:0000000000000000 $t
-     /tmp/ccO31j78.s:435    .text.TCA9548A_SelectChannel:0000000000000000 TCA9548A_SelectChannel
-     /tmp/ccO31j78.s:486    .text.BME280_ReadReg:0000000000000000 $t
-     /tmp/ccO31j78.s:492    .text.BME280_ReadReg:0000000000000000 BME280_ReadReg
-     /tmp/ccO31j78.s:561    .text.BME280_ReadCalibration:0000000000000000 $t
-     /tmp/ccO31j78.s:567    .text.BME280_ReadCalibration:0000000000000000 BME280_ReadCalibration
-     /tmp/ccO31j78.s:780    .text.BME280_WriteReg:0000000000000000 $t
-     /tmp/ccO31j78.s:786    .text.BME280_WriteReg:0000000000000000 BME280_WriteReg
-     /tmp/ccO31j78.s:853    .text.BME280_Init:0000000000000000 $t
-     /tmp/ccO31j78.s:860    .text.BME280_Init:0000000000000000 BME280_Init
-     /tmp/ccO31j78.s:1036   .text.BME280_ReadData:0000000000000000 $t
-     /tmp/ccO31j78.s:1043   .text.BME280_ReadData:0000000000000000 BME280_ReadData
-     /tmp/ccO31j78.s:1256   .text.BME280_ReadData:00000000000000f0 $d
+     /tmp/ccbJE9BT.s:18     .text.BME280_CompensateTemperature:0000000000000000 $t
+     /tmp/ccbJE9BT.s:25     .text.BME280_CompensateTemperature:0000000000000000 BME280_CompensateTemperature
+     /tmp/ccbJE9BT.s:96     .text.BME280_CompensatePressure:0000000000000000 $t
+     /tmp/ccbJE9BT.s:102    .text.BME280_CompensatePressure:0000000000000000 BME280_CompensatePressure
+     /tmp/ccbJE9BT.s:338    .text.BME280_CompensateHumidity:0000000000000000 $t
+     /tmp/ccbJE9BT.s:344    .text.BME280_CompensateHumidity:0000000000000000 BME280_CompensateHumidity
+     /tmp/ccbJE9BT.s:451    .text.TCA9548A_SelectChannel:0000000000000000 $t
+     /tmp/ccbJE9BT.s:458    .text.TCA9548A_SelectChannel:0000000000000000 TCA9548A_SelectChannel
+     /tmp/ccbJE9BT.s:509    .text.BME280_ReadReg:0000000000000000 $t
+     /tmp/ccbJE9BT.s:515    .text.BME280_ReadReg:0000000000000000 BME280_ReadReg
+     /tmp/ccbJE9BT.s:584    .text.BME280_ReadCalibration:0000000000000000 $t
+     /tmp/ccbJE9BT.s:590    .text.BME280_ReadCalibration:0000000000000000 BME280_ReadCalibration
+     /tmp/ccbJE9BT.s:803    .text.BME280_WriteReg:0000000000000000 $t
+     /tmp/ccbJE9BT.s:809    .text.BME280_WriteReg:0000000000000000 BME280_WriteReg
+     /tmp/ccbJE9BT.s:876    .text.BME280_Init:0000000000000000 $t
+     /tmp/ccbJE9BT.s:883    .text.BME280_Init:0000000000000000 BME280_Init
+     /tmp/ccbJE9BT.s:1059   .text.BME280_ReadData:0000000000000000 $t
+     /tmp/ccbJE9BT.s:1066   .text.BME280_ReadData:0000000000000000 BME280_ReadData
+     /tmp/ccbJE9BT.s:1279   .text.BME280_ReadData:00000000000000f0 $d
 
 UNDEFINED SYMBOLS
 __aeabi_ldivmod

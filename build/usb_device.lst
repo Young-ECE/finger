@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc6ircHb.s 			page 1
+ARM GAS  /tmp/cc0CpudV.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc6ircHb.s 			page 1
   28:USB_DEVICE/App/usb_device.c **** 
   29:USB_DEVICE/App/usb_device.c **** /* USER CODE BEGIN Includes */
   30:USB_DEVICE/App/usb_device.c **** 
-ARM GAS  /tmp/cc6ircHb.s 			page 2
+ARM GAS  /tmp/cc0CpudV.s 			page 2
 
 
   31:USB_DEVICE/App/usb_device.c **** /* USER CODE END Includes */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc6ircHb.s 			page 1
   42 0006 1048     		ldr	r0, .L11+4
   43 0008 FFF7FEFF 		bl	USBD_Init
   44              	.LVL0:
-ARM GAS  /tmp/cc6ircHb.s 			page 3
+ARM GAS  /tmp/cc0CpudV.s 			page 3
 
 
   45              		.loc 1 71 6 view .LVU3
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc6ircHb.s 			page 1
   78 002c FFF7FEFF 		bl	Error_Handler
   79              	.LVL4:
   80 0030 EDE7     		b	.L2
-ARM GAS  /tmp/cc6ircHb.s 			page 4
+ARM GAS  /tmp/cc0CpudV.s 			page 4
 
 
   81              	.L8:
@@ -204,40 +204,38 @@ ARM GAS  /tmp/cc6ircHb.s 			page 1
   98              		.align	2
   99              	.L11:
  100 0044 00000000 		.word	FS_Desc
- 101 0048 00000000 		.word	.LANCHOR0
+ 101 0048 00000000 		.word	hUsbDeviceFS
  102 004c 00000000 		.word	USBD_CDC
  103 0050 00000000 		.word	USBD_Interface_fops_FS
  104              		.cfi_endproc
  105              	.LFE138:
- 107              		.global	hUsbDeviceFS
- 108              		.section	.bss.hUsbDeviceFS,"aw",%nobits
- 109              		.align	2
- 110              		.set	.LANCHOR0,. + 0
- 113              	hUsbDeviceFS:
- 114 0000 00000000 		.space	732
- 114      00000000 
- 114      00000000 
- 114      00000000 
- 114      00000000 
- 115              		.text
- 116              	.Letext0:
- 117              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 118              		.file 3 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 119              		.file 4 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
- 120              		.file 5 "USB_DEVICE/App/usbd_desc.h"
- 121              		.file 6 "USB_DEVICE/App/usbd_cdc_if.h"
- 122              		.file 7 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
- 123              		.file 8 "Core/Inc/main.h"
-ARM GAS  /tmp/cc6ircHb.s 			page 5
+ 107              		.comm	hUsbDeviceFS,732,4
+ 108              		.text
+ 109              	.Letext0:
+ 110              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 111              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 112              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 113              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 114              		.file 6 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 115              		.file 7 "/usr/include/newlib/sys/_types.h"
+ 116              		.file 8 "/usr/include/newlib/sys/reent.h"
+ 117              		.file 9 "/usr/include/newlib/sys/lock.h"
+ 118              		.file 10 "/usr/include/newlib/stdlib.h"
+ 119              		.file 11 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 120              		.file 12 "USB_DEVICE/App/usbd_desc.h"
+ 121              		.file 13 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
+ 122              		.file 14 "USB_DEVICE/App/usbd_cdc_if.h"
+ 123              		.file 15 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
+ 124              		.file 16 "Core/Inc/main.h"
+ARM GAS  /tmp/cc0CpudV.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usb_device.c
-     /tmp/cc6ircHb.s:18     .text.MX_USB_DEVICE_Init:0000000000000000 $t
-     /tmp/cc6ircHb.s:26     .text.MX_USB_DEVICE_Init:0000000000000000 MX_USB_DEVICE_Init
-     /tmp/cc6ircHb.s:100    .text.MX_USB_DEVICE_Init:0000000000000044 $d
-     /tmp/cc6ircHb.s:113    .bss.hUsbDeviceFS:0000000000000000 hUsbDeviceFS
-     /tmp/cc6ircHb.s:109    .bss.hUsbDeviceFS:0000000000000000 $d
+     /tmp/cc0CpudV.s:18     .text.MX_USB_DEVICE_Init:0000000000000000 $t
+     /tmp/cc0CpudV.s:26     .text.MX_USB_DEVICE_Init:0000000000000000 MX_USB_DEVICE_Init
+     /tmp/cc0CpudV.s:100    .text.MX_USB_DEVICE_Init:0000000000000044 $d
+                            *COM*:00000000000002dc hUsbDeviceFS
 
 UNDEFINED SYMBOLS
 USBD_Init

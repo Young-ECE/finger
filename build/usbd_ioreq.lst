@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccliAzVV.s 			page 1
+ARM GAS  /tmp/ccM8CbOg.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
   27:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** /** @defgroup USBD_IOREQ
   28:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   * @brief control I/O requests module
   29:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   * @{
-ARM GAS  /tmp/ccliAzVV.s 			page 2
+ARM GAS  /tmp/ccM8CbOg.s 			page 2
 
 
   30:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
   84:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   * @retval status
   85:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   */
   86:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** USBD_StatusTypeDef USBD_CtlSendData(USBD_HandleTypeDef *pdev,
-ARM GAS  /tmp/ccliAzVV.s 			page 3
+ARM GAS  /tmp/ccM8CbOg.s 			page 3
 
 
   87:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****                                     uint8_t *pbuf, uint32_t len)
@@ -128,10 +128,10 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
   32              		@ args = 0, pretend = 0, frame = 0
   33              		@ frame_needed = 0, uses_anonymous_args = 0
   34              		.loc 1 88 1 is_stmt 0 view .LVU1
-  35 0000 08B5     		push	{r3, lr}
+  35 0000 10B5     		push	{r4, lr}
   36              	.LCFI0:
   37              		.cfi_def_cfa_offset 8
-  38              		.cfi_offset 3, -8
+  38              		.cfi_offset 4, -8
   39              		.cfi_offset 14, -4
   40 0002 1346     		mov	r3, r2
   89:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   /* Set EP0 State */
@@ -176,9 +176,9 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  104:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** }
   65              		.loc 1 104 1 is_stmt 0 view .LVU15
   66 0018 0020     		movs	r0, #0
-  67 001a 08BD     		pop	{r3, pc}
+  67 001a 10BD     		pop	{r4, pc}
   68              		.cfi_endproc
-ARM GAS  /tmp/ccliAzVV.s 			page 4
+ARM GAS  /tmp/ccM8CbOg.s 			page 4
 
 
   69              	.LFE138:
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  108              	.LFE139:
  110              		.section	.text.USBD_CtlPrepareRx,"ax",%progbits
  111              		.align	1
-ARM GAS  /tmp/ccliAzVV.s 			page 5
+ARM GAS  /tmp/ccM8CbOg.s 			page 5
 
 
  112              		.global	USBD_CtlPrepareRx
@@ -266,10 +266,10 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  123              		@ args = 0, pretend = 0, frame = 0
  124              		@ frame_needed = 0, uses_anonymous_args = 0
  125              		.loc 1 133 1 is_stmt 0 view .LVU25
- 126 0000 08B5     		push	{r3, lr}
+ 126 0000 10B5     		push	{r4, lr}
  127              	.LCFI2:
  128              		.cfi_def_cfa_offset 8
- 129              		.cfi_offset 3, -8
+ 129              		.cfi_offset 4, -8
  130              		.cfi_offset 14, -4
  131 0002 1346     		mov	r3, r2
  134:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   /* Set EP0 State */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  146 0012 C0F85831 		str	r3, [r0, #344]
  143:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** #endif /* USBD_AVOID_PACKET_SPLIT_MPS */
  144:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** 
-ARM GAS  /tmp/ccliAzVV.s 			page 6
+ARM GAS  /tmp/ccM8CbOg.s 			page 6
 
 
  145:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c ****   /* Start the transfer */
@@ -317,7 +317,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  149:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** }
  156              		.loc 1 149 1 is_stmt 0 view .LVU39
  157 001e 0020     		movs	r0, #0
- 158 0020 08BD     		pop	{r3, pc}
+ 158 0020 10BD     		pop	{r4, pc}
  159              		.cfi_endproc
  160              	.LFE140:
  162              		.section	.text.USBD_CtlContinueRx,"ax",%progbits
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  185              		.loc 1 162 9 is_stmt 0 view .LVU43
  186 0004 0A46     		mov	r2, r1
  187              	.LVL13:
-ARM GAS  /tmp/ccliAzVV.s 			page 7
+ARM GAS  /tmp/ccM8CbOg.s 			page 7
 
 
  188              		.loc 1 162 9 view .LVU44
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  227              		.loc 1 179 9 is_stmt 0 view .LVU53
  228 0008 0023     		movs	r3, #0
  229 000a 1A46     		mov	r2, r3
-ARM GAS  /tmp/ccliAzVV.s 			page 8
+ARM GAS  /tmp/ccM8CbOg.s 			page 8
 
 
  230 000c 1946     		mov	r1, r3
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  269 000c 1946     		mov	r1, r3
  270 000e FFF7FEFF 		bl	USBD_LL_PrepareReceive
  271              	.LVL19:
-ARM GAS  /tmp/ccliAzVV.s 			page 9
+ARM GAS  /tmp/ccM8CbOg.s 			page 9
 
 
  197:Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c **** 
@@ -533,28 +533,39 @@ ARM GAS  /tmp/ccliAzVV.s 			page 1
  309              		.text
  310              	.Letext0:
  311              		.file 2 "/usr/include/newlib/machine/_default_types.h"
- 312              		.file 3 "/usr/include/newlib/sys/_stdint.h"
- 313              		.file 4 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 314              		.file 5 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
-ARM GAS  /tmp/ccliAzVV.s 			page 10
+ 312              		.file 3 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 313              		.file 4 "/usr/include/newlib/sys/_types.h"
+ 314              		.file 5 "/usr/include/newlib/sys/reent.h"
+ 315              		.file 6 "/usr/include/newlib/sys/lock.h"
+ 316              		.file 7 "/usr/include/newlib/sys/_stdint.h"
+ARM GAS  /tmp/ccM8CbOg.s 			page 10
+
+
+ 317              		.file 8 "/usr/include/newlib/stdlib.h"
+ 318              		.file 9 "Drivers/CMSIS/Include/core_cm4.h"
+ 319              		.file 10 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 320              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 321              		.file 12 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 322              		.file 13 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
+ARM GAS  /tmp/ccM8CbOg.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usbd_ioreq.c
-     /tmp/ccliAzVV.s:18     .text.USBD_CtlSendData:0000000000000000 $t
-     /tmp/ccliAzVV.s:26     .text.USBD_CtlSendData:0000000000000000 USBD_CtlSendData
-     /tmp/ccliAzVV.s:72     .text.USBD_CtlContinueSendData:0000000000000000 $t
-     /tmp/ccliAzVV.s:79     .text.USBD_CtlContinueSendData:0000000000000000 USBD_CtlContinueSendData
-     /tmp/ccliAzVV.s:111    .text.USBD_CtlPrepareRx:0000000000000000 $t
-     /tmp/ccliAzVV.s:118    .text.USBD_CtlPrepareRx:0000000000000000 USBD_CtlPrepareRx
-     /tmp/ccliAzVV.s:163    .text.USBD_CtlContinueRx:0000000000000000 $t
-     /tmp/ccliAzVV.s:170    .text.USBD_CtlContinueRx:0000000000000000 USBD_CtlContinueRx
-     /tmp/ccliAzVV.s:202    .text.USBD_CtlSendStatus:0000000000000000 $t
-     /tmp/ccliAzVV.s:209    .text.USBD_CtlSendStatus:0000000000000000 USBD_CtlSendStatus
-     /tmp/ccliAzVV.s:241    .text.USBD_CtlReceiveStatus:0000000000000000 $t
-     /tmp/ccliAzVV.s:248    .text.USBD_CtlReceiveStatus:0000000000000000 USBD_CtlReceiveStatus
-     /tmp/ccliAzVV.s:280    .text.USBD_GetRxCount:0000000000000000 $t
-     /tmp/ccliAzVV.s:287    .text.USBD_GetRxCount:0000000000000000 USBD_GetRxCount
+     /tmp/ccM8CbOg.s:18     .text.USBD_CtlSendData:0000000000000000 $t
+     /tmp/ccM8CbOg.s:26     .text.USBD_CtlSendData:0000000000000000 USBD_CtlSendData
+     /tmp/ccM8CbOg.s:72     .text.USBD_CtlContinueSendData:0000000000000000 $t
+     /tmp/ccM8CbOg.s:79     .text.USBD_CtlContinueSendData:0000000000000000 USBD_CtlContinueSendData
+     /tmp/ccM8CbOg.s:111    .text.USBD_CtlPrepareRx:0000000000000000 $t
+     /tmp/ccM8CbOg.s:118    .text.USBD_CtlPrepareRx:0000000000000000 USBD_CtlPrepareRx
+     /tmp/ccM8CbOg.s:163    .text.USBD_CtlContinueRx:0000000000000000 $t
+     /tmp/ccM8CbOg.s:170    .text.USBD_CtlContinueRx:0000000000000000 USBD_CtlContinueRx
+     /tmp/ccM8CbOg.s:202    .text.USBD_CtlSendStatus:0000000000000000 $t
+     /tmp/ccM8CbOg.s:209    .text.USBD_CtlSendStatus:0000000000000000 USBD_CtlSendStatus
+     /tmp/ccM8CbOg.s:241    .text.USBD_CtlReceiveStatus:0000000000000000 $t
+     /tmp/ccM8CbOg.s:248    .text.USBD_CtlReceiveStatus:0000000000000000 USBD_CtlReceiveStatus
+     /tmp/ccM8CbOg.s:280    .text.USBD_GetRxCount:0000000000000000 $t
+     /tmp/ccM8CbOg.s:287    .text.USBD_GetRxCount:0000000000000000 USBD_GetRxCount
 
 UNDEFINED SYMBOLS
 USBD_LL_Transmit

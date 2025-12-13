@@ -19,7 +19,7 @@ void RGB_LED_Init(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    // Turn off all LEDs initially
+    // Turn on all LEDs initially
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
 }
 void RGB_LED_Blink(void)

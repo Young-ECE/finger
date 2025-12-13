@@ -1,0 +1,1127 @@
+ARM GAS  /tmp/ccunx9Vu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"icm42688_sensor.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.ICM42688_ReadReg,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	ICM42688_ReadReg:
+  26              	.LVL0:
+  27              	.LFB135:
+  28              		.file 1 "Core/Src/icm42688_sensor.c"
+   1:Core/Src/icm42688_sensor.c **** /**
+   2:Core/Src/icm42688_sensor.c ****  * @file icm42688_sensor.c
+   3:Core/Src/icm42688_sensor.c ****  * @brief ICM42688 6-Axis IMU Driver Implementation
+   4:Core/Src/icm42688_sensor.c ****  *
+   5:Core/Src/icm42688_sensor.c ****  * Based on TDK InvenSense ICM-42688-P datasheet (DS-000347)
+   6:Core/Src/icm42688_sensor.c ****  */
+   7:Core/Src/icm42688_sensor.c **** 
+   8:Core/Src/icm42688_sensor.c **** #include "icm42688_sensor.h"
+   9:Core/Src/icm42688_sensor.c **** #include <string.h>
+  10:Core/Src/icm42688_sensor.c **** 
+  11:Core/Src/icm42688_sensor.c **** /* ==== INTERNAL HELPER: Write Register ==== */
+  12:Core/Src/icm42688_sensor.c **** static HAL_StatusTypeDef ICM42688_WriteReg(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t value)
+  13:Core/Src/icm42688_sensor.c **** {
+  14:Core/Src/icm42688_sensor.c ****     uint8_t tx[2] = { reg, value };
+  15:Core/Src/icm42688_sensor.c ****     return HAL_I2C_Master_Transmit(dev->hi2c, dev->i2c_addr, tx, 2, 50);
+  16:Core/Src/icm42688_sensor.c **** }
+  17:Core/Src/icm42688_sensor.c **** 
+  18:Core/Src/icm42688_sensor.c **** /* ==== INTERNAL HELPER: Read Register ==== */
+  19:Core/Src/icm42688_sensor.c **** static HAL_StatusTypeDef ICM42688_ReadReg(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t *value)
+  20:Core/Src/icm42688_sensor.c **** {
+  29              		.loc 1 20 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 20 1 is_stmt 0 view .LVU1
+  34 0000 00B5     		push	{lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 4
+  37              		.cfi_offset 14, -4
+  38 0002 85B0     		sub	sp, sp, #20
+ARM GAS  /tmp/ccunx9Vu.s 			page 2
+
+
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 24
+  21:Core/Src/icm42688_sensor.c ****     return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, value, 1, 50);
+  41              		.loc 1 21 5 is_stmt 1 view .LVU2
+  42              		.loc 1 21 12 is_stmt 0 view .LVU3
+  43 0004 3223     		movs	r3, #50
+  44 0006 0293     		str	r3, [sp, #8]
+  45 0008 0123     		movs	r3, #1
+  46 000a 0193     		str	r3, [sp, #4]
+  47 000c 0092     		str	r2, [sp]
+  48 000e 0A46     		mov	r2, r1
+  49              	.LVL1:
+  50              		.loc 1 21 12 view .LVU4
+  51 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+  52              	.LVL2:
+  53              		.loc 1 21 12 view .LVU5
+  54 0012 0068     		ldr	r0, [r0]
+  55              	.LVL3:
+  56              		.loc 1 21 12 view .LVU6
+  57 0014 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+  58              	.LVL4:
+  22:Core/Src/icm42688_sensor.c **** }
+  59              		.loc 1 22 1 view .LVU7
+  60 0018 05B0     		add	sp, sp, #20
+  61              	.LCFI2:
+  62              		.cfi_def_cfa_offset 4
+  63              		@ sp needed
+  64 001a 5DF804FB 		ldr	pc, [sp], #4
+  65              		.cfi_endproc
+  66              	.LFE135:
+  68              		.section	.text.ICM42688_ReadRegs,"ax",%progbits
+  69              		.align	1
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu fpv4-sp-d16
+  75              	ICM42688_ReadRegs:
+  76              	.LVL5:
+  77              	.LFB136:
+  23:Core/Src/icm42688_sensor.c **** 
+  24:Core/Src/icm42688_sensor.c **** /* ==== INTERNAL HELPER: Read Multiple Registers ==== */
+  25:Core/Src/icm42688_sensor.c **** static HAL_StatusTypeDef ICM42688_ReadRegs(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t *buffe
+  26:Core/Src/icm42688_sensor.c **** {
+  78              		.loc 1 26 1 is_stmt 1 view -0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		.loc 1 26 1 is_stmt 0 view .LVU9
+  83 0000 10B5     		push	{r4, lr}
+  84              	.LCFI3:
+  85              		.cfi_def_cfa_offset 8
+  86              		.cfi_offset 4, -8
+  87              		.cfi_offset 14, -4
+  88 0002 84B0     		sub	sp, sp, #16
+  89              	.LCFI4:
+  90              		.cfi_def_cfa_offset 24
+  27:Core/Src/icm42688_sensor.c ****     /* Single attempt - let upper layer handle retries if needed */
+ARM GAS  /tmp/ccunx9Vu.s 			page 3
+
+
+  28:Core/Src/icm42688_sensor.c ****     return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 50);
+  91              		.loc 1 28 5 is_stmt 1 view .LVU10
+  92              		.loc 1 28 12 is_stmt 0 view .LVU11
+  93 0004 3224     		movs	r4, #50
+  94 0006 0294     		str	r4, [sp, #8]
+  95 0008 0193     		str	r3, [sp, #4]
+  96 000a 0092     		str	r2, [sp]
+  97 000c 0123     		movs	r3, #1
+  98              	.LVL6:
+  99              		.loc 1 28 12 view .LVU12
+ 100 000e 0A46     		mov	r2, r1
+ 101              	.LVL7:
+ 102              		.loc 1 28 12 view .LVU13
+ 103 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 104              	.LVL8:
+ 105              		.loc 1 28 12 view .LVU14
+ 106 0012 0068     		ldr	r0, [r0]
+ 107              	.LVL9:
+ 108              		.loc 1 28 12 view .LVU15
+ 109 0014 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 110              	.LVL10:
+  29:Core/Src/icm42688_sensor.c **** }
+ 111              		.loc 1 29 1 view .LVU16
+ 112 0018 04B0     		add	sp, sp, #16
+ 113              	.LCFI5:
+ 114              		.cfi_def_cfa_offset 8
+ 115              		@ sp needed
+ 116 001a 10BD     		pop	{r4, pc}
+ 117              		.cfi_endproc
+ 118              	.LFE136:
+ 120              		.section	.text.ICM42688_WriteReg,"ax",%progbits
+ 121              		.align	1
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.fpu fpv4-sp-d16
+ 127              	ICM42688_WriteReg:
+ 128              	.LVL11:
+ 129              	.LFB134:
+  13:Core/Src/icm42688_sensor.c ****     uint8_t tx[2] = { reg, value };
+ 130              		.loc 1 13 1 is_stmt 1 view -0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 8
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+  13:Core/Src/icm42688_sensor.c ****     uint8_t tx[2] = { reg, value };
+ 134              		.loc 1 13 1 is_stmt 0 view .LVU18
+ 135 0000 00B5     		push	{lr}
+ 136              	.LCFI6:
+ 137              		.cfi_def_cfa_offset 4
+ 138              		.cfi_offset 14, -4
+ 139 0002 85B0     		sub	sp, sp, #20
+ 140              	.LCFI7:
+ 141              		.cfi_def_cfa_offset 24
+  14:Core/Src/icm42688_sensor.c ****     return HAL_I2C_Master_Transmit(dev->hi2c, dev->i2c_addr, tx, 2, 50);
+ 142              		.loc 1 14 5 is_stmt 1 view .LVU19
+  14:Core/Src/icm42688_sensor.c ****     return HAL_I2C_Master_Transmit(dev->hi2c, dev->i2c_addr, tx, 2, 50);
+ 143              		.loc 1 14 13 is_stmt 0 view .LVU20
+ARM GAS  /tmp/ccunx9Vu.s 			page 4
+
+
+ 144 0004 8DF80C10 		strb	r1, [sp, #12]
+ 145 0008 8DF80D20 		strb	r2, [sp, #13]
+  15:Core/Src/icm42688_sensor.c **** }
+ 146              		.loc 1 15 5 is_stmt 1 view .LVU21
+  15:Core/Src/icm42688_sensor.c **** }
+ 147              		.loc 1 15 12 is_stmt 0 view .LVU22
+ 148 000c 3223     		movs	r3, #50
+ 149 000e 0093     		str	r3, [sp]
+ 150 0010 0223     		movs	r3, #2
+ 151 0012 03AA     		add	r2, sp, #12
+ 152              	.LVL12:
+  15:Core/Src/icm42688_sensor.c **** }
+ 153              		.loc 1 15 12 view .LVU23
+ 154 0014 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 155              	.LVL13:
+  15:Core/Src/icm42688_sensor.c **** }
+ 156              		.loc 1 15 12 view .LVU24
+ 157 0016 0068     		ldr	r0, [r0]
+ 158              	.LVL14:
+  15:Core/Src/icm42688_sensor.c **** }
+ 159              		.loc 1 15 12 view .LVU25
+ 160 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 161              	.LVL15:
+  16:Core/Src/icm42688_sensor.c **** 
+ 162              		.loc 1 16 1 view .LVU26
+ 163 001c 05B0     		add	sp, sp, #20
+ 164              	.LCFI8:
+ 165              		.cfi_def_cfa_offset 4
+ 166              		@ sp needed
+ 167 001e 5DF804FB 		ldr	pc, [sp], #4
+ 168              		.cfi_endproc
+ 169              	.LFE134:
+ 171              		.section	.text.ICM42688_Init,"ax",%progbits
+ 172              		.align	1
+ 173              		.global	ICM42688_Init
+ 174              		.syntax unified
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.fpu fpv4-sp-d16
+ 179              	ICM42688_Init:
+ 180              	.LVL16:
+ 181              	.LFB137:
+  30:Core/Src/icm42688_sensor.c **** 
+  31:Core/Src/icm42688_sensor.c **** /* ==== DEVICE INITIALIZATION ==== */
+  32:Core/Src/icm42688_sensor.c **** HAL_StatusTypeDef ICM42688_Init(ICM42688_HandleTypeDef *dev, I2C_HandleTypeDef *hi2c, uint8_t addre
+  33:Core/Src/icm42688_sensor.c **** {
+ 182              		.loc 1 33 1 is_stmt 1 view -0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 8
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		.loc 1 33 1 is_stmt 0 view .LVU28
+ 187 0000 10B5     		push	{r4, lr}
+ 188              	.LCFI9:
+ 189              		.cfi_def_cfa_offset 8
+ 190              		.cfi_offset 4, -8
+ 191              		.cfi_offset 14, -4
+ 192 0002 82B0     		sub	sp, sp, #8
+ARM GAS  /tmp/ccunx9Vu.s 			page 5
+
+
+ 193              	.LCFI10:
+ 194              		.cfi_def_cfa_offset 16
+ 195 0004 0446     		mov	r4, r0
+  34:Core/Src/icm42688_sensor.c ****     uint8_t who_am_i;
+ 196              		.loc 1 34 5 is_stmt 1 view .LVU29
+  35:Core/Src/icm42688_sensor.c **** 
+  36:Core/Src/icm42688_sensor.c ****     dev->hi2c = hi2c;
+ 197              		.loc 1 36 5 view .LVU30
+ 198              		.loc 1 36 15 is_stmt 0 view .LVU31
+ 199 0006 0160     		str	r1, [r0]
+  37:Core/Src/icm42688_sensor.c ****     dev->i2c_addr = address;
+ 200              		.loc 1 37 5 is_stmt 1 view .LVU32
+ 201              		.loc 1 37 19 is_stmt 0 view .LVU33
+ 202 0008 0271     		strb	r2, [r0, #4]
+  38:Core/Src/icm42688_sensor.c **** 
+  39:Core/Src/icm42688_sensor.c ****     HAL_Delay(10); // Wait for power-up
+ 203              		.loc 1 39 5 is_stmt 1 view .LVU34
+ 204 000a 0A20     		movs	r0, #10
+ 205              	.LVL17:
+ 206              		.loc 1 39 5 is_stmt 0 view .LVU35
+ 207 000c FFF7FEFF 		bl	HAL_Delay
+ 208              	.LVL18:
+  40:Core/Src/icm42688_sensor.c **** 
+  41:Core/Src/icm42688_sensor.c ****     // Verify WHO_AM_I
+  42:Core/Src/icm42688_sensor.c ****     if (ICM42688_ReadReg(dev, ICM42688_REG_WHO_AM_I, &who_am_i) != HAL_OK)
+ 209              		.loc 1 42 5 is_stmt 1 view .LVU36
+ 210              		.loc 1 42 9 is_stmt 0 view .LVU37
+ 211 0010 0DF10702 		add	r2, sp, #7
+ 212 0014 7521     		movs	r1, #117
+ 213 0016 2046     		mov	r0, r4
+ 214 0018 FFF7FEFF 		bl	ICM42688_ReadReg
+ 215              	.LVL19:
+ 216              		.loc 1 42 8 view .LVU38
+ 217 001c 80BB     		cbnz	r0, .L9
+  43:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  44:Core/Src/icm42688_sensor.c **** 
+  45:Core/Src/icm42688_sensor.c ****     if (who_am_i != ICM42688_WHO_AM_I_VALUE)
+ 218              		.loc 1 45 5 is_stmt 1 view .LVU39
+ 219              		.loc 1 45 18 is_stmt 0 view .LVU40
+ 220 001e 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 221              		.loc 1 45 8 view .LVU41
+ 222 0022 472B     		cmp	r3, #71
+ 223 0024 02D0     		beq	.L16
+  46:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 224              		.loc 1 46 16 view .LVU42
+ 225 0026 0120     		movs	r0, #1
+ 226              	.L8:
+  47:Core/Src/icm42688_sensor.c **** 
+  48:Core/Src/icm42688_sensor.c ****     // Soft reset via DEVICE_CONFIG register
+  49:Core/Src/icm42688_sensor.c ****     if (ICM42688_WriteReg(dev, ICM42688_REG_DEVICE_CONFIG, 0x01) != HAL_OK)
+  50:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  51:Core/Src/icm42688_sensor.c **** 
+  52:Core/Src/icm42688_sensor.c ****     HAL_Delay(10); // Wait for reset to complete
+  53:Core/Src/icm42688_sensor.c **** 
+  54:Core/Src/icm42688_sensor.c ****     // Configure power management: Enable Accel and Gyro in Low Noise mode
+  55:Core/Src/icm42688_sensor.c ****     if (ICM42688_WriteReg(dev, ICM42688_REG_PWR_MGMT0,
+  56:Core/Src/icm42688_sensor.c ****                           ICM42688_PWR_GYRO_MODE_LN | ICM42688_PWR_ACCEL_MODE_LN) != HAL_OK)
+ARM GAS  /tmp/ccunx9Vu.s 			page 6
+
+
+  57:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  58:Core/Src/icm42688_sensor.c **** 
+  59:Core/Src/icm42688_sensor.c ****     HAL_Delay(1); // Wait for mode change
+  60:Core/Src/icm42688_sensor.c **** 
+  61:Core/Src/icm42688_sensor.c ****     // Configure Gyro: ±2000 DPS, ODR 1kHz
+  62:Core/Src/icm42688_sensor.c ****     if (ICM42688_WriteReg(dev, ICM42688_REG_GYRO_CONFIG0,
+  63:Core/Src/icm42688_sensor.c ****                           ICM42688_GYRO_FS_2000DPS | ICM42688_ODR_1KHZ) != HAL_OK)
+  64:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  65:Core/Src/icm42688_sensor.c **** 
+  66:Core/Src/icm42688_sensor.c ****     // Configure Accel: ±16g, ODR 1kHz
+  67:Core/Src/icm42688_sensor.c ****     if (ICM42688_WriteReg(dev, ICM42688_REG_ACCEL_CONFIG0,
+  68:Core/Src/icm42688_sensor.c ****                           ICM42688_ACCEL_FS_16G | ICM42688_ODR_1KHZ) != HAL_OK)
+  69:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  70:Core/Src/icm42688_sensor.c **** 
+  71:Core/Src/icm42688_sensor.c ****     // Set scale factors based on full scale range
+  72:Core/Src/icm42688_sensor.c ****     // Gyro: ±2000 DPS, 16-bit -> 2000/32768 = 0.061 DPS/LSB
+  73:Core/Src/icm42688_sensor.c ****     dev->gyro_scale = 2000.0f / 32768.0f;
+  74:Core/Src/icm42688_sensor.c **** 
+  75:Core/Src/icm42688_sensor.c ****     // Accel: ±16g, 16-bit -> 16/32768 = 0.0004883 g/LSB
+  76:Core/Src/icm42688_sensor.c ****     dev->accel_scale = 16.0f / 32768.0f;
+  77:Core/Src/icm42688_sensor.c **** 
+  78:Core/Src/icm42688_sensor.c ****     return HAL_OK;
+  79:Core/Src/icm42688_sensor.c **** }
+ 227              		.loc 1 79 1 view .LVU43
+ 228 0028 02B0     		add	sp, sp, #8
+ 229              	.LCFI11:
+ 230              		.cfi_remember_state
+ 231              		.cfi_def_cfa_offset 8
+ 232              		@ sp needed
+ 233 002a 10BD     		pop	{r4, pc}
+ 234              	.LVL20:
+ 235              	.L16:
+ 236              	.LCFI12:
+ 237              		.cfi_restore_state
+  49:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 238              		.loc 1 49 5 is_stmt 1 view .LVU44
+  49:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 239              		.loc 1 49 9 is_stmt 0 view .LVU45
+ 240 002c 0122     		movs	r2, #1
+ 241 002e 1121     		movs	r1, #17
+ 242 0030 2046     		mov	r0, r4
+ 243 0032 FFF7FEFF 		bl	ICM42688_WriteReg
+ 244              	.LVL21:
+  49:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 245              		.loc 1 49 8 view .LVU46
+ 246 0036 08B1     		cbz	r0, .L17
+  50:Core/Src/icm42688_sensor.c **** 
+ 247              		.loc 1 50 16 view .LVU47
+ 248 0038 0120     		movs	r0, #1
+ 249 003a F5E7     		b	.L8
+ 250              	.L17:
+  52:Core/Src/icm42688_sensor.c **** 
+ 251              		.loc 1 52 5 is_stmt 1 view .LVU48
+ 252 003c 0A20     		movs	r0, #10
+ 253 003e FFF7FEFF 		bl	HAL_Delay
+ 254              	.LVL22:
+  55:Core/Src/icm42688_sensor.c ****                           ICM42688_PWR_GYRO_MODE_LN | ICM42688_PWR_ACCEL_MODE_LN) != HAL_OK)
+ARM GAS  /tmp/ccunx9Vu.s 			page 7
+
+
+ 255              		.loc 1 55 5 view .LVU49
+  55:Core/Src/icm42688_sensor.c ****                           ICM42688_PWR_GYRO_MODE_LN | ICM42688_PWR_ACCEL_MODE_LN) != HAL_OK)
+ 256              		.loc 1 55 9 is_stmt 0 view .LVU50
+ 257 0042 0F22     		movs	r2, #15
+ 258 0044 4E21     		movs	r1, #78
+ 259 0046 2046     		mov	r0, r4
+ 260 0048 FFF7FEFF 		bl	ICM42688_WriteReg
+ 261              	.LVL23:
+  55:Core/Src/icm42688_sensor.c ****                           ICM42688_PWR_GYRO_MODE_LN | ICM42688_PWR_ACCEL_MODE_LN) != HAL_OK)
+ 262              		.loc 1 55 8 view .LVU51
+ 263 004c 08B1     		cbz	r0, .L18
+  57:Core/Src/icm42688_sensor.c **** 
+ 264              		.loc 1 57 16 view .LVU52
+ 265 004e 0120     		movs	r0, #1
+ 266 0050 EAE7     		b	.L8
+ 267              	.L18:
+  59:Core/Src/icm42688_sensor.c **** 
+ 268              		.loc 1 59 5 is_stmt 1 view .LVU53
+ 269 0052 0120     		movs	r0, #1
+ 270 0054 FFF7FEFF 		bl	HAL_Delay
+ 271              	.LVL24:
+  62:Core/Src/icm42688_sensor.c ****                           ICM42688_GYRO_FS_2000DPS | ICM42688_ODR_1KHZ) != HAL_OK)
+ 272              		.loc 1 62 5 view .LVU54
+  62:Core/Src/icm42688_sensor.c ****                           ICM42688_GYRO_FS_2000DPS | ICM42688_ODR_1KHZ) != HAL_OK)
+ 273              		.loc 1 62 9 is_stmt 0 view .LVU55
+ 274 0058 0622     		movs	r2, #6
+ 275 005a 4F21     		movs	r1, #79
+ 276 005c 2046     		mov	r0, r4
+ 277 005e FFF7FEFF 		bl	ICM42688_WriteReg
+ 278              	.LVL25:
+  62:Core/Src/icm42688_sensor.c ****                           ICM42688_GYRO_FS_2000DPS | ICM42688_ODR_1KHZ) != HAL_OK)
+ 279              		.loc 1 62 8 view .LVU56
+ 280 0062 08B1     		cbz	r0, .L19
+  64:Core/Src/icm42688_sensor.c **** 
+ 281              		.loc 1 64 16 view .LVU57
+ 282 0064 0120     		movs	r0, #1
+ 283 0066 DFE7     		b	.L8
+ 284              	.L19:
+  67:Core/Src/icm42688_sensor.c ****                           ICM42688_ACCEL_FS_16G | ICM42688_ODR_1KHZ) != HAL_OK)
+ 285              		.loc 1 67 5 is_stmt 1 view .LVU58
+  67:Core/Src/icm42688_sensor.c ****                           ICM42688_ACCEL_FS_16G | ICM42688_ODR_1KHZ) != HAL_OK)
+ 286              		.loc 1 67 9 is_stmt 0 view .LVU59
+ 287 0068 0622     		movs	r2, #6
+ 288 006a 5021     		movs	r1, #80
+ 289 006c 2046     		mov	r0, r4
+ 290 006e FFF7FEFF 		bl	ICM42688_WriteReg
+ 291              	.LVL26:
+  67:Core/Src/icm42688_sensor.c ****                           ICM42688_ACCEL_FS_16G | ICM42688_ODR_1KHZ) != HAL_OK)
+ 292              		.loc 1 67 8 view .LVU60
+ 293 0072 38B9     		cbnz	r0, .L14
+  73:Core/Src/icm42688_sensor.c **** 
+ 294              		.loc 1 73 5 is_stmt 1 view .LVU61
+  73:Core/Src/icm42688_sensor.c **** 
+ 295              		.loc 1 73 21 is_stmt 0 view .LVU62
+ 296 0074 044B     		ldr	r3, .L20
+ 297 0076 A360     		str	r3, [r4, #8]	@ float
+  76:Core/Src/icm42688_sensor.c **** 
+ARM GAS  /tmp/ccunx9Vu.s 			page 8
+
+
+ 298              		.loc 1 76 5 is_stmt 1 view .LVU63
+  76:Core/Src/icm42688_sensor.c **** 
+ 299              		.loc 1 76 22 is_stmt 0 view .LVU64
+ 300 0078 4FF06853 		mov	r3, #973078528
+ 301 007c E360     		str	r3, [r4, #12]	@ float
+  78:Core/Src/icm42688_sensor.c **** }
+ 302              		.loc 1 78 5 is_stmt 1 view .LVU65
+  78:Core/Src/icm42688_sensor.c **** }
+ 303              		.loc 1 78 12 is_stmt 0 view .LVU66
+ 304 007e D3E7     		b	.L8
+ 305              	.L9:
+  43:Core/Src/icm42688_sensor.c **** 
+ 306              		.loc 1 43 16 view .LVU67
+ 307 0080 0120     		movs	r0, #1
+ 308 0082 D1E7     		b	.L8
+ 309              	.L14:
+  69:Core/Src/icm42688_sensor.c **** 
+ 310              		.loc 1 69 16 view .LVU68
+ 311 0084 0120     		movs	r0, #1
+ 312 0086 CFE7     		b	.L8
+ 313              	.L21:
+ 314              		.align	2
+ 315              	.L20:
+ 316 0088 00007A3D 		.word	1031405568
+ 317              		.cfi_endproc
+ 318              	.LFE137:
+ 320              		.section	.text.ICM42688_ReadAccel,"ax",%progbits
+ 321              		.align	1
+ 322              		.global	ICM42688_ReadAccel
+ 323              		.syntax unified
+ 324              		.thumb
+ 325              		.thumb_func
+ 326              		.fpu fpv4-sp-d16
+ 328              	ICM42688_ReadAccel:
+ 329              	.LVL27:
+ 330              	.LFB138:
+  80:Core/Src/icm42688_sensor.c **** 
+  81:Core/Src/icm42688_sensor.c **** /* ==== READ ACCELEROMETER DATA ==== */
+  82:Core/Src/icm42688_sensor.c **** HAL_StatusTypeDef ICM42688_ReadAccel(ICM42688_HandleTypeDef *dev, ICM42688_ScaledData *accel)
+  83:Core/Src/icm42688_sensor.c **** {
+ 331              		.loc 1 83 1 is_stmt 1 view -0
+ 332              		.cfi_startproc
+ 333              		@ args = 0, pretend = 0, frame = 8
+ 334              		@ frame_needed = 0, uses_anonymous_args = 0
+ 335              		.loc 1 83 1 is_stmt 0 view .LVU70
+ 336 0000 30B5     		push	{r4, r5, lr}
+ 337              	.LCFI13:
+ 338              		.cfi_def_cfa_offset 12
+ 339              		.cfi_offset 4, -12
+ 340              		.cfi_offset 5, -8
+ 341              		.cfi_offset 14, -4
+ 342 0002 83B0     		sub	sp, sp, #12
+ 343              	.LCFI14:
+ 344              		.cfi_def_cfa_offset 24
+ 345 0004 0546     		mov	r5, r0
+ 346 0006 0C46     		mov	r4, r1
+  84:Core/Src/icm42688_sensor.c ****     uint8_t buffer[6];
+ARM GAS  /tmp/ccunx9Vu.s 			page 9
+
+
+ 347              		.loc 1 84 5 is_stmt 1 view .LVU71
+  85:Core/Src/icm42688_sensor.c ****     ICM42688_RawData raw;
+ 348              		.loc 1 85 5 view .LVU72
+  86:Core/Src/icm42688_sensor.c **** 
+  87:Core/Src/icm42688_sensor.c ****     if (ICM42688_ReadRegs(dev, ICM42688_REG_ACCEL_DATA_X1, buffer, 6) != HAL_OK)
+ 349              		.loc 1 87 5 view .LVU73
+ 350              		.loc 1 87 9 is_stmt 0 view .LVU74
+ 351 0008 0623     		movs	r3, #6
+ 352 000a 6A46     		mov	r2, sp
+ 353 000c 1F21     		movs	r1, #31
+ 354              	.LVL28:
+ 355              		.loc 1 87 9 view .LVU75
+ 356 000e FFF7FEFF 		bl	ICM42688_ReadRegs
+ 357              	.LVL29:
+ 358              		.loc 1 87 8 view .LVU76
+ 359 0012 A0BB     		cbnz	r0, .L24
+  88:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+  89:Core/Src/icm42688_sensor.c **** 
+  90:Core/Src/icm42688_sensor.c ****     // Combine high and low bytes (big-endian)
+  91:Core/Src/icm42688_sensor.c ****     raw.x = (int16_t)((buffer[0] << 8) | buffer[1]);
+ 360              		.loc 1 91 5 is_stmt 1 view .LVU77
+ 361              		.loc 1 91 30 is_stmt 0 view .LVU78
+ 362 0014 9DF80020 		ldrb	r2, [sp]	@ zero_extendqisi2
+ 363              		.loc 1 91 48 view .LVU79
+ 364 0018 9DF80130 		ldrb	r3, [sp, #1]	@ zero_extendqisi2
+ 365              		.loc 1 91 13 view .LVU80
+ 366 001c 43EA0223 		orr	r3, r3, r2, lsl #8
+ 367 0020 1BB2     		sxth	r3, r3
+ 368 0022 06EE903A 		vmov	s13, r3	@ int
+  92:Core/Src/icm42688_sensor.c ****     raw.y = (int16_t)((buffer[2] << 8) | buffer[3]);
+ 369              		.loc 1 92 5 is_stmt 1 view .LVU81
+ 370              		.loc 1 92 30 is_stmt 0 view .LVU82
+ 371 0026 9DF80220 		ldrb	r2, [sp, #2]	@ zero_extendqisi2
+ 372              		.loc 1 92 48 view .LVU83
+ 373 002a 9DF80330 		ldrb	r3, [sp, #3]	@ zero_extendqisi2
+ 374              		.loc 1 92 13 view .LVU84
+ 375 002e 43EA0223 		orr	r3, r3, r2, lsl #8
+ 376 0032 1BB2     		sxth	r3, r3
+ 377 0034 07EE103A 		vmov	s14, r3	@ int
+  93:Core/Src/icm42688_sensor.c ****     raw.z = (int16_t)((buffer[4] << 8) | buffer[5]);
+ 378              		.loc 1 93 5 is_stmt 1 view .LVU85
+ 379              		.loc 1 93 30 is_stmt 0 view .LVU86
+ 380 0038 9DF80420 		ldrb	r2, [sp, #4]	@ zero_extendqisi2
+ 381              		.loc 1 93 48 view .LVU87
+ 382 003c 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 383              		.loc 1 93 13 view .LVU88
+ 384 0040 43EA0223 		orr	r3, r3, r2, lsl #8
+ 385 0044 1BB2     		sxth	r3, r3
+ 386 0046 07EE903A 		vmov	s15, r3	@ int
+  94:Core/Src/icm42688_sensor.c **** 
+  95:Core/Src/icm42688_sensor.c ****     // Apply scale factor
+  96:Core/Src/icm42688_sensor.c ****     accel->x = raw.x * dev->accel_scale;
+ 387              		.loc 1 96 5 is_stmt 1 view .LVU89
+ 388              		.loc 1 96 27 is_stmt 0 view .LVU90
+ 389 004a 95ED036A 		vldr.32	s12, [r5, #12]
+ 390              		.loc 1 96 22 view .LVU91
+ 391 004e F8EEE66A 		vcvt.f32.s32	s13, s13
+ARM GAS  /tmp/ccunx9Vu.s 			page 10
+
+
+ 392 0052 66EE866A 		vmul.f32	s13, s13, s12
+ 393              		.loc 1 96 14 view .LVU92
+ 394 0056 C4ED006A 		vstr.32	s13, [r4]
+  97:Core/Src/icm42688_sensor.c ****     accel->y = raw.y * dev->accel_scale;
+ 395              		.loc 1 97 5 is_stmt 1 view .LVU93
+ 396              		.loc 1 97 27 is_stmt 0 view .LVU94
+ 397 005a D5ED036A 		vldr.32	s13, [r5, #12]
+ 398              		.loc 1 97 22 view .LVU95
+ 399 005e B8EEC77A 		vcvt.f32.s32	s14, s14
+ 400 0062 27EE267A 		vmul.f32	s14, s14, s13
+ 401              		.loc 1 97 14 view .LVU96
+ 402 0066 84ED017A 		vstr.32	s14, [r4, #4]
+  98:Core/Src/icm42688_sensor.c ****     accel->z = raw.z * dev->accel_scale;
+ 403              		.loc 1 98 5 is_stmt 1 view .LVU97
+ 404              		.loc 1 98 27 is_stmt 0 view .LVU98
+ 405 006a 95ED037A 		vldr.32	s14, [r5, #12]
+ 406              		.loc 1 98 22 view .LVU99
+ 407 006e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 408 0072 67EE877A 		vmul.f32	s15, s15, s14
+ 409              		.loc 1 98 14 view .LVU100
+ 410 0076 C4ED027A 		vstr.32	s15, [r4, #8]
+  99:Core/Src/icm42688_sensor.c **** 
+ 100:Core/Src/icm42688_sensor.c ****     return HAL_OK;
+ 411              		.loc 1 100 5 is_stmt 1 view .LVU101
+ 412              	.L23:
+ 101:Core/Src/icm42688_sensor.c **** }
+ 413              		.loc 1 101 1 is_stmt 0 view .LVU102
+ 414 007a 03B0     		add	sp, sp, #12
+ 415              	.LCFI15:
+ 416              		.cfi_remember_state
+ 417              		.cfi_def_cfa_offset 12
+ 418              		@ sp needed
+ 419 007c 30BD     		pop	{r4, r5, pc}
+ 420              	.LVL30:
+ 421              	.L24:
+ 422              	.LCFI16:
+ 423              		.cfi_restore_state
+  88:Core/Src/icm42688_sensor.c **** 
+ 424              		.loc 1 88 16 view .LVU103
+ 425 007e 0120     		movs	r0, #1
+ 426 0080 FBE7     		b	.L23
+ 427              		.cfi_endproc
+ 428              	.LFE138:
+ 430              		.section	.text.ICM42688_ReadGyro,"ax",%progbits
+ 431              		.align	1
+ 432              		.global	ICM42688_ReadGyro
+ 433              		.syntax unified
+ 434              		.thumb
+ 435              		.thumb_func
+ 436              		.fpu fpv4-sp-d16
+ 438              	ICM42688_ReadGyro:
+ 439              	.LVL31:
+ 440              	.LFB139:
+ 102:Core/Src/icm42688_sensor.c **** 
+ 103:Core/Src/icm42688_sensor.c **** /* ==== READ GYROSCOPE DATA ==== */
+ 104:Core/Src/icm42688_sensor.c **** HAL_StatusTypeDef ICM42688_ReadGyro(ICM42688_HandleTypeDef *dev, ICM42688_ScaledData *gyro)
+ 105:Core/Src/icm42688_sensor.c **** {
+ARM GAS  /tmp/ccunx9Vu.s 			page 11
+
+
+ 441              		.loc 1 105 1 is_stmt 1 view -0
+ 442              		.cfi_startproc
+ 443              		@ args = 0, pretend = 0, frame = 8
+ 444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 445              		.loc 1 105 1 is_stmt 0 view .LVU105
+ 446 0000 30B5     		push	{r4, r5, lr}
+ 447              	.LCFI17:
+ 448              		.cfi_def_cfa_offset 12
+ 449              		.cfi_offset 4, -12
+ 450              		.cfi_offset 5, -8
+ 451              		.cfi_offset 14, -4
+ 452 0002 83B0     		sub	sp, sp, #12
+ 453              	.LCFI18:
+ 454              		.cfi_def_cfa_offset 24
+ 455 0004 0546     		mov	r5, r0
+ 456 0006 0C46     		mov	r4, r1
+ 106:Core/Src/icm42688_sensor.c ****     uint8_t buffer[6];
+ 457              		.loc 1 106 5 is_stmt 1 view .LVU106
+ 107:Core/Src/icm42688_sensor.c ****     ICM42688_RawData raw;
+ 458              		.loc 1 107 5 view .LVU107
+ 108:Core/Src/icm42688_sensor.c **** 
+ 109:Core/Src/icm42688_sensor.c ****     if (ICM42688_ReadRegs(dev, ICM42688_REG_GYRO_DATA_X1, buffer, 6) != HAL_OK)
+ 459              		.loc 1 109 5 view .LVU108
+ 460              		.loc 1 109 9 is_stmt 0 view .LVU109
+ 461 0008 0623     		movs	r3, #6
+ 462 000a 6A46     		mov	r2, sp
+ 463 000c 2521     		movs	r1, #37
+ 464              	.LVL32:
+ 465              		.loc 1 109 9 view .LVU110
+ 466 000e FFF7FEFF 		bl	ICM42688_ReadRegs
+ 467              	.LVL33:
+ 468              		.loc 1 109 8 view .LVU111
+ 469 0012 A0BB     		cbnz	r0, .L28
+ 110:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 111:Core/Src/icm42688_sensor.c **** 
+ 112:Core/Src/icm42688_sensor.c ****     // Combine high and low bytes (big-endian)
+ 113:Core/Src/icm42688_sensor.c ****     raw.x = (int16_t)((buffer[0] << 8) | buffer[1]);
+ 470              		.loc 1 113 5 is_stmt 1 view .LVU112
+ 471              		.loc 1 113 30 is_stmt 0 view .LVU113
+ 472 0014 9DF80020 		ldrb	r2, [sp]	@ zero_extendqisi2
+ 473              		.loc 1 113 48 view .LVU114
+ 474 0018 9DF80130 		ldrb	r3, [sp, #1]	@ zero_extendqisi2
+ 475              		.loc 1 113 13 view .LVU115
+ 476 001c 43EA0223 		orr	r3, r3, r2, lsl #8
+ 477 0020 1BB2     		sxth	r3, r3
+ 478 0022 06EE903A 		vmov	s13, r3	@ int
+ 114:Core/Src/icm42688_sensor.c ****     raw.y = (int16_t)((buffer[2] << 8) | buffer[3]);
+ 479              		.loc 1 114 5 is_stmt 1 view .LVU116
+ 480              		.loc 1 114 30 is_stmt 0 view .LVU117
+ 481 0026 9DF80220 		ldrb	r2, [sp, #2]	@ zero_extendqisi2
+ 482              		.loc 1 114 48 view .LVU118
+ 483 002a 9DF80330 		ldrb	r3, [sp, #3]	@ zero_extendqisi2
+ 484              		.loc 1 114 13 view .LVU119
+ 485 002e 43EA0223 		orr	r3, r3, r2, lsl #8
+ 486 0032 1BB2     		sxth	r3, r3
+ 487 0034 07EE103A 		vmov	s14, r3	@ int
+ 115:Core/Src/icm42688_sensor.c ****     raw.z = (int16_t)((buffer[4] << 8) | buffer[5]);
+ARM GAS  /tmp/ccunx9Vu.s 			page 12
+
+
+ 488              		.loc 1 115 5 is_stmt 1 view .LVU120
+ 489              		.loc 1 115 30 is_stmt 0 view .LVU121
+ 490 0038 9DF80420 		ldrb	r2, [sp, #4]	@ zero_extendqisi2
+ 491              		.loc 1 115 48 view .LVU122
+ 492 003c 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 493              		.loc 1 115 13 view .LVU123
+ 494 0040 43EA0223 		orr	r3, r3, r2, lsl #8
+ 495 0044 1BB2     		sxth	r3, r3
+ 496 0046 07EE903A 		vmov	s15, r3	@ int
+ 116:Core/Src/icm42688_sensor.c **** 
+ 117:Core/Src/icm42688_sensor.c ****     // Apply scale factor
+ 118:Core/Src/icm42688_sensor.c ****     gyro->x = raw.x * dev->gyro_scale;
+ 497              		.loc 1 118 5 is_stmt 1 view .LVU124
+ 498              		.loc 1 118 26 is_stmt 0 view .LVU125
+ 499 004a 95ED026A 		vldr.32	s12, [r5, #8]
+ 500              		.loc 1 118 21 view .LVU126
+ 501 004e F8EEE66A 		vcvt.f32.s32	s13, s13
+ 502 0052 66EE866A 		vmul.f32	s13, s13, s12
+ 503              		.loc 1 118 13 view .LVU127
+ 504 0056 C4ED006A 		vstr.32	s13, [r4]
+ 119:Core/Src/icm42688_sensor.c ****     gyro->y = raw.y * dev->gyro_scale;
+ 505              		.loc 1 119 5 is_stmt 1 view .LVU128
+ 506              		.loc 1 119 26 is_stmt 0 view .LVU129
+ 507 005a D5ED026A 		vldr.32	s13, [r5, #8]
+ 508              		.loc 1 119 21 view .LVU130
+ 509 005e B8EEC77A 		vcvt.f32.s32	s14, s14
+ 510 0062 27EE267A 		vmul.f32	s14, s14, s13
+ 511              		.loc 1 119 13 view .LVU131
+ 512 0066 84ED017A 		vstr.32	s14, [r4, #4]
+ 120:Core/Src/icm42688_sensor.c ****     gyro->z = raw.z * dev->gyro_scale;
+ 513              		.loc 1 120 5 is_stmt 1 view .LVU132
+ 514              		.loc 1 120 26 is_stmt 0 view .LVU133
+ 515 006a 95ED027A 		vldr.32	s14, [r5, #8]
+ 516              		.loc 1 120 21 view .LVU134
+ 517 006e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 518 0072 67EE877A 		vmul.f32	s15, s15, s14
+ 519              		.loc 1 120 13 view .LVU135
+ 520 0076 C4ED027A 		vstr.32	s15, [r4, #8]
+ 121:Core/Src/icm42688_sensor.c **** 
+ 122:Core/Src/icm42688_sensor.c ****     return HAL_OK;
+ 521              		.loc 1 122 5 is_stmt 1 view .LVU136
+ 522              	.L27:
+ 123:Core/Src/icm42688_sensor.c **** }
+ 523              		.loc 1 123 1 is_stmt 0 view .LVU137
+ 524 007a 03B0     		add	sp, sp, #12
+ 525              	.LCFI19:
+ 526              		.cfi_remember_state
+ 527              		.cfi_def_cfa_offset 12
+ 528              		@ sp needed
+ 529 007c 30BD     		pop	{r4, r5, pc}
+ 530              	.LVL34:
+ 531              	.L28:
+ 532              	.LCFI20:
+ 533              		.cfi_restore_state
+ 110:Core/Src/icm42688_sensor.c **** 
+ 534              		.loc 1 110 16 view .LVU138
+ 535 007e 0120     		movs	r0, #1
+ARM GAS  /tmp/ccunx9Vu.s 			page 13
+
+
+ 536 0080 FBE7     		b	.L27
+ 537              		.cfi_endproc
+ 538              	.LFE139:
+ 540              		.section	.text.ICM42688_ReadTemp,"ax",%progbits
+ 541              		.align	1
+ 542              		.global	ICM42688_ReadTemp
+ 543              		.syntax unified
+ 544              		.thumb
+ 545              		.thumb_func
+ 546              		.fpu fpv4-sp-d16
+ 548              	ICM42688_ReadTemp:
+ 549              	.LVL35:
+ 550              	.LFB140:
+ 124:Core/Src/icm42688_sensor.c **** 
+ 125:Core/Src/icm42688_sensor.c **** /* ==== READ TEMPERATURE DATA ==== */
+ 126:Core/Src/icm42688_sensor.c **** HAL_StatusTypeDef ICM42688_ReadTemp(ICM42688_HandleTypeDef *dev, float *temperature)
+ 127:Core/Src/icm42688_sensor.c **** {
+ 551              		.loc 1 127 1 is_stmt 1 view -0
+ 552              		.cfi_startproc
+ 553              		@ args = 0, pretend = 0, frame = 8
+ 554              		@ frame_needed = 0, uses_anonymous_args = 0
+ 555              		.loc 1 127 1 is_stmt 0 view .LVU140
+ 556 0000 10B5     		push	{r4, lr}
+ 557              	.LCFI21:
+ 558              		.cfi_def_cfa_offset 8
+ 559              		.cfi_offset 4, -8
+ 560              		.cfi_offset 14, -4
+ 561 0002 82B0     		sub	sp, sp, #8
+ 562              	.LCFI22:
+ 563              		.cfi_def_cfa_offset 16
+ 564 0004 0C46     		mov	r4, r1
+ 128:Core/Src/icm42688_sensor.c ****     uint8_t buffer[2];
+ 565              		.loc 1 128 5 is_stmt 1 view .LVU141
+ 129:Core/Src/icm42688_sensor.c ****     int16_t raw_temp;
+ 566              		.loc 1 129 5 view .LVU142
+ 130:Core/Src/icm42688_sensor.c **** 
+ 131:Core/Src/icm42688_sensor.c ****     if (ICM42688_ReadRegs(dev, ICM42688_REG_TEMP_DATA1, buffer, 2) != HAL_OK)
+ 567              		.loc 1 131 5 view .LVU143
+ 568              		.loc 1 131 9 is_stmt 0 view .LVU144
+ 569 0006 0223     		movs	r3, #2
+ 570 0008 01AA     		add	r2, sp, #4
+ 571 000a 1D21     		movs	r1, #29
+ 572              	.LVL36:
+ 573              		.loc 1 131 9 view .LVU145
+ 574 000c FFF7FEFF 		bl	ICM42688_ReadRegs
+ 575              	.LVL37:
+ 576              		.loc 1 131 8 view .LVU146
+ 577 0010 B0B9     		cbnz	r0, .L32
+ 132:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 133:Core/Src/icm42688_sensor.c **** 
+ 134:Core/Src/icm42688_sensor.c ****     // Combine high and low bytes (big-endian)
+ 135:Core/Src/icm42688_sensor.c ****     raw_temp = (int16_t)((buffer[0] << 8) | buffer[1]);
+ 578              		.loc 1 135 5 is_stmt 1 view .LVU147
+ 579              		.loc 1 135 33 is_stmt 0 view .LVU148
+ 580 0012 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 581              		.loc 1 135 37 view .LVU149
+ 582 0016 1B02     		lsls	r3, r3, #8
+ARM GAS  /tmp/ccunx9Vu.s 			page 14
+
+
+ 583              		.loc 1 135 16 view .LVU150
+ 584 0018 1BB2     		sxth	r3, r3
+ 585              		.loc 1 135 51 view .LVU151
+ 586 001a 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
+ 587              		.loc 1 135 14 view .LVU152
+ 588 001e 1343     		orrs	r3, r3, r2
+ 589              	.LVL38:
+ 136:Core/Src/icm42688_sensor.c **** 
+ 137:Core/Src/icm42688_sensor.c ****     // Convert to Celsius: Temp = (TEMP_DATA / 132.48) + 25
+ 138:Core/Src/icm42688_sensor.c ****     *temperature = (raw_temp / 132.48f) + 25.0f;
+ 590              		.loc 1 138 5 is_stmt 1 view .LVU153
+ 591              		.loc 1 138 30 is_stmt 0 view .LVU154
+ 592 0020 07EE903A 		vmov	s15, r3	@ int
+ 593 0024 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 594 0028 DFED066A 		vldr.32	s13, .L34
+ 595 002c 87EEA67A 		vdiv.f32	s14, s15, s13
+ 596              		.loc 1 138 41 view .LVU155
+ 597 0030 F3EE097A 		vmov.f32	s15, #2.5e+1
+ 598 0034 77EE277A 		vadd.f32	s15, s14, s15
+ 599              		.loc 1 138 18 view .LVU156
+ 600 0038 C4ED007A 		vstr.32	s15, [r4]
+ 139:Core/Src/icm42688_sensor.c **** 
+ 140:Core/Src/icm42688_sensor.c ****     return HAL_OK;
+ 601              		.loc 1 140 5 is_stmt 1 view .LVU157
+ 602              	.LVL39:
+ 603              	.L31:
+ 141:Core/Src/icm42688_sensor.c **** }
+ 604              		.loc 1 141 1 is_stmt 0 view .LVU158
+ 605 003c 02B0     		add	sp, sp, #8
+ 606              	.LCFI23:
+ 607              		.cfi_remember_state
+ 608              		.cfi_def_cfa_offset 8
+ 609              		@ sp needed
+ 610 003e 10BD     		pop	{r4, pc}
+ 611              	.LVL40:
+ 612              	.L32:
+ 613              	.LCFI24:
+ 614              		.cfi_restore_state
+ 132:Core/Src/icm42688_sensor.c **** 
+ 615              		.loc 1 132 16 view .LVU159
+ 616 0040 0120     		movs	r0, #1
+ 617 0042 FBE7     		b	.L31
+ 618              	.L35:
+ 619              		.align	2
+ 620              	.L34:
+ 621 0044 E17A0443 		.word	1124367073
+ 622              		.cfi_endproc
+ 623              	.LFE140:
+ 625              		.section	.text.ICM42688_ReadAll,"ax",%progbits
+ 626              		.align	1
+ 627              		.global	ICM42688_ReadAll
+ 628              		.syntax unified
+ 629              		.thumb
+ 630              		.thumb_func
+ 631              		.fpu fpv4-sp-d16
+ 633              	ICM42688_ReadAll:
+ 634              	.LVL41:
+ARM GAS  /tmp/ccunx9Vu.s 			page 15
+
+
+ 635              	.LFB141:
+ 142:Core/Src/icm42688_sensor.c **** 
+ 143:Core/Src/icm42688_sensor.c **** /* ==== READ ALL SENSOR DATA ==== */
+ 144:Core/Src/icm42688_sensor.c **** HAL_StatusTypeDef ICM42688_ReadAll(ICM42688_HandleTypeDef *dev, ICM42688_ScaledData *accel,
+ 145:Core/Src/icm42688_sensor.c ****                                     ICM42688_ScaledData *gyro, float *temperature)
+ 146:Core/Src/icm42688_sensor.c **** {
+ 636              		.loc 1 146 1 is_stmt 1 view -0
+ 637              		.cfi_startproc
+ 638              		@ args = 0, pretend = 0, frame = 16
+ 639              		@ frame_needed = 0, uses_anonymous_args = 0
+ 640              		.loc 1 146 1 is_stmt 0 view .LVU161
+ 641 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 642              	.LCFI25:
+ 643              		.cfi_def_cfa_offset 20
+ 644              		.cfi_offset 4, -20
+ 645              		.cfi_offset 5, -16
+ 646              		.cfi_offset 6, -12
+ 647              		.cfi_offset 7, -8
+ 648              		.cfi_offset 14, -4
+ 649 0002 85B0     		sub	sp, sp, #20
+ 650              	.LCFI26:
+ 651              		.cfi_def_cfa_offset 40
+ 652 0004 0446     		mov	r4, r0
+ 653 0006 0E46     		mov	r6, r1
+ 654 0008 1546     		mov	r5, r2
+ 655 000a 1F46     		mov	r7, r3
+ 147:Core/Src/icm42688_sensor.c ****     uint8_t buffer[14];
+ 656              		.loc 1 147 5 is_stmt 1 view .LVU162
+ 148:Core/Src/icm42688_sensor.c ****     ICM42688_RawData raw_accel, raw_gyro;
+ 657              		.loc 1 148 5 view .LVU163
+ 149:Core/Src/icm42688_sensor.c ****     int16_t raw_temp;
+ 658              		.loc 1 149 5 view .LVU164
+ 150:Core/Src/icm42688_sensor.c **** 
+ 151:Core/Src/icm42688_sensor.c ****     // Read all data in one transaction (TEMP + ACCEL + GYRO)
+ 152:Core/Src/icm42688_sensor.c ****     if (ICM42688_ReadRegs(dev, ICM42688_REG_TEMP_DATA1, buffer, 14) != HAL_OK)
+ 659              		.loc 1 152 5 view .LVU165
+ 660              		.loc 1 152 9 is_stmt 0 view .LVU166
+ 661 000c 0E23     		movs	r3, #14
+ 662              	.LVL42:
+ 663              		.loc 1 152 9 view .LVU167
+ 664 000e 6A46     		mov	r2, sp
+ 665              	.LVL43:
+ 666              		.loc 1 152 9 view .LVU168
+ 667 0010 1D21     		movs	r1, #29
+ 668              	.LVL44:
+ 669              		.loc 1 152 9 view .LVU169
+ 670 0012 FFF7FEFF 		bl	ICM42688_ReadRegs
+ 671              	.LVL45:
+ 672              		.loc 1 152 8 view .LVU170
+ 673 0016 0028     		cmp	r0, #0
+ 674 0018 7ED1     		bne	.L38
+ 675 001a 0246     		mov	r2, r0
+ 153:Core/Src/icm42688_sensor.c ****         return HAL_ERROR;
+ 154:Core/Src/icm42688_sensor.c **** 
+ 155:Core/Src/icm42688_sensor.c ****     // Parse temperature
+ 156:Core/Src/icm42688_sensor.c ****     raw_temp = (int16_t)((buffer[0] << 8) | buffer[1]);
+ 676              		.loc 1 156 5 is_stmt 1 view .LVU171
+ARM GAS  /tmp/ccunx9Vu.s 			page 16
+
+
+ 677              		.loc 1 156 33 is_stmt 0 view .LVU172
+ 678 001c 9DF80010 		ldrb	r1, [sp]	@ zero_extendqisi2
+ 679              		.loc 1 156 37 view .LVU173
+ 680 0020 0902     		lsls	r1, r1, #8
+ 681              		.loc 1 156 16 view .LVU174
+ 682 0022 09B2     		sxth	r1, r1
+ 683              		.loc 1 156 51 view .LVU175
+ 684 0024 9DF80130 		ldrb	r3, [sp, #1]	@ zero_extendqisi2
+ 685              		.loc 1 156 14 view .LVU176
+ 686 0028 1943     		orrs	r1, r1, r3
+ 687              	.LVL46:
+ 157:Core/Src/icm42688_sensor.c ****     *temperature = (raw_temp / 132.48f) + 25.0f;
+ 688              		.loc 1 157 5 is_stmt 1 view .LVU177
+ 689              		.loc 1 157 30 is_stmt 0 view .LVU178
+ 690 002a 07EE901A 		vmov	s15, r1	@ int
+ 691 002e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 692 0032 DFED3A6A 		vldr.32	s13, .L40
+ 693 0036 87EEA67A 		vdiv.f32	s14, s15, s13
+ 694              		.loc 1 157 41 view .LVU179
+ 695 003a F3EE097A 		vmov.f32	s15, #2.5e+1
+ 696 003e 77EE277A 		vadd.f32	s15, s14, s15
+ 697              		.loc 1 157 18 view .LVU180
+ 698 0042 C7ED007A 		vstr.32	s15, [r7]
+ 158:Core/Src/icm42688_sensor.c **** 
+ 159:Core/Src/icm42688_sensor.c ****     // Parse accelerometer (bytes 2-7)
+ 160:Core/Src/icm42688_sensor.c ****     raw_accel.x = (int16_t)((buffer[2] << 8) | buffer[3]);
+ 699              		.loc 1 160 5 is_stmt 1 view .LVU181
+ 700              		.loc 1 160 36 is_stmt 0 view .LVU182
+ 701 0046 9DF80210 		ldrb	r1, [sp, #2]	@ zero_extendqisi2
+ 702              	.LVL47:
+ 703              		.loc 1 160 54 view .LVU183
+ 704 004a 9DF80330 		ldrb	r3, [sp, #3]	@ zero_extendqisi2
+ 705              		.loc 1 160 19 view .LVU184
+ 706 004e 43EA0123 		orr	r3, r3, r1, lsl #8
+ 707 0052 1BB2     		sxth	r3, r3
+ 708 0054 06EE903A 		vmov	s13, r3	@ int
+ 161:Core/Src/icm42688_sensor.c ****     raw_accel.y = (int16_t)((buffer[4] << 8) | buffer[5]);
+ 709              		.loc 1 161 5 is_stmt 1 view .LVU185
+ 710              		.loc 1 161 36 is_stmt 0 view .LVU186
+ 711 0058 9DF80410 		ldrb	r1, [sp, #4]	@ zero_extendqisi2
+ 712              		.loc 1 161 54 view .LVU187
+ 713 005c 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 714              		.loc 1 161 19 view .LVU188
+ 715 0060 43EA0123 		orr	r3, r3, r1, lsl #8
+ 716 0064 1BB2     		sxth	r3, r3
+ 717 0066 07EE103A 		vmov	s14, r3	@ int
+ 162:Core/Src/icm42688_sensor.c ****     raw_accel.z = (int16_t)((buffer[6] << 8) | buffer[7]);
+ 718              		.loc 1 162 5 is_stmt 1 view .LVU189
+ 719              		.loc 1 162 36 is_stmt 0 view .LVU190
+ 720 006a 9DF80610 		ldrb	r1, [sp, #6]	@ zero_extendqisi2
+ 721              		.loc 1 162 54 view .LVU191
+ 722 006e 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 723              		.loc 1 162 19 view .LVU192
+ 724 0072 43EA0123 		orr	r3, r3, r1, lsl #8
+ 725 0076 1BB2     		sxth	r3, r3
+ 726 0078 07EE903A 		vmov	s15, r3	@ int
+ 163:Core/Src/icm42688_sensor.c **** 
+ARM GAS  /tmp/ccunx9Vu.s 			page 17
+
+
+ 164:Core/Src/icm42688_sensor.c ****     accel->x = raw_accel.x * dev->accel_scale;
+ 727              		.loc 1 164 5 is_stmt 1 view .LVU193
+ 728              		.loc 1 164 33 is_stmt 0 view .LVU194
+ 729 007c 94ED036A 		vldr.32	s12, [r4, #12]
+ 730              		.loc 1 164 28 view .LVU195
+ 731 0080 F8EEE66A 		vcvt.f32.s32	s13, s13
+ 732 0084 66EE866A 		vmul.f32	s13, s13, s12
+ 733              		.loc 1 164 14 view .LVU196
+ 734 0088 C6ED006A 		vstr.32	s13, [r6]
+ 165:Core/Src/icm42688_sensor.c ****     accel->y = raw_accel.y * dev->accel_scale;
+ 735              		.loc 1 165 5 is_stmt 1 view .LVU197
+ 736              		.loc 1 165 33 is_stmt 0 view .LVU198
+ 737 008c D4ED036A 		vldr.32	s13, [r4, #12]
+ 738              		.loc 1 165 28 view .LVU199
+ 739 0090 B8EEC77A 		vcvt.f32.s32	s14, s14
+ 740 0094 27EE267A 		vmul.f32	s14, s14, s13
+ 741              		.loc 1 165 14 view .LVU200
+ 742 0098 86ED017A 		vstr.32	s14, [r6, #4]
+ 166:Core/Src/icm42688_sensor.c ****     accel->z = raw_accel.z * dev->accel_scale;
+ 743              		.loc 1 166 5 is_stmt 1 view .LVU201
+ 744              		.loc 1 166 33 is_stmt 0 view .LVU202
+ 745 009c 94ED037A 		vldr.32	s14, [r4, #12]
+ 746              		.loc 1 166 28 view .LVU203
+ 747 00a0 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 748 00a4 67EE877A 		vmul.f32	s15, s15, s14
+ 749              		.loc 1 166 14 view .LVU204
+ 750 00a8 C6ED027A 		vstr.32	s15, [r6, #8]
+ 167:Core/Src/icm42688_sensor.c **** 
+ 168:Core/Src/icm42688_sensor.c ****     // Parse gyroscope (bytes 8-13)
+ 169:Core/Src/icm42688_sensor.c ****     raw_gyro.x = (int16_t)((buffer[8] << 8) | buffer[9]);
+ 751              		.loc 1 169 5 is_stmt 1 view .LVU205
+ 752              		.loc 1 169 35 is_stmt 0 view .LVU206
+ 753 00ac 9DF80810 		ldrb	r1, [sp, #8]	@ zero_extendqisi2
+ 754              		.loc 1 169 53 view .LVU207
+ 755 00b0 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2
+ 756              		.loc 1 169 18 view .LVU208
+ 757 00b4 43EA0123 		orr	r3, r3, r1, lsl #8
+ 758 00b8 1BB2     		sxth	r3, r3
+ 759 00ba 06EE903A 		vmov	s13, r3	@ int
+ 170:Core/Src/icm42688_sensor.c ****     raw_gyro.y = (int16_t)((buffer[10] << 8) | buffer[11]);
+ 760              		.loc 1 170 5 is_stmt 1 view .LVU209
+ 761              		.loc 1 170 35 is_stmt 0 view .LVU210
+ 762 00be 9DF80A10 		ldrb	r1, [sp, #10]	@ zero_extendqisi2
+ 763              		.loc 1 170 54 view .LVU211
+ 764 00c2 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2
+ 765              		.loc 1 170 18 view .LVU212
+ 766 00c6 43EA0123 		orr	r3, r3, r1, lsl #8
+ 767 00ca 1BB2     		sxth	r3, r3
+ 768 00cc 07EE103A 		vmov	s14, r3	@ int
+ 171:Core/Src/icm42688_sensor.c ****     raw_gyro.z = (int16_t)((buffer[12] << 8) | buffer[13]);
+ 769              		.loc 1 171 5 is_stmt 1 view .LVU213
+ 770              		.loc 1 171 35 is_stmt 0 view .LVU214
+ 771 00d0 9DF80C10 		ldrb	r1, [sp, #12]	@ zero_extendqisi2
+ 772              		.loc 1 171 54 view .LVU215
+ 773 00d4 9DF80D30 		ldrb	r3, [sp, #13]	@ zero_extendqisi2
+ 774              		.loc 1 171 18 view .LVU216
+ 775 00d8 43EA0123 		orr	r3, r3, r1, lsl #8
+ARM GAS  /tmp/ccunx9Vu.s 			page 18
+
+
+ 776 00dc 1BB2     		sxth	r3, r3
+ 777 00de 07EE903A 		vmov	s15, r3	@ int
+ 172:Core/Src/icm42688_sensor.c **** 
+ 173:Core/Src/icm42688_sensor.c ****     gyro->x = raw_gyro.x * dev->gyro_scale;
+ 778              		.loc 1 173 5 is_stmt 1 view .LVU217
+ 779              		.loc 1 173 31 is_stmt 0 view .LVU218
+ 780 00e2 94ED026A 		vldr.32	s12, [r4, #8]
+ 781              		.loc 1 173 26 view .LVU219
+ 782 00e6 F8EEE66A 		vcvt.f32.s32	s13, s13
+ 783 00ea 66EE866A 		vmul.f32	s13, s13, s12
+ 784              		.loc 1 173 13 view .LVU220
+ 785 00ee C5ED006A 		vstr.32	s13, [r5]
+ 174:Core/Src/icm42688_sensor.c ****     gyro->y = raw_gyro.y * dev->gyro_scale;
+ 786              		.loc 1 174 5 is_stmt 1 view .LVU221
+ 787              		.loc 1 174 31 is_stmt 0 view .LVU222
+ 788 00f2 D4ED026A 		vldr.32	s13, [r4, #8]
+ 789              		.loc 1 174 26 view .LVU223
+ 790 00f6 B8EEC77A 		vcvt.f32.s32	s14, s14
+ 791 00fa 27EE267A 		vmul.f32	s14, s14, s13
+ 792              		.loc 1 174 13 view .LVU224
+ 793 00fe 85ED017A 		vstr.32	s14, [r5, #4]
+ 175:Core/Src/icm42688_sensor.c ****     gyro->z = raw_gyro.z * dev->gyro_scale;
+ 794              		.loc 1 175 5 is_stmt 1 view .LVU225
+ 795              		.loc 1 175 31 is_stmt 0 view .LVU226
+ 796 0102 94ED027A 		vldr.32	s14, [r4, #8]
+ 797              		.loc 1 175 26 view .LVU227
+ 798 0106 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 799 010a 67EE877A 		vmul.f32	s15, s15, s14
+ 800              		.loc 1 175 13 view .LVU228
+ 801 010e C5ED027A 		vstr.32	s15, [r5, #8]
+ 176:Core/Src/icm42688_sensor.c **** 
+ 177:Core/Src/icm42688_sensor.c ****     return HAL_OK;
+ 802              		.loc 1 177 5 is_stmt 1 view .LVU229
+ 803              	.L37:
+ 178:Core/Src/icm42688_sensor.c **** }
+ 804              		.loc 1 178 1 is_stmt 0 view .LVU230
+ 805 0112 1046     		mov	r0, r2
+ 806 0114 05B0     		add	sp, sp, #20
+ 807              	.LCFI27:
+ 808              		.cfi_remember_state
+ 809              		.cfi_def_cfa_offset 20
+ 810              		@ sp needed
+ 811 0116 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 812              	.LVL48:
+ 813              	.L38:
+ 814              	.LCFI28:
+ 815              		.cfi_restore_state
+ 153:Core/Src/icm42688_sensor.c **** 
+ 816              		.loc 1 153 16 view .LVU231
+ 817 0118 0122     		movs	r2, #1
+ 818 011a FAE7     		b	.L37
+ 819              	.L41:
+ 820              		.align	2
+ 821              	.L40:
+ 822 011c E17A0443 		.word	1124367073
+ 823              		.cfi_endproc
+ 824              	.LFE141:
+ARM GAS  /tmp/ccunx9Vu.s 			page 19
+
+
+ 826              		.text
+ 827              	.Letext0:
+ 828              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 829              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 830              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 831              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 832              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 833              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 834              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 835              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 836              		.file 10 "Core/Inc/icm42688_sensor.h"
+ 837              		.file 11 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 838              		.file 12 "/usr/include/newlib/sys/_types.h"
+ 839              		.file 13 "/usr/include/newlib/sys/reent.h"
+ 840              		.file 14 "/usr/include/newlib/sys/lock.h"
+ARM GAS  /tmp/ccunx9Vu.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 icm42688_sensor.c
+     /tmp/ccunx9Vu.s:18     .text.ICM42688_ReadReg:0000000000000000 $t
+     /tmp/ccunx9Vu.s:25     .text.ICM42688_ReadReg:0000000000000000 ICM42688_ReadReg
+     /tmp/ccunx9Vu.s:69     .text.ICM42688_ReadRegs:0000000000000000 $t
+     /tmp/ccunx9Vu.s:75     .text.ICM42688_ReadRegs:0000000000000000 ICM42688_ReadRegs
+     /tmp/ccunx9Vu.s:121    .text.ICM42688_WriteReg:0000000000000000 $t
+     /tmp/ccunx9Vu.s:127    .text.ICM42688_WriteReg:0000000000000000 ICM42688_WriteReg
+     /tmp/ccunx9Vu.s:172    .text.ICM42688_Init:0000000000000000 $t
+     /tmp/ccunx9Vu.s:179    .text.ICM42688_Init:0000000000000000 ICM42688_Init
+     /tmp/ccunx9Vu.s:316    .text.ICM42688_Init:0000000000000088 $d
+     /tmp/ccunx9Vu.s:321    .text.ICM42688_ReadAccel:0000000000000000 $t
+     /tmp/ccunx9Vu.s:328    .text.ICM42688_ReadAccel:0000000000000000 ICM42688_ReadAccel
+     /tmp/ccunx9Vu.s:431    .text.ICM42688_ReadGyro:0000000000000000 $t
+     /tmp/ccunx9Vu.s:438    .text.ICM42688_ReadGyro:0000000000000000 ICM42688_ReadGyro
+     /tmp/ccunx9Vu.s:541    .text.ICM42688_ReadTemp:0000000000000000 $t
+     /tmp/ccunx9Vu.s:548    .text.ICM42688_ReadTemp:0000000000000000 ICM42688_ReadTemp
+     /tmp/ccunx9Vu.s:621    .text.ICM42688_ReadTemp:0000000000000044 $d
+     /tmp/ccunx9Vu.s:626    .text.ICM42688_ReadAll:0000000000000000 $t
+     /tmp/ccunx9Vu.s:633    .text.ICM42688_ReadAll:0000000000000000 ICM42688_ReadAll
+     /tmp/ccunx9Vu.s:822    .text.ICM42688_ReadAll:000000000000011c $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Mem_Read
+HAL_I2C_Master_Transmit
+HAL_Delay

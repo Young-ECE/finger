@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cct35BON.s 			page 1
+ARM GAS  /tmp/cclmszmB.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cct35BON.s 			page 1
   28:Core/Src/dma.c **** /* Configure DMA                                                              */
   29:Core/Src/dma.c **** /*----------------------------------------------------------------------------*/
   30:Core/Src/dma.c **** 
-ARM GAS  /tmp/cct35BON.s 			page 2
+ARM GAS  /tmp/cclmszmB.s 			page 2
 
 
   31:Core/Src/dma.c **** /* USER CODE BEGIN 1 */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cct35BON.s 			page 1
   70 002c 0193     		str	r3, [sp, #4]
   71              		.loc 1 43 3 view .LVU11
   72 002e 019B     		ldr	r3, [sp, #4]
-ARM GAS  /tmp/cct35BON.s 			page 3
+ARM GAS  /tmp/cclmszmB.s 			page 3
 
 
   73              	.LBE3:
@@ -152,10 +152,10 @@ ARM GAS  /tmp/cct35BON.s 			page 1
   93 004c FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
   94              	.LVL3:
   52:Core/Src/dma.c ****   /* DMA2_Stream0_IRQn interrupt configuration */
-  53:Core/Src/dma.c ****   HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 3, 0);  // I2S DMA: 优先级3（略高于I2C的4，避�
+  53:Core/Src/dma.c ****   HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
   95              		.loc 1 53 3 view .LVU17
   96 0050 2246     		mov	r2, r4
-  97 0052 0321     		movs	r1, #3
+  97 0052 2146     		mov	r1, r4
   98 0054 3820     		movs	r0, #56
   99 0056 FFF7FEFF 		bl	HAL_NVIC_SetPriority
  100              	.LVL4:
@@ -178,22 +178,25 @@ ARM GAS  /tmp/cct35BON.s 			page 1
  114 0064 00380240 		.word	1073887232
  115              		.cfi_endproc
  116              	.LFE134:
-ARM GAS  /tmp/cct35BON.s 			page 4
+ARM GAS  /tmp/cclmszmB.s 			page 4
 
 
  118              		.text
  119              	.Letext0:
- 120              		.file 2 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 121              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 122              		.file 4 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
-ARM GAS  /tmp/cct35BON.s 			page 5
+ 120              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 121              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 122              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 123              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 124              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 125              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
+ARM GAS  /tmp/cclmszmB.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dma.c
-     /tmp/cct35BON.s:18     .text.MX_DMA_Init:0000000000000000 $t
-     /tmp/cct35BON.s:26     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
-     /tmp/cct35BON.s:114    .text.MX_DMA_Init:0000000000000064 $d
+     /tmp/cclmszmB.s:18     .text.MX_DMA_Init:0000000000000000 $t
+     /tmp/cclmszmB.s:26     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
+     /tmp/cclmszmB.s:114    .text.MX_DMA_Init:0000000000000064 $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

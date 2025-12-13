@@ -1,7 +1,19 @@
-ls -l /dev/ttyUSB*
+#编译相关
 make
-STM32_Programmer_CLI --version
-sudo screen /dev/ttyUSB0 115200
+make clean
+
+#使用STM32_Programmer_CLI烧录#
+
 STM32_Programmer_CLI --connect port=SWD
 STM32_Programmer_CLI --connect port=SWD --write build/finger.bin 0x08000000 --verify --start
-sudo lsof /dev/ttyUSB0
+
+
+#观察虚拟串口输出#
+sudo screen /dev/ttyACM0
+
+#观察串口占用情况#
+sudo lsof /dev/ttyACM0
+sudo kill -9 pid
+
+#使用OpenOCD烧录#
+openocd -f openocd.cfg -c "program build/finger.elf verify reset exit"
