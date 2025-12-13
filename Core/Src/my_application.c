@@ -14,7 +14,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "my_main.h"
+#include "my_application.h"
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
@@ -58,7 +58,7 @@ static inline void DWT_Init(void)
   * @brief  Initialize all sensors and peripherals
   * @retval None
   */
-void My_Main_Init(void)
+void My_Application_Init(void)
 {
   // ========== 传感器逐个测试 ==========
   static char msg[128];  // 声明为static避免栈溢出
@@ -127,7 +127,7 @@ void My_Main_Init(void)
   * @brief  Main sensor reading loop (infinite)
   * @retval None (never returns)
   */
-void My_Main_Run(void)
+void My_Application_Run(void)
 {
   // 传感器数据变量
   uint16_t als = 0, ps = 0;

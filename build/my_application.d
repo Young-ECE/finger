@@ -1,4 +1,5 @@
-build/my_main.o: Core/Src/my_main.c Core/Inc/my_main.h Core/Inc/main.h \
+build/my_application.o: Core/Src/my_application.c \
+ Core/Inc/my_application.h Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -48,7 +49,7 @@ build/my_main.o: Core/Src/my_main.c Core/Inc/my_main.h Core/Inc/main.h \
  Core/Inc/i2c.h Core/Inc/i2c_error_handler.h Core/Inc/i2c_dma_manager.h \
  Core/Inc/humidity_temp_sensor.h
 
-Core/Inc/my_main.h:
+Core/Inc/my_application.h:
 
 Core/Inc/main.h:
 

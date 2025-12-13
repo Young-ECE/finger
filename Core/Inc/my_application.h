@@ -32,8 +32,8 @@ extern ICM42688_HandleTypeDef icm42688;
 extern MIC_HandleTypeDef mic;
 
 /* Exported functions prototypes ---------------------------------------------*/
-void My_Main_Init(void);
-void My_Main_Run(void);  // Contains infinite loop, never returns
+void My_Application_Init(void);
+void My_Application_Run(void);  // Contains infinite loop, never returns
 
 #ifdef __cplusplus
 }

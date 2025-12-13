@@ -4,7 +4,7 @@
  */
 
 #include "i2c_dma_manager.h"
-#include "my_main.h"
+#include "my_application.h"
 #include "humidity_temp_sensor.h"
 #include <string.h>
 

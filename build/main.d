@@ -33,7 +33,7 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Core/Inc/main.h Core/Inc/i2c.h Core/Inc/i2s.h Core/Inc/usart.h \
  USB_DEVICE/App/usb_device.h \
  Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- USB_DEVICE/Target/usbd_conf.h Core/Inc/gpio.h Core/Inc/my_main.h \
+ USB_DEVICE/Target/usbd_conf.h Core/Inc/gpio.h Core/Inc/my_application.h \
  Core/Inc/vcnl4040_sensor.h Core/Inc/icm42688_sensor.h \
  Core/Inc/microphone_sensor.h
 
@@ -123,7 +123,7 @@ USB_DEVICE/Target/usbd_conf.h:
 
 Core/Inc/gpio.h:
 
-Core/Inc/my_main.h:
+Core/Inc/my_application.h:
 
 Core/Inc/vcnl4040_sensor.h:
 
