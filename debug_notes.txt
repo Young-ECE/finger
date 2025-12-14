@@ -1,0 +1,17 @@
+调试服务器：负责连接 ST-Link 硬件、控制目标芯片的 GDB Server。
+OpenOCD
+调试客户端：实际执行断点、单步、读取变量等操作的调试器。
+GDB
+配置任务：定义了编译流程和 OpenOCD 启动服务的执行逻辑。
+tasks.json  
+配置调试：定义了 GDB 连接 OpenOCD 的参数和模式。
+launch.json  
+
+调试策略：Task + Attach
+OpenOCD 启动任务 (tasks.json):
+定义一个 shell 任务，执行验证成功的 OpenOCD 启动命令openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f4x.cfg（）。
+设置 "isBackground": true，确保 OpenOCD 作为一个持久服务在后台运行。
+添加 sleep 1.5 任务，在 OpenOCD 启动后提供缓冲时间，确保硬件链路完全稳定，消除时序错误。
+GDB 连接配置 (launch.json):
+将 request 设置为 attach，servertype 设置为 external，告诉插件：不要启动 OpenOCD，只需连接一个已在运行的服务。
+设置 preLaunchTask 指向整个任务链 (Build -> Start OpenOCD -> Wait)。

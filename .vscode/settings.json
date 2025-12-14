@@ -1,14 +1,23 @@
 {
+  // Cortex-Debug 配置
   "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
   "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
   "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
   "cortex-debug.variableUseNaturalFormat": false,
+  
+  // Python 配置
   "idf.pythonInstallPath": "/usr/bin/python3",
+  "python.terminal.activateEnvironment": false,
+  "python.autoComplete.extraPaths": [],
+  
+  // 文件关联
   "files.associations": {
     "*.h": "c",
     "stm32f4xx*.h": "c",
     "usbd_*.h": "c"
   },
+  
+  // C/C++ 扩展配置（微软官方扩展）
   "C_Cpp.intelliSenseEngine": "default",
   "C_Cpp.errorSquiggles": "enabled",
   "C_Cpp.autocomplete": "default",
@@ -21,6 +30,12 @@
   "C_Cpp.default.cppStandard": "gnu++14",
   "C_Cpp.default.intelliSenseMode": "gcc-arm",
   "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
+  
+  // 禁用 C/C++ 扩展的默认构建任务，使用 tasks.json 中的 Makefile 任务
+  "C_Cpp.default.buildTask": "Build",
+  "C_Cpp.default.compilerArgs": [],
+  
+  // 排除搜索路径（提高性能）
   "C_Cpp.files.exclude": {
     "**/build": true,
     "**/build/**": true,
@@ -30,9 +45,10 @@
     "**/CVS": true,
     "**/.DS_Store": true
   },
+  
+  // 搜索排除
   "search.exclude": {
     "**/build": true,
     "**/build/**": true
-  },
-  "C_Cpp_Runner.msvcBatchPath": ""
+  }
 }
