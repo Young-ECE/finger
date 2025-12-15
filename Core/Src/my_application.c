@@ -71,13 +71,13 @@ void My_Application_Init(void)
   HAL_Delay(1000);  // 等待USB枚举完成
 
   // Step 1: 初始化VCNL4040
-  // strcpy(msg, "INIT:VCNL4040...\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
-  // VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
-  // strcpy(msg, "INIT:VCNL4040 OK\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
+  strcpy(msg, "INIT:VCNL4040...\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+  VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
+  strcpy(msg, "INIT:VCNL4040 OK\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
 
   // // Step 2: 初始化ICM42688
   // strcpy(msg, "INIT:ICM42688...\n");
@@ -108,19 +108,19 @@ void My_Application_Init(void)
   //   HAL_Delay(50);
   // }
 
-  // Step 4: 初始化麦克风（I2S）
-  strcpy(msg, "INIT:MICROPHONE...\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
-  MIC_Init(&mic, &hi2s1);
-  MIC_Start(&mic);
-  strcpy(msg, "INIT:MICROPHONE OK\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
+  // // Step 4: 初始化麦克风（I2S）
+  // strcpy(msg, "INIT:MICROPHONE...\n");
+  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  // HAL_Delay(100);
+  // MIC_Init(&mic, &hi2s1);
+  // MIC_Start(&mic);
+  // strcpy(msg, "INIT:MICROPHONE OK\n");
+  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  // HAL_Delay(100);
 
-  strcpy(msg, "========== ALL SENSORS READY ==========\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(500);
+  // strcpy(msg, "========== ALL SENSORS READY ==========\n");
+  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  // HAL_Delay(500);
 
 #ifdef ENABLE_PROFILING
   DWT_Init();  // Enable cycle counter for performance profiling
@@ -134,7 +134,7 @@ void My_Application_Init(void)
 void My_Application_Run(void)
 {
   // // 传感器数据变量
-  // uint16_t als = 0, ps = 0;
+  uint16_t als = 0, ps = 0;
   // ICM42688_ScaledData accel = {0}, gyro = {0};
   // float imu_temp = 0;
 
@@ -146,16 +146,18 @@ void My_Application_Run(void)
   // // 轮询索引（静态变量，每次循环递增）
   // static int bme_index = 0;
 
-  // static char msg[512];
+  static char msg[512];
 
   while (1)
   {
     // // === 1. 读取VCNL4040 (光线和接近传感器) ===
-    // VCNL4040_ReadALS(&vcnl4040, &als);
-    // VCNL4040_ReadPS(&vcnl4040, &ps);
+    VCNL4040_ReadALS(&vcnl4040, &als);
+    VCNL4040_ReadPS(&vcnl4040, &ps);
 
-    // // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
+    // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
     // ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+    int len = sprintf(msg, "%u, %u\n", als, ps);
+    CDC_Transmit_FS((uint8_t*)msg, len);
 
     // // === 3. 轮询读取单个BME280 (温湿度和气压) ===
     // if (bme_index == 3) {
@@ -191,13 +193,13 @@ void My_Application_Run(void)
     // CDC_Transmit_FS((uint8_t*)msg, len);
     // HAL_Delay(10);  // 短暂延迟，避免USB传输过快
 
-      if (mic.full_ready)
-      {
-        char mic_msg[64];
-        int len = sprintf(mic_msg, "%ld\n", mic.audio_result_left);
-        CDC_Transmit_FS((uint8_t *)mic_msg, len);
-        mic.full_ready = 0;
-      }
+      // if (mic.full_ready)
+      // {
+      //   char mic_msg[64];
+      //   int len = sprintf(mic_msg, "%ld\n", mic.audio_result_left);
+      //   CDC_Transmit_FS((uint8_t *)mic_msg, len);
+      //   mic.full_ready = 0;
+      // }
     
   }
 }
