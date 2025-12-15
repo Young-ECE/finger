@@ -113,3 +113,68 @@ void USB_Print(const char *format, ...)
         CDC_Transmit_FS((uint8_t*)buffer, len);  // 直接发送
     }
 }
+
+/* ==== I2C Protected Transfer Functions ==== */
+/* 在I2C传输期间临时禁用所有中断，避免I2S DMA打断I2C时序 */
+
+HAL_StatusTypeDef I2C_Protected_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                         uint16_t MemAddress, uint16_t MemAddSize,
+                                         uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+    HAL_StatusTypeDef status;
+    
+    // 保存中断状态并进入临界区
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+    
+    // 执行 I2C 传输
+    status = HAL_I2C_Mem_Read(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+    
+    // 恢复中断状态
+    if (!primask) {
+        __enable_irq();
+    }
+    
+    return status;
+}
+
+HAL_StatusTypeDef I2C_Protected_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                          uint16_t MemAddress, uint16_t MemAddSize,
+                                          uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+    HAL_StatusTypeDef status;
+    
+    // 保存中断状态并进入临界区
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+    
+    // 执行 I2C 传输
+    status = HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+    
+    // 恢复中断状态
+    if (!primask) {
+        __enable_irq();
+    }
+    
+    return status;
+}
+
+HAL_StatusTypeDef I2C_Protected_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                                uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+    HAL_StatusTypeDef status;
+    
+    // 保存中断状态并进入临界区
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+    
+    // 执行 I2C 传输
+    status = HAL_I2C_Master_Transmit(hi2c, DevAddress, pData, Size, Timeout);
+    
+    // 恢复中断状态
+    if (!primask) {
+        __enable_irq();
+    }
+    
+    return status;
+}
