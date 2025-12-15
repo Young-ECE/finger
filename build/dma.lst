@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccSxKwd4.s 			page 1
+ARM GAS  /tmp/ccbp0xhS.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccSxKwd4.s 			page 1
   28:Core/Src/dma.c **** /* Configure DMA                                                              */
   29:Core/Src/dma.c **** /*----------------------------------------------------------------------------*/
   30:Core/Src/dma.c **** 
-ARM GAS  /tmp/ccSxKwd4.s 			page 2
+ARM GAS  /tmp/ccbp0xhS.s 			page 2
 
 
   31:Core/Src/dma.c **** /* USER CODE BEGIN 1 */
@@ -84,7 +84,7 @@ ARM GAS  /tmp/ccSxKwd4.s 			page 1
   40              		.cfi_def_cfa_offset 16
   40:Core/Src/dma.c **** 
   41:Core/Src/dma.c ****   /* DMA controller clock enable */
-  42:Core/Src/dma.c ****   __HAL_RCC_DMA2_CLK_ENABLE();
+  42:Core/Src/dma.c ****   __HAL_RCC_DMA1_CLK_ENABLE();
   41              		.loc 1 42 3 view .LVU1
   42              	.LBB2:
   43              		.loc 1 42 3 view .LVU2
@@ -93,32 +93,32 @@ ARM GAS  /tmp/ccSxKwd4.s 			page 1
   46              		.loc 1 42 3 view .LVU3
   47 0008 164B     		ldr	r3, .L3
   48 000a 1A6B     		ldr	r2, [r3, #48]
-  49 000c 42F48002 		orr	r2, r2, #4194304
+  49 000c 42F40012 		orr	r2, r2, #2097152
   50 0010 1A63     		str	r2, [r3, #48]
   51              		.loc 1 42 3 view .LVU4
   52 0012 1A6B     		ldr	r2, [r3, #48]
-  53 0014 02F48002 		and	r2, r2, #4194304
+  53 0014 02F40012 		and	r2, r2, #2097152
   54 0018 0092     		str	r2, [sp]
   55              		.loc 1 42 3 view .LVU5
   56 001a 009A     		ldr	r2, [sp]
   57              	.LBE2:
   58              		.loc 1 42 3 view .LVU6
-  43:Core/Src/dma.c ****   __HAL_RCC_DMA1_CLK_ENABLE();
+  43:Core/Src/dma.c ****   __HAL_RCC_DMA2_CLK_ENABLE();
   59              		.loc 1 43 3 view .LVU7
   60              	.LBB3:
   61              		.loc 1 43 3 view .LVU8
   62 001c 0194     		str	r4, [sp, #4]
   63              		.loc 1 43 3 view .LVU9
   64 001e 1A6B     		ldr	r2, [r3, #48]
-  65 0020 42F40012 		orr	r2, r2, #2097152
+  65 0020 42F48002 		orr	r2, r2, #4194304
   66 0024 1A63     		str	r2, [r3, #48]
   67              		.loc 1 43 3 view .LVU10
   68 0026 1B6B     		ldr	r3, [r3, #48]
-  69 0028 03F40013 		and	r3, r3, #2097152
+  69 0028 03F48003 		and	r3, r3, #4194304
   70 002c 0193     		str	r3, [sp, #4]
   71              		.loc 1 43 3 view .LVU11
   72 002e 019B     		ldr	r3, [sp, #4]
-ARM GAS  /tmp/ccSxKwd4.s 			page 3
+ARM GAS  /tmp/ccbp0xhS.s 			page 3
 
 
   73              	.LBE3:
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccSxKwd4.s 			page 1
  114 0064 00380240 		.word	1073887232
  115              		.cfi_endproc
  116              	.LFE134:
-ARM GAS  /tmp/ccSxKwd4.s 			page 4
+ARM GAS  /tmp/ccbp0xhS.s 			page 4
 
 
  118              		.text
@@ -189,14 +189,14 @@ ARM GAS  /tmp/ccSxKwd4.s 			page 1
  123              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
  124              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  125              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
-ARM GAS  /tmp/ccSxKwd4.s 			page 5
+ARM GAS  /tmp/ccbp0xhS.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dma.c
-     /tmp/ccSxKwd4.s:18     .text.MX_DMA_Init:0000000000000000 $t
-     /tmp/ccSxKwd4.s:26     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
-     /tmp/ccSxKwd4.s:114    .text.MX_DMA_Init:0000000000000064 $d
+     /tmp/ccbp0xhS.s:18     .text.MX_DMA_Init:0000000000000000 $t
+     /tmp/ccbp0xhS.s:26     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
+     /tmp/ccbp0xhS.s:114    .text.MX_DMA_Init:0000000000000064 $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

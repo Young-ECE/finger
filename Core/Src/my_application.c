@@ -146,7 +146,7 @@ void My_Application_Run(void)
   // // 轮询索引（静态变量，每次循环递增）
   // static int bme_index = 0;
 
-  static char msg[512];
+  // static char msg[512];
 
   while (1)
   {
@@ -190,12 +190,14 @@ void My_Application_Run(void)
 
     // CDC_Transmit_FS((uint8_t*)msg, len);
     // HAL_Delay(10);  // 短暂延迟，避免USB传输过快
-    if (mic.half_ready || mic.full_ready) {
-      char mic_msg[64];
-      int len = sprintf(mic_msg, "%ld\n", mic.audio_result);
-      CDC_Transmit_FS((uint8_t*)mic_msg, len);
-      mic.half_ready = 0;  // 清除标志
-      mic.full_ready = 0;
-  }
+
+      if (mic.full_ready)
+      {
+        char mic_msg[64];
+        int len = sprintf(mic_msg, "%ld\n", mic.audio_result_left);
+        CDC_Transmit_FS((uint8_t *)mic_msg, len);
+        mic.full_ready = 0;
+      }
+    
   }
 }

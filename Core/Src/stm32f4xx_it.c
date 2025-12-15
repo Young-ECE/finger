@@ -63,7 +63,7 @@ extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_spi1_rx;
 /* USER CODE BEGIN EV */
 extern I2S_HandleTypeDef hi2s1;
-extern uint32_t dma_buffer[16];  // I2S 24-bit mode: 32-bit DMA, 16 words
+extern uint32_t dma_buffer[MIC_BUFFER_SIZE]; 
 
 
 /* USER CODE END EV */
@@ -293,25 +293,37 @@ void OTG_FS_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-  if (hi2s == &hi2s1)
-  {
-    // static uint16_t cb_cnt = 0;
-    // cb_cnt++; // 回调次数计数
+  // if (hi2s == &hi2s1)
+  // {
+  //   // static uint16_t cb_cnt = 0;
+  //   // cb_cnt++; // 回调次数计数
 
-    uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
-    if (val & 0x800000)
-      mic.audio_result = val | 0xFF000000; // 符号扩展
-    else
-      mic.audio_result = val;
+  //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
+  //   if (val & 0x800000)
+  //     mic.audio_result = val | 0xFF000000; // 符号扩展
+  //   else
+  //     mic.audio_result = val;
 
-    mic.half_ready = 1;
-  }
+  //   mic.half_ready = 1;
+  // }
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-  if (hi2s == &hi2s1)
+  // if (hi2s == &hi2s1)
+  // {
+  //   int32_t raw_left = ((int32_t)dma_buffer[0] << 16) | dma_buffer[1];
+  //   int32_t raw_right = ((int32_t)dma_buffer[2] << 16) | dma_buffer[3];
+  //   mic.audio_result_left = raw_left >> 8;   // 右移8位得到24-bit数据
+  //   mic.audio_result_right = raw_right >> 8;
+  //   mic.full_ready = 1;
+  // }
+    if (hi2s == &hi2s1)
   {
+    int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
+    int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+    mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+    mic.audio_result_right = raw_right>>8 ;
     mic.full_ready = 1;
   }
 }

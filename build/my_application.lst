@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccDVtjCk.s 			page 1
+ARM GAS  /tmp/ccOAP3BY.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
   35              		.global	My_Application_Init
   36              		.arch armv7e-m
   37              		.syntax unified
-ARM GAS  /tmp/ccDVtjCk.s 			page 2
+ARM GAS  /tmp/ccOAP3BY.s 			page 2
 
 
   38              		.thumb
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
   49:Core/Src/my_application.c **** {
   50:Core/Src/my_application.c ****   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // Enable trace
   51:Core/Src/my_application.c ****   DWT->CYCCNT = 0;                                  // Reset counter
-ARM GAS  /tmp/ccDVtjCk.s 			page 3
+ARM GAS  /tmp/ccOAP3BY.s 			page 3
 
 
   52:Core/Src/my_application.c ****   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // Enable counter
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
   81 0022 2F46     		mov	r7, r5
   82 0024 284E     		ldr	r6, .L3+8
   83 0026 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
-ARM GAS  /tmp/ccDVtjCk.s 			page 4
+ARM GAS  /tmp/ccOAP3BY.s 			page 4
 
 
   84 0028 0FC7     		stmia	r7!, {r0, r1, r2, r3}
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  107:Core/Src/my_application.c ****   //   CDC_Transmit_FS((uint8_t*)msg, len);
  108:Core/Src/my_application.c ****   //   HAL_Delay(50);
  109:Core/Src/my_application.c ****   // }
-ARM GAS  /tmp/ccDVtjCk.s 			page 5
+ARM GAS  /tmp/ccOAP3BY.s 			page 5
 
 
  110:Core/Src/my_application.c **** 
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  146 0088 2846     		mov	r0, r5
  147 008a FFF7FEFF 		bl	CDC_Transmit_FS
  148              	.LVL12:
-ARM GAS  /tmp/ccDVtjCk.s 			page 6
+ARM GAS  /tmp/ccOAP3BY.s 			page 6
 
 
  119:Core/Src/my_application.c ****   HAL_Delay(100);
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  194              		.align	2
  195              	.LC5:
  196 0000 256C640A 		.ascii	"%ld\012\000"
-ARM GAS  /tmp/ccDVtjCk.s 			page 7
+ARM GAS  /tmp/ccOAP3BY.s 			page 7
 
 
  196      00
@@ -396,11 +396,10 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  146:Core/Src/my_application.c ****   // // 轮询索引（静态变量，每次循环递增）
  147:Core/Src/my_application.c ****   // static int bme_index = 0;
  148:Core/Src/my_application.c **** 
- 149:Core/Src/my_application.c ****   static char msg[512];
- 212              		.loc 1 149 3 view .LVU31
+ 149:Core/Src/my_application.c ****   // static char msg[512];
  150:Core/Src/my_application.c **** 
  151:Core/Src/my_application.c ****   while (1)
- 213              		.loc 1 151 3 view .LVU32
+ 212              		.loc 1 151 3 view .LVU31
  152:Core/Src/my_application.c ****   {
  153:Core/Src/my_application.c ****     // // === 1. 读取VCNL4040 (光线和接近传感器) ===
  154:Core/Src/my_application.c ****     // VCNL4040_ReadALS(&vcnl4040, &als);
@@ -418,10 +417,10 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  166:Core/Src/my_application.c ****     //   if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
  167:Core/Src/my_application.c ****     //     BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
  168:Core/Src/my_application.c ****     //   }
-ARM GAS  /tmp/ccDVtjCk.s 			page 8
-
-
  169:Core/Src/my_application.c ****     //   // I2C切换失败时保留旧值，不更新
+ARM GAS  /tmp/ccOAP3BY.s 			page 8
+
+
  170:Core/Src/my_application.c ****     // }
  171:Core/Src/my_application.c **** 
  172:Core/Src/my_application.c ****     // // 切换到下一个传感器（循环0-7）
@@ -445,147 +444,143 @@ ARM GAS  /tmp/ccDVtjCk.s 			page 1
  190:Core/Src/my_application.c **** 
  191:Core/Src/my_application.c ****     // CDC_Transmit_FS((uint8_t*)msg, len);
  192:Core/Src/my_application.c ****     // HAL_Delay(10);  // 短暂延迟，避免USB传输过快
- 193:Core/Src/my_application.c ****     if (mic.half_ready || mic.full_ready) {
- 214              		.loc 1 193 5 view .LVU33
- 215              		.loc 1 193 24 is_stmt 0 view .LVU34
- 216 0000 0B4B     		ldr	r3, .L11
- 217 0002 1B89     		ldrh	r3, [r3, #8]
- 218              		.loc 1 193 8 view .LVU35
- 219 0004 002B     		cmp	r3, #0
- 220 0006 FBD0     		beq	.L10
+ 193:Core/Src/my_application.c **** 
+ 194:Core/Src/my_application.c ****       if (mic.full_ready)
+ 213              		.loc 1 194 7 view .LVU32
+ 214              		.loc 1 194 14 is_stmt 0 view .LVU33
+ 215 0000 0B4B     		ldr	r3, .L11
+ 216 0002 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 217              		.loc 1 194 10 view .LVU34
+ 218 0004 002B     		cmp	r3, #0
+ 219 0006 FBD0     		beq	.L10
  135:Core/Src/my_application.c ****   // // 传感器数据变量
- 221              		.loc 1 135 1 view .LVU36
- 222 0008 10B5     		push	{r4, lr}
- 223              	.LCFI1:
- 224              		.cfi_def_cfa_offset 8
- 225              		.cfi_offset 4, -8
- 226              		.cfi_offset 14, -4
- 227 000a 90B0     		sub	sp, sp, #64
- 228              	.LCFI2:
- 229              		.cfi_def_cfa_offset 72
- 230              	.L9:
- 231              	.LBB2:
- 194:Core/Src/my_application.c ****       char mic_msg[64];
- 232              		.loc 1 194 7 is_stmt 1 view .LVU37
- 195:Core/Src/my_application.c ****       int len = sprintf(mic_msg, "%ld\n", mic.audio_result);
- 233              		.loc 1 195 7 view .LVU38
- 234              		.loc 1 195 17 is_stmt 0 view .LVU39
- 235 000c 084C     		ldr	r4, .L11
- 236 000e 6268     		ldr	r2, [r4, #4]
- 237 0010 0849     		ldr	r1, .L11+4
- 238 0012 6846     		mov	r0, sp
- 239 0014 FFF7FEFF 		bl	sprintf
- 240              	.LVL17:
- 196:Core/Src/my_application.c ****       CDC_Transmit_FS((uint8_t*)mic_msg, len);
- 241              		.loc 1 196 7 is_stmt 1 view .LVU40
-ARM GAS  /tmp/ccDVtjCk.s 			page 9
+ 220              		.loc 1 135 1 view .LVU35
+ 221 0008 10B5     		push	{r4, lr}
+ 222              	.LCFI1:
+ 223              		.cfi_def_cfa_offset 8
+ 224              		.cfi_offset 4, -8
+ 225              		.cfi_offset 14, -4
+ 226 000a 90B0     		sub	sp, sp, #64
+ 227              	.LCFI2:
+ 228              		.cfi_def_cfa_offset 72
+ 229              	.L9:
+ 230              	.LBB2:
+ 195:Core/Src/my_application.c ****       {
+ 196:Core/Src/my_application.c ****         char mic_msg[64];
+ 231              		.loc 1 196 9 is_stmt 1 view .LVU36
+ 197:Core/Src/my_application.c ****         int len = sprintf(mic_msg, "%ld\n", mic.audio_result_left);
+ 232              		.loc 1 197 9 view .LVU37
+ 233              		.loc 1 197 19 is_stmt 0 view .LVU38
+ 234 000c 084C     		ldr	r4, .L11
+ 235 000e 6268     		ldr	r2, [r4, #4]
+ 236 0010 0849     		ldr	r1, .L11+4
+ 237 0012 6846     		mov	r0, sp
+ 238 0014 FFF7FEFF 		bl	sprintf
+ 239              	.LVL17:
+ 198:Core/Src/my_application.c ****         CDC_Transmit_FS((uint8_t *)mic_msg, len);
+ARM GAS  /tmp/ccOAP3BY.s 			page 9
 
 
- 242 0018 81B2     		uxth	r1, r0
- 243 001a 6846     		mov	r0, sp
- 244              	.LVL18:
- 245              		.loc 1 196 7 is_stmt 0 view .LVU41
- 246 001c FFF7FEFF 		bl	CDC_Transmit_FS
- 247              	.LVL19:
- 197:Core/Src/my_application.c ****       mic.half_ready = 0;  // 清除标志
- 248              		.loc 1 197 7 is_stmt 1 view .LVU42
- 249              		.loc 1 197 22 is_stmt 0 view .LVU43
- 250 0020 0023     		movs	r3, #0
- 251 0022 2372     		strb	r3, [r4, #8]
- 198:Core/Src/my_application.c ****       mic.full_ready = 0;
- 252              		.loc 1 198 7 is_stmt 1 view .LVU44
- 253              		.loc 1 198 22 is_stmt 0 view .LVU45
- 254 0024 6372     		strb	r3, [r4, #9]
- 255              	.L6:
- 256              	.LBE2:
- 149:Core/Src/my_application.c **** 
- 257              		.loc 1 149 3 is_stmt 1 view .LVU46
+ 240              		.loc 1 198 9 is_stmt 1 view .LVU39
+ 241 0018 81B2     		uxth	r1, r0
+ 242 001a 6846     		mov	r0, sp
+ 243              	.LVL18:
+ 244              		.loc 1 198 9 is_stmt 0 view .LVU40
+ 245 001c FFF7FEFF 		bl	CDC_Transmit_FS
+ 246              	.LVL19:
+ 199:Core/Src/my_application.c ****         mic.full_ready = 0;
+ 247              		.loc 1 199 9 is_stmt 1 view .LVU41
+ 248              		.loc 1 199 24 is_stmt 0 view .LVU42
+ 249 0020 0023     		movs	r3, #0
+ 250 0022 6373     		strb	r3, [r4, #13]
+ 251              	.L6:
+ 252              	.LBE2:
  151:Core/Src/my_application.c ****   {
- 258              		.loc 1 151 3 view .LVU47
- 193:Core/Src/my_application.c ****       char mic_msg[64];
- 259              		.loc 1 193 5 view .LVU48
- 193:Core/Src/my_application.c ****       char mic_msg[64];
- 260              		.loc 1 193 24 is_stmt 0 view .LVU49
- 261 0026 024B     		ldr	r3, .L11
- 262 0028 1B89     		ldrh	r3, [r3, #8]
- 193:Core/Src/my_application.c ****       char mic_msg[64];
- 263              		.loc 1 193 8 view .LVU50
- 264 002a 002B     		cmp	r3, #0
- 265 002c FBD0     		beq	.L6
- 266 002e EDE7     		b	.L9
- 267              	.L12:
- 268              		.align	2
- 269              	.L11:
- 270 0030 00000000 		.word	mic
- 271 0034 00000000 		.word	.LC5
- 272              		.cfi_endproc
- 273              	.LFE140:
- 275              		.comm	mic,12,4
- 276              		.comm	icm42688,16,4
- 277              		.comm	vcnl4040,8,4
- 278              		.section	.bss.msg.10734,"aw",%nobits
- 279              		.align	2
- 280              		.set	.LANCHOR0,. + 0
- 283              	msg.10734:
- 284 0000 00000000 		.space	128
- 284      00000000 
- 284      00000000 
- 284      00000000 
- 284      00000000 
- 285              		.text
- 286              	.Letext0:
- 287              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
- 288              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
- 289              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 290              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
-ARM GAS  /tmp/ccDVtjCk.s 			page 10
+ 253              		.loc 1 151 3 is_stmt 1 view .LVU43
+ 194:Core/Src/my_application.c ****       {
+ 254              		.loc 1 194 7 view .LVU44
+ 194:Core/Src/my_application.c ****       {
+ 255              		.loc 1 194 14 is_stmt 0 view .LVU45
+ 256 0024 024B     		ldr	r3, .L11
+ 257 0026 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 194:Core/Src/my_application.c ****       {
+ 258              		.loc 1 194 10 view .LVU46
+ 259 0028 002B     		cmp	r3, #0
+ 260 002a FBD0     		beq	.L6
+ 261 002c EEE7     		b	.L9
+ 262              	.L12:
+ 263 002e 00BF     		.align	2
+ 264              	.L11:
+ 265 0030 00000000 		.word	mic
+ 266 0034 00000000 		.word	.LC5
+ 267              		.cfi_endproc
+ 268              	.LFE140:
+ 270              		.comm	mic,16,4
+ 271              		.comm	icm42688,16,4
+ 272              		.comm	vcnl4040,8,4
+ 273              		.section	.bss.msg.10735,"aw",%nobits
+ 274              		.align	2
+ 275              		.set	.LANCHOR0,. + 0
+ 278              	msg.10735:
+ 279 0000 00000000 		.space	128
+ 279      00000000 
+ 279      00000000 
+ 279      00000000 
+ 279      00000000 
+ 280              		.text
+ 281              	.Letext0:
+ 282              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 283              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 284              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 285              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 286              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 287              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 288              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 289              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 290              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ARM GAS  /tmp/ccOAP3BY.s 			page 10
 
 
- 291              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 292              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 293              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 294              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
- 295              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
- 296              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 297              		.file 12 "Core/Inc/vcnl4040_sensor.h"
- 298              		.file 13 "Core/Inc/icm42688_sensor.h"
- 299              		.file 14 "Core/Inc/microphone_sensor.h"
- 300              		.file 15 "Core/Inc/my_application.h"
- 301              		.file 16 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
- 302              		.file 17 "/usr/include/newlib/sys/_types.h"
- 303              		.file 18 "/usr/include/newlib/sys/reent.h"
- 304              		.file 19 "/usr/include/newlib/sys/lock.h"
- 305              		.file 20 "/usr/include/newlib/stdlib.h"
- 306              		.file 21 "Core/Inc/i2c.h"
- 307              		.file 22 "Core/Inc/i2s.h"
- 308              		.file 23 "Core/Inc/usart.h"
- 309              		.file 24 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 310              		.file 25 "Core/Inc/humidity_temp_sensor.h"
- 311              		.file 26 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
- 312              		.file 27 "USB_DEVICE/App/usbd_cdc_if.h"
- 313              		.file 28 "Core/Inc/i2c_error_handler.h"
- 314              		.file 29 "Core/Inc/i2c_dma_manager.h"
- 315              		.file 30 "/usr/include/newlib/stdio.h"
- 316              		.file 31 "/usr/include/newlib/string.h"
- 317              		.file 32 "Core/Inc/methods.h"
-ARM GAS  /tmp/ccDVtjCk.s 			page 11
+ 291              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 292              		.file 12 "Core/Inc/vcnl4040_sensor.h"
+ 293              		.file 13 "Core/Inc/icm42688_sensor.h"
+ 294              		.file 14 "Core/Inc/microphone_sensor.h"
+ 295              		.file 15 "Core/Inc/my_application.h"
+ 296              		.file 16 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 297              		.file 17 "/usr/include/newlib/sys/_types.h"
+ 298              		.file 18 "/usr/include/newlib/sys/reent.h"
+ 299              		.file 19 "/usr/include/newlib/sys/lock.h"
+ 300              		.file 20 "/usr/include/newlib/stdlib.h"
+ 301              		.file 21 "Core/Inc/i2c.h"
+ 302              		.file 22 "Core/Inc/i2s.h"
+ 303              		.file 23 "Core/Inc/usart.h"
+ 304              		.file 24 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 305              		.file 25 "Core/Inc/humidity_temp_sensor.h"
+ 306              		.file 26 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
+ 307              		.file 27 "USB_DEVICE/App/usbd_cdc_if.h"
+ 308              		.file 28 "Core/Inc/i2c_error_handler.h"
+ 309              		.file 29 "Core/Inc/i2c_dma_manager.h"
+ 310              		.file 30 "/usr/include/newlib/stdio.h"
+ 311              		.file 31 "/usr/include/newlib/string.h"
+ 312              		.file 32 "Core/Inc/methods.h"
+ARM GAS  /tmp/ccOAP3BY.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 my_application.c
-     /tmp/ccDVtjCk.s:18     .rodata.My_Application_Init.str1.4:0000000000000000 $d
-     /tmp/ccDVtjCk.s:34     .text.My_Application_Init:0000000000000000 $t
-     /tmp/ccDVtjCk.s:42     .text.My_Application_Init:0000000000000000 My_Application_Init
-     /tmp/ccDVtjCk.s:182    .text.My_Application_Init:00000000000000c0 $d
-                            *COM*:000000000000000c mic
-     /tmp/ccDVtjCk.s:194    .rodata.My_Application_Run.str1.4:0000000000000000 $d
-     /tmp/ccDVtjCk.s:198    .text.My_Application_Run:0000000000000000 $t
-     /tmp/ccDVtjCk.s:205    .text.My_Application_Run:0000000000000000 My_Application_Run
-     /tmp/ccDVtjCk.s:270    .text.My_Application_Run:0000000000000030 $d
+     /tmp/ccOAP3BY.s:18     .rodata.My_Application_Init.str1.4:0000000000000000 $d
+     /tmp/ccOAP3BY.s:34     .text.My_Application_Init:0000000000000000 $t
+     /tmp/ccOAP3BY.s:42     .text.My_Application_Init:0000000000000000 My_Application_Init
+     /tmp/ccOAP3BY.s:182    .text.My_Application_Init:00000000000000c0 $d
+                            *COM*:0000000000000010 mic
+     /tmp/ccOAP3BY.s:194    .rodata.My_Application_Run.str1.4:0000000000000000 $d
+     /tmp/ccOAP3BY.s:198    .text.My_Application_Run:0000000000000000 $t
+     /tmp/ccOAP3BY.s:205    .text.My_Application_Run:0000000000000000 My_Application_Run
+     /tmp/ccOAP3BY.s:265    .text.My_Application_Run:0000000000000030 $d
                             *COM*:0000000000000010 icm42688
                             *COM*:0000000000000008 vcnl4040
-     /tmp/ccDVtjCk.s:279    .bss.msg.10734:0000000000000000 $d
-     /tmp/ccDVtjCk.s:283    .bss.msg.10734:0000000000000000 msg.10734
+     /tmp/ccOAP3BY.s:274    .bss.msg.10735:0000000000000000 $d
+     /tmp/ccOAP3BY.s:278    .bss.msg.10735:0000000000000000 msg.10735
 
 UNDEFINED SYMBOLS
 strlen

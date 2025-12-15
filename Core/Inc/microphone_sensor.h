@@ -18,12 +18,12 @@ extern "C" {
 #endif
 
 #define MIC_BUFFER_SIZE 4   // DMA 缓冲长度
-#define MIC_SAMPLE_COUNT (MIC_BUFFER_SIZE / 2)
 
 typedef struct
 {
     I2S_HandleTypeDef *hi2s;              // I2S句柄
-    int32_t audio_result;
+    int32_t audio_result_left;
+    int32_t audio_result_right;
     uint8_t   half_ready;               // 半缓冲就绪标志
     uint8_t   full_ready;               // 全缓冲就绪标志
 } MIC_HandleTypeDef;

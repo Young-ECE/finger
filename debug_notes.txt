@@ -9,7 +9,7 @@ launch.json
 
 调试策略：Task + Attach
 OpenOCD 启动任务 (tasks.json):
-定义一个 shell 任务，执行验证成功的 OpenOCD 启动命令openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f4x.cfg（）。
+定义一个 shell 任务，执行验证成功的 OpenOCD 启动命令  openocd -s /usr/share/openocd/scripts -f interface/stlink-v2.cfg -f target/stm32f4x.cfg。
 设置 "isBackground": true，确保 OpenOCD 作为一个持久服务在后台运行。
 添加 sleep 1.5 任务，在 OpenOCD 启动后提供缓冲时间，确保硬件链路完全稳定，消除时序错误。
 GDB 连接配置 (launch.json):

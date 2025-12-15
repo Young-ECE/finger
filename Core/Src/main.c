@@ -113,6 +113,7 @@ int main(void)
   // Run main sensor loop (never returns)
   My_Application_Run();
 
+
   /* USER CODE END 3 */
 }
 

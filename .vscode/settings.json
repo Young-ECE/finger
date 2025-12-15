@@ -1,17 +1,17 @@
 {
   // Cortex-Debug 配置
-  "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
-  "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
-  "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
+    "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
+    "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
+    "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
   "cortex-debug.variableUseNaturalFormat": false,
   
   // Python 配置
-  "idf.pythonInstallPath": "/usr/bin/python3",
+    "idf.pythonInstallPath": "/usr/bin/python3",
   "python.terminal.activateEnvironment": false,
   "python.autoComplete.extraPaths": [],
   
   // 文件关联
-  "files.associations": {
+    "files.associations": {
     "*.h": "c",
     "stm32f4xx*.h": "c",
     "usbd_*.h": "c"
@@ -50,5 +50,5 @@
   "search.exclude": {
     "**/build": true,
     "**/build/**": true
-  }
+    }
 }
