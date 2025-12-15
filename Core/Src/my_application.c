@@ -108,19 +108,19 @@ void My_Application_Init(void)
   //   HAL_Delay(50);
   // }
 
-  // // Step 4: 初始化麦克风（I2S）
-  // strcpy(msg, "INIT:MICROPHONE...\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
-  // MIC_Init(&mic, &hi2s1);
-  // MIC_Start(&mic);
-  // strcpy(msg, "INIT:MICROPHONE OK\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
+  // Step 4: 初始化麦克风（I2S）
+  strcpy(msg, "INIT:MICROPHONE...\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+  MIC_Init(&mic, &hi2s1);
+  MIC_Start(&mic);
+  strcpy(msg, "INIT:MICROPHONE OK\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
 
-  // strcpy(msg, "========== ALL SENSORS READY ==========\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(500);
+  strcpy(msg, "========== ALL SENSORS READY ==========\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(500);
 
 #ifdef ENABLE_PROFILING
   DWT_Init();  // Enable cycle counter for performance profiling
@@ -156,7 +156,7 @@ void My_Application_Run(void)
 
     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
     // ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
-    int len = sprintf(msg, "%u, %u\n", als, ps);
+    int len = sprintf(msg, "%u, %u,%ld\n", als, ps, mic.audio_result_left);
     CDC_Transmit_FS((uint8_t*)msg, len);
 
     // // === 3. 轮询读取单个BME280 (温湿度和气压) ===
