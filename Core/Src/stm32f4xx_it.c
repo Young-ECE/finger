@@ -208,31 +208,33 @@ void SysTick_Handler(void)
 
 /**
   * @brief This function handles DMA1 stream0 global interrupt.
+  * @note  I2C DMA已移除，使用轮询模式
   */
-void DMA1_Stream0_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
-  /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
-  /* USER CODE END DMA1_Stream0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
-  /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
-
-  /* USER CODE END DMA1_Stream0_IRQn 1 */
-}
+// void DMA1_Stream0_IRQHandler(void)
+// {
+//   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+//   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
+//   /* USER CODE END DMA1_Stream0_IRQn 0 */
+//   HAL_DMA_IRQHandler(&hdma_i2c1_rx);
+//   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+//
+//   /* USER CODE END DMA1_Stream0_IRQn 1 */
+// }
 
 /**
   * @brief This function handles DMA1 stream6 global interrupt.
+  * @note  I2C DMA已移除，使用轮询模式
   */
-void DMA1_Stream6_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
-  /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
-  /* USER CODE END DMA1_Stream6_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
-  /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
-
-  /* USER CODE END DMA1_Stream6_IRQn 1 */
-}
+// void DMA1_Stream6_IRQHandler(void)
+// {
+//   /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
+//   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
+//   /* USER CODE END DMA1_Stream6_IRQn 0 */
+//   HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+//   /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+//
+//   /* USER CODE END DMA1_Stream6_IRQn 1 */
+// }
 
 /**
   * @brief This function handles I2C1 event interrupt.

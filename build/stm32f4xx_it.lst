@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccrlPRV4.s 			page 1
+ARM GAS  /tmp/ccX8YOo2.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
   28:Core/Src/stm32f4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
   29:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN TD */
   30:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccrlPRV4.s 			page 2
+ARM GAS  /tmp/ccX8YOo2.s 			page 2
 
 
   31:Core/Src/stm32f4xx_it.c **** /* USER CODE END TD */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
   35              	.L2:
   79:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
   80:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccrlPRV4.s 			page 3
+ARM GAS  /tmp/ccX8YOo2.s 			page 3
 
 
   81:Core/Src/stm32f4xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 0 */
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
   70              		.syntax unified
   71              		.thumb
   72              		.thumb_func
-ARM GAS  /tmp/ccrlPRV4.s 			page 4
+ARM GAS  /tmp/ccX8YOo2.s 			page 4
 
 
   73              		.fpu fpv4-sp-d16
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  107              	.L8:
  124:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN BusFault_IRQn 0 */
  125:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccrlPRV4.s 			page 5
+ARM GAS  /tmp/ccX8YOo2.s 			page 5
 
 
  126:Core/Src/stm32f4xx_it.c ****   /* USER CODE END BusFault_IRQn 0 */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  142              		.syntax unified
  143              		.thumb
  144              		.thumb_func
-ARM GAS  /tmp/ccrlPRV4.s 			page 6
+ARM GAS  /tmp/ccX8YOo2.s 			page 6
 
 
  145              		.fpu fpv4-sp-d16
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  175 0000 7047     		bx	lr
  176              		.cfi_endproc
  177              	.LFE140:
-ARM GAS  /tmp/ccrlPRV4.s 			page 7
+ARM GAS  /tmp/ccX8YOo2.s 			page 7
 
 
  179              		.section	.text.PendSV_Handler,"ax",%progbits
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  217              		.cfi_offset 14, -4
  193:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN SysTick_IRQn 0 */
  194:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccrlPRV4.s 			page 8
+ARM GAS  /tmp/ccX8YOo2.s 			page 8
 
 
  195:Core/Src/stm32f4xx_it.c ****   /* USER CODE END SysTick_IRQn 0 */
@@ -434,14 +434,14 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  222 0006 08BD     		pop	{r3, pc}
  223              		.cfi_endproc
  224              	.LFE142:
- 226              		.section	.text.DMA1_Stream0_IRQHandler,"ax",%progbits
+ 226              		.section	.text.I2C1_EV_IRQHandler,"ax",%progbits
  227              		.align	1
- 228              		.global	DMA1_Stream0_IRQHandler
+ 228              		.global	I2C1_EV_IRQHandler
  229              		.syntax unified
  230              		.thumb
  231              		.thumb_func
  232              		.fpu fpv4-sp-d16
- 234              	DMA1_Stream0_IRQHandler:
+ 234              	I2C1_EV_IRQHandler:
  235              	.LFB143:
  201:Core/Src/stm32f4xx_it.c **** 
  202:Core/Src/stm32f4xx_it.c **** /******************************************************************************/
@@ -453,10 +453,43 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  208:Core/Src/stm32f4xx_it.c **** 
  209:Core/Src/stm32f4xx_it.c **** /**
  210:Core/Src/stm32f4xx_it.c ****   * @brief This function handles DMA1 stream0 global interrupt.
- 211:Core/Src/stm32f4xx_it.c ****   */
- 212:Core/Src/stm32f4xx_it.c **** void DMA1_Stream0_IRQHandler(void)
- 213:Core/Src/stm32f4xx_it.c **** {
- 236              		.loc 1 213 1 is_stmt 1 view -0
+ 211:Core/Src/stm32f4xx_it.c ****   * @note  I2C DMA已移除，使用轮询模式
+ 212:Core/Src/stm32f4xx_it.c ****   */
+ 213:Core/Src/stm32f4xx_it.c **** // void DMA1_Stream0_IRQHandler(void)
+ 214:Core/Src/stm32f4xx_it.c **** // {
+ 215:Core/Src/stm32f4xx_it.c **** //   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+ 216:Core/Src/stm32f4xx_it.c **** //   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
+ 217:Core/Src/stm32f4xx_it.c **** //   /* USER CODE END DMA1_Stream0_IRQn 0 */
+ 218:Core/Src/stm32f4xx_it.c **** //   HAL_DMA_IRQHandler(&hdma_i2c1_rx);
+ 219:Core/Src/stm32f4xx_it.c **** //   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+ 220:Core/Src/stm32f4xx_it.c **** //
+ 221:Core/Src/stm32f4xx_it.c **** //   /* USER CODE END DMA1_Stream0_IRQn 1 */
+ 222:Core/Src/stm32f4xx_it.c **** // }
+ 223:Core/Src/stm32f4xx_it.c **** 
+ 224:Core/Src/stm32f4xx_it.c **** /**
+ 225:Core/Src/stm32f4xx_it.c ****   * @brief This function handles DMA1 stream6 global interrupt.
+ 226:Core/Src/stm32f4xx_it.c ****   * @note  I2C DMA已移除，使用轮询模式
+ 227:Core/Src/stm32f4xx_it.c ****   */
+ 228:Core/Src/stm32f4xx_it.c **** // void DMA1_Stream6_IRQHandler(void)
+ 229:Core/Src/stm32f4xx_it.c **** // {
+ 230:Core/Src/stm32f4xx_it.c **** //   /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
+ 231:Core/Src/stm32f4xx_it.c **** //   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
+ 232:Core/Src/stm32f4xx_it.c **** //   /* USER CODE END DMA1_Stream6_IRQn 0 */
+ 233:Core/Src/stm32f4xx_it.c **** //   HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+ 234:Core/Src/stm32f4xx_it.c **** //   /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
+ 235:Core/Src/stm32f4xx_it.c **** //
+ARM GAS  /tmp/ccX8YOo2.s 			page 9
+
+
+ 236:Core/Src/stm32f4xx_it.c **** //   /* USER CODE END DMA1_Stream6_IRQn 1 */
+ 237:Core/Src/stm32f4xx_it.c **** // }
+ 238:Core/Src/stm32f4xx_it.c **** 
+ 239:Core/Src/stm32f4xx_it.c **** /**
+ 240:Core/Src/stm32f4xx_it.c ****   * @brief This function handles I2C1 event interrupt.
+ 241:Core/Src/stm32f4xx_it.c ****   */
+ 242:Core/Src/stm32f4xx_it.c **** void I2C1_EV_IRQHandler(void)
+ 243:Core/Src/stm32f4xx_it.c **** {
+ 236              		.loc 1 243 1 is_stmt 1 view -0
  237              		.cfi_startproc
  238              		@ args = 0, pretend = 0, frame = 0
  239              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -465,92 +498,89 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  242              		.cfi_def_cfa_offset 8
  243              		.cfi_offset 3, -8
  244              		.cfi_offset 14, -4
- 214:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
- 215:Core/Src/stm32f4xx_it.c ****   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
- 216:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA1_Stream0_IRQn 0 */
- 217:Core/Src/stm32f4xx_it.c ****   HAL_DMA_IRQHandler(&hdma_i2c1_rx);
- 245              		.loc 1 217 3 view .LVU30
+ 244:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+ 245:Core/Src/stm32f4xx_it.c **** 
+ 246:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_EV_IRQn 0 */
+ 247:Core/Src/stm32f4xx_it.c ****   HAL_I2C_EV_IRQHandler(&hi2c1);
+ 245              		.loc 1 247 3 view .LVU30
  246 0002 0248     		ldr	r0, .L18
- 247 0004 FFF7FEFF 		bl	HAL_DMA_IRQHandler
+ 247 0004 FFF7FEFF 		bl	HAL_I2C_EV_IRQHandler
  248              	.LVL1:
- 218:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
- 219:Core/Src/stm32f4xx_it.c **** 
- 220:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA1_Stream0_IRQn 1 */
- 221:Core/Src/stm32f4xx_it.c **** }
- 249              		.loc 1 221 1 is_stmt 0 view .LVU31
-ARM GAS  /tmp/ccrlPRV4.s 			page 9
-
-
+ 248:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+ 249:Core/Src/stm32f4xx_it.c **** 
+ 250:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_EV_IRQn 1 */
+ 251:Core/Src/stm32f4xx_it.c **** }
+ 249              		.loc 1 251 1 is_stmt 0 view .LVU31
  250 0008 08BD     		pop	{r3, pc}
  251              	.L19:
  252 000a 00BF     		.align	2
  253              	.L18:
- 254 000c 00000000 		.word	hdma_i2c1_rx
+ 254 000c 00000000 		.word	hi2c1
  255              		.cfi_endproc
  256              	.LFE143:
- 258              		.section	.text.DMA1_Stream6_IRQHandler,"ax",%progbits
+ 258              		.section	.text.I2C1_ER_IRQHandler,"ax",%progbits
  259              		.align	1
- 260              		.global	DMA1_Stream6_IRQHandler
+ 260              		.global	I2C1_ER_IRQHandler
  261              		.syntax unified
  262              		.thumb
  263              		.thumb_func
  264              		.fpu fpv4-sp-d16
- 266              	DMA1_Stream6_IRQHandler:
+ 266              	I2C1_ER_IRQHandler:
  267              	.LFB144:
- 222:Core/Src/stm32f4xx_it.c **** 
- 223:Core/Src/stm32f4xx_it.c **** /**
- 224:Core/Src/stm32f4xx_it.c ****   * @brief This function handles DMA1 stream6 global interrupt.
- 225:Core/Src/stm32f4xx_it.c ****   */
- 226:Core/Src/stm32f4xx_it.c **** void DMA1_Stream6_IRQHandler(void)
- 227:Core/Src/stm32f4xx_it.c **** {
- 268              		.loc 1 227 1 is_stmt 1 view -0
+ 252:Core/Src/stm32f4xx_it.c **** 
+ 253:Core/Src/stm32f4xx_it.c **** /**
+ 254:Core/Src/stm32f4xx_it.c ****   * @brief This function handles I2C1 error interrupt.
+ 255:Core/Src/stm32f4xx_it.c ****   */
+ 256:Core/Src/stm32f4xx_it.c **** void I2C1_ER_IRQHandler(void)
+ 257:Core/Src/stm32f4xx_it.c **** {
+ 268              		.loc 1 257 1 is_stmt 1 view -0
  269              		.cfi_startproc
  270              		@ args = 0, pretend = 0, frame = 0
  271              		@ frame_needed = 0, uses_anonymous_args = 0
  272 0000 08B5     		push	{r3, lr}
+ARM GAS  /tmp/ccX8YOo2.s 			page 10
+
+
  273              	.LCFI2:
  274              		.cfi_def_cfa_offset 8
  275              		.cfi_offset 3, -8
  276              		.cfi_offset 14, -4
- 228:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
- 229:Core/Src/stm32f4xx_it.c ****   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
- 230:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA1_Stream6_IRQn 0 */
- 231:Core/Src/stm32f4xx_it.c ****   HAL_DMA_IRQHandler(&hdma_i2c1_tx);
- 277              		.loc 1 231 3 view .LVU33
+ 258:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_ER_IRQn 0 */
+ 259:Core/Src/stm32f4xx_it.c **** 
+ 260:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_ER_IRQn 0 */
+ 261:Core/Src/stm32f4xx_it.c ****   HAL_I2C_ER_IRQHandler(&hi2c1);
+ 277              		.loc 1 261 3 view .LVU33
  278 0002 0248     		ldr	r0, .L22
- 279 0004 FFF7FEFF 		bl	HAL_DMA_IRQHandler
+ 279 0004 FFF7FEFF 		bl	HAL_I2C_ER_IRQHandler
  280              	.LVL2:
- 232:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
- 233:Core/Src/stm32f4xx_it.c **** 
- 234:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA1_Stream6_IRQn 1 */
- 235:Core/Src/stm32f4xx_it.c **** }
- 281              		.loc 1 235 1 is_stmt 0 view .LVU34
+ 262:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_ER_IRQn 1 */
+ 263:Core/Src/stm32f4xx_it.c **** 
+ 264:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_ER_IRQn 1 */
+ 265:Core/Src/stm32f4xx_it.c **** }
+ 281              		.loc 1 265 1 is_stmt 0 view .LVU34
  282 0008 08BD     		pop	{r3, pc}
  283              	.L23:
  284 000a 00BF     		.align	2
  285              	.L22:
- 286 000c 00000000 		.word	hdma_i2c1_tx
+ 286 000c 00000000 		.word	hi2c1
  287              		.cfi_endproc
  288              	.LFE144:
- 290              		.section	.text.I2C1_EV_IRQHandler,"ax",%progbits
+ 290              		.section	.text.DMA2_Stream0_IRQHandler,"ax",%progbits
  291              		.align	1
- 292              		.global	I2C1_EV_IRQHandler
+ 292              		.global	DMA2_Stream0_IRQHandler
  293              		.syntax unified
  294              		.thumb
  295              		.thumb_func
-ARM GAS  /tmp/ccrlPRV4.s 			page 10
-
-
  296              		.fpu fpv4-sp-d16
- 298              	I2C1_EV_IRQHandler:
+ 298              	DMA2_Stream0_IRQHandler:
  299              	.LFB145:
- 236:Core/Src/stm32f4xx_it.c **** 
- 237:Core/Src/stm32f4xx_it.c **** /**
- 238:Core/Src/stm32f4xx_it.c ****   * @brief This function handles I2C1 event interrupt.
- 239:Core/Src/stm32f4xx_it.c ****   */
- 240:Core/Src/stm32f4xx_it.c **** void I2C1_EV_IRQHandler(void)
- 241:Core/Src/stm32f4xx_it.c **** {
- 300              		.loc 1 241 1 is_stmt 1 view -0
+ 266:Core/Src/stm32f4xx_it.c **** 
+ 267:Core/Src/stm32f4xx_it.c **** /**
+ 268:Core/Src/stm32f4xx_it.c ****   * @brief This function handles DMA2 stream0 global interrupt.
+ 269:Core/Src/stm32f4xx_it.c ****   */
+ 270:Core/Src/stm32f4xx_it.c **** void DMA2_Stream0_IRQHandler(void)
+ 271:Core/Src/stm32f4xx_it.c **** {
+ 300              		.loc 1 271 1 is_stmt 1 view -0
  301              		.cfi_startproc
  302              		@ args = 0, pretend = 0, frame = 0
  303              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -559,400 +589,298 @@ ARM GAS  /tmp/ccrlPRV4.s 			page 1
  306              		.cfi_def_cfa_offset 8
  307              		.cfi_offset 3, -8
  308              		.cfi_offset 14, -4
- 242:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_EV_IRQn 0 */
- 243:Core/Src/stm32f4xx_it.c **** 
- 244:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_EV_IRQn 0 */
- 245:Core/Src/stm32f4xx_it.c ****   HAL_I2C_EV_IRQHandler(&hi2c1);
- 309              		.loc 1 245 3 view .LVU36
+ 272:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
+ 273:Core/Src/stm32f4xx_it.c **** 
+ 274:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA2_Stream0_IRQn 0 */
+ 275:Core/Src/stm32f4xx_it.c ****   HAL_DMA_IRQHandler(&hdma_spi1_rx);
+ 309              		.loc 1 275 3 view .LVU36
  310 0002 0248     		ldr	r0, .L26
- 311 0004 FFF7FEFF 		bl	HAL_I2C_EV_IRQHandler
+ 311 0004 FFF7FEFF 		bl	HAL_DMA_IRQHandler
  312              	.LVL3:
- 246:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_EV_IRQn 1 */
- 247:Core/Src/stm32f4xx_it.c **** 
- 248:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_EV_IRQn 1 */
- 249:Core/Src/stm32f4xx_it.c **** }
- 313              		.loc 1 249 1 is_stmt 0 view .LVU37
+ 276:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
+ARM GAS  /tmp/ccX8YOo2.s 			page 11
+
+
+ 277:Core/Src/stm32f4xx_it.c **** 
+ 278:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA2_Stream0_IRQn 1 */
+ 279:Core/Src/stm32f4xx_it.c **** }
+ 313              		.loc 1 279 1 is_stmt 0 view .LVU37
  314 0008 08BD     		pop	{r3, pc}
  315              	.L27:
  316 000a 00BF     		.align	2
  317              	.L26:
- 318 000c 00000000 		.word	hi2c1
+ 318 000c 00000000 		.word	hdma_spi1_rx
  319              		.cfi_endproc
  320              	.LFE145:
- 322              		.section	.text.I2C1_ER_IRQHandler,"ax",%progbits
+ 322              		.section	.text.OTG_FS_IRQHandler,"ax",%progbits
  323              		.align	1
- 324              		.global	I2C1_ER_IRQHandler
+ 324              		.global	OTG_FS_IRQHandler
  325              		.syntax unified
  326              		.thumb
  327              		.thumb_func
  328              		.fpu fpv4-sp-d16
- 330              	I2C1_ER_IRQHandler:
+ 330              	OTG_FS_IRQHandler:
  331              	.LFB146:
- 250:Core/Src/stm32f4xx_it.c **** 
- 251:Core/Src/stm32f4xx_it.c **** /**
- 252:Core/Src/stm32f4xx_it.c ****   * @brief This function handles I2C1 error interrupt.
- 253:Core/Src/stm32f4xx_it.c ****   */
- 254:Core/Src/stm32f4xx_it.c **** void I2C1_ER_IRQHandler(void)
- 255:Core/Src/stm32f4xx_it.c **** {
- 332              		.loc 1 255 1 is_stmt 1 view -0
+ 280:Core/Src/stm32f4xx_it.c **** 
+ 281:Core/Src/stm32f4xx_it.c **** /**
+ 282:Core/Src/stm32f4xx_it.c ****   * @brief This function handles USB On The Go FS global interrupt.
+ 283:Core/Src/stm32f4xx_it.c ****   */
+ 284:Core/Src/stm32f4xx_it.c **** void OTG_FS_IRQHandler(void)
+ 285:Core/Src/stm32f4xx_it.c **** {
+ 332              		.loc 1 285 1 is_stmt 1 view -0
  333              		.cfi_startproc
  334              		@ args = 0, pretend = 0, frame = 0
  335              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccrlPRV4.s 			page 11
-
-
  336 0000 08B5     		push	{r3, lr}
  337              	.LCFI4:
  338              		.cfi_def_cfa_offset 8
  339              		.cfi_offset 3, -8
  340              		.cfi_offset 14, -4
- 256:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_ER_IRQn 0 */
- 257:Core/Src/stm32f4xx_it.c **** 
- 258:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_ER_IRQn 0 */
- 259:Core/Src/stm32f4xx_it.c ****   HAL_I2C_ER_IRQHandler(&hi2c1);
- 341              		.loc 1 259 3 view .LVU39
+ 286:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN OTG_FS_IRQn 0 */
+ 287:Core/Src/stm32f4xx_it.c **** 
+ 288:Core/Src/stm32f4xx_it.c ****   /* USER CODE END OTG_FS_IRQn 0 */
+ 289:Core/Src/stm32f4xx_it.c ****   HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
+ 341              		.loc 1 289 3 view .LVU39
  342 0002 0248     		ldr	r0, .L30
- 343 0004 FFF7FEFF 		bl	HAL_I2C_ER_IRQHandler
+ 343 0004 FFF7FEFF 		bl	HAL_PCD_IRQHandler
  344              	.LVL4:
- 260:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN I2C1_ER_IRQn 1 */
- 261:Core/Src/stm32f4xx_it.c **** 
- 262:Core/Src/stm32f4xx_it.c ****   /* USER CODE END I2C1_ER_IRQn 1 */
- 263:Core/Src/stm32f4xx_it.c **** }
- 345              		.loc 1 263 1 is_stmt 0 view .LVU40
+ 290:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN OTG_FS_IRQn 1 */
+ 291:Core/Src/stm32f4xx_it.c **** 
+ 292:Core/Src/stm32f4xx_it.c ****   /* USER CODE END OTG_FS_IRQn 1 */
+ 293:Core/Src/stm32f4xx_it.c **** }
+ 345              		.loc 1 293 1 is_stmt 0 view .LVU40
  346 0008 08BD     		pop	{r3, pc}
  347              	.L31:
  348 000a 00BF     		.align	2
  349              	.L30:
- 350 000c 00000000 		.word	hi2c1
+ 350 000c 00000000 		.word	hpcd_USB_OTG_FS
  351              		.cfi_endproc
  352              	.LFE146:
- 354              		.section	.text.DMA2_Stream0_IRQHandler,"ax",%progbits
+ 354              		.section	.text.HAL_I2S_RxHalfCpltCallback,"ax",%progbits
  355              		.align	1
- 356              		.global	DMA2_Stream0_IRQHandler
+ARM GAS  /tmp/ccX8YOo2.s 			page 12
+
+
+ 356              		.global	HAL_I2S_RxHalfCpltCallback
  357              		.syntax unified
  358              		.thumb
  359              		.thumb_func
  360              		.fpu fpv4-sp-d16
- 362              	DMA2_Stream0_IRQHandler:
- 363              	.LFB147:
- 264:Core/Src/stm32f4xx_it.c **** 
- 265:Core/Src/stm32f4xx_it.c **** /**
- 266:Core/Src/stm32f4xx_it.c ****   * @brief This function handles DMA2 stream0 global interrupt.
- 267:Core/Src/stm32f4xx_it.c ****   */
- 268:Core/Src/stm32f4xx_it.c **** void DMA2_Stream0_IRQHandler(void)
- 269:Core/Src/stm32f4xx_it.c **** {
- 364              		.loc 1 269 1 is_stmt 1 view -0
- 365              		.cfi_startproc
- 366              		@ args = 0, pretend = 0, frame = 0
- 367              		@ frame_needed = 0, uses_anonymous_args = 0
- 368 0000 08B5     		push	{r3, lr}
- 369              	.LCFI5:
- 370              		.cfi_def_cfa_offset 8
- 371              		.cfi_offset 3, -8
- 372              		.cfi_offset 14, -4
- 270:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
- 271:Core/Src/stm32f4xx_it.c **** 
- 272:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA2_Stream0_IRQn 0 */
- 273:Core/Src/stm32f4xx_it.c ****   HAL_DMA_IRQHandler(&hdma_spi1_rx);
- 373              		.loc 1 273 3 view .LVU42
- 374 0002 0248     		ldr	r0, .L34
- 375 0004 FFF7FEFF 		bl	HAL_DMA_IRQHandler
- 376              	.LVL5:
-ARM GAS  /tmp/ccrlPRV4.s 			page 12
+ 362              	HAL_I2S_RxHalfCpltCallback:
+ 363              	.LVL5:
+ 364              	.LFB147:
+ 294:Core/Src/stm32f4xx_it.c **** 
+ 295:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN 1 */
+ 296:Core/Src/stm32f4xx_it.c **** void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
+ 297:Core/Src/stm32f4xx_it.c **** {
+ 365              		.loc 1 297 1 is_stmt 1 view -0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+ 369              		@ link register save eliminated.
+ 298:Core/Src/stm32f4xx_it.c ****   // if (hi2s == &hi2s1)
+ 299:Core/Src/stm32f4xx_it.c ****   // {
+ 300:Core/Src/stm32f4xx_it.c ****   //   // static uint16_t cb_cnt = 0;
+ 301:Core/Src/stm32f4xx_it.c ****   //   // cb_cnt++; // 回调次数计数
+ 302:Core/Src/stm32f4xx_it.c **** 
+ 303:Core/Src/stm32f4xx_it.c ****   //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
+ 304:Core/Src/stm32f4xx_it.c ****   //   if (val & 0x800000)
+ 305:Core/Src/stm32f4xx_it.c ****   //     mic.audio_result = val | 0xFF000000; // 符号扩展
+ 306:Core/Src/stm32f4xx_it.c ****   //   else
+ 307:Core/Src/stm32f4xx_it.c ****   //     mic.audio_result = val;
+ 308:Core/Src/stm32f4xx_it.c **** 
+ 309:Core/Src/stm32f4xx_it.c ****   //   mic.half_ready = 1;
+ 310:Core/Src/stm32f4xx_it.c ****   // }
+ 311:Core/Src/stm32f4xx_it.c **** }
+ 370              		.loc 1 311 1 view .LVU42
+ 371 0000 7047     		bx	lr
+ 372              		.cfi_endproc
+ 373              	.LFE147:
+ 375              		.section	.text.HAL_I2S_RxCpltCallback,"ax",%progbits
+ 376              		.align	1
+ 377              		.global	HAL_I2S_RxCpltCallback
+ 378              		.syntax unified
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.fpu fpv4-sp-d16
+ 383              	HAL_I2S_RxCpltCallback:
+ 384              	.LVL6:
+ 385              	.LFB148:
+ 312:Core/Src/stm32f4xx_it.c **** 
+ 313:Core/Src/stm32f4xx_it.c **** void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
+ 314:Core/Src/stm32f4xx_it.c **** {
+ 386              		.loc 1 314 1 view -0
+ 387              		.cfi_startproc
+ 388              		@ args = 0, pretend = 0, frame = 0
+ 389              		@ frame_needed = 0, uses_anonymous_args = 0
+ 390              		@ link register save eliminated.
+ 315:Core/Src/stm32f4xx_it.c ****   // if (hi2s == &hi2s1)
+ 316:Core/Src/stm32f4xx_it.c ****   // {
+ 317:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_left = ((int32_t)dma_buffer[0] << 16) | dma_buffer[1];
+ 318:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_right = ((int32_t)dma_buffer[2] << 16) | dma_buffer[3];
+ARM GAS  /tmp/ccX8YOo2.s 			page 13
 
 
- 274:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN DMA2_Stream0_IRQn 1 */
- 275:Core/Src/stm32f4xx_it.c **** 
- 276:Core/Src/stm32f4xx_it.c ****   /* USER CODE END DMA2_Stream0_IRQn 1 */
- 277:Core/Src/stm32f4xx_it.c **** }
- 377              		.loc 1 277 1 is_stmt 0 view .LVU43
- 378 0008 08BD     		pop	{r3, pc}
- 379              	.L35:
- 380 000a 00BF     		.align	2
- 381              	.L34:
- 382 000c 00000000 		.word	hdma_spi1_rx
- 383              		.cfi_endproc
- 384              	.LFE147:
- 386              		.section	.text.OTG_FS_IRQHandler,"ax",%progbits
- 387              		.align	1
- 388              		.global	OTG_FS_IRQHandler
- 389              		.syntax unified
- 390              		.thumb
- 391              		.thumb_func
- 392              		.fpu fpv4-sp-d16
- 394              	OTG_FS_IRQHandler:
- 395              	.LFB148:
- 278:Core/Src/stm32f4xx_it.c **** 
- 279:Core/Src/stm32f4xx_it.c **** /**
- 280:Core/Src/stm32f4xx_it.c ****   * @brief This function handles USB On The Go FS global interrupt.
- 281:Core/Src/stm32f4xx_it.c ****   */
- 282:Core/Src/stm32f4xx_it.c **** void OTG_FS_IRQHandler(void)
- 283:Core/Src/stm32f4xx_it.c **** {
- 396              		.loc 1 283 1 is_stmt 1 view -0
- 397              		.cfi_startproc
- 398              		@ args = 0, pretend = 0, frame = 0
- 399              		@ frame_needed = 0, uses_anonymous_args = 0
- 400 0000 08B5     		push	{r3, lr}
- 401              	.LCFI6:
- 402              		.cfi_def_cfa_offset 8
- 403              		.cfi_offset 3, -8
- 404              		.cfi_offset 14, -4
- 284:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN OTG_FS_IRQn 0 */
- 285:Core/Src/stm32f4xx_it.c **** 
- 286:Core/Src/stm32f4xx_it.c ****   /* USER CODE END OTG_FS_IRQn 0 */
- 287:Core/Src/stm32f4xx_it.c ****   HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
- 405              		.loc 1 287 3 view .LVU45
- 406 0002 0248     		ldr	r0, .L38
- 407 0004 FFF7FEFF 		bl	HAL_PCD_IRQHandler
- 408              	.LVL6:
- 288:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN OTG_FS_IRQn 1 */
- 289:Core/Src/stm32f4xx_it.c **** 
- 290:Core/Src/stm32f4xx_it.c ****   /* USER CODE END OTG_FS_IRQn 1 */
- 291:Core/Src/stm32f4xx_it.c **** }
- 409              		.loc 1 291 1 is_stmt 0 view .LVU46
- 410 0008 08BD     		pop	{r3, pc}
- 411              	.L39:
- 412 000a 00BF     		.align	2
- 413              	.L38:
- 414 000c 00000000 		.word	hpcd_USB_OTG_FS
- 415              		.cfi_endproc
- 416              	.LFE148:
- 418              		.section	.text.HAL_I2S_RxHalfCpltCallback,"ax",%progbits
-ARM GAS  /tmp/ccrlPRV4.s 			page 13
+ 319:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_left = raw_left >> 8;   // 右移8位得到24-bit数据
+ 320:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_right = raw_right >> 8;
+ 321:Core/Src/stm32f4xx_it.c ****   //   mic.full_ready = 1;
+ 322:Core/Src/stm32f4xx_it.c ****   // }
+ 323:Core/Src/stm32f4xx_it.c ****     if (hi2s == &hi2s1)
+ 391              		.loc 1 323 5 view .LVU44
+ 392              		.loc 1 323 8 is_stmt 0 view .LVU45
+ 393 0000 0A4B     		ldr	r3, .L36
+ 394 0002 8342     		cmp	r3, r0
+ 395 0004 00D0     		beq	.L35
+ 396              	.LVL7:
+ 397              	.L33:
+ 324:Core/Src/stm32f4xx_it.c ****   {
+ 325:Core/Src/stm32f4xx_it.c ****     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
+ 326:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 327:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 328:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
+ 329:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
+ 330:Core/Src/stm32f4xx_it.c ****   }
+ 331:Core/Src/stm32f4xx_it.c **** }
+ 398              		.loc 1 331 1 view .LVU46
+ 399 0006 7047     		bx	lr
+ 400              	.LVL8:
+ 401              	.L35:
+ 402              	.LBB2:
+ 325:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 403              		.loc 1 325 5 is_stmt 1 view .LVU47
+ 325:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 404              		.loc 1 325 35 is_stmt 0 view .LVU48
+ 405 0008 0949     		ldr	r1, .L36+4
+ 406 000a 0A68     		ldr	r2, [r1]
+ 325:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 407              		.loc 1 325 57 view .LVU49
+ 408 000c 4B68     		ldr	r3, [r1, #4]
+ 325:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 409              		.loc 1 325 44 view .LVU50
+ 410 000e 43EA0242 		orr	r2, r3, r2, lsl #16
+ 411              	.LVL9:
+ 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 412              		.loc 1 326 5 is_stmt 1 view .LVU51
+ 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 413              		.loc 1 326 36 is_stmt 0 view .LVU52
+ 414 0012 8868     		ldr	r0, [r1, #8]
+ 415              	.LVL10:
+ 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 416              		.loc 1 326 58 view .LVU53
+ 417 0014 CB68     		ldr	r3, [r1, #12]
+ 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 418              		.loc 1 326 45 view .LVU54
+ 419 0016 43EA0043 		orr	r3, r3, r0, lsl #16
+ 420              	.LVL11:
+ 327:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
+ 421              		.loc 1 327 5 is_stmt 1 view .LVU55
+ 327:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
+ 422              		.loc 1 327 37 is_stmt 0 view .LVU56
+ 423 001a 1212     		asrs	r2, r2, #8
+ 424              	.LVL12:
+ARM GAS  /tmp/ccX8YOo2.s 			page 14
 
 
- 419              		.align	1
- 420              		.global	HAL_I2S_RxHalfCpltCallback
- 421              		.syntax unified
- 422              		.thumb
- 423              		.thumb_func
- 424              		.fpu fpv4-sp-d16
- 426              	HAL_I2S_RxHalfCpltCallback:
- 427              	.LVL7:
- 428              	.LFB149:
- 292:Core/Src/stm32f4xx_it.c **** 
- 293:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN 1 */
- 294:Core/Src/stm32f4xx_it.c **** void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
- 295:Core/Src/stm32f4xx_it.c **** {
- 429              		.loc 1 295 1 is_stmt 1 view -0
- 430              		.cfi_startproc
- 431              		@ args = 0, pretend = 0, frame = 0
- 432              		@ frame_needed = 0, uses_anonymous_args = 0
- 433              		@ link register save eliminated.
- 296:Core/Src/stm32f4xx_it.c ****   // if (hi2s == &hi2s1)
- 297:Core/Src/stm32f4xx_it.c ****   // {
- 298:Core/Src/stm32f4xx_it.c ****   //   // static uint16_t cb_cnt = 0;
- 299:Core/Src/stm32f4xx_it.c ****   //   // cb_cnt++; // 回调次数计数
- 300:Core/Src/stm32f4xx_it.c **** 
- 301:Core/Src/stm32f4xx_it.c ****   //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
- 302:Core/Src/stm32f4xx_it.c ****   //   if (val & 0x800000)
- 303:Core/Src/stm32f4xx_it.c ****   //     mic.audio_result = val | 0xFF000000; // 符号扩展
- 304:Core/Src/stm32f4xx_it.c ****   //   else
- 305:Core/Src/stm32f4xx_it.c ****   //     mic.audio_result = val;
- 306:Core/Src/stm32f4xx_it.c **** 
- 307:Core/Src/stm32f4xx_it.c ****   //   mic.half_ready = 1;
- 308:Core/Src/stm32f4xx_it.c ****   // }
- 309:Core/Src/stm32f4xx_it.c **** }
- 434              		.loc 1 309 1 view .LVU48
- 435 0000 7047     		bx	lr
- 436              		.cfi_endproc
- 437              	.LFE149:
- 439              		.section	.text.HAL_I2S_RxCpltCallback,"ax",%progbits
- 440              		.align	1
- 441              		.global	HAL_I2S_RxCpltCallback
- 442              		.syntax unified
- 443              		.thumb
- 444              		.thumb_func
- 445              		.fpu fpv4-sp-d16
- 447              	HAL_I2S_RxCpltCallback:
- 448              	.LVL8:
- 449              	.LFB150:
- 310:Core/Src/stm32f4xx_it.c **** 
- 311:Core/Src/stm32f4xx_it.c **** void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
- 312:Core/Src/stm32f4xx_it.c **** {
- 450              		.loc 1 312 1 view -0
- 451              		.cfi_startproc
- 452              		@ args = 0, pretend = 0, frame = 0
- 453              		@ frame_needed = 0, uses_anonymous_args = 0
- 454              		@ link register save eliminated.
- 313:Core/Src/stm32f4xx_it.c ****   // if (hi2s == &hi2s1)
- 314:Core/Src/stm32f4xx_it.c ****   // {
- 315:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_left = ((int32_t)dma_buffer[0] << 16) | dma_buffer[1];
-ARM GAS  /tmp/ccrlPRV4.s 			page 14
-
-
- 316:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_right = ((int32_t)dma_buffer[2] << 16) | dma_buffer[3];
- 317:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_left = raw_left >> 8;   // 右移8位得到24-bit数据
- 318:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_right = raw_right >> 8;
- 319:Core/Src/stm32f4xx_it.c ****   //   mic.full_ready = 1;
- 320:Core/Src/stm32f4xx_it.c ****   // }
- 321:Core/Src/stm32f4xx_it.c ****     if (hi2s == &hi2s1)
- 455              		.loc 1 321 5 view .LVU50
- 456              		.loc 1 321 8 is_stmt 0 view .LVU51
- 457 0000 0A4B     		ldr	r3, .L44
- 458 0002 8342     		cmp	r3, r0
- 459 0004 00D0     		beq	.L43
- 460              	.LVL9:
- 461              	.L41:
- 322:Core/Src/stm32f4xx_it.c ****   {
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
- 324:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 327:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 328:Core/Src/stm32f4xx_it.c ****   }
- 329:Core/Src/stm32f4xx_it.c **** }
- 462              		.loc 1 329 1 view .LVU52
- 463 0006 7047     		bx	lr
- 464              	.LVL10:
- 465              	.L43:
- 466              	.LBB2:
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 467              		.loc 1 323 5 is_stmt 1 view .LVU53
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 468              		.loc 1 323 35 is_stmt 0 view .LVU54
- 469 0008 0949     		ldr	r1, .L44+4
- 470 000a 0A68     		ldr	r2, [r1]
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 471              		.loc 1 323 57 view .LVU55
- 472 000c 4B68     		ldr	r3, [r1, #4]
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 473              		.loc 1 323 44 view .LVU56
- 474 000e 43EA0242 		orr	r2, r3, r2, lsl #16
- 475              	.LVL11:
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 476              		.loc 1 324 5 is_stmt 1 view .LVU57
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 477              		.loc 1 324 36 is_stmt 0 view .LVU58
- 478 0012 8868     		ldr	r0, [r1, #8]
- 479              	.LVL12:
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 480              		.loc 1 324 58 view .LVU59
- 481 0014 CB68     		ldr	r3, [r1, #12]
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 482              		.loc 1 324 45 view .LVU60
- 483 0016 43EA0043 		orr	r3, r3, r0, lsl #16
- 484              	.LVL13:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 485              		.loc 1 325 5 is_stmt 1 view .LVU61
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 486              		.loc 1 325 37 is_stmt 0 view .LVU62
- 487 001a 1212     		asrs	r2, r2, #8
-ARM GAS  /tmp/ccrlPRV4.s 			page 15
-
-
- 488              	.LVL14:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 489              		.loc 1 325 27 view .LVU63
- 490 001c 0549     		ldr	r1, .L44+8
- 491              	.LVL15:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 492              		.loc 1 325 27 view .LVU64
- 493 001e 4A60     		str	r2, [r1, #4]
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 494              		.loc 1 326 5 is_stmt 1 view .LVU65
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 495              		.loc 1 326 39 is_stmt 0 view .LVU66
- 496 0020 1B12     		asrs	r3, r3, #8
- 497              	.LVL16:
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 498              		.loc 1 326 28 view .LVU67
- 499 0022 8B60     		str	r3, [r1, #8]
- 327:Core/Src/stm32f4xx_it.c ****   }
- 500              		.loc 1 327 5 is_stmt 1 view .LVU68
- 327:Core/Src/stm32f4xx_it.c ****   }
- 501              		.loc 1 327 20 is_stmt 0 view .LVU69
- 502 0024 0123     		movs	r3, #1
- 503 0026 4B73     		strb	r3, [r1, #13]
- 504              	.LBE2:
- 505              		.loc 1 329 1 view .LVU70
- 506 0028 EDE7     		b	.L41
- 507              	.L45:
- 508 002a 00BF     		.align	2
- 509              	.L44:
- 510 002c 00000000 		.word	hi2s1
- 511 0030 00000000 		.word	dma_buffer
- 512 0034 00000000 		.word	mic
- 513              		.cfi_endproc
- 514              	.LFE150:
- 516              		.text
- 517              	.Letext0:
- 518              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
- 519              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
- 520              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 521              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 522              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 523              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 524              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 525              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
- 526              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h"
- 527              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h"
- 528              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 529              		.file 13 "Core/Inc/vcnl4040_sensor.h"
- 530              		.file 14 "Core/Inc/icm42688_sensor.h"
- 531              		.file 15 "Core/Inc/microphone_sensor.h"
- 532              		.file 16 "Core/Inc/my_application.h"
-ARM GAS  /tmp/ccrlPRV4.s 			page 16
+ 327:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
+ 425              		.loc 1 327 27 view .LVU57
+ 426 001c 0549     		ldr	r1, .L36+8
+ 427              	.LVL13:
+ 327:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
+ 428              		.loc 1 327 27 view .LVU58
+ 429 001e 4A60     		str	r2, [r1, #4]
+ 328:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
+ 430              		.loc 1 328 5 is_stmt 1 view .LVU59
+ 328:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
+ 431              		.loc 1 328 39 is_stmt 0 view .LVU60
+ 432 0020 1B12     		asrs	r3, r3, #8
+ 433              	.LVL14:
+ 328:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
+ 434              		.loc 1 328 28 view .LVU61
+ 435 0022 8B60     		str	r3, [r1, #8]
+ 329:Core/Src/stm32f4xx_it.c ****   }
+ 436              		.loc 1 329 5 is_stmt 1 view .LVU62
+ 329:Core/Src/stm32f4xx_it.c ****   }
+ 437              		.loc 1 329 20 is_stmt 0 view .LVU63
+ 438 0024 0123     		movs	r3, #1
+ 439 0026 4B73     		strb	r3, [r1, #13]
+ 440              	.LBE2:
+ 441              		.loc 1 331 1 view .LVU64
+ 442 0028 EDE7     		b	.L33
+ 443              	.L37:
+ 444 002a 00BF     		.align	2
+ 445              	.L36:
+ 446 002c 00000000 		.word	hi2s1
+ 447 0030 00000000 		.word	dma_buffer
+ 448 0034 00000000 		.word	mic
+ 449              		.cfi_endproc
+ 450              	.LFE148:
+ 452              		.text
+ 453              	.Letext0:
+ 454              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 455              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 456              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 457              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 458              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 459              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 460              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 461              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 462              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h"
+ 463              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h"
+ 464              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 465              		.file 13 "Core/Inc/vcnl4040_sensor.h"
+ 466              		.file 14 "Core/Inc/icm42688_sensor.h"
+ 467              		.file 15 "Core/Inc/microphone_sensor.h"
+ 468              		.file 16 "Core/Inc/my_application.h"
+ARM GAS  /tmp/ccX8YOo2.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f4xx_it.c
-     /tmp/ccrlPRV4.s:18     .text.NMI_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:26     .text.NMI_Handler:0000000000000000 NMI_Handler
-     /tmp/ccrlPRV4.s:44     .text.HardFault_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:51     .text.HardFault_Handler:0000000000000000 HardFault_Handler
-     /tmp/ccrlPRV4.s:68     .text.MemManage_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:75     .text.MemManage_Handler:0000000000000000 MemManage_Handler
-     /tmp/ccrlPRV4.s:92     .text.BusFault_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:99     .text.BusFault_Handler:0000000000000000 BusFault_Handler
-     /tmp/ccrlPRV4.s:116    .text.UsageFault_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:123    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
-     /tmp/ccrlPRV4.s:140    .text.SVC_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:147    .text.SVC_Handler:0000000000000000 SVC_Handler
-     /tmp/ccrlPRV4.s:160    .text.DebugMon_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:167    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
-     /tmp/ccrlPRV4.s:180    .text.PendSV_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:187    .text.PendSV_Handler:0000000000000000 PendSV_Handler
-     /tmp/ccrlPRV4.s:200    .text.SysTick_Handler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:207    .text.SysTick_Handler:0000000000000000 SysTick_Handler
-     /tmp/ccrlPRV4.s:227    .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:234    .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
-     /tmp/ccrlPRV4.s:254    .text.DMA1_Stream0_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:259    .text.DMA1_Stream6_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:266    .text.DMA1_Stream6_IRQHandler:0000000000000000 DMA1_Stream6_IRQHandler
-     /tmp/ccrlPRV4.s:286    .text.DMA1_Stream6_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:291    .text.I2C1_EV_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:298    .text.I2C1_EV_IRQHandler:0000000000000000 I2C1_EV_IRQHandler
-     /tmp/ccrlPRV4.s:318    .text.I2C1_EV_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:323    .text.I2C1_ER_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:330    .text.I2C1_ER_IRQHandler:0000000000000000 I2C1_ER_IRQHandler
-     /tmp/ccrlPRV4.s:350    .text.I2C1_ER_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:355    .text.DMA2_Stream0_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:362    .text.DMA2_Stream0_IRQHandler:0000000000000000 DMA2_Stream0_IRQHandler
-     /tmp/ccrlPRV4.s:382    .text.DMA2_Stream0_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:387    .text.OTG_FS_IRQHandler:0000000000000000 $t
-     /tmp/ccrlPRV4.s:394    .text.OTG_FS_IRQHandler:0000000000000000 OTG_FS_IRQHandler
-     /tmp/ccrlPRV4.s:414    .text.OTG_FS_IRQHandler:000000000000000c $d
-     /tmp/ccrlPRV4.s:419    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 $t
-     /tmp/ccrlPRV4.s:426    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 HAL_I2S_RxHalfCpltCallback
-     /tmp/ccrlPRV4.s:440    .text.HAL_I2S_RxCpltCallback:0000000000000000 $t
-     /tmp/ccrlPRV4.s:447    .text.HAL_I2S_RxCpltCallback:0000000000000000 HAL_I2S_RxCpltCallback
-     /tmp/ccrlPRV4.s:510    .text.HAL_I2S_RxCpltCallback:000000000000002c $d
+     /tmp/ccX8YOo2.s:18     .text.NMI_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:26     .text.NMI_Handler:0000000000000000 NMI_Handler
+     /tmp/ccX8YOo2.s:44     .text.HardFault_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:51     .text.HardFault_Handler:0000000000000000 HardFault_Handler
+     /tmp/ccX8YOo2.s:68     .text.MemManage_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:75     .text.MemManage_Handler:0000000000000000 MemManage_Handler
+     /tmp/ccX8YOo2.s:92     .text.BusFault_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:99     .text.BusFault_Handler:0000000000000000 BusFault_Handler
+     /tmp/ccX8YOo2.s:116    .text.UsageFault_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:123    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
+     /tmp/ccX8YOo2.s:140    .text.SVC_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:147    .text.SVC_Handler:0000000000000000 SVC_Handler
+     /tmp/ccX8YOo2.s:160    .text.DebugMon_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:167    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
+     /tmp/ccX8YOo2.s:180    .text.PendSV_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:187    .text.PendSV_Handler:0000000000000000 PendSV_Handler
+     /tmp/ccX8YOo2.s:200    .text.SysTick_Handler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:207    .text.SysTick_Handler:0000000000000000 SysTick_Handler
+     /tmp/ccX8YOo2.s:227    .text.I2C1_EV_IRQHandler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:234    .text.I2C1_EV_IRQHandler:0000000000000000 I2C1_EV_IRQHandler
+     /tmp/ccX8YOo2.s:254    .text.I2C1_EV_IRQHandler:000000000000000c $d
+     /tmp/ccX8YOo2.s:259    .text.I2C1_ER_IRQHandler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:266    .text.I2C1_ER_IRQHandler:0000000000000000 I2C1_ER_IRQHandler
+     /tmp/ccX8YOo2.s:286    .text.I2C1_ER_IRQHandler:000000000000000c $d
+     /tmp/ccX8YOo2.s:291    .text.DMA2_Stream0_IRQHandler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:298    .text.DMA2_Stream0_IRQHandler:0000000000000000 DMA2_Stream0_IRQHandler
+     /tmp/ccX8YOo2.s:318    .text.DMA2_Stream0_IRQHandler:000000000000000c $d
+     /tmp/ccX8YOo2.s:323    .text.OTG_FS_IRQHandler:0000000000000000 $t
+     /tmp/ccX8YOo2.s:330    .text.OTG_FS_IRQHandler:0000000000000000 OTG_FS_IRQHandler
+     /tmp/ccX8YOo2.s:350    .text.OTG_FS_IRQHandler:000000000000000c $d
+     /tmp/ccX8YOo2.s:355    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 $t
+     /tmp/ccX8YOo2.s:362    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 HAL_I2S_RxHalfCpltCallback
+     /tmp/ccX8YOo2.s:376    .text.HAL_I2S_RxCpltCallback:0000000000000000 $t
+     /tmp/ccX8YOo2.s:383    .text.HAL_I2S_RxCpltCallback:0000000000000000 HAL_I2S_RxCpltCallback
+     /tmp/ccX8YOo2.s:446    .text.HAL_I2S_RxCpltCallback:000000000000002c $d
 
 UNDEFINED SYMBOLS
 HAL_IncTick
-HAL_DMA_IRQHandler
-hdma_i2c1_rx
-hdma_i2c1_tx
 HAL_I2C_EV_IRQHandler
 hi2c1
 HAL_I2C_ER_IRQHandler
+HAL_DMA_IRQHandler
 hdma_spi1_rx
 HAL_PCD_IRQHandler
 hpcd_USB_OTG_FS
 hi2s1
 dma_buffer
-ARM GAS  /tmp/ccrlPRV4.s 			page 17
-
-
 mic
