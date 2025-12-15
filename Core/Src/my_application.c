@@ -156,14 +156,8 @@ void My_Application_Run(void)
 
     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
     ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
-    // int len= sprintf(msg, "VCNL4040:[%u, %u] ICM42688: Accel[%.2f, %.2f, %.2f] Gyro[%.2f, %.2f, %.2f] Temp: %.2f\n",
-    //   als, ps,
-    //   accel.x, accel.y, accel.z,
-    //   gyro.x, gyro.y, gyro.z,
-    //   imu_temp);
-    // CDC_Transmit_FS((uint8_t*)msg, len);
 
-    // // === 3. 轮询读取单个BME280 (温湿度和气压) ===
+    // === 3. 轮询读取单个BME280 (温湿度和气压) ===
     if (bme_index == 3) {
       // BME280[3]损坏，使用常量值（已在初始化时设置）
       // 跳过读取，但仍然递增索引
@@ -174,28 +168,29 @@ void My_Application_Run(void)
       }
       // I2C切换失败时保留旧值，不更新
     }
-
     // 切换到下一个传感器（循环0-7）
     bme_index = (bme_index + 1) % 8;
 
     // === 4. 输出CSV格式数据 ===
     int len = sprintf(msg,
-      "%u,%u,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // ALS,PS,Accel_X/Y/Z,Gyro_X/Y/Z
+      "%u,%u,"  // ALS, PS
+      "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // Accel_X/Y/Z, Gyro_X/Y/Z
+      "%.2f,"  // IMU_Temp
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
-      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Press[0-7]
-      "%.1f\n",  // IMU_Temp
+      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f"  // Press[0-7]
+      "\n",  // ← 添加换行符
       als, ps,
       accel.x, accel.y, accel.z,
       gyro.x, gyro.y, gyro.z,
+      imu_temp,
       temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
       hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
-      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
-      imu_temp
+      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7]
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);
-    // HAL_Delay(10);  // 短暂延迟，避免USB传输过快
+    HAL_Delay(1);  // 短暂延迟，避免USB传输过快
 
       // if (mic.full_ready)
       // {

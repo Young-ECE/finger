@@ -43,14 +43,12 @@ void MX_DMA_Init(void)
   __HAL_RCC_DMA2_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 3, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
-  /* DMA1_Stream6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 3, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
-  /* DMA2_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
+  /* I2C1 DMA已禁用 - 使用轮询模式避免与I2S冲突 */
+  /* DMA1_Stream0_IRQn interrupt configuration - DISABLED */
+  /* DMA1_Stream6_IRQn interrupt configuration - DISABLED */
+  
+  /* DMA2_Stream0_IRQn interrupt configuration - I2S RX */
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);  // I2S RX: 降低优先级，避免抢占I2C
   HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
 
 }
