@@ -1,0 +1,390 @@
+ARM GAS  /tmp/ccIk8vAz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"debug_helper.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.Debug_GetMicroseconds,"ax",%progbits
+  18              		.align	1
+  19              		.global	Debug_GetMicroseconds
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	Debug_GetMicroseconds:
+  27              	.LFB139:
+  28              		.file 1 "Core/Src/debug_helper.c"
+   1:Core/Src/debug_helper.c **** /**
+   2:Core/Src/debug_helper.c ****  * @file debug_helper.c
+   3:Core/Src/debug_helper.c ****  * @brief 调试辅助工具实现
+   4:Core/Src/debug_helper.c ****  */
+   5:Core/Src/debug_helper.c **** 
+   6:Core/Src/debug_helper.c **** #include "debug_helper.h"
+   7:Core/Src/debug_helper.c **** #include "usbd_cdc_if.h"
+   8:Core/Src/debug_helper.c **** #include <stdio.h>
+   9:Core/Src/debug_helper.c **** #include <string.h>
+  10:Core/Src/debug_helper.c **** 
+  11:Core/Src/debug_helper.c **** /* 全局变量 */
+  12:Core/Src/debug_helper.c **** DebugLevel_t current_debug_level = DEBUG_LEVEL_3; // 默认全功能测试
+  13:Core/Src/debug_helper.c **** volatile DebugStats_t debug_stats = {0};
+  14:Core/Src/debug_helper.c **** 
+  15:Core/Src/debug_helper.c **** /**
+  16:Core/Src/debug_helper.c ****  * @brief 初始化DWT周期计数器（用于精确时间测量）
+  17:Core/Src/debug_helper.c ****  */
+  18:Core/Src/debug_helper.c **** void Debug_Init(void)
+  19:Core/Src/debug_helper.c **** {
+  20:Core/Src/debug_helper.c ****     // 启用DWT和CYCCNT
+  21:Core/Src/debug_helper.c ****     CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  22:Core/Src/debug_helper.c ****     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+  23:Core/Src/debug_helper.c ****     DWT->CYCCNT = 0;
+  24:Core/Src/debug_helper.c ****     
+  25:Core/Src/debug_helper.c ****     Debug_ResetStats();
+  26:Core/Src/debug_helper.c **** }
+  27:Core/Src/debug_helper.c **** 
+  28:Core/Src/debug_helper.c **** /**
+  29:Core/Src/debug_helper.c ****  * @brief 获取微秒级时间戳
+  30:Core/Src/debug_helper.c ****  * @return 当前时间(微秒)
+ARM GAS  /tmp/ccIk8vAz.s 			page 2
+
+
+  31:Core/Src/debug_helper.c ****  */
+  32:Core/Src/debug_helper.c **** uint32_t Debug_GetMicroseconds(void)
+  33:Core/Src/debug_helper.c **** {
+  29              		.loc 1 33 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34:Core/Src/debug_helper.c ****     // SystemCoreClock = 180MHz，每个周期 = 1/180 微秒
+  35:Core/Src/debug_helper.c ****     return DWT->CYCCNT / (SystemCoreClock / 1000000);
+  34              		.loc 1 35 5 view .LVU1
+  35              		.loc 1 35 15 is_stmt 0 view .LVU2
+  36 0000 054B     		ldr	r3, .L2
+  37 0002 5868     		ldr	r0, [r3, #4]
+  38              		.loc 1 35 43 view .LVU3
+  39 0004 054B     		ldr	r3, .L2+4
+  40 0006 1B68     		ldr	r3, [r3]
+  41 0008 054A     		ldr	r2, .L2+8
+  42 000a A2FB0323 		umull	r2, r3, r2, r3
+  43 000e 9B0C     		lsrs	r3, r3, #18
+  36:Core/Src/debug_helper.c **** }
+  44              		.loc 1 36 1 view .LVU4
+  45 0010 B0FBF3F0 		udiv	r0, r0, r3
+  46 0014 7047     		bx	lr
+  47              	.L3:
+  48 0016 00BF     		.align	2
+  49              	.L2:
+  50 0018 001000E0 		.word	-536866816
+  51 001c 00000000 		.word	SystemCoreClock
+  52 0020 83DE1B43 		.word	1125899907
+  53              		.cfi_endproc
+  54              	.LFE139:
+  56              		.section	.text.Debug_ResetStats,"ax",%progbits
+  57              		.align	1
+  58              		.global	Debug_ResetStats
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+  62              		.fpu fpv4-sp-d16
+  64              	Debug_ResetStats:
+  65              	.LFB140:
+  37:Core/Src/debug_helper.c **** 
+  38:Core/Src/debug_helper.c **** /**
+  39:Core/Src/debug_helper.c ****  * @brief 重置统计数据
+  40:Core/Src/debug_helper.c ****  */
+  41:Core/Src/debug_helper.c **** void Debug_ResetStats(void)
+  42:Core/Src/debug_helper.c **** {
+  66              		.loc 1 42 1 is_stmt 1 view -0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  43:Core/Src/debug_helper.c ****     debug_stats.i2c_transfers = 0;
+  71              		.loc 1 43 5 view .LVU6
+  72              		.loc 1 43 31 is_stmt 0 view .LVU7
+  73 0000 044B     		ldr	r3, .L5
+  74 0002 0022     		movs	r2, #0
+ARM GAS  /tmp/ccIk8vAz.s 			page 3
+
+
+  75 0004 1A60     		str	r2, [r3]
+  44:Core/Src/debug_helper.c ****     debug_stats.i2s_callbacks = 0;
+  76              		.loc 1 44 5 is_stmt 1 view .LVU8
+  77              		.loc 1 44 31 is_stmt 0 view .LVU9
+  78 0006 5A60     		str	r2, [r3, #4]
+  45:Core/Src/debug_helper.c ****     debug_stats.i2c_errors = 0;
+  79              		.loc 1 45 5 is_stmt 1 view .LVU10
+  80              		.loc 1 45 28 is_stmt 0 view .LVU11
+  81 0008 9A60     		str	r2, [r3, #8]
+  46:Core/Src/debug_helper.c ****     debug_stats.i2s_errors = 0;
+  82              		.loc 1 46 5 is_stmt 1 view .LVU12
+  83              		.loc 1 46 28 is_stmt 0 view .LVU13
+  84 000a DA60     		str	r2, [r3, #12]
+  47:Core/Src/debug_helper.c ****     debug_stats.total_cycles = 0;
+  85              		.loc 1 47 5 is_stmt 1 view .LVU14
+  86              		.loc 1 47 30 is_stmt 0 view .LVU15
+  87 000c 1A61     		str	r2, [r3, #16]
+  48:Core/Src/debug_helper.c ****     debug_stats.max_i2c_time_us = 0;
+  88              		.loc 1 48 5 is_stmt 1 view .LVU16
+  89              		.loc 1 48 33 is_stmt 0 view .LVU17
+  90 000e 5A61     		str	r2, [r3, #20]
+  49:Core/Src/debug_helper.c **** }
+  91              		.loc 1 49 1 view .LVU18
+  92 0010 7047     		bx	lr
+  93              	.L6:
+  94 0012 00BF     		.align	2
+  95              	.L5:
+  96 0014 00000000 		.word	.LANCHOR0
+  97              		.cfi_endproc
+  98              	.LFE140:
+ 100              		.section	.text.Debug_Init,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	Debug_Init
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv4-sp-d16
+ 108              	Debug_Init:
+ 109              	.LFB138:
+  19:Core/Src/debug_helper.c ****     // 启用DWT和CYCCNT
+ 110              		.loc 1 19 1 is_stmt 1 view -0
+ 111              		.cfi_startproc
+ 112              		@ args = 0, pretend = 0, frame = 0
+ 113              		@ frame_needed = 0, uses_anonymous_args = 0
+ 114 0000 08B5     		push	{r3, lr}
+ 115              	.LCFI0:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		.cfi_offset 3, -8
+ 118              		.cfi_offset 14, -4
+  21:Core/Src/debug_helper.c ****     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+ 119              		.loc 1 21 5 view .LVU20
+  21:Core/Src/debug_helper.c ****     DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+ 120              		.loc 1 21 22 is_stmt 0 view .LVU21
+ 121 0002 074A     		ldr	r2, .L9
+ 122 0004 D368     		ldr	r3, [r2, #12]
+ 123 0006 43F08073 		orr	r3, r3, #16777216
+ 124 000a D360     		str	r3, [r2, #12]
+ARM GAS  /tmp/ccIk8vAz.s 			page 4
+
+
+  22:Core/Src/debug_helper.c ****     DWT->CYCCNT = 0;
+ 125              		.loc 1 22 5 is_stmt 1 view .LVU22
+  22:Core/Src/debug_helper.c ****     DWT->CYCCNT = 0;
+ 126              		.loc 1 22 15 is_stmt 0 view .LVU23
+ 127 000c 054B     		ldr	r3, .L9+4
+ 128 000e 1A68     		ldr	r2, [r3]
+ 129 0010 42F00102 		orr	r2, r2, #1
+ 130 0014 1A60     		str	r2, [r3]
+  23:Core/Src/debug_helper.c ****     
+ 131              		.loc 1 23 5 is_stmt 1 view .LVU24
+  23:Core/Src/debug_helper.c ****     
+ 132              		.loc 1 23 17 is_stmt 0 view .LVU25
+ 133 0016 0022     		movs	r2, #0
+ 134 0018 5A60     		str	r2, [r3, #4]
+  25:Core/Src/debug_helper.c **** }
+ 135              		.loc 1 25 5 is_stmt 1 view .LVU26
+ 136 001a FFF7FEFF 		bl	Debug_ResetStats
+ 137              	.LVL0:
+  26:Core/Src/debug_helper.c **** 
+ 138              		.loc 1 26 1 is_stmt 0 view .LVU27
+ 139 001e 08BD     		pop	{r3, pc}
+ 140              	.L10:
+ 141              		.align	2
+ 142              	.L9:
+ 143 0020 F0ED00E0 		.word	-536810000
+ 144 0024 001000E0 		.word	-536866816
+ 145              		.cfi_endproc
+ 146              	.LFE138:
+ 148              		.section	.rodata.Debug_PrintStats.str1.4,"aMS",%progbits,1
+ 149              		.align	2
+ 150              	.LC0:
+ 151 0000 0D0A3D3D 		.ascii	"\015\012=== DEBUG STATS (Level %d) ===\015\012Cycle"
+ 151      3D204445 
+ 151      42554720 
+ 151      53544154 
+ 151      5320284C 
+ 152 0027 733A2025 		.ascii	"s: %lu\015\012I2C Transfers: %lu (Errors: %lu)\015\012"
+ 152      6C750D0A 
+ 152      49324320 
+ 152      5472616E 
+ 152      73666572 
+ 153 0051 49325320 		.ascii	"I2S Callbacks: %lu (Errors: %lu)\015\012Max I2C Tim"
+ 153      43616C6C 
+ 153      6261636B 
+ 153      733A2025 
+ 153      6C752028 
+ 154 007e 653A2025 		.ascii	"e: %lu us\015\012===========================\015\012"
+ 154      6C752075 
+ 154      730D0A3D 
+ 154      3D3D3D3D 
+ 154      3D3D3D3D 
+ 155 00a6 00       		.ascii	"\000"
+ 156              		.section	.text.Debug_PrintStats,"ax",%progbits
+ 157              		.align	1
+ 158              		.global	Debug_PrintStats
+ 159              		.syntax unified
+ 160              		.thumb
+ARM GAS  /tmp/ccIk8vAz.s 			page 5
+
+
+ 161              		.thumb_func
+ 162              		.fpu fpv4-sp-d16
+ 164              	Debug_PrintStats:
+ 165              	.LFB141:
+  50:Core/Src/debug_helper.c **** 
+  51:Core/Src/debug_helper.c **** /**
+  52:Core/Src/debug_helper.c ****  * @brief 通过USB CDC打印统计信息
+  53:Core/Src/debug_helper.c ****  */
+  54:Core/Src/debug_helper.c **** void Debug_PrintStats(void)
+  55:Core/Src/debug_helper.c **** {
+ 166              		.loc 1 55 1 is_stmt 1 view -0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 256
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170 0000 30B5     		push	{r4, r5, lr}
+ 171              	.LCFI1:
+ 172              		.cfi_def_cfa_offset 12
+ 173              		.cfi_offset 4, -12
+ 174              		.cfi_offset 5, -8
+ 175              		.cfi_offset 14, -4
+ 176 0002 C7B0     		sub	sp, sp, #284
+ 177              	.LCFI2:
+ 178              		.cfi_def_cfa_offset 296
+  56:Core/Src/debug_helper.c ****     char msg[256];
+ 179              		.loc 1 56 5 view .LVU29
+  57:Core/Src/debug_helper.c ****     int len = sprintf(msg,
+ 180              		.loc 1 57 5 view .LVU30
+ 181              		.loc 1 57 15 is_stmt 0 view .LVU31
+ 182 0004 0B4A     		ldr	r2, .L13
+ 183 0006 1369     		ldr	r3, [r2, #16]
+ 184 0008 1168     		ldr	r1, [r2]
+ 185 000a 9068     		ldr	r0, [r2, #8]
+ 186 000c 5468     		ldr	r4, [r2, #4]
+ 187 000e D568     		ldr	r5, [r2, #12]
+ 188 0010 5269     		ldr	r2, [r2, #20]
+ 189 0012 0492     		str	r2, [sp, #16]
+ 190 0014 0395     		str	r5, [sp, #12]
+ 191 0016 0294     		str	r4, [sp, #8]
+ 192 0018 0190     		str	r0, [sp, #4]
+ 193 001a 0091     		str	r1, [sp]
+ 194 001c 064A     		ldr	r2, .L13+4
+ 195 001e 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 196 0020 0649     		ldr	r1, .L13+8
+ 197 0022 06A8     		add	r0, sp, #24
+ 198 0024 FFF7FEFF 		bl	sprintf
+ 199              	.LVL1:
+  58:Core/Src/debug_helper.c ****         "\r\n=== DEBUG STATS (Level %d) ===\r\n"
+  59:Core/Src/debug_helper.c ****         "Cycles: %lu\r\n"
+  60:Core/Src/debug_helper.c ****         "I2C Transfers: %lu (Errors: %lu)\r\n"
+  61:Core/Src/debug_helper.c ****         "I2S Callbacks: %lu (Errors: %lu)\r\n"
+  62:Core/Src/debug_helper.c ****         "Max I2C Time: %lu us\r\n"
+  63:Core/Src/debug_helper.c ****         "===========================\r\n",
+  64:Core/Src/debug_helper.c ****         current_debug_level,
+  65:Core/Src/debug_helper.c ****         debug_stats.total_cycles,
+  66:Core/Src/debug_helper.c ****         debug_stats.i2c_transfers,
+  67:Core/Src/debug_helper.c ****         debug_stats.i2c_errors,
+  68:Core/Src/debug_helper.c ****         debug_stats.i2s_callbacks,
+ARM GAS  /tmp/ccIk8vAz.s 			page 6
+
+
+  69:Core/Src/debug_helper.c ****         debug_stats.i2s_errors,
+  70:Core/Src/debug_helper.c ****         debug_stats.max_i2c_time_us
+  71:Core/Src/debug_helper.c ****     );
+  72:Core/Src/debug_helper.c ****     
+  73:Core/Src/debug_helper.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
+ 200              		.loc 1 73 5 is_stmt 1 view .LVU32
+ 201 0028 81B2     		uxth	r1, r0
+ 202 002a 06A8     		add	r0, sp, #24
+ 203              	.LVL2:
+ 204              		.loc 1 73 5 is_stmt 0 view .LVU33
+ 205 002c FFF7FEFF 		bl	CDC_Transmit_FS
+ 206              	.LVL3:
+  74:Core/Src/debug_helper.c **** }
+ 207              		.loc 1 74 1 view .LVU34
+ 208 0030 47B0     		add	sp, sp, #284
+ 209              	.LCFI3:
+ 210              		.cfi_def_cfa_offset 12
+ 211              		@ sp needed
+ 212 0032 30BD     		pop	{r4, r5, pc}
+ 213              	.L14:
+ 214              		.align	2
+ 215              	.L13:
+ 216 0034 00000000 		.word	.LANCHOR0
+ 217 0038 00000000 		.word	.LANCHOR1
+ 218 003c 00000000 		.word	.LC0
+ 219              		.cfi_endproc
+ 220              	.LFE141:
+ 222              		.global	debug_stats
+ 223              		.global	current_debug_level
+ 224              		.section	.bss.debug_stats,"aw",%nobits
+ 225              		.align	2
+ 226              		.set	.LANCHOR0,. + 0
+ 229              	debug_stats:
+ 230 0000 00000000 		.space	24
+ 230      00000000 
+ 230      00000000 
+ 230      00000000 
+ 230      00000000 
+ 231              		.section	.data.current_debug_level,"aw"
+ 232              		.set	.LANCHOR1,. + 0
+ 235              	current_debug_level:
+ 236 0000 03       		.byte	3
+ 237              		.text
+ 238              	.Letext0:
+ 239              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 240              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 241              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 242              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 243              		.file 6 "Core/Inc/debug_helper.h"
+ 244              		.file 7 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 245              		.file 8 "/usr/include/newlib/sys/_types.h"
+ 246              		.file 9 "/usr/include/newlib/sys/reent.h"
+ 247              		.file 10 "/usr/include/newlib/sys/lock.h"
+ 248              		.file 11 "/usr/include/newlib/stdlib.h"
+ 249              		.file 12 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 250              		.file 13 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
+ 251              		.file 14 "USB_DEVICE/App/usbd_cdc_if.h"
+ARM GAS  /tmp/ccIk8vAz.s 			page 7
+
+
+ 252              		.file 15 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccIk8vAz.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 debug_helper.c
+     /tmp/ccIk8vAz.s:18     .text.Debug_GetMicroseconds:0000000000000000 $t
+     /tmp/ccIk8vAz.s:26     .text.Debug_GetMicroseconds:0000000000000000 Debug_GetMicroseconds
+     /tmp/ccIk8vAz.s:50     .text.Debug_GetMicroseconds:0000000000000018 $d
+     /tmp/ccIk8vAz.s:57     .text.Debug_ResetStats:0000000000000000 $t
+     /tmp/ccIk8vAz.s:64     .text.Debug_ResetStats:0000000000000000 Debug_ResetStats
+     /tmp/ccIk8vAz.s:96     .text.Debug_ResetStats:0000000000000014 $d
+     /tmp/ccIk8vAz.s:101    .text.Debug_Init:0000000000000000 $t
+     /tmp/ccIk8vAz.s:108    .text.Debug_Init:0000000000000000 Debug_Init
+     /tmp/ccIk8vAz.s:143    .text.Debug_Init:0000000000000020 $d
+     /tmp/ccIk8vAz.s:149    .rodata.Debug_PrintStats.str1.4:0000000000000000 $d
+     /tmp/ccIk8vAz.s:157    .text.Debug_PrintStats:0000000000000000 $t
+     /tmp/ccIk8vAz.s:164    .text.Debug_PrintStats:0000000000000000 Debug_PrintStats
+     /tmp/ccIk8vAz.s:216    .text.Debug_PrintStats:0000000000000034 $d
+     /tmp/ccIk8vAz.s:229    .bss.debug_stats:0000000000000000 debug_stats
+     /tmp/ccIk8vAz.s:235    .data.current_debug_level:0000000000000000 current_debug_level
+     /tmp/ccIk8vAz.s:225    .bss.debug_stats:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+SystemCoreClock
+sprintf
+CDC_Transmit_FS

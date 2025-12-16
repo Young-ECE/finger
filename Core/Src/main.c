@@ -64,9 +64,9 @@ extern I2S_HandleTypeDef hi2s1;  // 例如使用 I2S1
 extern UART_HandleTypeDef huart1; 
 
 
-VCNL4040_HandleTypeDef vcnl4040;
-ENS160_HandleTypeDef ens160;
-HDC302x_HandleTypeDef hdc1, hdc2, hdc3, hdc4;
+// VCNL4040_HandleTypeDef vcnl4040;
+// ENS160_HandleTypeDef ens160;
+// HDC302x_HandleTypeDef hdc1, hdc2, hdc3, hdc4;
 MIC_HandleTypeDef mic;
 
 
@@ -78,28 +78,28 @@ void SystemClock_Config(void);
 
 void Data_Send(void)
 {
-  uint8_t aqi;
-  uint16_t tvoc;
-  uint16_t eco2;
-  ENS160_ReadAQI(&ens160, &aqi);
-  ENS160_ReadTVOC(&ens160, &tvoc);
-  ENS160_ReadECO2(&ens160, &eco2);
+  // uint8_t aqi;
+  // uint16_t tvoc;
+  // uint16_t eco2;
+  // ENS160_ReadAQI(&ens160, &aqi);
+  // ENS160_ReadTVOC(&ens160, &tvoc);
+  // ENS160_ReadECO2(&ens160, &eco2);
 
-  uint16_t als, ps;
-  VCNL4040_ReadALS(&vcnl4040, &als);
-  VCNL4040_ReadPS(&vcnl4040, &ps);
+  uint16_t als = 0, ps = 0;
+  // HAL_StatusTypeDef ret_als = VCNL4040_ReadALS(&vcnl4040, &als);
+  // HAL_StatusTypeDef ret_ps = VCNL4040_ReadPS(&vcnl4040, &ps);
 
-  float T1, H1, T2, H2, T3, H3, T4, H4;
+  // float T1, H1, T2, H2, T3, H3, T4, H4;
 
-  HDC302x_ReadData(&hdc1, &T1, &H1);
-  HDC302x_ReadData(&hdc2, &T2, &H2);
-  HDC302x_ReadData(&hdc3, &T3, &H3);
-  HDC302x_ReadData(&hdc4, &T4, &H4);
-
-  USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
-  USB_Print("%u,%u,", als, ps);
-  USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,", (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10), (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10));
-  USB_Print("%d\n", mic.audio_result);
+  // HDC302x_ReadData(&hdc1, &T1, &H1);
+  // HDC302x_ReadData(&hdc2, &T2, &H2);
+  // HDC302x_ReadData(&hdc3, &T3, &H3);
+  // HDC302x_ReadData(&hdc4, &T4, &H4);
+  
+  char msg[256];
+  int len = snprintf(msg, sizeof(msg), "%u,%u,%ld\n", als, ps, mic.audio_result);
+  CDC_Transmit_FS((uint8_t*)msg, len);
+  
 }
 
 /* USER CODE END PFP */
@@ -142,18 +142,28 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_I2C1_Init();
-  MX_USART1_UART_Init();
+  // MX_USART1_UART_Init();
   MX_I2S1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   RGB_LED_Init();
 
-  VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
-  ENS160_Init(&ens160,&hi2c1, ENS160_I2C_ADDR_LOW);
-  HDC302x_Init(&hdc1, &hi2c1, HDC302x_ADDR_44);
-  HDC302x_Init(&hdc2, &hi2c1, HDC302x_ADDR_45);
-  HDC302x_Init(&hdc3, &hi2c1, HDC302x_ADDR_46);
-  HDC302x_Init(&hdc4, &hi2c1, HDC302x_ADDR_47);
+  // 尝试复位I2C总线，防止死锁
+  // I2C_BusRecover(); // 如果实现了该函数
+
+  HAL_Delay(2000);
+  // I2C_Scan();
+
+  // 重新初始化I2C，确保状态清除
+  HAL_I2C_DeInit(&hi2c1);
+  MX_I2C1_Init();
+
+  // VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
+  // ENS160_Init(&ens160,&hi2c1, ENS160_I2C_ADDR_LOW);
+  // HDC302x_Init(&hdc1, &hi2c1, HDC302x_ADDR_44);
+  // HDC302x_Init(&hdc2, &hi2c1, HDC302x_ADDR_45);
+  // HDC302x_Init(&hdc3, &hi2c1, HDC302x_ADDR_46);
+  // HDC302x_Init(&hdc4, &hi2c1, HDC302x_ADDR_47);
   MIC_Init(&mic, &hi2s1);
   MIC_Start(&mic);
  
@@ -166,9 +176,10 @@ int main(void)
 
     /* USER CODE END WHILE */
     Data_Send();
+    // HAL_Delay(1000);
+    // I2C_Scan();
 
 
-    // HAL_Delay();
 
     /* USER CODE BEGIN 3 */
   }

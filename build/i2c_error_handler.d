@@ -1,4 +1,4 @@
-build/i2c.o: Core/Src/i2c.c Core/Inc/i2c.h Core/Inc/main.h \
+build/i2c_error_handler.o: Core/Src/i2c_error_handler.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -29,9 +29,9 @@ build/i2c.o: Core/Src/i2c.c Core/Inc/i2c.h Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Core/Inc/usart.h
-
-Core/Inc/i2c.h:
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Core/Inc/i2c.h \
+ Core/Inc/main.h Core/Inc/i2c_dma_manager.h Core/Inc/vcnl4040_sensor.h \
+ Core/Inc/icm42688_sensor.h Core/Inc/humidity_temp_sensor.h
 
 Core/Inc/main.h:
 
@@ -101,4 +101,14 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h:
 
-Core/Inc/usart.h:
+Core/Inc/i2c.h:
+
+Core/Inc/main.h:
+
+Core/Inc/i2c_dma_manager.h:
+
+Core/Inc/vcnl4040_sensor.h:
+
+Core/Inc/icm42688_sensor.h:
+
+Core/Inc/humidity_temp_sensor.h:

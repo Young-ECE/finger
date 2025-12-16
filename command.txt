@@ -5,3 +5,7 @@ sudo screen /dev/ttyUSB0 115200
 STM32_Programmer_CLI --connect port=SWD
 STM32_Programmer_CLI --connect port=SWD --write build/finger.bin 0x08000000 --verify --start
 sudo lsof /dev/ttyUSB0
+
+
+烧录：
+openocd -f interface/stlink-v2.cfg -f target/stm32f4x.cfg -c "program build/finger.elf verify reset exit"

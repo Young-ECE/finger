@@ -1,33 +1,33 @@
-ARM GAS  /tmp/ccLTFXQq.s 			page 1
+ARM GAS  /tmp/ccUZPlAk.s 			page 1
 
 
    1              		.cpu cortex-m4
-   2              		.arch armv7e-m
-   3              		.fpu fpv4-sp-d16
-   4              		.eabi_attribute 27, 1
-   5              		.eabi_attribute 28, 1
-   6              		.eabi_attribute 20, 1
-   7              		.eabi_attribute 21, 1
-   8              		.eabi_attribute 23, 3
-   9              		.eabi_attribute 24, 1
-  10              		.eabi_attribute 25, 1
-  11              		.eabi_attribute 26, 1
-  12              		.eabi_attribute 30, 1
-  13              		.eabi_attribute 34, 1
-  14              		.eabi_attribute 18, 4
-  15              		.file	"methods.c"
-  16              		.text
-  17              	.Ltext0:
-  18              		.cfi_sections	.debug_frame
-  19              		.file 1 "Core/Src/methods.c"
-  20              		.section	.text.RGB_LED_Init,"ax",%progbits
-  21              		.align	1
-  22              		.global	RGB_LED_Init
-  23              		.syntax unified
-  24              		.thumb
-  25              		.thumb_func
-  27              	RGB_LED_Init:
-  28              	.LFB138:
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"methods.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.RGB_LED_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	RGB_LED_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	RGB_LED_Init:
+  27              	.LFB138:
+  28              		.file 1 "Core/Src/methods.c"
    1:Core/Src/methods.c **** #include "methods.h"
    2:Core/Src/methods.c **** 
    3:Core/Src/methods.c **** 
@@ -53,81 +53,81 @@ ARM GAS  /tmp/ccLTFXQq.s 			page 1
   43              		.loc 1 8 5 view .LVU1
   44              		.loc 1 8 22 is_stmt 0 view .LVU2
   45 0004 0024     		movs	r4, #0
-  46 0006 0194     		str	r4, [sp, #4]
-  47 0008 0294     		str	r4, [sp, #8]
-  48 000a 0394     		str	r4, [sp, #12]
-  49 000c 0494     		str	r4, [sp, #16]
-  50 000e 0594     		str	r4, [sp, #20]
-ARM GAS  /tmp/ccLTFXQq.s 			page 2
-
-
+  46 0006 0594     		str	r4, [sp, #20]
    9:Core/Src/methods.c **** 
   10:Core/Src/methods.c ****     // Enable GPIOC clock
   11:Core/Src/methods.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
-  51              		.loc 1 11 5 is_stmt 1 view .LVU3
-  52              	.LBB2:
-  53              		.loc 1 11 5 view .LVU4
-  54 0010 0094     		str	r4, [sp]
-  55              		.loc 1 11 5 view .LVU5
-  56 0012 0D4B     		ldr	r3, .L3
-  57 0014 1A6B     		ldr	r2, [r3, #48]
-  58 0016 42F00402 		orr	r2, r2, #4
-  59 001a 1A63     		str	r2, [r3, #48]
-  60              		.loc 1 11 5 view .LVU6
-  61 001c 1B6B     		ldr	r3, [r3, #48]
-  62 001e 03F00403 		and	r3, r3, #4
-  63 0022 0093     		str	r3, [sp]
-  64              		.loc 1 11 5 view .LVU7
-  65 0024 009B     		ldr	r3, [sp]
-  66              	.LBE2:
-  67              		.loc 1 11 5 view .LVU8
+  47              		.loc 1 11 5 is_stmt 1 view .LVU3
+ARM GAS  /tmp/ccUZPlAk.s 			page 2
+
+
+  48              	.LBB2:
+  49              		.loc 1 11 5 view .LVU4
+  50 0008 0094     		str	r4, [sp]
+  51              		.loc 1 11 5 view .LVU5
+  52 000a 0E4B     		ldr	r3, .L3
+  53 000c 1A6B     		ldr	r2, [r3, #48]
+  54 000e 42F00402 		orr	r2, r2, #4
+  55 0012 1A63     		str	r2, [r3, #48]
+  56              		.loc 1 11 5 view .LVU6
+  57 0014 1B6B     		ldr	r3, [r3, #48]
+  58 0016 03F00403 		and	r3, r3, #4
+  59 001a 0093     		str	r3, [sp]
+  60              		.loc 1 11 5 view .LVU7
+  61 001c 009B     		ldr	r3, [sp]
+  62              	.LBE2:
+  63              		.loc 1 11 5 view .LVU8
   12:Core/Src/methods.c **** 
   13:Core/Src/methods.c ****     // Configure PC0, PC1, PC2 as output pins
   14:Core/Src/methods.c ****     GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2;
-  68              		.loc 1 14 5 view .LVU9
-  69              		.loc 1 14 25 is_stmt 0 view .LVU10
-  70 0026 0726     		movs	r6, #7
-  71 0028 0196     		str	r6, [sp, #4]
+  64              		.loc 1 14 5 view .LVU9
+  65              		.loc 1 14 25 is_stmt 0 view .LVU10
+  66 001e 0726     		movs	r6, #7
+  67 0020 0196     		str	r6, [sp, #4]
   15:Core/Src/methods.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  72              		.loc 1 15 5 is_stmt 1 view .LVU11
-  73              		.loc 1 15 26 is_stmt 0 view .LVU12
-  74 002a 0123     		movs	r3, #1
-  75 002c 0293     		str	r3, [sp, #8]
+  68              		.loc 1 15 5 is_stmt 1 view .LVU11
+  69              		.loc 1 15 26 is_stmt 0 view .LVU12
+  70 0022 0123     		movs	r3, #1
+  71 0024 0293     		str	r3, [sp, #8]
   16:Core/Src/methods.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
-  76              		.loc 1 16 5 is_stmt 1 view .LVU13
+  72              		.loc 1 16 5 is_stmt 1 view .LVU13
+  73              		.loc 1 16 26 is_stmt 0 view .LVU14
+  74 0026 0394     		str	r4, [sp, #12]
   17:Core/Src/methods.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  77              		.loc 1 17 5 view .LVU14
+  75              		.loc 1 17 5 is_stmt 1 view .LVU15
+  76              		.loc 1 17 27 is_stmt 0 view .LVU16
+  77 0028 0494     		str	r4, [sp, #16]
   18:Core/Src/methods.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  78              		.loc 1 18 5 view .LVU15
-  79 002e 074D     		ldr	r5, .L3+4
-  80 0030 01A9     		add	r1, sp, #4
-  81 0032 2846     		mov	r0, r5
-  82 0034 FFF7FEFF 		bl	HAL_GPIO_Init
+  78              		.loc 1 18 5 is_stmt 1 view .LVU17
+  79 002a 074D     		ldr	r5, .L3+4
+  80 002c 01A9     		add	r1, sp, #4
+  81 002e 2846     		mov	r0, r5
+  82 0030 FFF7FEFF 		bl	HAL_GPIO_Init
   83              	.LVL0:
   19:Core/Src/methods.c **** 
   20:Core/Src/methods.c ****     // Turn off all LEDs initially
   21:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-  84              		.loc 1 21 5 view .LVU16
-  85 0038 2246     		mov	r2, r4
-  86 003a 3146     		mov	r1, r6
-  87 003c 2846     		mov	r0, r5
-  88 003e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  84              		.loc 1 21 5 view .LVU18
+  85 0034 2246     		mov	r2, r4
+  86 0036 3146     		mov	r1, r6
+  87 0038 2846     		mov	r0, r5
+  88 003a FFF7FEFF 		bl	HAL_GPIO_WritePin
   89              	.LVL1:
   22:Core/Src/methods.c **** }
-  90              		.loc 1 22 1 is_stmt 0 view .LVU17
-  91 0042 06B0     		add	sp, sp, #24
+  90              		.loc 1 22 1 is_stmt 0 view .LVU19
+  91 003e 06B0     		add	sp, sp, #24
   92              	.LCFI2:
   93              		.cfi_def_cfa_offset 16
-ARM GAS  /tmp/ccLTFXQq.s 			page 3
+ARM GAS  /tmp/ccUZPlAk.s 			page 3
 
 
   94              		@ sp needed
-  95 0044 70BD     		pop	{r4, r5, r6, pc}
+  95 0040 70BD     		pop	{r4, r5, r6, pc}
   96              	.L4:
-  97 0046 00BF     		.align	2
+  97 0042 00BF     		.align	2
   98              	.L3:
-  99 0048 00380240 		.word	1073887232
- 100 004c 00080240 		.word	1073874944
+  99 0044 00380240 		.word	1073887232
+ 100 0048 00080240 		.word	1073874944
  101              		.cfi_endproc
  102              	.LFE138:
  104              		.section	.text.RGB_LED_Blink,"ax",%progbits
@@ -136,85 +136,86 @@ ARM GAS  /tmp/ccLTFXQq.s 			page 1
  107              		.syntax unified
  108              		.thumb
  109              		.thumb_func
- 111              	RGB_LED_Blink:
- 112              	.LFB139:
+ 110              		.fpu fpv4-sp-d16
+ 112              	RGB_LED_Blink:
+ 113              	.LFB139:
   23:Core/Src/methods.c **** void RGB_LED_Blink(void)
   24:Core/Src/methods.c **** {
- 113              		.loc 1 24 1 is_stmt 1 view -0
- 114              		.cfi_startproc
- 115              		@ args = 0, pretend = 0, frame = 0
- 116              		@ frame_needed = 0, uses_anonymous_args = 0
- 117 0000 10B5     		push	{r4, lr}
- 118              	.LCFI3:
- 119              		.cfi_def_cfa_offset 8
- 120              		.cfi_offset 4, -8
- 121              		.cfi_offset 14, -4
+ 114              		.loc 1 24 1 is_stmt 1 view -0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118 0000 10B5     		push	{r4, lr}
+ 119              	.LCFI3:
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 4, -8
+ 122              		.cfi_offset 14, -4
   25:Core/Src/methods.c ****     // Red
   26:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
- 122              		.loc 1 26 5 view .LVU19
- 123 0002 144C     		ldr	r4, .L7
- 124 0004 0122     		movs	r2, #1
- 125 0006 1146     		mov	r1, r2
- 126 0008 2046     		mov	r0, r4
- 127 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
- 128              	.LVL2:
+ 123              		.loc 1 26 5 view .LVU21
+ 124 0002 144C     		ldr	r4, .L7
+ 125 0004 0122     		movs	r2, #1
+ 126 0006 1146     		mov	r1, r2
+ 127 0008 2046     		mov	r0, r4
+ 128 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 129              	.LVL2:
   27:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
- 129              		.loc 1 27 5 view .LVU20
- 130 000e 0022     		movs	r2, #0
- 131 0010 0621     		movs	r1, #6
- 132 0012 2046     		mov	r0, r4
- 133 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 134              	.LVL3:
+ 130              		.loc 1 27 5 view .LVU22
+ 131 000e 0022     		movs	r2, #0
+ 132 0010 0621     		movs	r1, #6
+ 133 0012 2046     		mov	r0, r4
+ 134 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 135              	.LVL3:
   28:Core/Src/methods.c ****     HAL_Delay(100);
- 135              		.loc 1 28 5 view .LVU21
- 136 0018 6420     		movs	r0, #100
- 137 001a FFF7FEFF 		bl	HAL_Delay
- 138              	.LVL4:
+ 136              		.loc 1 28 5 view .LVU23
+ 137 0018 6420     		movs	r0, #100
+ 138 001a FFF7FEFF 		bl	HAL_Delay
+ 139              	.LVL4:
   29:Core/Src/methods.c **** 
   30:Core/Src/methods.c ****     // Green
   31:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
- 139              		.loc 1 31 5 view .LVU22
- 140 001e 0122     		movs	r2, #1
- 141 0020 0221     		movs	r1, #2
- 142 0022 2046     		mov	r0, r4
- 143 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
-ARM GAS  /tmp/ccLTFXQq.s 			page 4
+ 140              		.loc 1 31 5 view .LVU24
+ 141 001e 0122     		movs	r2, #1
+ 142 0020 0221     		movs	r1, #2
+ 143 0022 2046     		mov	r0, r4
+ARM GAS  /tmp/ccUZPlAk.s 			page 4
 
 
- 144              	.LVL5:
+ 144 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 145              	.LVL5:
   32:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_2, GPIO_PIN_RESET);
- 145              		.loc 1 32 5 view .LVU23
- 146 0028 0022     		movs	r2, #0
- 147 002a 0521     		movs	r1, #5
- 148 002c 2046     		mov	r0, r4
- 149 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
- 150              	.LVL6:
+ 146              		.loc 1 32 5 view .LVU25
+ 147 0028 0022     		movs	r2, #0
+ 148 002a 0521     		movs	r1, #5
+ 149 002c 2046     		mov	r0, r4
+ 150 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 151              	.LVL6:
   33:Core/Src/methods.c ****     HAL_Delay(100);
- 151              		.loc 1 33 5 view .LVU24
- 152 0032 6420     		movs	r0, #100
- 153 0034 FFF7FEFF 		bl	HAL_Delay
- 154              	.LVL7:
+ 152              		.loc 1 33 5 view .LVU26
+ 153 0032 6420     		movs	r0, #100
+ 154 0034 FFF7FEFF 		bl	HAL_Delay
+ 155              	.LVL7:
   34:Core/Src/methods.c **** 
   35:Core/Src/methods.c ****     // Blue
   36:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
- 155              		.loc 1 36 5 view .LVU25
- 156 0038 0122     		movs	r2, #1
- 157 003a 0421     		movs	r1, #4
- 158 003c 2046     		mov	r0, r4
- 159 003e FFF7FEFF 		bl	HAL_GPIO_WritePin
- 160              	.LVL8:
+ 156              		.loc 1 36 5 view .LVU27
+ 157 0038 0122     		movs	r2, #1
+ 158 003a 0421     		movs	r1, #4
+ 159 003c 2046     		mov	r0, r4
+ 160 003e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 161              	.LVL8:
   37:Core/Src/methods.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_RESET);
- 161              		.loc 1 37 5 view .LVU26
- 162 0042 0022     		movs	r2, #0
- 163 0044 0321     		movs	r1, #3
- 164 0046 2046     		mov	r0, r4
- 165 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 166              	.LVL9:
+ 162              		.loc 1 37 5 view .LVU28
+ 163 0042 0022     		movs	r2, #0
+ 164 0044 0321     		movs	r1, #3
+ 165 0046 2046     		mov	r0, r4
+ 166 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 167              	.LVL9:
   38:Core/Src/methods.c ****     HAL_Delay(100);
- 167              		.loc 1 38 5 view .LVU27
- 168 004c 6420     		movs	r0, #100
- 169 004e FFF7FEFF 		bl	HAL_Delay
- 170              	.LVL10:
+ 168              		.loc 1 38 5 view .LVU29
+ 169 004c 6420     		movs	r0, #100
+ 170 004e FFF7FEFF 		bl	HAL_Delay
+ 171              	.LVL10:
   39:Core/Src/methods.c **** 
   40:Core/Src/methods.c ****     // // White (all on)
   41:Core/Src/methods.c ****     // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
@@ -224,529 +225,635 @@ ARM GAS  /tmp/ccLTFXQq.s 			page 1
   45:Core/Src/methods.c ****     // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
   46:Core/Src/methods.c ****     // HAL_Delay(200);
   47:Core/Src/methods.c **** }
- 171              		.loc 1 47 1 is_stmt 0 view .LVU28
- 172 0052 10BD     		pop	{r4, pc}
- 173              	.L8:
- 174              		.align	2
- 175              	.L7:
- 176 0054 00080240 		.word	1073874944
- 177              		.cfi_endproc
- 178              	.LFE139:
- 180              		.section	.text.USART_Print,"ax",%progbits
- 181              		.align	1
- 182              		.global	USART_Print
- 183              		.syntax unified
- 184              		.thumb
- 185              		.thumb_func
-ARM GAS  /tmp/ccLTFXQq.s 			page 5
+ 172              		.loc 1 47 1 is_stmt 0 view .LVU30
+ 173 0052 10BD     		pop	{r4, pc}
+ 174              	.L8:
+ 175              		.align	2
+ 176              	.L7:
+ 177 0054 00080240 		.word	1073874944
+ 178              		.cfi_endproc
+ 179              	.LFE139:
+ 181              		.section	.text.USART_Print,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	USART_Print
+ 184              		.syntax unified
+ 185              		.thumb
+ARM GAS  /tmp/ccUZPlAk.s 			page 5
 
 
- 187              	USART_Print:
- 188              	.LVL11:
- 189              	.LFB140:
+ 186              		.thumb_func
+ 187              		.fpu fpv4-sp-d16
+ 189              	USART_Print:
+ 190              	.LVL11:
+ 191              	.LFB140:
   48:Core/Src/methods.c **** void USART_Print(const char *format, ...)
   49:Core/Src/methods.c **** {
- 190              		.loc 1 49 1 is_stmt 1 view -0
- 191              		.cfi_startproc
- 192              		@ args = 4, pretend = 16, frame = 136
- 193              		@ frame_needed = 0, uses_anonymous_args = 1
- 194              		.loc 1 49 1 is_stmt 0 view .LVU30
- 195 0000 0FB4     		push	{r0, r1, r2, r3}
- 196              	.LCFI4:
- 197              		.cfi_def_cfa_offset 16
- 198              		.cfi_offset 0, -16
- 199              		.cfi_offset 1, -12
- 200              		.cfi_offset 2, -8
- 201              		.cfi_offset 3, -4
- 202 0002 00B5     		push	{lr}
- 203              	.LCFI5:
- 204              		.cfi_def_cfa_offset 20
- 205              		.cfi_offset 14, -20
- 206 0004 A3B0     		sub	sp, sp, #140
- 207              	.LCFI6:
- 208              		.cfi_def_cfa_offset 160
- 209 0006 24AB     		add	r3, sp, #144
- 210 0008 53F8042B 		ldr	r2, [r3], #4
+ 192              		.loc 1 49 1 is_stmt 1 view -0
+ 193              		.cfi_startproc
+ 194              		@ args = 4, pretend = 16, frame = 136
+ 195              		@ frame_needed = 0, uses_anonymous_args = 1
+ 196              		.loc 1 49 1 is_stmt 0 view .LVU32
+ 197 0000 0FB4     		push	{r0, r1, r2, r3}
+ 198              	.LCFI4:
+ 199              		.cfi_def_cfa_offset 16
+ 200              		.cfi_offset 0, -16
+ 201              		.cfi_offset 1, -12
+ 202              		.cfi_offset 2, -8
+ 203              		.cfi_offset 3, -4
+ 204 0002 00B5     		push	{lr}
+ 205              	.LCFI5:
+ 206              		.cfi_def_cfa_offset 20
+ 207              		.cfi_offset 14, -20
+ 208 0004 A3B0     		sub	sp, sp, #140
+ 209              	.LCFI6:
+ 210              		.cfi_def_cfa_offset 160
+ 211 0006 24AB     		add	r3, sp, #144
+ 212 0008 53F8042B 		ldr	r2, [r3], #4
   50:Core/Src/methods.c ****     char buffer[128];
- 211              		.loc 1 50 5 is_stmt 1 view .LVU31
+ 213              		.loc 1 50 5 is_stmt 1 view .LVU33
   51:Core/Src/methods.c ****     va_list args;
- 212              		.loc 1 51 5 view .LVU32
+ 214              		.loc 1 51 5 view .LVU34
   52:Core/Src/methods.c ****     va_start(args, format);
- 213              		.loc 1 52 5 view .LVU33
- 214 000c 0193     		str	r3, [sp, #4]
+ 215              		.loc 1 52 5 view .LVU35
+ 216 000c 0193     		str	r3, [sp, #4]
   53:Core/Src/methods.c ****     vsnprintf(buffer, sizeof(buffer), format, args);
- 215              		.loc 1 53 5 view .LVU34
- 216 000e 8021     		movs	r1, #128
- 217 0010 02A8     		add	r0, sp, #8
- 218 0012 FFF7FEFF 		bl	vsnprintf
- 219              	.LVL12:
+ 217              		.loc 1 53 5 view .LVU36
+ 218 000e 8021     		movs	r1, #128
+ 219 0010 02A8     		add	r0, sp, #8
+ 220 0012 FFF7FEFF 		bl	vsnprintf
+ 221              	.LVL12:
   54:Core/Src/methods.c ****     va_end(args);
- 220              		.loc 1 54 5 view .LVU35
+ 222              		.loc 1 54 5 view .LVU37
   55:Core/Src/methods.c ****     // 发送格式化的字符串通过UART
   56:Core/Src/methods.c ****     HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 100);
- 221              		.loc 1 56 5 view .LVU36
- 222              		.loc 1 56 51 is_stmt 0 view .LVU37
- 223 0016 02A8     		add	r0, sp, #8
- 224 0018 FFF7FEFF 		bl	strlen
- 225              	.LVL13:
- 226              		.loc 1 56 5 discriminator 1 view .LVU38
- 227 001c 6423     		movs	r3, #100
- 228 001e 82B2     		uxth	r2, r0
- 229 0020 02A9     		add	r1, sp, #8
- 230 0022 0448     		ldr	r0, .L11
- 231 0024 FFF7FEFF 		bl	HAL_UART_Transmit
- 232              	.LVL14:
+ 223              		.loc 1 56 5 view .LVU38
+ 224              		.loc 1 56 51 is_stmt 0 view .LVU39
+ 225 0016 02A8     		add	r0, sp, #8
+ 226 0018 FFF7FEFF 		bl	strlen
+ 227              	.LVL13:
+ 228              		.loc 1 56 5 view .LVU40
+ 229 001c 6423     		movs	r3, #100
+ 230 001e 82B2     		uxth	r2, r0
+ 231 0020 02A9     		add	r1, sp, #8
+ 232 0022 0448     		ldr	r0, .L11
+ 233 0024 FFF7FEFF 		bl	HAL_UART_Transmit
+ 234              	.LVL14:
+ARM GAS  /tmp/ccUZPlAk.s 			page 6
+
+
   57:Core/Src/methods.c **** }
- 233              		.loc 1 57 1 view .LVU39
-ARM GAS  /tmp/ccLTFXQq.s 			page 6
-
-
- 234 0028 23B0     		add	sp, sp, #140
- 235              	.LCFI7:
- 236              		.cfi_def_cfa_offset 20
- 237              		@ sp needed
- 238 002a 5DF804EB 		ldr	lr, [sp], #4
- 239              	.LCFI8:
- 240              		.cfi_restore 14
- 241              		.cfi_def_cfa_offset 16
- 242 002e 04B0     		add	sp, sp, #16
- 243              	.LCFI9:
- 244              		.cfi_restore 3
- 245              		.cfi_restore 2
- 246              		.cfi_restore 1
- 247              		.cfi_restore 0
- 248              		.cfi_def_cfa_offset 0
- 249 0030 7047     		bx	lr
- 250              	.L12:
- 251 0032 00BF     		.align	2
- 252              	.L11:
- 253 0034 00000000 		.word	huart1
- 254              		.cfi_endproc
- 255              	.LFE140:
- 257              		.section	.text.Send_Raw_Bytes,"ax",%progbits
- 258              		.align	1
- 259              		.global	Send_Raw_Bytes
- 260              		.syntax unified
- 261              		.thumb
- 262              		.thumb_func
- 264              	Send_Raw_Bytes:
- 265              	.LVL15:
- 266              	.LFB141:
+ 235              		.loc 1 57 1 view .LVU41
+ 236 0028 23B0     		add	sp, sp, #140
+ 237              	.LCFI7:
+ 238              		.cfi_def_cfa_offset 20
+ 239              		@ sp needed
+ 240 002a 5DF804EB 		ldr	lr, [sp], #4
+ 241              	.LCFI8:
+ 242              		.cfi_restore 14
+ 243              		.cfi_def_cfa_offset 16
+ 244 002e 04B0     		add	sp, sp, #16
+ 245              	.LCFI9:
+ 246              		.cfi_restore 3
+ 247              		.cfi_restore 2
+ 248              		.cfi_restore 1
+ 249              		.cfi_restore 0
+ 250              		.cfi_def_cfa_offset 0
+ 251 0030 7047     		bx	lr
+ 252              	.L12:
+ 253 0032 00BF     		.align	2
+ 254              	.L11:
+ 255 0034 00000000 		.word	huart1
+ 256              		.cfi_endproc
+ 257              	.LFE140:
+ 259              		.section	.text.Send_Raw_Bytes,"ax",%progbits
+ 260              		.align	1
+ 261              		.global	Send_Raw_Bytes
+ 262              		.syntax unified
+ 263              		.thumb
+ 264              		.thumb_func
+ 265              		.fpu fpv4-sp-d16
+ 267              	Send_Raw_Bytes:
+ 268              	.LVL15:
+ 269              	.LFB141:
   58:Core/Src/methods.c **** void Send_Raw_Bytes(uint16_t data)
   59:Core/Src/methods.c **** {
- 267              		.loc 1 59 1 is_stmt 1 view -0
- 268              		.cfi_startproc
- 269              		@ args = 0, pretend = 0, frame = 8
- 270              		@ frame_needed = 0, uses_anonymous_args = 0
- 271              		.loc 1 59 1 is_stmt 0 view .LVU41
- 272 0000 00B5     		push	{lr}
- 273              	.LCFI10:
- 274              		.cfi_def_cfa_offset 4
- 275              		.cfi_offset 14, -4
- 276 0002 83B0     		sub	sp, sp, #12
- 277              	.LCFI11:
- 278              		.cfi_def_cfa_offset 16
+ 270              		.loc 1 59 1 is_stmt 1 view -0
+ 271              		.cfi_startproc
+ 272              		@ args = 0, pretend = 0, frame = 8
+ 273              		@ frame_needed = 0, uses_anonymous_args = 0
+ 274              		.loc 1 59 1 is_stmt 0 view .LVU43
+ 275 0000 00B5     		push	{lr}
+ 276              	.LCFI10:
+ 277              		.cfi_def_cfa_offset 4
+ 278              		.cfi_offset 14, -4
+ 279 0002 83B0     		sub	sp, sp, #12
+ 280              	.LCFI11:
+ 281              		.cfi_def_cfa_offset 16
   60:Core/Src/methods.c ****     uint8_t bytes[2];
- 279              		.loc 1 60 5 is_stmt 1 view .LVU42
+ 282              		.loc 1 60 5 is_stmt 1 view .LVU44
   61:Core/Src/methods.c ****     
   62:Core/Src/methods.c ****     // 将16位数据拆分为2个字节
   63:Core/Src/methods.c ****     bytes[0] = (uint8_t)(data & 0xFF);        // 低字节 (LSB)
- 280              		.loc 1 63 5 view .LVU43
- 281              		.loc 1 63 14 is_stmt 0 view .LVU44
- 282 0004 8DF80400 		strb	r0, [sp, #4]
+ 283              		.loc 1 63 5 view .LVU45
+ 284              		.loc 1 63 14 is_stmt 0 view .LVU46
+ 285 0004 8DF80400 		strb	r0, [sp, #4]
   64:Core/Src/methods.c ****     bytes[1] = (uint8_t)((data >> 8) & 0xFF); // 高字节 (MSB)
- 283              		.loc 1 64 5 is_stmt 1 view .LVU45
- 284              		.loc 1 64 16 is_stmt 0 view .LVU46
- 285 0008 000A     		lsrs	r0, r0, #8
-ARM GAS  /tmp/ccLTFXQq.s 			page 7
+ARM GAS  /tmp/ccUZPlAk.s 			page 7
 
 
- 286              	.LVL16:
- 287              		.loc 1 64 14 view .LVU47
- 288 000a 8DF80500 		strb	r0, [sp, #5]
+ 286              		.loc 1 64 5 is_stmt 1 view .LVU47
+ 287              		.loc 1 64 16 is_stmt 0 view .LVU48
+ 288 0008 000A     		lsrs	r0, r0, #8
+ 289              	.LVL16:
+ 290              		.loc 1 64 14 view .LVU49
+ 291 000a 8DF80500 		strb	r0, [sp, #5]
   65:Core/Src/methods.c ****     
   66:Core/Src/methods.c ****     // 发送字节数据
   67:Core/Src/methods.c ****     HAL_UART_Transmit(&huart1, bytes, 2, HAL_MAX_DELAY);
- 289              		.loc 1 67 5 is_stmt 1 view .LVU48
- 290 000e 4FF0FF33 		mov	r3, #-1
- 291 0012 0222     		movs	r2, #2
- 292 0014 01A9     		add	r1, sp, #4
- 293 0016 0348     		ldr	r0, .L15
- 294 0018 FFF7FEFF 		bl	HAL_UART_Transmit
- 295              	.LVL17:
+ 292              		.loc 1 67 5 is_stmt 1 view .LVU50
+ 293 000e 4FF0FF33 		mov	r3, #-1
+ 294 0012 0222     		movs	r2, #2
+ 295 0014 01A9     		add	r1, sp, #4
+ 296 0016 0348     		ldr	r0, .L15
+ 297 0018 FFF7FEFF 		bl	HAL_UART_Transmit
+ 298              	.LVL17:
   68:Core/Src/methods.c **** }
- 296              		.loc 1 68 1 is_stmt 0 view .LVU49
- 297 001c 03B0     		add	sp, sp, #12
- 298              	.LCFI12:
- 299              		.cfi_def_cfa_offset 4
- 300              		@ sp needed
- 301 001e 5DF804FB 		ldr	pc, [sp], #4
- 302              	.L16:
- 303 0022 00BF     		.align	2
- 304              	.L15:
- 305 0024 00000000 		.word	huart1
- 306              		.cfi_endproc
- 307              	.LFE141:
- 309              		.section	.text.Send_Buffer_Bytes,"ax",%progbits
- 310              		.align	1
- 311              		.global	Send_Buffer_Bytes
- 312              		.syntax unified
- 313              		.thumb
- 314              		.thumb_func
- 316              	Send_Buffer_Bytes:
- 317              	.LVL18:
- 318              	.LFB142:
+ 299              		.loc 1 68 1 is_stmt 0 view .LVU51
+ 300 001c 03B0     		add	sp, sp, #12
+ 301              	.LCFI12:
+ 302              		.cfi_def_cfa_offset 4
+ 303              		@ sp needed
+ 304 001e 5DF804FB 		ldr	pc, [sp], #4
+ 305              	.L16:
+ 306 0022 00BF     		.align	2
+ 307              	.L15:
+ 308 0024 00000000 		.word	huart1
+ 309              		.cfi_endproc
+ 310              	.LFE141:
+ 312              		.section	.text.Send_Buffer_Bytes,"ax",%progbits
+ 313              		.align	1
+ 314              		.global	Send_Buffer_Bytes
+ 315              		.syntax unified
+ 316              		.thumb
+ 317              		.thumb_func
+ 318              		.fpu fpv4-sp-d16
+ 320              	Send_Buffer_Bytes:
+ 321              	.LVL18:
+ 322              	.LFB142:
   69:Core/Src/methods.c **** 
   70:Core/Src/methods.c **** void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count)
   71:Core/Src/methods.c **** {
- 319              		.loc 1 71 1 is_stmt 1 view -0
- 320              		.cfi_startproc
- 321              		@ args = 0, pretend = 0, frame = 0
- 322              		@ frame_needed = 0, uses_anonymous_args = 0
- 323              		.loc 1 71 1 is_stmt 0 view .LVU51
- 324 0000 70B5     		push	{r4, r5, r6, lr}
- 325              	.LCFI13:
- 326              		.cfi_def_cfa_offset 16
- 327              		.cfi_offset 4, -16
- 328              		.cfi_offset 5, -12
- 329              		.cfi_offset 6, -8
- 330              		.cfi_offset 14, -4
- 331 0002 0646     		mov	r6, r0
- 332 0004 0D46     		mov	r5, r1
+ 323              		.loc 1 71 1 is_stmt 1 view -0
+ 324              		.cfi_startproc
+ 325              		@ args = 0, pretend = 0, frame = 0
+ 326              		@ frame_needed = 0, uses_anonymous_args = 0
+ 327              		.loc 1 71 1 is_stmt 0 view .LVU53
+ 328 0000 70B5     		push	{r4, r5, r6, lr}
+ 329              	.LCFI13:
+ 330              		.cfi_def_cfa_offset 16
+ 331              		.cfi_offset 4, -16
+ 332              		.cfi_offset 5, -12
+ 333              		.cfi_offset 6, -8
+ 334              		.cfi_offset 14, -4
+ 335 0002 0646     		mov	r6, r0
+ 336 0004 0D46     		mov	r5, r1
   72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
- 333              		.loc 1 72 5 is_stmt 1 view .LVU52
- 334              	.LBB3:
- 335              		.loc 1 72 10 view .LVU53
- 336              	.LVL19:
-ARM GAS  /tmp/ccLTFXQq.s 			page 8
+ARM GAS  /tmp/ccUZPlAk.s 			page 8
 
 
- 337              		.loc 1 72 19 is_stmt 0 view .LVU54
- 338 0006 0024     		movs	r4, #0
- 339              		.loc 1 72 5 view .LVU55
- 340 0008 05E0     		b	.L18
- 341              	.LVL20:
- 342              	.L19:
+ 337              		.loc 1 72 5 is_stmt 1 view .LVU54
+ 338              	.LBB3:
+ 339              		.loc 1 72 10 view .LVU55
+ 340              	.LVL19:
+ 341              		.loc 1 72 19 is_stmt 0 view .LVU56
+ 342 0006 0024     		movs	r4, #0
+ 343              	.LVL20:
+ 344              	.L18:
+ 345              		.loc 1 72 26 is_stmt 1 discriminator 1 view .LVU57
+ 346              		.loc 1 72 5 is_stmt 0 discriminator 1 view .LVU58
+ 347 0008 AC42     		cmp	r4, r5
+ 348 000a 06D2     		bcs	.L21
   73:Core/Src/methods.c ****     {
   74:Core/Src/methods.c ****         Send_Raw_Bytes(buffer[i]);
- 343              		.loc 1 74 9 is_stmt 1 view .LVU56
- 344 000a 36F81400 		ldrh	r0, [r6, r4, lsl #1]
- 345 000e FFF7FEFF 		bl	Send_Raw_Bytes
- 346              	.LVL21:
+ 349              		.loc 1 74 9 is_stmt 1 discriminator 3 view .LVU59
+ 350 000c 36F81400 		ldrh	r0, [r6, r4, lsl #1]
+ 351 0010 FFF7FEFF 		bl	Send_Raw_Bytes
+ 352              	.LVL21:
   72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
- 347              		.loc 1 72 38 discriminator 3 view .LVU57
- 348 0012 0134     		adds	r4, r4, #1
- 349              	.LVL22:
+ 353              		.loc 1 72 37 discriminator 3 view .LVU60
   72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
- 350              		.loc 1 72 38 is_stmt 0 discriminator 3 view .LVU58
- 351 0014 A4B2     		uxth	r4, r4
- 352              	.LVL23:
- 353              	.L18:
+ 354              		.loc 1 72 38 is_stmt 0 discriminator 3 view .LVU61
+ 355 0014 0134     		adds	r4, r4, #1
+ 356              	.LVL22:
   72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
- 354              		.loc 1 72 28 is_stmt 1 discriminator 1 view .LVU59
- 355 0016 AC42     		cmp	r4, r5
- 356 0018 F7D3     		bcc	.L19
- 357              	.LBE3:
+ 357              		.loc 1 72 38 discriminator 3 view .LVU62
+ 358 0016 A4B2     		uxth	r4, r4
+ 359              	.LVL23:
+  72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
+ 360              		.loc 1 72 38 discriminator 3 view .LVU63
+ 361 0018 F6E7     		b	.L18
+ 362              	.L21:
+  72:Core/Src/methods.c ****     for (uint16_t i = 0; i < count; i++)
+ 363              		.loc 1 72 38 discriminator 3 view .LVU64
+ 364              	.LBE3:
   75:Core/Src/methods.c ****     }
   76:Core/Src/methods.c **** }
- 358              		.loc 1 76 1 is_stmt 0 view .LVU60
- 359 001a 70BD     		pop	{r4, r5, r6, pc}
- 360              		.loc 1 76 1 view .LVU61
- 361              		.cfi_endproc
- 362              	.LFE142:
- 364              		.section	.text.USB_Print,"ax",%progbits
- 365              		.align	1
- 366              		.global	USB_Print
- 367              		.syntax unified
- 368              		.thumb
- 369              		.thumb_func
- 371              	USB_Print:
- 372              	.LVL24:
- 373              	.LFB144:
+ 365              		.loc 1 76 1 view .LVU65
+ 366 001a 70BD     		pop	{r4, r5, r6, pc}
+ 367              		.loc 1 76 1 view .LVU66
+ 368              		.cfi_endproc
+ 369              	.LFE142:
+ 371              		.section	.text.USB_Print,"ax",%progbits
+ 372              		.align	1
+ 373              		.global	USB_Print
+ 374              		.syntax unified
+ 375              		.thumb
+ 376              		.thumb_func
+ 377              		.fpu fpv4-sp-d16
+ 379              	USB_Print:
+ 380              	.LVL24:
+ 381              	.LFB144:
   77:Core/Src/methods.c **** 
   78:Core/Src/methods.c **** void I2C_Scan(void)
   79:Core/Src/methods.c **** {
   80:Core/Src/methods.c ****     USB_Print("Starting I2C scan...\r\n");
   81:Core/Src/methods.c **** 
+ARM GAS  /tmp/ccUZPlAk.s 			page 9
+
+
   82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
   83:Core/Src/methods.c ****     {
   84:Core/Src/methods.c ****         // Check if a device responds at this address
-  85:Core/Src/methods.c ****         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
-  86:Core/Src/methods.c ****         {
-  87:Core/Src/methods.c ****             USB_Print("I2C device found at address: 0x%02X\r\n", addr);
+  85:Core/Src/methods.c ****         // Use small timeout (10ms) instead of HAL_MAX_DELAY to avoid hanging
+  86:Core/Src/methods.c ****         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, 10) == HAL_OK)
+  87:Core/Src/methods.c ****         {
+  88:Core/Src/methods.c ****             USB_Print("I2C device found at address: 0x%02X\r\n", addr);
+  89:Core/Src/methods.c ****         }
+  90:Core/Src/methods.c ****     }
+  91:Core/Src/methods.c **** 
+  92:Core/Src/methods.c ****     USB_Print("I2C scan complete.\r\n");
+  93:Core/Src/methods.c **** }
+  94:Core/Src/methods.c **** 
+  95:Core/Src/methods.c **** void USB_Print(const char *format, ...)
+  96:Core/Src/methods.c **** {
+ 382              		.loc 1 96 1 is_stmt 1 view -0
+ 383              		.cfi_startproc
+ 384              		@ args = 4, pretend = 16, frame = 136
+ 385              		@ frame_needed = 0, uses_anonymous_args = 1
+ 386              		.loc 1 96 1 is_stmt 0 view .LVU68
+ 387 0000 0FB4     		push	{r0, r1, r2, r3}
+ 388              	.LCFI14:
+ 389              		.cfi_def_cfa_offset 16
+ 390              		.cfi_offset 0, -16
+ 391              		.cfi_offset 1, -12
+ 392              		.cfi_offset 2, -8
+ 393              		.cfi_offset 3, -4
+ 394 0002 00B5     		push	{lr}
+ 395              	.LCFI15:
+ 396              		.cfi_def_cfa_offset 20
+ 397              		.cfi_offset 14, -20
+ 398 0004 A3B0     		sub	sp, sp, #140
+ 399              	.LCFI16:
+ 400              		.cfi_def_cfa_offset 160
+ 401 0006 24AB     		add	r3, sp, #144
+ 402 0008 53F8042B 		ldr	r2, [r3], #4
+  97:Core/Src/methods.c ****     char buffer[128];
+ 403              		.loc 1 97 5 is_stmt 1 view .LVU69
+  98:Core/Src/methods.c ****     va_list args;
+ 404              		.loc 1 98 5 view .LVU70
+  99:Core/Src/methods.c ****     va_start(args, format);
+ 405              		.loc 1 99 5 view .LVU71
+ 406 000c 0193     		str	r3, [sp, #4]
+ 100:Core/Src/methods.c ****     int len = vsnprintf(buffer, sizeof(buffer), format, args);
+ 407              		.loc 1 100 5 view .LVU72
+ 408              		.loc 1 100 15 is_stmt 0 view .LVU73
+ 409 000e 8021     		movs	r1, #128
+ 410 0010 02A8     		add	r0, sp, #8
+ 411 0012 FFF7FEFF 		bl	vsnprintf
+ 412              	.LVL25:
+ 101:Core/Src/methods.c ****     va_end(args);
+ 413              		.loc 1 101 5 is_stmt 1 view .LVU74
+ 102:Core/Src/methods.c ****     CDC_Transmit_FS((uint8_t*)buffer, len);
+ 414              		.loc 1 102 5 view .LVU75
+ 415 0016 81B2     		uxth	r1, r0
+ 416 0018 02A8     		add	r0, sp, #8
+ 417              	.LVL26:
+ARM GAS  /tmp/ccUZPlAk.s 			page 10
+
+
+ 418              		.loc 1 102 5 is_stmt 0 view .LVU76
+ 419 001a FFF7FEFF 		bl	CDC_Transmit_FS
+ 420              	.LVL27:
+ 103:Core/Src/methods.c **** }
+ 421              		.loc 1 103 1 view .LVU77
+ 422 001e 23B0     		add	sp, sp, #140
+ 423              	.LCFI17:
+ 424              		.cfi_def_cfa_offset 20
+ 425              		@ sp needed
+ 426 0020 5DF804EB 		ldr	lr, [sp], #4
+ 427              	.LCFI18:
+ 428              		.cfi_restore 14
+ 429              		.cfi_def_cfa_offset 16
+ 430 0024 04B0     		add	sp, sp, #16
+ 431              	.LCFI19:
+ 432              		.cfi_restore 3
+ 433              		.cfi_restore 2
+ 434              		.cfi_restore 1
+ 435              		.cfi_restore 0
+ 436              		.cfi_def_cfa_offset 0
+ 437 0026 7047     		bx	lr
+ 438              		.cfi_endproc
+ 439              	.LFE144:
+ 441              		.section	.rodata.I2C_Scan.str1.4,"aMS",%progbits,1
+ 442              		.align	2
+ 443              	.LC0:
+ 444 0000 53746172 		.ascii	"Starting I2C scan...\015\012\000"
+ 444      74696E67 
+ 444      20493243 
+ 444      20736361 
+ 444      6E2E2E2E 
+ 445 0017 00       		.align	2
+ 446              	.LC1:
+ 447 0018 49324320 		.ascii	"I2C device found at address: 0x%02X\015\012\000"
+ 447      64657669 
+ 447      63652066 
+ 447      6F756E64 
+ 447      20617420 
+ 448 003e 0000     		.align	2
+ 449              	.LC2:
+ 450 0040 49324320 		.ascii	"I2C scan complete.\015\012\000"
+ 450      7363616E 
+ 450      20636F6D 
+ 450      706C6574 
+ 450      652E0D0A 
+ 451              		.section	.text.I2C_Scan,"ax",%progbits
+ 452              		.align	1
+ 453              		.global	I2C_Scan
+ 454              		.syntax unified
+ 455              		.thumb
+ 456              		.thumb_func
+ 457              		.fpu fpv4-sp-d16
+ 459              	I2C_Scan:
+ 460              	.LFB143:
+  79:Core/Src/methods.c ****     USB_Print("Starting I2C scan...\r\n");
+ 461              		.loc 1 79 1 is_stmt 1 view -0
+ 462              		.cfi_startproc
+ARM GAS  /tmp/ccUZPlAk.s 			page 11
+
+
+ 463              		@ args = 0, pretend = 0, frame = 0
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
+ 465 0000 10B5     		push	{r4, lr}
+ 466              	.LCFI20:
+ 467              		.cfi_def_cfa_offset 8
+ 468              		.cfi_offset 4, -8
+ 469              		.cfi_offset 14, -4
+  80:Core/Src/methods.c **** 
+ 470              		.loc 1 80 5 view .LVU79
+ 471 0002 0D48     		ldr	r0, .L31
+ 472 0004 FFF7FEFF 		bl	USB_Print
+ 473              	.LVL28:
+  82:Core/Src/methods.c ****     {
+ 474              		.loc 1 82 5 view .LVU80
+ 475              	.LBB4:
+  82:Core/Src/methods.c ****     {
+ 476              		.loc 1 82 10 view .LVU81
+  82:Core/Src/methods.c ****     {
+ 477              		.loc 1 82 18 is_stmt 0 view .LVU82
+ 478 0008 0324     		movs	r4, #3
+  82:Core/Src/methods.c ****     {
+ 479              		.loc 1 82 5 view .LVU83
+ 480 000a 05E0     		b	.L25
+ 481              	.LVL29:
+ 482              	.L30:
   88:Core/Src/methods.c ****         }
-  89:Core/Src/methods.c ****     }
-  90:Core/Src/methods.c **** 
-  91:Core/Src/methods.c ****     USB_Print("I2C scan complete.\r\n");
-ARM GAS  /tmp/ccLTFXQq.s 			page 9
-
-
-  92:Core/Src/methods.c **** }
-  93:Core/Src/methods.c **** 
-  94:Core/Src/methods.c **** void USB_Print(const char *format, ...)
-  95:Core/Src/methods.c **** {
- 374              		.loc 1 95 1 is_stmt 1 view -0
- 375              		.cfi_startproc
- 376              		@ args = 4, pretend = 16, frame = 136
- 377              		@ frame_needed = 0, uses_anonymous_args = 1
- 378              		.loc 1 95 1 is_stmt 0 view .LVU63
- 379 0000 0FB4     		push	{r0, r1, r2, r3}
- 380              	.LCFI14:
- 381              		.cfi_def_cfa_offset 16
- 382              		.cfi_offset 0, -16
- 383              		.cfi_offset 1, -12
- 384              		.cfi_offset 2, -8
- 385              		.cfi_offset 3, -4
- 386 0002 10B5     		push	{r4, lr}
- 387              	.LCFI15:
- 388              		.cfi_def_cfa_offset 24
- 389              		.cfi_offset 4, -24
- 390              		.cfi_offset 14, -20
- 391 0004 A2B0     		sub	sp, sp, #136
- 392              	.LCFI16:
- 393              		.cfi_def_cfa_offset 160
- 394 0006 24AB     		add	r3, sp, #144
- 395 0008 53F8042B 		ldr	r2, [r3], #4
-  96:Core/Src/methods.c ****     char buffer[128];
- 396              		.loc 1 96 5 is_stmt 1 view .LVU64
-  97:Core/Src/methods.c ****     va_list args;
- 397              		.loc 1 97 5 view .LVU65
-  98:Core/Src/methods.c ****     va_start(args, format);
- 398              		.loc 1 98 5 view .LVU66
- 399 000c 0193     		str	r3, [sp, #4]
-  99:Core/Src/methods.c ****     int len = vsnprintf(buffer, sizeof(buffer), format, args);
- 400              		.loc 1 99 5 view .LVU67
- 401              		.loc 1 99 15 is_stmt 0 view .LVU68
- 402 000e 8021     		movs	r1, #128
- 403 0010 02A8     		add	r0, sp, #8
- 404 0012 FFF7FEFF 		bl	vsnprintf
- 405              	.LVL25:
- 100:Core/Src/methods.c ****     va_end(args);
- 406              		.loc 1 100 5 is_stmt 1 view .LVU69
- 101:Core/Src/methods.c ****     if (len > 0) {
- 407              		.loc 1 101 5 view .LVU70
- 408              		.loc 1 101 8 is_stmt 0 view .LVU71
- 409 0016 041E     		subs	r4, r0, #0
- 410 0018 03DC     		bgt	.L22
- 411 001a 08E0     		b	.L21
- 412              	.LVL26:
- 413              	.L24:
- 102:Core/Src/methods.c ****         // 注意：CDC_Transmit_FS是非阻塞的，可能返回USBD_BUSY
- 103:Core/Src/methods.c ****         while (CDC_Transmit_FS((uint8_t*)buffer, len) == USBD_BUSY) {
- 104:Core/Src/methods.c ****             HAL_Delay(1);
- 414              		.loc 1 104 13 is_stmt 1 view .LVU72
- 415 001c 0120     		movs	r0, #1
- 416 001e FFF7FEFF 		bl	HAL_Delay
- 417              	.LVL27:
-ARM GAS  /tmp/ccLTFXQq.s 			page 10
-
-
- 418              	.L22:
- 103:Core/Src/methods.c ****             HAL_Delay(1);
- 419              		.loc 1 103 55 view .LVU73
- 103:Core/Src/methods.c ****             HAL_Delay(1);
- 420              		.loc 1 103 16 is_stmt 0 view .LVU74
- 421 0022 A1B2     		uxth	r1, r4
- 422 0024 02A8     		add	r0, sp, #8
- 423 0026 FFF7FEFF 		bl	CDC_Transmit_FS
- 424              	.LVL28:
- 103:Core/Src/methods.c ****             HAL_Delay(1);
- 425              		.loc 1 103 55 discriminator 1 view .LVU75
- 426 002a 0128     		cmp	r0, #1
- 427 002c F6D0     		beq	.L24
- 428              	.L21:
- 105:Core/Src/methods.c ****         }
- 106:Core/Src/methods.c ****     }
- 107:Core/Src/methods.c **** }...
- 429              		.loc 1 107 1 view .LVU76
- 430 002e 22B0     		add	sp, sp, #136
- 431              	.LCFI17:
- 432              		.cfi_def_cfa_offset 24
- 433              		@ sp needed
- 434 0030 BDE81040 		pop	{r4, lr}
- 435              	.LCFI18:
- 436              		.cfi_restore 14
- 437              		.cfi_restore 4
- 438              		.cfi_def_cfa_offset 16
- 439              	.LVL29:
- 440              		.loc 1 107 1 view .LVU77
- 441 0034 04B0     		add	sp, sp, #16
- 442              	.LCFI19:
- 443              		.cfi_restore 3
- 444              		.cfi_restore 2
- 445              		.cfi_restore 1
- 446              		.cfi_restore 0
- 447              		.cfi_def_cfa_offset 0
- 448 0036 7047     		bx	lr
- 449              		.cfi_endproc
- 450              	.LFE144:
- 452              		.section	.rodata.I2C_Scan.str1.4,"aMS",%progbits,1
- 453              		.align	2
- 454              	.LC0:
- 455 0000 53746172 		.ascii	"Starting I2C scan...\015\012\000"
- 455      74696E67 
- 455      20493243 
- 455      20736361 
- 455      6E2E2E2E 
- 456 0017 00       		.align	2
- 457              	.LC1:
- 458 0018 49324320 		.ascii	"I2C device found at address: 0x%02X\015\012\000"
- 458      64657669 
- 458      63652066 
- 458      6F756E64 
- 458      20617420 
- 459 003e 0000     		.align	2
- 460              	.LC2:
- 461 0040 49324320 		.ascii	"I2C scan complete.\015\012\000"
-ARM GAS  /tmp/ccLTFXQq.s 			page 11
-
-
- 461      7363616E 
- 461      20636F6D 
- 461      706C6574 
- 461      652E0D0A 
- 462              		.section	.text.I2C_Scan,"ax",%progbits
- 463              		.align	1
- 464              		.global	I2C_Scan
- 465              		.syntax unified
- 466              		.thumb
- 467              		.thumb_func
- 469              	I2C_Scan:
- 470              	.LFB143:
-  79:Core/Src/methods.c **** {
- 471              		.loc 1 79 1 is_stmt 1 view -0
- 472              		.cfi_startproc
- 473              		@ args = 0, pretend = 0, frame = 0
- 474              		@ frame_needed = 0, uses_anonymous_args = 0
- 475 0000 10B5     		push	{r4, lr}
- 476              	.LCFI20:
- 477              		.cfi_def_cfa_offset 8
- 478              		.cfi_offset 4, -8
- 479              		.cfi_offset 14, -4
-  80:Core/Src/methods.c ****     USB_Print("Starting I2C scan...\r\n");
- 480              		.loc 1 80 5 view .LVU79
- 481 0002 0E48     		ldr	r0, .L32
- 482 0004 FFF7FEFF 		bl	USB_Print
- 483              	.LVL30:
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 484              		.loc 1 82 5 view .LVU80
- 485              	.LBB4:
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 486              		.loc 1 82 10 view .LVU81
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 487              		.loc 1 82 18 is_stmt 0 view .LVU82
- 488 0008 0324     		movs	r4, #3
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 489              		.loc 1 82 5 view .LVU83
- 490 000a 01E0     		b	.L27
- 491              	.LVL31:
- 492              	.L28:
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 493              		.loc 1 82 49 is_stmt 1 discriminator 2 view .LVU84
- 494 000c 0134     		adds	r4, r4, #1
+ 483              		.loc 1 88 13 is_stmt 1 view .LVU84
+ 484 000c 2146     		mov	r1, r4
+ 485 000e 0B48     		ldr	r0, .L31+4
+ 486 0010 FFF7FEFF 		bl	USB_Print
+ 487              	.LVL30:
+ 488              	.L26:
+  82:Core/Src/methods.c ****     {
+ 489              		.loc 1 82 45 discriminator 2 view .LVU85
+  82:Core/Src/methods.c ****     {
+ 490              		.loc 1 82 49 is_stmt 0 discriminator 2 view .LVU86
+ 491 0014 0134     		adds	r4, r4, #1
+ 492              	.LVL31:
+  82:Core/Src/methods.c ****     {
+ 493              		.loc 1 82 49 discriminator 2 view .LVU87
+ 494 0016 E4B2     		uxtb	r4, r4
  495              	.LVL32:
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 496              		.loc 1 82 49 is_stmt 0 discriminator 2 view .LVU85
- 497 000e E4B2     		uxtb	r4, r4
- 498              	.LVL33:
- 499              	.L27:
-  82:Core/Src/methods.c ****     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
- 500              		.loc 1 82 36 is_stmt 1 discriminator 1 view .LVU86
- 501 0010 772C     		cmp	r4, #119
- 502 0012 0ED8     		bhi	.L31
-  85:Core/Src/methods.c ****         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
- 503              		.loc 1 85 9 view .LVU87
-  85:Core/Src/methods.c ****         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
- 504              		.loc 1 85 13 is_stmt 0 view .LVU88
-ARM GAS  /tmp/ccLTFXQq.s 			page 12
+ 496              	.L25:
+  82:Core/Src/methods.c ****     {
+ 497              		.loc 1 82 31 is_stmt 1 discriminator 1 view .LVU88
+  82:Core/Src/methods.c ****     {
+ 498              		.loc 1 82 5 is_stmt 0 discriminator 1 view .LVU89
+ 499 0018 772C     		cmp	r4, #119
+ 500 001a 09D8     		bhi	.L29
+  86:Core/Src/methods.c ****         {
+ 501              		.loc 1 86 9 is_stmt 1 view .LVU90
+  86:Core/Src/methods.c ****         {
+ 502              		.loc 1 86 13 is_stmt 0 view .LVU91
+ 503 001c 0A23     		movs	r3, #10
+ 504 001e 0122     		movs	r2, #1
+ 505 0020 04FA02F1 		lsl	r1, r4, r2
+ 506 0024 0648     		ldr	r0, .L31+8
+ARM GAS  /tmp/ccUZPlAk.s 			page 12
 
 
- 505 0014 4FF0FF33 		mov	r3, #-1
- 506 0018 0122     		movs	r2, #1
- 507 001a 04FA02F1 		lsl	r1, r4, r2
- 508 001e 0848     		ldr	r0, .L32+4
- 509 0020 FFF7FEFF 		bl	HAL_I2C_IsDeviceReady
- 510              	.LVL34:
-  85:Core/Src/methods.c ****         if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
- 511              		.loc 1 85 12 discriminator 1 view .LVU89
- 512 0024 0028     		cmp	r0, #0
- 513 0026 F1D1     		bne	.L28
-  87:Core/Src/methods.c ****             USB_Print("I2C device found at address: 0x%02X\r\n", addr);
- 514              		.loc 1 87 13 is_stmt 1 view .LVU90
- 515 0028 2146     		mov	r1, r4
- 516 002a 0648     		ldr	r0, .L32+8
- 517 002c FFF7FEFF 		bl	USB_Print
- 518              	.LVL35:
- 519 0030 ECE7     		b	.L28
- 520              	.L31:
- 521              	.LBE4:
-  91:Core/Src/methods.c ****     USB_Print("I2C scan complete.\r\n");
- 522              		.loc 1 91 5 view .LVU91
- 523 0032 0548     		ldr	r0, .L32+12
- 524 0034 FFF7FEFF 		bl	USB_Print
- 525              	.LVL36:
+ 507 0026 FFF7FEFF 		bl	HAL_I2C_IsDeviceReady
+ 508              	.LVL33:
+  86:Core/Src/methods.c ****         {
+ 509              		.loc 1 86 12 view .LVU92
+ 510 002a 0028     		cmp	r0, #0
+ 511 002c F2D1     		bne	.L26
+ 512 002e EDE7     		b	.L30
+ 513              	.L29:
+ 514              	.LBE4:
   92:Core/Src/methods.c **** }
- 526              		.loc 1 92 1 is_stmt 0 view .LVU92
- 527 0038 10BD     		pop	{r4, pc}
- 528              	.LVL37:
- 529              	.L33:
-  92:Core/Src/methods.c **** }
- 530              		.loc 1 92 1 view .LVU93
- 531 003a 00BF     		.align	2
- 532              	.L32:
- 533 003c 00000000 		.word	.LC0
- 534 0040 00000000 		.word	hi2c1
- 535 0044 18000000 		.word	.LC1
- 536 0048 40000000 		.word	.LC2
- 537              		.cfi_endproc
- 538              	.LFE143:
- 540              		.text
- 541              	.Letext0:
- 542              		.file 2 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdint.h"
- 543              		.file 3 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 544              		.file 4 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
- 545              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 546              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
- 547              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 548              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 549              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
- 550              		.file 10 "/usr/lib/gcc/arm-none-eabi/13.2.1/include/stdarg.h"
- 551              		.file 11 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 552              		.file 12 "Core/Inc/usart.h"
- 553              		.file 13 "Core/Inc/i2c.h"
- 554              		.file 14 "USB_DEVICE/App/usbd_cdc_if.h"
- 555              		.file 15 "/usr/include/newlib/string.h"
- 556              		.file 16 "/usr/include/newlib/stdio.h"
- 557              		.file 17 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  /tmp/ccLTFXQq.s 			page 13
+ 515              		.loc 1 92 5 is_stmt 1 view .LVU93
+ 516 0030 0448     		ldr	r0, .L31+12
+ 517 0032 FFF7FEFF 		bl	USB_Print
+ 518              	.LVL34:
+  93:Core/Src/methods.c **** 
+ 519              		.loc 1 93 1 is_stmt 0 view .LVU94
+ 520 0036 10BD     		pop	{r4, pc}
+ 521              	.LVL35:
+ 522              	.L32:
+  93:Core/Src/methods.c **** 
+ 523              		.loc 1 93 1 view .LVU95
+ 524              		.align	2
+ 525              	.L31:
+ 526 0038 00000000 		.word	.LC0
+ 527 003c 18000000 		.word	.LC1
+ 528 0040 00000000 		.word	hi2c1
+ 529 0044 40000000 		.word	.LC2
+ 530              		.cfi_endproc
+ 531              	.LFE143:
+ 533              		.section	.text.I2C_Protected_Mem_Read,"ax",%progbits
+ 534              		.align	1
+ 535              		.global	I2C_Protected_Mem_Read
+ 536              		.syntax unified
+ 537              		.thumb
+ 538              		.thumb_func
+ 539              		.fpu fpv4-sp-d16
+ 541              	I2C_Protected_Mem_Read:
+ 542              	.LVL36:
+ 543              	.LFB145:
+ 104:Core/Src/methods.c **** 
+ 105:Core/Src/methods.c **** /* ==== I2C Protected Transfer Functions ==== */
+ 106:Core/Src/methods.c **** /* 在I2C传输期间临时禁用所有中断，避免I2S DMA打断I2C时序 */
+ 107:Core/Src/methods.c **** 
+ 108:Core/Src/methods.c **** HAL_StatusTypeDef I2C_Protected_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+ 109:Core/Src/methods.c ****                                          uint16_t MemAddress, uint16_t MemAddSize,
+ 110:Core/Src/methods.c ****                                          uint8_t *pData, uint16_t Size, uint32_t Timeout)
+ 111:Core/Src/methods.c **** {
+ 544              		.loc 1 111 1 is_stmt 1 view -0
+ 545              		.cfi_startproc
+ 546              		@ args = 12, pretend = 0, frame = 0
+ 547              		@ frame_needed = 0, uses_anonymous_args = 0
+ 548              		.loc 1 111 1 is_stmt 0 view .LVU97
+ 549 0000 10B5     		push	{r4, lr}
+ 550              	.LCFI21:
+ 551              		.cfi_def_cfa_offset 8
+ 552              		.cfi_offset 4, -8
+ 553              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccUZPlAk.s 			page 13
 
 
- 558              		.file 18 "<built-in>"
-ARM GAS  /tmp/ccLTFXQq.s 			page 14
+ 554 0002 84B0     		sub	sp, sp, #16
+ 555              	.LCFI22:
+ 556              		.cfi_def_cfa_offset 24
+ 112:Core/Src/methods.c ****     // 直接调用HAL库函数，不禁用中断
+ 113:Core/Src/methods.c ****     return HAL_I2C_Mem_Read(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+ 557              		.loc 1 113 5 is_stmt 1 view .LVU98
+ 558              		.loc 1 113 12 is_stmt 0 view .LVU99
+ 559 0004 089C     		ldr	r4, [sp, #32]
+ 560 0006 0294     		str	r4, [sp, #8]
+ 561 0008 BDF81C40 		ldrh	r4, [sp, #28]
+ 562 000c 0194     		str	r4, [sp, #4]
+ 563 000e 069C     		ldr	r4, [sp, #24]
+ 564 0010 0094     		str	r4, [sp]
+ 565 0012 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 566              	.LVL37:
+ 114:Core/Src/methods.c **** }
+ 567              		.loc 1 114 1 view .LVU100
+ 568 0016 04B0     		add	sp, sp, #16
+ 569              	.LCFI23:
+ 570              		.cfi_def_cfa_offset 8
+ 571              		@ sp needed
+ 572 0018 10BD     		pop	{r4, pc}
+ 573              		.loc 1 114 1 view .LVU101
+ 574              		.cfi_endproc
+ 575              	.LFE145:
+ 577              		.section	.text.I2C_Protected_Mem_Write,"ax",%progbits
+ 578              		.align	1
+ 579              		.global	I2C_Protected_Mem_Write
+ 580              		.syntax unified
+ 581              		.thumb
+ 582              		.thumb_func
+ 583              		.fpu fpv4-sp-d16
+ 585              	I2C_Protected_Mem_Write:
+ 586              	.LVL38:
+ 587              	.LFB146:
+ 115:Core/Src/methods.c **** 
+ 116:Core/Src/methods.c **** HAL_StatusTypeDef I2C_Protected_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+ 117:Core/Src/methods.c ****                                           uint16_t MemAddress, uint16_t MemAddSize,
+ 118:Core/Src/methods.c ****                                           uint8_t *pData, uint16_t Size, uint32_t Timeout)
+ 119:Core/Src/methods.c **** {
+ 588              		.loc 1 119 1 is_stmt 1 view -0
+ 589              		.cfi_startproc
+ 590              		@ args = 12, pretend = 0, frame = 0
+ 591              		@ frame_needed = 0, uses_anonymous_args = 0
+ 592              		.loc 1 119 1 is_stmt 0 view .LVU103
+ 593 0000 10B5     		push	{r4, lr}
+ 594              	.LCFI24:
+ 595              		.cfi_def_cfa_offset 8
+ 596              		.cfi_offset 4, -8
+ 597              		.cfi_offset 14, -4
+ 598 0002 84B0     		sub	sp, sp, #16
+ 599              	.LCFI25:
+ 600              		.cfi_def_cfa_offset 24
+ 120:Core/Src/methods.c ****     // 直接调用HAL库函数，不禁用中断
+ 121:Core/Src/methods.c ****     return HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+ 601              		.loc 1 121 5 is_stmt 1 view .LVU104
+ 602              		.loc 1 121 12 is_stmt 0 view .LVU105
+ARM GAS  /tmp/ccUZPlAk.s 			page 14
+
+
+ 603 0004 089C     		ldr	r4, [sp, #32]
+ 604 0006 0294     		str	r4, [sp, #8]
+ 605 0008 BDF81C40 		ldrh	r4, [sp, #28]
+ 606 000c 0194     		str	r4, [sp, #4]
+ 607 000e 069C     		ldr	r4, [sp, #24]
+ 608 0010 0094     		str	r4, [sp]
+ 609 0012 FFF7FEFF 		bl	HAL_I2C_Mem_Write
+ 610              	.LVL39:
+ 122:Core/Src/methods.c **** }...
+ 611              		.loc 1 122 1 view .LVU106
+ 612 0016 04B0     		add	sp, sp, #16
+ 613              	.LCFI26:
+ 614              		.cfi_def_cfa_offset 8
+ 615              		@ sp needed
+ 616 0018 10BD     		pop	{r4, pc}
+ 617              		.loc 1 122 1 view .LVU107
+ 618              		.cfi_endproc
+ 619              	.LFE146:
+ 621              		.text
+ 622              	.Letext0:
+ 623              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 624              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 625              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 626              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 627              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 628              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 629              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 630              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 631              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 632              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 633              		.file 12 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdarg.h"
+ 634              		.file 13 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 635              		.file 14 "/usr/include/newlib/sys/_types.h"
+ 636              		.file 15 "/usr/include/newlib/sys/reent.h"
+ 637              		.file 16 "/usr/include/newlib/sys/lock.h"
+ 638              		.file 17 "Core/Inc/usart.h"
+ 639              		.file 18 "/usr/include/newlib/stdlib.h"
+ 640              		.file 19 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 641              		.file 20 "Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h"
+ 642              		.file 21 "USB_DEVICE/App/usbd_cdc_if.h"
+ 643              		.file 22 "Core/Inc/i2c.h"
+ 644              		.file 23 "/usr/include/newlib/stdio.h"
+ 645              		.file 24 "/usr/include/newlib/string.h"
+ 646              		.file 25 "<built-in>"
+ARM GAS  /tmp/ccUZPlAk.s 			page 15
 
 
 DEFINED SYMBOLS
-                            *ABS*:00000000 methods.c
-     /tmp/ccLTFXQq.s:21     .text.RGB_LED_Init:00000000 $t
-     /tmp/ccLTFXQq.s:27     .text.RGB_LED_Init:00000000 RGB_LED_Init
-     /tmp/ccLTFXQq.s:99     .text.RGB_LED_Init:00000048 $d
-     /tmp/ccLTFXQq.s:105    .text.RGB_LED_Blink:00000000 $t
-     /tmp/ccLTFXQq.s:111    .text.RGB_LED_Blink:00000000 RGB_LED_Blink
-     /tmp/ccLTFXQq.s:176    .text.RGB_LED_Blink:00000054 $d
-     /tmp/ccLTFXQq.s:181    .text.USART_Print:00000000 $t
-     /tmp/ccLTFXQq.s:187    .text.USART_Print:00000000 USART_Print
-     /tmp/ccLTFXQq.s:253    .text.USART_Print:00000034 $d
-     /tmp/ccLTFXQq.s:258    .text.Send_Raw_Bytes:00000000 $t
-     /tmp/ccLTFXQq.s:264    .text.Send_Raw_Bytes:00000000 Send_Raw_Bytes
-     /tmp/ccLTFXQq.s:305    .text.Send_Raw_Bytes:00000024 $d
-     /tmp/ccLTFXQq.s:310    .text.Send_Buffer_Bytes:00000000 $t
-     /tmp/ccLTFXQq.s:316    .text.Send_Buffer_Bytes:00000000 Send_Buffer_Bytes
-     /tmp/ccLTFXQq.s:365    .text.USB_Print:00000000 $t
-     /tmp/ccLTFXQq.s:371    .text.USB_Print:00000000 USB_Print
-     /tmp/ccLTFXQq.s:453    .rodata.I2C_Scan.str1.4:00000000 $d
-     /tmp/ccLTFXQq.s:463    .text.I2C_Scan:00000000 $t
-     /tmp/ccLTFXQq.s:469    .text.I2C_Scan:00000000 I2C_Scan
-     /tmp/ccLTFXQq.s:533    .text.I2C_Scan:0000003c $d
+                            *ABS*:0000000000000000 methods.c
+     /tmp/ccUZPlAk.s:18     .text.RGB_LED_Init:0000000000000000 $t
+     /tmp/ccUZPlAk.s:26     .text.RGB_LED_Init:0000000000000000 RGB_LED_Init
+     /tmp/ccUZPlAk.s:99     .text.RGB_LED_Init:0000000000000044 $d
+     /tmp/ccUZPlAk.s:105    .text.RGB_LED_Blink:0000000000000000 $t
+     /tmp/ccUZPlAk.s:112    .text.RGB_LED_Blink:0000000000000000 RGB_LED_Blink
+     /tmp/ccUZPlAk.s:177    .text.RGB_LED_Blink:0000000000000054 $d
+     /tmp/ccUZPlAk.s:182    .text.USART_Print:0000000000000000 $t
+     /tmp/ccUZPlAk.s:189    .text.USART_Print:0000000000000000 USART_Print
+     /tmp/ccUZPlAk.s:255    .text.USART_Print:0000000000000034 $d
+     /tmp/ccUZPlAk.s:260    .text.Send_Raw_Bytes:0000000000000000 $t
+     /tmp/ccUZPlAk.s:267    .text.Send_Raw_Bytes:0000000000000000 Send_Raw_Bytes
+     /tmp/ccUZPlAk.s:308    .text.Send_Raw_Bytes:0000000000000024 $d
+     /tmp/ccUZPlAk.s:313    .text.Send_Buffer_Bytes:0000000000000000 $t
+     /tmp/ccUZPlAk.s:320    .text.Send_Buffer_Bytes:0000000000000000 Send_Buffer_Bytes
+     /tmp/ccUZPlAk.s:372    .text.USB_Print:0000000000000000 $t
+     /tmp/ccUZPlAk.s:379    .text.USB_Print:0000000000000000 USB_Print
+     /tmp/ccUZPlAk.s:442    .rodata.I2C_Scan.str1.4:0000000000000000 $d
+     /tmp/ccUZPlAk.s:452    .text.I2C_Scan:0000000000000000 $t
+     /tmp/ccUZPlAk.s:459    .text.I2C_Scan:0000000000000000 I2C_Scan
+     /tmp/ccUZPlAk.s:526    .text.I2C_Scan:0000000000000038 $d
+     /tmp/ccUZPlAk.s:534    .text.I2C_Protected_Mem_Read:0000000000000000 $t
+     /tmp/ccUZPlAk.s:541    .text.I2C_Protected_Mem_Read:0000000000000000 I2C_Protected_Mem_Read
+     /tmp/ccUZPlAk.s:578    .text.I2C_Protected_Mem_Write:0000000000000000 $t
+     /tmp/ccUZPlAk.s:585    .text.I2C_Protected_Mem_Write:0000000000000000 I2C_Protected_Mem_Write
 
 UNDEFINED SYMBOLS
 HAL_GPIO_Init
@@ -759,3 +866,5 @@ huart1
 CDC_Transmit_FS
 HAL_I2C_IsDeviceReady
 hi2c1
+HAL_I2C_Mem_Read
+HAL_I2C_Mem_Write

@@ -82,7 +82,8 @@ void I2C_Scan(void)
     for (uint8_t addr = 0x03; addr <= 0x77; addr++)
     {
         // Check if a device responds at this address
-        if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, HAL_MAX_DELAY) == HAL_OK)
+        // Use small timeout (10ms) instead of HAL_MAX_DELAY to avoid hanging
+        if (HAL_I2C_IsDeviceReady(&hi2c1, (addr << 1), 1, 10) == HAL_OK)
         {
             USB_Print("I2C device found at address: 0x%02X\r\n", addr);
         }
@@ -98,10 +99,24 @@ void USB_Print(const char *format, ...)
     va_start(args, format);
     int len = vsnprintf(buffer, sizeof(buffer), format, args);
     va_end(args);
-    if (len > 0) {
-        // 注意：CDC_Transmit_FS是非阻塞的，可能返回USBD_BUSY
-        while (CDC_Transmit_FS((uint8_t*)buffer, len) == USBD_BUSY) {
-            HAL_Delay(1);
-        }
-    }
+    CDC_Transmit_FS((uint8_t*)buffer, len);
+}
+
+/* ==== I2C Protected Transfer Functions ==== */
+/* 在I2C传输期间临时禁用所有中断，避免I2S DMA打断I2C时序 */
+
+HAL_StatusTypeDef I2C_Protected_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                         uint16_t MemAddress, uint16_t MemAddSize,
+                                         uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+    // 直接调用HAL库函数，不禁用中断
+    return HAL_I2C_Mem_Read(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
+}
+
+HAL_StatusTypeDef I2C_Protected_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                          uint16_t MemAddress, uint16_t MemAddSize,
+                                          uint8_t *pData, uint16_t Size, uint32_t Timeout)
+{
+    // 直接调用HAL库函数，不禁用中断
+    return HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
 }

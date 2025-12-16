@@ -19,6 +19,14 @@ void Send_Raw_Bytes(uint16_t data);
 void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count);
 void USB_Print(const char *format, ...);
 
+HAL_StatusTypeDef I2C_Protected_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                         uint16_t MemAddress, uint16_t MemAddSize,
+                                         uint8_t *pData, uint16_t Size, uint32_t Timeout);
+
+HAL_StatusTypeDef I2C_Protected_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
+                                          uint16_t MemAddress, uint16_t MemAddSize,
+                                          uint8_t *pData, uint16_t Size, uint32_t Timeout);
+
 
 
 
