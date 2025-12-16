@@ -75,34 +75,34 @@ void My_Main_Init(void)
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
 
-  // Step 2: 初始化ICM42688
-  strcpy(msg, "INIT:ICM42688...\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
-  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
-  strcpy(msg, "INIT:ICM42688 OK\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
+  // // Step 2: 初始化ICM42688
+  // strcpy(msg, "INIT:ICM42688...\n");
+  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  // HAL_Delay(100);
+  // ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
+  // strcpy(msg, "INIT:ICM42688 OK\n");
+  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  // HAL_Delay(100);
 
-  // Step 3: 初始化8个BME280传感器（跳过损坏的[3]）
-  for (int i = 0; i < 8; i++) {
-    if (i == 3) {
-      int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
-      CDC_Transmit_FS((uint8_t*)msg, len);
-      HAL_Delay(50);
-      continue;
-    }
+  // // Step 3: 初始化8个BME280传感器（跳过损坏的[3]）
+  // for (int i = 0; i < 8; i++) {
+  //   if (i == 3) {
+  //     int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
+  //     CDC_Transmit_FS((uint8_t*)msg, len);
+  //     HAL_Delay(50);
+  //     continue;
+  //   }
 
-    int len = sprintf(msg, "INIT:BME280[%d]...\n", i);
-    CDC_Transmit_FS((uint8_t*)msg, len);
-    HAL_Delay(50);
+  //   int len = sprintf(msg, "INIT:BME280[%d]...\n", i);
+  //   CDC_Transmit_FS((uint8_t*)msg, len);
+  //   HAL_Delay(50);
 
-    BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
+  //   BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
 
-    len = sprintf(msg, "INIT:BME280[%d] OK\n", i);
-    CDC_Transmit_FS((uint8_t*)msg, len);
-    HAL_Delay(50);
-  }
+  //   len = sprintf(msg, "INIT:BME280[%d] OK\n", i);
+  //   CDC_Transmit_FS((uint8_t*)msg, len);
+  //   HAL_Delay(50);
+  // }
 
   // Step 4: 初始化麦克风（I2S）
   strcpy(msg, "INIT:MICROPHONE...\n");
@@ -150,38 +150,41 @@ void My_Main_Run(void)
     VCNL4040_ReadALS(&vcnl4040, &als);
     VCNL4040_ReadPS(&vcnl4040, &ps);
 
-    // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
-    ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+    // // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
+    // ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
 
-    // === 3. 轮询读取单个BME280 (温湿度和气压) ===
-    if (bme_index == 3) {
-      // BME280[3]损坏，使用常量值（已在初始化时设置）
-      // 跳过读取，但仍然递增索引
-    } else {
-      // 读取当前索引的BME280传感器
-      if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
-        BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
-      }
-      // I2C切换失败时保留旧值，不更新
-    }
+    // // === 3. 轮询读取单个BME280 (温湿度和气压) ===
+    // if (bme_index == 3) {
+    //   // BME280[3]损坏，使用常量值（已在初始化时设置）
+    //   // 跳过读取，但仍然递增索引
+    // } else {
+    //   // 读取当前索引的BME280传感器
+    //   if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
+    //     BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+    //   }
+    //   // I2C切换失败时保留旧值，不更新
+    // }
 
-    // 切换到下一个传感器（循环0-7）
-    bme_index = (bme_index + 1) % 8;
+    // // 切换到下一个传感器（循环0-7）
+    // bme_index = (bme_index + 1) % 8;
 
     // === 4. 输出CSV格式数据 ===
     int len = sprintf(msg,
-      "%u,%u,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // ALS,PS,Accel_X/Y/Z,Gyro_X/Y/Z
-      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
-      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
-      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Press[0-7]
-      "%.1f,%ld\n",  // IMU_Temp, Mic_Audio
+      "%u,%u,"
+      // "%.1f,"
+      // "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // ALS,PS,Accel_X/Y/Z,Gyro_X/Y/Z
+      // "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
+      // "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
+      // "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Press[0-7]
+      "%ld\n",  // IMU_Temp, Mic_Audio
       als, ps,
-      accel.x, accel.y, accel.z,
-      gyro.x, gyro.y, gyro.z,
-      temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
-      hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
-      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
-      imu_temp, mic.audio_result
+      // imu_temp, 
+      // accel.x, accel.y, accel.z,
+      // gyro.x, gyro.y, gyro.z,
+      // temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
+      // hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
+      // press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
+      mic.audio_result
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);
