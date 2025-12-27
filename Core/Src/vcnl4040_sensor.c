@@ -11,7 +11,7 @@
 static HAL_StatusTypeDef VCNL4040_Write16(VCNL4040_HandleTypeDef *dev, uint8_t reg, uint8_t low, uint8_t high)
 {
     uint8_t buf[2] = { low, high };
-    return I2C_Protected_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
+    return  HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
                                    I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
 }
 
@@ -22,7 +22,7 @@ static HAL_StatusTypeDef VCNL4040_Read16(VCNL4040_HandleTypeDef *dev, uint8_t re
     
     /* Try with retry on failure */
     for (int retry = 0; retry < 2; retry++) {
-        ret = I2C_Protected_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
+        ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
                                      I2C_MEMADD_SIZE_8BIT, buf, 2, 50);
         if (ret == HAL_OK) {
             *out = (uint16_t)((buf[1] << 8) | buf[0]);

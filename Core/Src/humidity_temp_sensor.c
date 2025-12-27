@@ -15,7 +15,7 @@ static HAL_StatusTypeDef BME280_WriteReg(BME280_HandleTypeDef *dev, uint8_t reg,
     HAL_StatusTypeDef status;
     status = TCA9548A_SelectChannel(dev->hi2c, dev->mux_addr, dev->mux_channel);
     if (status != HAL_OK) return status;
-    return I2C_Protected_Mem_Write(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, 100);
+    return HAL_I2C_Mem_Write(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, &value, 1, 100);
 }
 
 /* ==== INTERNAL HELPER: Read Register ==== */
@@ -24,7 +24,7 @@ static HAL_StatusTypeDef BME280_ReadReg(BME280_HandleTypeDef *dev, uint8_t reg, 
     HAL_StatusTypeDef status;
     status = TCA9548A_SelectChannel(dev->hi2c, dev->mux_addr, dev->mux_channel);
     if (status != HAL_OK) return status;
-    return I2C_Protected_Mem_Read(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 100);
+    return HAL_I2C_Mem_Read(dev->hi2c, dev->sensor_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 100);
 }
 
 /* ==== TCA9548A: SELECT MULTIPLEXER CHANNEL ==== */
@@ -41,7 +41,7 @@ HAL_StatusTypeDef TCA9548A_SelectChannel(I2C_HandleTypeDef *hi2c, uint8_t mux_ad
      * This reduces switching time from ~1-5ms to ~0.5ms
      * to avoid blocking I2S interrupts (8kHz, 125μs period)
      */
-    return I2C_Protected_Master_Transmit(hi2c, mux_addr, &control_byte, 1, 10);
+    return HAL_I2C_Master_Transmit(hi2c, mux_addr, &control_byte, 1, 10);
 }
 
 /* ==== BME280: READ CALIBRATION DATA ==== */

@@ -44,13 +44,7 @@ VCNL4040_HandleTypeDef vcnl4040;
 static BME280_HandleTypeDef bme[8];  // 8x BME280 sensors via TCA9548A
 ICM42688_HandleTypeDef icm42688;
 MIC_HandleTypeDef mic;
-
-static inline void DWT_Init(void)
-{
-  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // Enable trace
-  DWT->CYCCNT = 0;                                  // Reset counter
-  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // Enable counter
-}
+HAL_StatusTypeDef status;
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -108,15 +102,15 @@ void My_Application_Init(void)
     HAL_Delay(50);
   }
 
-  // // Step 4: 初始化麦克风（I2S）
-  // strcpy(msg, "INIT:MICROPHONE...\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
-  // MIC_Init(&mic, &hi2s1);
-  // MIC_Start(&mic);
-  // strcpy(msg, "INIT:MICROPHONE OK\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
+  // Step 4: 初始化麦克风（I2S）
+  strcpy(msg, "INIT:MICROPHONE...\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+  MIC_Init(&mic, &hi2s1);
+  MIC_Start(&mic);
+  strcpy(msg, "INIT:MICROPHONE OK\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
 
   strcpy(msg, "========== ALL SENSORS READY ==========\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
@@ -133,7 +127,7 @@ void My_Application_Init(void)
   */
 void My_Application_Run(void)
 {
-  // // 传感器数据变量
+  // 传感器数据变量
   uint16_t als = 0, ps = 0;
   ICM42688_ScaledData accel = {0}, gyro = {0};
   float imu_temp = 0;
@@ -147,29 +141,39 @@ void My_Application_Run(void)
   static int bme_index = 0;
 
   static char msg[512];
+	uint32_t start_cycles, end_cycles;
+    float duration_us;
+    
+    DWT_Init(); // 确保 DWT 已开启
 
   while (1)
   {
     // === 1. 读取VCNL4040 (光线和接近传感器) ===
-    VCNL4040_ReadALS(&vcnl4040, &als);
-    VCNL4040_ReadPS(&vcnl4040, &ps);
+    status = VCNL4040_ReadALS(&vcnl4040, &als);
+    I2C_Diagnose_And_Recover(&hi2c1, "VCNL4040_ALS", status);
+        
+    status = VCNL4040_ReadPS(&vcnl4040, &ps);
+    I2C_Diagnose_And_Recover(&hi2c1, "VCNL4040_PS", status);
 
     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
-    ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
-
+    status = ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+    I2C_Diagnose_And_Recover(&hi2c1, "ICM42688", status);
+		
+		
     // === 3. 轮询读取单个BME280 (温湿度和气压) ===
-    if (bme_index == 3) {
-      // BME280[3]损坏，使用常量值（已在初始化时设置）
-      // 跳过读取，但仍然递增索引
-    } else {
-      // 读取当前索引的BME280传感器
-      if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
-        BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
-      }
-      // I2C切换失败时保留旧值，不更新
-    }
-    // 切换到下一个传感器（循环0-7）
+    if (bme_index != 3) {
+            status = TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index);
+            if (status == HAL_OK) {
+                status = BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+                I2C_Diagnose_And_Recover(&hi2c1, "BME280_Read", status);
+            } else {
+                I2C_Diagnose_And_Recover(&hi2c1, "TCA9548_Select", status);
+            }
+        }
     bme_index = (bme_index + 1) % 8;
+				
+				
+		start_cycles = DWT->CYCCNT;
 
     // === 4. 输出CSV格式数据 ===
     int len = sprintf(msg,
@@ -178,8 +182,8 @@ void My_Application_Run(void)
       "%.2f,"  // IMU_Temp
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
-      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f"  // Press[0-7]
-      // "%ld" // Mic_Left
+      "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Press[0-7]
+      "%d" // Mic_Left
       "\n",  // ← 添加换行符
       als, ps,
       accel.x, accel.y, accel.z,
@@ -187,20 +191,18 @@ void My_Application_Run(void)
       imu_temp,
       temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
       hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
-      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7]
-      // mic.audio_result_left
+      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
+      mic.audio_result_left
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);
-    // HAL_Delay(1);  // 短暂延迟，避免USB传输过快
+		end_cycles = DWT->CYCCNT;
+		duration_us = (float)(end_cycles - start_cycles) / CPU_FREQ_MHZ;
 
-      // if (mic.full_ready)
-      // {
-      //   char mic_msg[64];
-      //   int len = sprintf(mic_msg, "%ld\n", mic.audio_result_left);
-      //   CDC_Transmit_FS((uint8_t *)mic_msg, len);
-      //   mic.full_ready = 0;
-      // }
-    
-  }
+            // 借用 bme_index 作为一个触发，每 8 次主循环打印一次耗时
+    USB_Print("Formatting & USB Send Time: %.2f us\r\n", duration_us);
+        
+		
+
+	}
 }

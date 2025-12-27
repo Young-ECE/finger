@@ -13,20 +13,20 @@
 static HAL_StatusTypeDef ICM42688_WriteReg(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t value)
 {
     uint8_t tx[2] = { reg, value };
-    return I2C_Protected_Master_Transmit(dev->hi2c, dev->i2c_addr, tx, 2, 50);
+    return HAL_I2C_Master_Transmit(dev->hi2c, dev->i2c_addr, tx, 2, 50);
 }
 
 /* ==== INTERNAL HELPER: Read Register ==== */
 static HAL_StatusTypeDef ICM42688_ReadReg(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t *value)
 {
-    return I2C_Protected_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, value, 1, 50);
+    return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, value, 1, 50);
 }
 
 /* ==== INTERNAL HELPER: Read Multiple Registers ==== */
 static HAL_StatusTypeDef ICM42688_ReadRegs(ICM42688_HandleTypeDef *dev, uint8_t reg, uint8_t *buffer, uint8_t len)
 {
     /* Single attempt - let upper layer handle retries if needed */
-    return I2C_Protected_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 50);
+    return HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg, I2C_MEMADD_SIZE_8BIT, buffer, len, 50);
 }
 
 /* ==== DEVICE INITIALIZATION ==== */

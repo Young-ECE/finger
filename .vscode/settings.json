@@ -50,5 +50,6 @@
   "search.exclude": {
     "**/build": true,
     "**/build/**": true
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }

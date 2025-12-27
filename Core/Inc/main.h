@@ -41,6 +41,8 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
+// ?? CPU ?? (MHz)
+
 
 /* USER CODE END EC */
 

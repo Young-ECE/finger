@@ -1,8 +1,56 @@
 #include "methods.h"
 #include "usbd_cdc_if.h"
 #include "usb_device.h"
+#include "i2c.h"
 
 
+
+void DWT_Init(void) {
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CYCCNT = 0;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
+/**
+ * @brief 诊断 I2C 错误并尝试自动恢复
+ * @param hi2c I2C句柄
+ * @param sensor_name 传感器名称（用于打印识别）
+ * @param status HAL操作返回值
+ */
+void I2C_Diagnose_And_Recover(I2C_HandleTypeDef *hi2c, char* sensor_name, HAL_StatusTypeDef status)
+{
+    if (status != HAL_OK)
+    {
+			
+        static char error_buf[256]; // 使用 static 减小栈压力			
+        // 1. 抓取快照
+        uint32_t err = HAL_I2C_GetError(hi2c);
+        uint32_t sr1 = hi2c->Instance->SR1;
+        uint32_t sr2 = hi2c->Instance->SR2;
+
+        // 2. 打印详细报告 (VOFA+ 文本窗口可见)
+        int len = sprintf(error_buf, 
+            "\r\n!!! I2C Error @ %s !!!\r\n"
+            "Status: %d | ErrorCode: 0x%02X | SR1: 0x%04X | SR2: 0x%04X\r\n"
+            "Attempting Bus Recovery...\r\n",
+            sensor_name, (int)status, (unsigned int)err, (unsigned int)sr1, (unsigned int)sr2);
+				
+//				CDC_Transmit_FS((uint8_t*)error_buf, len);
+
+//        // 3. 具体的错误解读
+//        if (err & HAL_I2C_ERROR_AF)   USB_Print("-> Reason: Acknowledge Failure (NACK)\r\n");
+//        if (err & HAL_I2C_ERROR_BERR) USB_Print("-> Reason: Bus Error (Interference?)\r\n");
+//        if (err & HAL_I2C_ERROR_ARLO) USB_Print("-> Reason: Arbitration Lost\r\n");
+//        if (sr2 & I2C_SR2_BUSY)       USB_Print("-> Line State: BUSY (SDA stuck low?)\r\n");
+
+        // 4. 尝试物理恢复 (使用你已有的 BusRecover)
+        
+        I2C_BusRecover(); 
+        HAL_I2C_DeInit(hi2c);
+        MX_I2C1_Init();
+        
+    }
+}
 
 
 void RGB_LED_Init(void)
@@ -27,17 +75,17 @@ void RGB_LED_Blink(void)
     // Red
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(10);
 
     // Green
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_2, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(10);
 
     // Blue
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_RESET);
-    HAL_Delay(100);
+    HAL_Delay(10);
 
     // // White (all on)
     // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
@@ -112,69 +160,4 @@ void USB_Print(const char *format, ...)
     if (len > 0 && len < sizeof(buffer)) {
         CDC_Transmit_FS((uint8_t*)buffer, len);  // 直接发送
     }
-}
-
-/* ==== I2C Protected Transfer Functions ==== */
-/* 在I2C传输期间临时禁用所有中断，避免I2S DMA打断I2C时序 */
-
-HAL_StatusTypeDef I2C_Protected_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
-                                         uint16_t MemAddress, uint16_t MemAddSize,
-                                         uint8_t *pData, uint16_t Size, uint32_t Timeout)
-{
-    HAL_StatusTypeDef status;
-    
-    // 保存中断状态并进入临界区
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    
-    // 执行 I2C 传输
-    status = HAL_I2C_Mem_Read(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
-    
-    // 恢复中断状态
-    if (!primask) {
-        __enable_irq();
-    }
-    
-    return status;
-}
-
-HAL_StatusTypeDef I2C_Protected_Mem_Write(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
-                                          uint16_t MemAddress, uint16_t MemAddSize,
-                                          uint8_t *pData, uint16_t Size, uint32_t Timeout)
-{
-    HAL_StatusTypeDef status;
-    
-    // 保存中断状态并进入临界区
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    
-    // 执行 I2C 传输
-    status = HAL_I2C_Mem_Write(hi2c, DevAddress, MemAddress, MemAddSize, pData, Size, Timeout);
-    
-    // 恢复中断状态
-    if (!primask) {
-        __enable_irq();
-    }
-    
-    return status;
-}
-
-HAL_StatusTypeDef I2C_Protected_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress,
-                                                uint8_t *pData, uint16_t Size, uint32_t Timeout)
-{
-    HAL_StatusTypeDef status;
-    
-    // 保存中断状态并进入临界区
-    uint32_t primask = __get_PRIMASK();
-    __disable_irq();
-    
-    // 执行 I2C 传输
-    status = HAL_I2C_Master_Transmit(hi2c, DevAddress, pData, Size, Timeout);
-    
-    // 恢复中断状态
-    if (!primask) {
-        __enable_irq();
-    }
-    
-    return status;
 }
