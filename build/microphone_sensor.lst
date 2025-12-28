@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccYOaDLa.s 			page 1
+ARM GAS  /tmp/cc2VymH5.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
   43 0006 0160     		str	r1, [r0]
   14:Core/Src/microphone_sensor.c ****     mic->half_ready = 0;
   44              		.loc 1 14 5 is_stmt 1 view .LVU6
-ARM GAS  /tmp/ccYOaDLa.s 			page 2
+ARM GAS  /tmp/cc2VymH5.s 			page 2
 
 
   45              		.loc 1 14 21 is_stmt 0 view .LVU7
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
   23:Core/Src/microphone_sensor.c ****  * @brief 启动 DMA 采集
   24:Core/Src/microphone_sensor.c ****  */
   25:Core/Src/microphone_sensor.c **** HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic)
-ARM GAS  /tmp/ccYOaDLa.s 			page 3
+ARM GAS  /tmp/cc2VymH5.s 			page 3
 
 
   26:Core/Src/microphone_sensor.c **** {
@@ -142,10 +142,10 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
  105              	.LVL7:
  106              		.loc 1 27 14 discriminator 2 view .LVU26
  107 0006 30B1     		cbz	r0, .L8
-  28:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE*2);
+  28:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE/2);
  108              		.loc 1 28 5 is_stmt 1 view .LVU27
  109              		.loc 1 28 12 is_stmt 0 view .LVU28
- 110 0008 0822     		movs	r2, #8
+ 110 0008 0222     		movs	r2, #2
  111 000a 0449     		ldr	r1, .L13
  112 000c FFF7FEFF 		bl	HAL_I2S_Receive_DMA
  113              	.LVL8:
@@ -159,7 +159,7 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
  120              		.cfi_def_cfa_offset 0
  121              		.cfi_restore 3
  122              		.cfi_restore 14
-  27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE*2);
+  27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE/2);
  123              		.loc 1 27 36 view .LVU30
  124 0012 0120     		movs	r0, #1
  125              	.LVL10:
@@ -170,7 +170,7 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
  130              		.cfi_def_cfa_offset 8
  131              		.cfi_offset 3, -8
  132              		.cfi_offset 14, -4
-  27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE*2);
+  27:Core/Src/microphone_sensor.c ****     return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE/2);
  133              		.loc 1 27 36 view .LVU32
  134 0016 0120     		movs	r0, #1
  135 0018 FAE7     		b	.L6
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
  137 001a 00BF     		.align	2
  138              	.L13:
  139 001c 00000000 		.word	.LANCHOR0
-ARM GAS  /tmp/ccYOaDLa.s 			page 4
+ARM GAS  /tmp/cc2VymH5.s 			page 4
 
 
  140              		.cfi_endproc
@@ -207,18 +207,18 @@ ARM GAS  /tmp/ccYOaDLa.s 			page 1
  163              		.file 12 "/usr/include/newlib/sys/_types.h"
  164              		.file 13 "/usr/include/newlib/sys/reent.h"
  165              		.file 14 "/usr/include/newlib/sys/lock.h"
-ARM GAS  /tmp/ccYOaDLa.s 			page 5
+ARM GAS  /tmp/cc2VymH5.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 microphone_sensor.c
-     /tmp/ccYOaDLa.s:18     .text.MIC_Init:0000000000000000 $t
-     /tmp/ccYOaDLa.s:26     .text.MIC_Init:0000000000000000 MIC_Init
-     /tmp/ccYOaDLa.s:80     .text.MIC_Start:0000000000000000 $t
-     /tmp/ccYOaDLa.s:87     .text.MIC_Start:0000000000000000 MIC_Start
-     /tmp/ccYOaDLa.s:139    .text.MIC_Start:000000000000001c $d
-     /tmp/ccYOaDLa.s:149    .bss:0000000000000000 dma_buffer
-     /tmp/ccYOaDLa.s:145    .bss:0000000000000000 $d
+     /tmp/cc2VymH5.s:18     .text.MIC_Init:0000000000000000 $t
+     /tmp/cc2VymH5.s:26     .text.MIC_Init:0000000000000000 MIC_Init
+     /tmp/cc2VymH5.s:80     .text.MIC_Start:0000000000000000 $t
+     /tmp/cc2VymH5.s:87     .text.MIC_Start:0000000000000000 MIC_Start
+     /tmp/cc2VymH5.s:139    .text.MIC_Start:000000000000001c $d
+     /tmp/cc2VymH5.s:149    .bss:0000000000000000 dma_buffer
+     /tmp/cc2VymH5.s:145    .bss:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2S_Receive_DMA

@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccS11RVo.s 			page 1
+ARM GAS  /tmp/cc6c2VPc.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
   28:Core/Src/stm32f4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
   29:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN TD */
   30:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccS11RVo.s 			page 2
+ARM GAS  /tmp/cc6c2VPc.s 			page 2
 
 
   31:Core/Src/stm32f4xx_it.c **** /* USER CODE END TD */
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
   35              	.L2:
   79:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
   80:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccS11RVo.s 			page 3
+ARM GAS  /tmp/cc6c2VPc.s 			page 3
 
 
   81:Core/Src/stm32f4xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 0 */
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
   70              		.syntax unified
   71              		.thumb
   72              		.thumb_func
-ARM GAS  /tmp/ccS11RVo.s 			page 4
+ARM GAS  /tmp/cc6c2VPc.s 			page 4
 
 
   73              		.fpu fpv4-sp-d16
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  107              	.L8:
  124:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN BusFault_IRQn 0 */
  125:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccS11RVo.s 			page 5
+ARM GAS  /tmp/cc6c2VPc.s 			page 5
 
 
  126:Core/Src/stm32f4xx_it.c ****   /* USER CODE END BusFault_IRQn 0 */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  142              		.syntax unified
  143              		.thumb
  144              		.thumb_func
-ARM GAS  /tmp/ccS11RVo.s 			page 6
+ARM GAS  /tmp/cc6c2VPc.s 			page 6
 
 
  145              		.fpu fpv4-sp-d16
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  175 0000 7047     		bx	lr
  176              		.cfi_endproc
  177              	.LFE140:
-ARM GAS  /tmp/ccS11RVo.s 			page 7
+ARM GAS  /tmp/cc6c2VPc.s 			page 7
 
 
  179              		.section	.text.PendSV_Handler,"ax",%progbits
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  217              		.cfi_offset 14, -4
  193:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN SysTick_IRQn 0 */
  194:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  /tmp/ccS11RVo.s 			page 8
+ARM GAS  /tmp/cc6c2VPc.s 			page 8
 
 
  195:Core/Src/stm32f4xx_it.c ****   /* USER CODE END SysTick_IRQn 0 */
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  248              		.global	DMA1_Stream6_IRQHandler
  249              		.syntax unified
  250              		.thumb
-ARM GAS  /tmp/ccS11RVo.s 			page 9
+ARM GAS  /tmp/cc6c2VPc.s 			page 9
 
 
  251              		.thumb_func
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  245:Core/Src/stm32f4xx_it.c ****   HAL_I2C_EV_IRQHandler(&hi2c1);
  285              		.loc 1 245 3 view .LVU34
  286 0002 0248     		ldr	r0, .L20
-ARM GAS  /tmp/ccS11RVo.s 			page 10
+ARM GAS  /tmp/cc6c2VPc.s 			page 10
 
 
  287 0004 FFF7FEFF 		bl	HAL_I2C_EV_IRQHandler
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  325              	.L24:
  326 000c 00000000 		.word	hi2c1
  327              		.cfi_endproc
-ARM GAS  /tmp/ccS11RVo.s 			page 11
+ARM GAS  /tmp/cc6c2VPc.s 			page 11
 
 
  328              	.LFE146:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  278:Core/Src/stm32f4xx_it.c **** 
  279:Core/Src/stm32f4xx_it.c **** /**
  280:Core/Src/stm32f4xx_it.c ****   * @brief This function handles USB On The Go FS global interrupt.
-ARM GAS  /tmp/ccS11RVo.s 			page 12
+ARM GAS  /tmp/cc6c2VPc.s 			page 12
 
 
  281:Core/Src/stm32f4xx_it.c ****   */
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  299:Core/Src/stm32f4xx_it.c ****   //   // cb_cnt++; // 回调次数计数
  300:Core/Src/stm32f4xx_it.c **** 
  301:Core/Src/stm32f4xx_it.c ****   //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
-ARM GAS  /tmp/ccS11RVo.s 			page 13
+ARM GAS  /tmp/cc6c2VPc.s 			page 13
 
 
  302:Core/Src/stm32f4xx_it.c ****   //   if (val & 0x800000)
@@ -751,167 +751,133 @@ ARM GAS  /tmp/ccS11RVo.s 			page 1
  428              		@ args = 0, pretend = 0, frame = 0
  429              		@ frame_needed = 0, uses_anonymous_args = 0
  430              		@ link register save eliminated.
- 313:Core/Src/stm32f4xx_it.c ****   // if (hi2s == &hi2s1)
- 314:Core/Src/stm32f4xx_it.c ****   // {
- 315:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_left = ((int32_t)dma_buffer[0] << 16) | dma_buffer[1];
- 316:Core/Src/stm32f4xx_it.c ****   //   int32_t raw_right = ((int32_t)dma_buffer[2] << 16) | dma_buffer[3];
- 317:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_left = raw_left >> 8;   // 右移8位得到24-bit数据
- 318:Core/Src/stm32f4xx_it.c ****   //   mic.audio_result_right = raw_right >> 8;
- 319:Core/Src/stm32f4xx_it.c ****   //   mic.full_ready = 1;
- 320:Core/Src/stm32f4xx_it.c ****   // }
- 321:Core/Src/stm32f4xx_it.c ****     if (hi2s == &hi2s1)
- 431              		.loc 1 321 5 view .LVU48
- 432              		.loc 1 321 8 is_stmt 0 view .LVU49
- 433 0000 0A4B     		ldr	r3, .L38
+ 313:Core/Src/stm32f4xx_it.c **** 
+ 314:Core/Src/stm32f4xx_it.c ****   if (hi2s == &hi2s1)
+ 431              		.loc 1 314 3 view .LVU48
+ 432              		.loc 1 314 6 is_stmt 0 view .LVU49
+ 433 0000 074B     		ldr	r3, .L38
  434 0002 8342     		cmp	r3, r0
  435 0004 00D0     		beq	.L37
- 436              	.LVL7:
- 437              	.L35:
- 322:Core/Src/stm32f4xx_it.c ****   {
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
- 324:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 326:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 327:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 328:Core/Src/stm32f4xx_it.c ****   }
- 329:Core/Src/stm32f4xx_it.c **** }
- 438              		.loc 1 329 1 view .LVU50
- 439 0006 7047     		bx	lr
- 440              	.LVL8:
-ARM GAS  /tmp/ccS11RVo.s 			page 14
+ 436              	.L35:
+ 315:Core/Src/stm32f4xx_it.c ****   {
+ 316:Core/Src/stm32f4xx_it.c ****     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
+ 317:Core/Src/stm32f4xx_it.c ****     // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 318:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+ 319:Core/Src/stm32f4xx_it.c ****     // mic.audio_result_right = raw_right>>8 ;
+ 320:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
+ 321:Core/Src/stm32f4xx_it.c ****   }
+ 322:Core/Src/stm32f4xx_it.c **** }
+ 437              		.loc 1 322 1 view .LVU50
+ 438 0006 7047     		bx	lr
+ 439              	.L37:
+ 440              	.LBB2:
+ 316:Core/Src/stm32f4xx_it.c ****     // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 441              		.loc 1 316 5 is_stmt 1 view .LVU51
+ 316:Core/Src/stm32f4xx_it.c ****     // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 442              		.loc 1 316 35 is_stmt 0 view .LVU52
+ 443 0008 064A     		ldr	r2, .L38+4
+ 444 000a 1168     		ldr	r1, [r2]
+ 316:Core/Src/stm32f4xx_it.c ****     // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ARM GAS  /tmp/cc6c2VPc.s 			page 14
 
 
- 441              	.L37:
- 442              	.LBB2:
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 443              		.loc 1 323 5 is_stmt 1 view .LVU51
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 444              		.loc 1 323 35 is_stmt 0 view .LVU52
- 445 0008 0949     		ldr	r1, .L38+4
- 446 000a 0A68     		ldr	r2, [r1]
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 447              		.loc 1 323 57 view .LVU53
- 448 000c 4B68     		ldr	r3, [r1, #4]
- 323:Core/Src/stm32f4xx_it.c ****     int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
- 449              		.loc 1 323 44 view .LVU54
- 450 000e 43EA0242 		orr	r2, r3, r2, lsl #16
- 451              	.LVL9:
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 452              		.loc 1 324 5 is_stmt 1 view .LVU55
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 453              		.loc 1 324 36 is_stmt 0 view .LVU56
- 454 0012 8868     		ldr	r0, [r1, #8]
- 455              	.LVL10:
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 456              		.loc 1 324 58 view .LVU57
- 457 0014 CB68     		ldr	r3, [r1, #12]
- 324:Core/Src/stm32f4xx_it.c ****     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
- 458              		.loc 1 324 45 view .LVU58
- 459 0016 43EA0043 		orr	r3, r3, r0, lsl #16
- 460              	.LVL11:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 461              		.loc 1 325 5 is_stmt 1 view .LVU59
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 462              		.loc 1 325 37 is_stmt 0 view .LVU60
- 463 001a 1212     		asrs	r2, r2, #8
- 464              	.LVL12:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 465              		.loc 1 325 27 view .LVU61
- 466 001c 0549     		ldr	r1, .L38+8
- 467              	.LVL13:
- 325:Core/Src/stm32f4xx_it.c ****     mic.audio_result_right = raw_right>>8 ;
- 468              		.loc 1 325 27 view .LVU62
- 469 001e 4A60     		str	r2, [r1, #4]
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 470              		.loc 1 326 5 is_stmt 1 view .LVU63
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 471              		.loc 1 326 39 is_stmt 0 view .LVU64
- 472 0020 1B12     		asrs	r3, r3, #8
- 473              	.LVL14:
- 326:Core/Src/stm32f4xx_it.c ****     mic.full_ready = 1;
- 474              		.loc 1 326 28 view .LVU65
- 475 0022 8B60     		str	r3, [r1, #8]
- 327:Core/Src/stm32f4xx_it.c ****   }
- 476              		.loc 1 327 5 is_stmt 1 view .LVU66
- 327:Core/Src/stm32f4xx_it.c ****   }
- 477              		.loc 1 327 20 is_stmt 0 view .LVU67
- 478 0024 0123     		movs	r3, #1
- 479 0026 4B73     		strb	r3, [r1, #13]
- 480              	.LBE2:
-ARM GAS  /tmp/ccS11RVo.s 			page 15
-
-
- 481              		.loc 1 329 1 view .LVU68
- 482 0028 EDE7     		b	.L35
- 483              	.L39:
- 484 002a 00BF     		.align	2
- 485              	.L38:
- 486 002c 00000000 		.word	hi2s1
- 487 0030 00000000 		.word	dma_buffer
- 488 0034 00000000 		.word	mic
- 489              		.cfi_endproc
- 490              	.LFE150:
- 492              		.text
- 493              	.Letext0:
- 494              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
- 495              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
- 496              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 497              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 498              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 499              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 500              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
- 501              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
- 502              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h"
- 503              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h"
- 504              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 505              		.file 13 "Core/Inc/vcnl4040_sensor.h"
- 506              		.file 14 "Core/Inc/icm42688_sensor.h"
- 507              		.file 15 "Core/Inc/microphone_sensor.h"
- 508              		.file 16 "Core/Inc/my_application.h"
-ARM GAS  /tmp/ccS11RVo.s 			page 16
+ 445              		.loc 1 316 57 view .LVU53
+ 446 000c 5368     		ldr	r3, [r2, #4]
+ 316:Core/Src/stm32f4xx_it.c ****     // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+ 447              		.loc 1 316 44 view .LVU54
+ 448 000e 43EA0143 		orr	r3, r3, r1, lsl #16
+ 449              	.LVL7:
+ 318:Core/Src/stm32f4xx_it.c ****     // mic.audio_result_right = raw_right>>8 ;
+ 450              		.loc 1 318 5 is_stmt 1 view .LVU55
+ 318:Core/Src/stm32f4xx_it.c ****     // mic.audio_result_right = raw_right>>8 ;
+ 451              		.loc 1 318 37 is_stmt 0 view .LVU56
+ 452 0012 1B12     		asrs	r3, r3, #8
+ 453              	.LVL8:
+ 318:Core/Src/stm32f4xx_it.c ****     // mic.audio_result_right = raw_right>>8 ;
+ 454              		.loc 1 318 27 view .LVU57
+ 455 0014 044A     		ldr	r2, .L38+8
+ 456              	.LVL9:
+ 318:Core/Src/stm32f4xx_it.c ****     // mic.audio_result_right = raw_right>>8 ;
+ 457              		.loc 1 318 27 view .LVU58
+ 458 0016 5360     		str	r3, [r2, #4]
+ 320:Core/Src/stm32f4xx_it.c ****   }
+ 459              		.loc 1 320 5 is_stmt 1 view .LVU59
+ 320:Core/Src/stm32f4xx_it.c ****   }
+ 460              		.loc 1 320 20 is_stmt 0 view .LVU60
+ 461 0018 0123     		movs	r3, #1
+ 462 001a 5373     		strb	r3, [r2, #13]
+ 463              	.LBE2:
+ 464              		.loc 1 322 1 view .LVU61
+ 465 001c F3E7     		b	.L35
+ 466              	.L39:
+ 467 001e 00BF     		.align	2
+ 468              	.L38:
+ 469 0020 00000000 		.word	hi2s1
+ 470 0024 00000000 		.word	dma_buffer
+ 471 0028 00000000 		.word	mic
+ 472              		.cfi_endproc
+ 473              	.LFE150:
+ 475              		.text
+ 476              	.Letext0:
+ 477              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ 478              		.file 3 "Drivers/CMSIS/Include/core_cm4.h"
+ 479              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 480              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 481              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 482              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 483              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 484              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s.h"
+ 485              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h"
+ 486              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h"
+ 487              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 488              		.file 13 "Core/Inc/vcnl4040_sensor.h"
+ 489              		.file 14 "Core/Inc/icm42688_sensor.h"
+ 490              		.file 15 "Core/Inc/microphone_sensor.h"
+ 491              		.file 16 "Core/Inc/my_application.h"
+ARM GAS  /tmp/cc6c2VPc.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f4xx_it.c
-     /tmp/ccS11RVo.s:18     .text.NMI_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:26     .text.NMI_Handler:0000000000000000 NMI_Handler
-     /tmp/ccS11RVo.s:44     .text.HardFault_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:51     .text.HardFault_Handler:0000000000000000 HardFault_Handler
-     /tmp/ccS11RVo.s:68     .text.MemManage_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:75     .text.MemManage_Handler:0000000000000000 MemManage_Handler
-     /tmp/ccS11RVo.s:92     .text.BusFault_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:99     .text.BusFault_Handler:0000000000000000 BusFault_Handler
-     /tmp/ccS11RVo.s:116    .text.UsageFault_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:123    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
-     /tmp/ccS11RVo.s:140    .text.SVC_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:147    .text.SVC_Handler:0000000000000000 SVC_Handler
-     /tmp/ccS11RVo.s:160    .text.DebugMon_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:167    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
-     /tmp/ccS11RVo.s:180    .text.PendSV_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:187    .text.PendSV_Handler:0000000000000000 PendSV_Handler
-     /tmp/ccS11RVo.s:200    .text.SysTick_Handler:0000000000000000 $t
-     /tmp/ccS11RVo.s:207    .text.SysTick_Handler:0000000000000000 SysTick_Handler
-     /tmp/ccS11RVo.s:227    .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:234    .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
-     /tmp/ccS11RVo.s:247    .text.DMA1_Stream6_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:254    .text.DMA1_Stream6_IRQHandler:0000000000000000 DMA1_Stream6_IRQHandler
-     /tmp/ccS11RVo.s:267    .text.I2C1_EV_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:274    .text.I2C1_EV_IRQHandler:0000000000000000 I2C1_EV_IRQHandler
-     /tmp/ccS11RVo.s:294    .text.I2C1_EV_IRQHandler:000000000000000c $d
-     /tmp/ccS11RVo.s:299    .text.I2C1_ER_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:306    .text.I2C1_ER_IRQHandler:0000000000000000 I2C1_ER_IRQHandler
-     /tmp/ccS11RVo.s:326    .text.I2C1_ER_IRQHandler:000000000000000c $d
-     /tmp/ccS11RVo.s:331    .text.DMA2_Stream0_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:338    .text.DMA2_Stream0_IRQHandler:0000000000000000 DMA2_Stream0_IRQHandler
-     /tmp/ccS11RVo.s:358    .text.DMA2_Stream0_IRQHandler:000000000000000c $d
-     /tmp/ccS11RVo.s:363    .text.OTG_FS_IRQHandler:0000000000000000 $t
-     /tmp/ccS11RVo.s:370    .text.OTG_FS_IRQHandler:0000000000000000 OTG_FS_IRQHandler
-     /tmp/ccS11RVo.s:390    .text.OTG_FS_IRQHandler:000000000000000c $d
-     /tmp/ccS11RVo.s:395    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 $t
-     /tmp/ccS11RVo.s:402    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 HAL_I2S_RxHalfCpltCallback
-     /tmp/ccS11RVo.s:416    .text.HAL_I2S_RxCpltCallback:0000000000000000 $t
-     /tmp/ccS11RVo.s:423    .text.HAL_I2S_RxCpltCallback:0000000000000000 HAL_I2S_RxCpltCallback
-     /tmp/ccS11RVo.s:486    .text.HAL_I2S_RxCpltCallback:000000000000002c $d
+     /tmp/cc6c2VPc.s:18     .text.NMI_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:26     .text.NMI_Handler:0000000000000000 NMI_Handler
+     /tmp/cc6c2VPc.s:44     .text.HardFault_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:51     .text.HardFault_Handler:0000000000000000 HardFault_Handler
+     /tmp/cc6c2VPc.s:68     .text.MemManage_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:75     .text.MemManage_Handler:0000000000000000 MemManage_Handler
+     /tmp/cc6c2VPc.s:92     .text.BusFault_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:99     .text.BusFault_Handler:0000000000000000 BusFault_Handler
+     /tmp/cc6c2VPc.s:116    .text.UsageFault_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:123    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
+     /tmp/cc6c2VPc.s:140    .text.SVC_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:147    .text.SVC_Handler:0000000000000000 SVC_Handler
+     /tmp/cc6c2VPc.s:160    .text.DebugMon_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:167    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
+     /tmp/cc6c2VPc.s:180    .text.PendSV_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:187    .text.PendSV_Handler:0000000000000000 PendSV_Handler
+     /tmp/cc6c2VPc.s:200    .text.SysTick_Handler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:207    .text.SysTick_Handler:0000000000000000 SysTick_Handler
+     /tmp/cc6c2VPc.s:227    .text.DMA1_Stream0_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:234    .text.DMA1_Stream0_IRQHandler:0000000000000000 DMA1_Stream0_IRQHandler
+     /tmp/cc6c2VPc.s:247    .text.DMA1_Stream6_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:254    .text.DMA1_Stream6_IRQHandler:0000000000000000 DMA1_Stream6_IRQHandler
+     /tmp/cc6c2VPc.s:267    .text.I2C1_EV_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:274    .text.I2C1_EV_IRQHandler:0000000000000000 I2C1_EV_IRQHandler
+     /tmp/cc6c2VPc.s:294    .text.I2C1_EV_IRQHandler:000000000000000c $d
+     /tmp/cc6c2VPc.s:299    .text.I2C1_ER_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:306    .text.I2C1_ER_IRQHandler:0000000000000000 I2C1_ER_IRQHandler
+     /tmp/cc6c2VPc.s:326    .text.I2C1_ER_IRQHandler:000000000000000c $d
+     /tmp/cc6c2VPc.s:331    .text.DMA2_Stream0_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:338    .text.DMA2_Stream0_IRQHandler:0000000000000000 DMA2_Stream0_IRQHandler
+     /tmp/cc6c2VPc.s:358    .text.DMA2_Stream0_IRQHandler:000000000000000c $d
+     /tmp/cc6c2VPc.s:363    .text.OTG_FS_IRQHandler:0000000000000000 $t
+     /tmp/cc6c2VPc.s:370    .text.OTG_FS_IRQHandler:0000000000000000 OTG_FS_IRQHandler
+     /tmp/cc6c2VPc.s:390    .text.OTG_FS_IRQHandler:000000000000000c $d
+     /tmp/cc6c2VPc.s:395    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 $t
+     /tmp/cc6c2VPc.s:402    .text.HAL_I2S_RxHalfCpltCallback:0000000000000000 HAL_I2S_RxHalfCpltCallback
+     /tmp/cc6c2VPc.s:416    .text.HAL_I2S_RxCpltCallback:0000000000000000 $t
+     /tmp/cc6c2VPc.s:423    .text.HAL_I2S_RxCpltCallback:0000000000000000 HAL_I2S_RxCpltCallback
+     /tmp/cc6c2VPc.s:469    .text.HAL_I2S_RxCpltCallback:0000000000000020 $d
 
 UNDEFINED SYMBOLS
 HAL_IncTick

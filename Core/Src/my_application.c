@@ -109,14 +109,14 @@ void My_Application_Init(void)
   }
 
   // Step 4: 初始化麦克风（I2S）
-  // strcpy(msg, "INIT:MICROPHONE...\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
-  // MIC_Init(&mic, &hi2s1);
-  // MIC_Start(&mic);
-  // strcpy(msg, "INIT:MICROPHONE OK\n");
-  // CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  // HAL_Delay(100);
+  strcpy(msg, "INIT:MICROPHONE...\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+  MIC_Init(&mic, &hi2s1);
+  MIC_Start(&mic);
+  strcpy(msg, "INIT:MICROPHONE OK\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
 
   strcpy(msg, "========== ALL SENSORS READY ==========\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
@@ -179,6 +179,7 @@ void My_Application_Run(void)
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f"  // Press[0-7]
+      ",%ld"  // Audio_Result_Left
       "\n",  // ← 添加换行符
       als, ps,
       accel.x, accel.y, accel.z,
@@ -186,7 +187,8 @@ void My_Application_Run(void)
       imu_temp,
       temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
       hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
-      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7]
+      press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
+      mic.audio_result_left
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);
