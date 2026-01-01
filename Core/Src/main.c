@@ -171,7 +171,6 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
-    Data_Send();
 
     /* USER CODE BEGIN 3 */
   }
