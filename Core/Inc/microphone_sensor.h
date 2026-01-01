@@ -17,8 +17,8 @@
 extern "C" {
 #endif
 
-#define MIC_BUFFER_SIZE 4   // DMA 缓冲长度
-#define MIC_SAMPLE_COUNT (MIC_BUFFER_SIZE / 2)
+#define MIC_BUFFER_SIZE 8   // DMA 缓冲长度
+
 
 typedef struct
 {

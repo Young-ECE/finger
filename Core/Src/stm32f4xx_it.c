@@ -239,7 +239,7 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
     if (hi2s == &hi2s1)
   {
     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
-    mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+    mic.audio_result_left = raw_left>>4 ;   // 右移8位得到24-bit数据
     mic.half_ready = 1;
   }
 
@@ -248,12 +248,12 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
 
-  // if (hi2s == &hi2s1)
-  // {
-  //   int32_t raw_left = (dma_buffer[MIC_BUFFER_SIZE/2]<<16) | (dma_buffer[MIC_BUFFER_SIZE/2 + 1]);
-  //   mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
-  //   mic.full_ready = 1;
-  // }
+  if (hi2s == &hi2s1)
+  {
+    int32_t raw_left = (dma_buffer[4]<<16) | (dma_buffer[5 + 1]);
+    mic.audio_result_left = raw_left>>4 ;   // 右移8位得到24-bit数据
+    mic.full_ready = 1;
+   }
 }
 
 /* USER CODE END 1 */

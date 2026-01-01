@@ -99,13 +99,23 @@ void Data_Send(void)
   int len = snprintf(buffer, sizeof(buffer),
     "%d,%d,%d,%d,%d,"
     "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"
-    "%ld\n",
+    "%d\n",
     aqi, tvoc, eco2, als, ps,
     T1, H1, T2, H2, T3, H3, T4, H4,
     mic.audio_result_left
   );
   CDC_Transmit_FS((uint8_t*)buffer, len);
+  
+}
+void Only_IIS_Data_Send(void)
+{
 
+  static char buffer[512];
+  int len = snprintf(buffer, sizeof(buffer),
+    "%d\n",
+    mic.audio_result_left
+  );
+  CDC_Transmit_FS((uint8_t*)buffer, len);
   
 }
 
@@ -171,6 +181,8 @@ int main(void)
   {
 
     /* USER CODE END WHILE */
+		Data_Send();
+//		Only_IIS_Data_Send();
 
     /* USER CODE BEGIN 3 */
   }
