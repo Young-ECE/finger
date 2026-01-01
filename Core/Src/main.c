@@ -76,6 +76,8 @@ void SystemClock_Config(void);
 
 void Data_Send(void)
 {
+
+  static char buffer[512];
   uint8_t aqi;
   uint16_t tvoc;
   uint16_t eco2;
@@ -94,11 +96,17 @@ void Data_Send(void)
   HDC302x_ReadData(&hdc3, &T3, &H3);
   HDC302x_ReadData(&hdc4, &T4, &H4);
 
-  USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
-  USB_Print("%u,%u,", als, ps);
-  USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,", (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10), (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10));
-  USB_Print("%d\n", mic.audio_result_left);
-  HAL_Delay(10);
+  int len = snprintf(buffer, sizeof(buffer),
+    "%d,%d,%d,%d,%d,"
+    "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"
+    "%ld\n",
+    aqi, tvoc, eco2, als, ps,
+    T1, H1, T2, H2, T3, H3, T4, H4,
+    mic.audio_result_left
+  );
+  CDC_Transmit_FS((uint8_t*)buffer, len);
+
+  
 }
 
 /* USER CODE END PFP */
