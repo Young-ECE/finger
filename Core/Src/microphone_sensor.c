@@ -25,7 +25,7 @@ HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s)
 HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic)
 {
     if (!mic || !mic->hi2s) return HAL_ERROR;
-    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE/2);
+    return HAL_I2S_Receive_DMA(mic->hi2s, (uint16_t*)dma_buffer, MIC_BUFFER_SIZE);
 }
 
 

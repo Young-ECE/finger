@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc9I4KEi.s 			page 1
+ARM GAS  /tmp/ccLnZqGr.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
   44 0008 8DF81530 		strb	r3, [sp, #21]
   13:Core/Src/vcnl4040_sensor.c ****     return HAL_I2C_Mem_Write(dev->hi2c, dev->i2c_addr, reg,
   45              		.loc 1 13 5 is_stmt 1 view .LVU4
-ARM GAS  /tmp/cc9I4KEi.s 			page 2
+ARM GAS  /tmp/ccLnZqGr.s 			page 2
 
 
   46              		.loc 1 13 12 is_stmt 0 view .LVU5
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
   97              		.cfi_offset 7, -12
   98              		.cfi_offset 8, -8
   99              		.cfi_offset 14, -4
-ARM GAS  /tmp/cc9I4KEi.s 			page 3
+ARM GAS  /tmp/ccLnZqGr.s 			page 3
 
 
  100 0004 86B0     		sub	sp, sp, #24
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  142              		.loc 1 30 9 is_stmt 0 discriminator 2 view .LVU25
  143 0032 FFF7FEFF 		bl	HAL_Delay
  144              	.LVL11:
-ARM GAS  /tmp/cc9I4KEi.s 			page 4
+ARM GAS  /tmp/ccLnZqGr.s 			page 4
 
 
   23:Core/Src/vcnl4040_sensor.c ****         ret = HAL_I2C_Mem_Read(dev->hi2c, dev->i2c_addr, reg,
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  187              	.LVL15:
  188              	.LFB137:
   35:Core/Src/vcnl4040_sensor.c **** 
-ARM GAS  /tmp/cc9I4KEi.s 			page 5
+ARM GAS  /tmp/ccLnZqGr.s 			page 5
 
 
   36:Core/Src/vcnl4040_sensor.c **** /* ==== PUBLIC API ==== */
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  202 0004 0921     		movs	r1, #9
  203              	.LVL16:
  204              		.loc 1 76 12 view .LVU42
-ARM GAS  /tmp/cc9I4KEi.s 			page 6
+ARM GAS  /tmp/ccLnZqGr.s 			page 6
 
 
  205 0006 FFF7FEFF 		bl	VCNL4040_Read16
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  254              	VCNL4040_ReadID:
  255              	.LVL21:
  256              	.LFB139:
-ARM GAS  /tmp/cc9I4KEi.s 			page 7
+ARM GAS  /tmp/ccLnZqGr.s 			page 7
 
 
   86:Core/Src/vcnl4040_sensor.c **** 
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  303              		.cfi_def_cfa_offset 16
  304 0004 0446     		mov	r4, r0
   43:Core/Src/vcnl4040_sensor.c ****     dev->hi2c = hi2c;
-ARM GAS  /tmp/cc9I4KEi.s 			page 8
+ARM GAS  /tmp/ccLnZqGr.s 			page 8
 
 
  305              		.loc 1 43 5 is_stmt 1 view .LVU58
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  344              		.loc 1 53 9 is_stmt 0 view .LVU73
  345 0026 0023     		movs	r3, #0
  346 0028 4022     		movs	r2, #64
-ARM GAS  /tmp/cc9I4KEi.s 			page 9
+ARM GAS  /tmp/ccLnZqGr.s 			page 9
 
 
  347 002a 1946     		mov	r1, r3
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  387 0052 FFF7FEFF 		bl	VCNL4040_Write16
  388              	.LVL35:
   64:Core/Src/vcnl4040_sensor.c ****         return HAL_ERROR;
-ARM GAS  /tmp/cc9I4KEi.s 			page 10
+ARM GAS  /tmp/ccLnZqGr.s 			page 10
 
 
  389              		.loc 1 64 8 view .LVU88
@@ -588,23 +588,23 @@ ARM GAS  /tmp/cc9I4KEi.s 			page 1
  427              		.file 12 "/usr/include/newlib/sys/_types.h"
  428              		.file 13 "/usr/include/newlib/sys/reent.h"
  429              		.file 14 "/usr/include/newlib/sys/lock.h"
-ARM GAS  /tmp/cc9I4KEi.s 			page 11
+ARM GAS  /tmp/ccLnZqGr.s 			page 11
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 vcnl4040_sensor.c
-     /tmp/cc9I4KEi.s:18     .text.VCNL4040_Write16:0000000000000000 $t
-     /tmp/cc9I4KEi.s:25     .text.VCNL4040_Write16:0000000000000000 VCNL4040_Write16
-     /tmp/cc9I4KEi.s:77     .text.VCNL4040_Read16:0000000000000000 $t
-     /tmp/cc9I4KEi.s:83     .text.VCNL4040_Read16:0000000000000000 VCNL4040_Read16
-     /tmp/cc9I4KEi.s:179    .text.VCNL4040_ReadALS:0000000000000000 $t
-     /tmp/cc9I4KEi.s:186    .text.VCNL4040_ReadALS:0000000000000000 VCNL4040_ReadALS
-     /tmp/cc9I4KEi.s:213    .text.VCNL4040_ReadPS:0000000000000000 $t
-     /tmp/cc9I4KEi.s:220    .text.VCNL4040_ReadPS:0000000000000000 VCNL4040_ReadPS
-     /tmp/cc9I4KEi.s:247    .text.VCNL4040_ReadID:0000000000000000 $t
-     /tmp/cc9I4KEi.s:254    .text.VCNL4040_ReadID:0000000000000000 VCNL4040_ReadID
-     /tmp/cc9I4KEi.s:281    .text.VCNL4040_Init:0000000000000000 $t
-     /tmp/cc9I4KEi.s:288    .text.VCNL4040_Init:0000000000000000 VCNL4040_Init
+     /tmp/ccLnZqGr.s:18     .text.VCNL4040_Write16:0000000000000000 $t
+     /tmp/ccLnZqGr.s:25     .text.VCNL4040_Write16:0000000000000000 VCNL4040_Write16
+     /tmp/ccLnZqGr.s:77     .text.VCNL4040_Read16:0000000000000000 $t
+     /tmp/ccLnZqGr.s:83     .text.VCNL4040_Read16:0000000000000000 VCNL4040_Read16
+     /tmp/ccLnZqGr.s:179    .text.VCNL4040_ReadALS:0000000000000000 $t
+     /tmp/ccLnZqGr.s:186    .text.VCNL4040_ReadALS:0000000000000000 VCNL4040_ReadALS
+     /tmp/ccLnZqGr.s:213    .text.VCNL4040_ReadPS:0000000000000000 $t
+     /tmp/ccLnZqGr.s:220    .text.VCNL4040_ReadPS:0000000000000000 VCNL4040_ReadPS
+     /tmp/ccLnZqGr.s:247    .text.VCNL4040_ReadID:0000000000000000 $t
+     /tmp/ccLnZqGr.s:254    .text.VCNL4040_ReadID:0000000000000000 VCNL4040_ReadID
+     /tmp/ccLnZqGr.s:281    .text.VCNL4040_Init:0000000000000000 $t
+     /tmp/ccLnZqGr.s:288    .text.VCNL4040_Init:0000000000000000 VCNL4040_Init
 
 UNDEFINED SYMBOLS
 HAL_I2C_Mem_Write

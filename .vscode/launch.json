@@ -1,24 +1,22 @@
 {
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "⚡️ 终极一键调试 (Task Based)",
-            "type": "cortex-debug",
-            "request": "attach",      // 1. 使用吸附模式，永远不会报 Timeout
-            "servertype": "external", // 2. 告诉插件：OpenOCD 已经在外面跑了（其实是我们的 Task 跑的）
-            
-            "gdbTarget": "localhost:3333", // 3. 直接连 3333，稳如老狗
-            "gdbPath": "/usr/bin/gdb-multiarch",
-            
-            "executable": "${workspaceFolder}/build/finger.elf",
+            "type": "stlinkgdbtarget",
+            "request": "launch",
+            "name": "STM32Cube: STM32 Launch ST-Link GDB Server",
+            "origin": "snippet",
             "cwd": "${workspaceFolder}",
-            
-            // 4. 【核心黑科技】启动调试前，先自动运行我们定义的 OpenOCD 任务
-            "preLaunchTask": "🚀 Build & Start OpenOCD (Final)",
-            
-            "runToEntryPoint": "main",
-            "svdFile": "${workspaceFolder}/STM32F446x.svd",
-            "showDevDebugOutput": "raw"
+            "preBuild": "${command:st-stm32-ide-debug-launch.build}",
+            "runEntry": "main",
+            "imagesAndSymbols": [
+                {
+                    "imageFileName": "${command:st-stm32-ide-debug-launch.get-projects-binary-from-context1}"
+                }
+            ]
         }
     ]
 }

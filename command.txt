@@ -28,3 +28,6 @@ sudo kill -9 pid
 
 #使用OpenOCD烧录#
 openocd -f openocd.cfg -c "program build/finger.elf verify reset exit"
+
+#使用STM32_Programmer_CLI烧录
+/home/young/.local/share/stm32cube/bundles/programmer/2.21.0/bin/STM32_Programmer_CLI -c port=SWD index=0 -w build/finger.bin 0x08000000 -v -rst

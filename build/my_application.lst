@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccOp99fX.s 			page 1
+ARM GAS  /tmp/cclqLhTN.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
   35 0064 494E4954 		.ascii	"INIT:ICM42688 OK\012\000"
   35      3A49434D 
   35      34323638 
-ARM GAS  /tmp/ccOp99fX.s 			page 2
+ARM GAS  /tmp/cclqLhTN.s 			page 2
 
 
   35      38204F4B 
@@ -114,11 +114,11 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
   60              		.thumb_func
   61              		.fpu fpv4-sp-d16
   63              	My_Application_Init:
-  64              	.LFB139:
+  64              	.LFB138:
   65              		.file 1 "Core/Src/my_application.c"
    1:Core/Src/my_application.c **** /* USER CODE BEGIN Header */
    2:Core/Src/my_application.c **** /**
-ARM GAS  /tmp/ccOp99fX.s 			page 3
+ARM GAS  /tmp/cclqLhTN.s 			page 3
 
 
    3:Core/Src/my_application.c ****   ******************************************************************************
@@ -166,28 +166,21 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
   45:Core/Src/my_application.c **** ICM42688_HandleTypeDef icm42688;
   46:Core/Src/my_application.c **** MIC_HandleTypeDef mic;
   47:Core/Src/my_application.c **** 
-  48:Core/Src/my_application.c **** static inline void DWT_Init(void)
-  49:Core/Src/my_application.c **** {
-  50:Core/Src/my_application.c ****   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // Enable trace
-  51:Core/Src/my_application.c ****   DWT->CYCCNT = 0;                                  // Reset counter
-  52:Core/Src/my_application.c ****   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;             // Enable counter
-  53:Core/Src/my_application.c **** }
-  54:Core/Src/my_application.c **** 
-  55:Core/Src/my_application.c **** /* Public functions ----------------------------------------------------------*/
-  56:Core/Src/my_application.c **** 
-  57:Core/Src/my_application.c **** /**
-  58:Core/Src/my_application.c ****   * @brief  Initialize all sensors and peripherals
-  59:Core/Src/my_application.c ****   * @retval None
-ARM GAS  /tmp/ccOp99fX.s 			page 4
-
-
-  60:Core/Src/my_application.c ****   */
-  61:Core/Src/my_application.c **** void My_Application_Init(void)
-  62:Core/Src/my_application.c **** {
-  66              		.loc 1 62 1 view -0
+  48:Core/Src/my_application.c **** /* Public functions ----------------------------------------------------------*/
+  49:Core/Src/my_application.c **** 
+  50:Core/Src/my_application.c **** /**
+  51:Core/Src/my_application.c ****   * @brief  Initialize all sensors and peripherals
+  52:Core/Src/my_application.c ****   * @retval None
+  53:Core/Src/my_application.c ****   */
+  54:Core/Src/my_application.c **** void My_Application_Init(void)
+  55:Core/Src/my_application.c **** {
+  66              		.loc 1 55 1 view -0
   67              		.cfi_startproc
   68              		@ args = 0, pretend = 0, frame = 0
   69              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cclqLhTN.s 			page 4
+
+
   70 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
   71              	.LCFI0:
   72              		.cfi_def_cfa_offset 24
@@ -200,12 +193,12 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
   79 0004 82B0     		sub	sp, sp, #8
   80              	.LCFI1:
   81              		.cfi_def_cfa_offset 32
-  63:Core/Src/my_application.c ****   // ========== 传感器逐个测试 ==========
-  64:Core/Src/my_application.c ****   static char msg[128];  // 声明为static避免栈溢出
-  82              		.loc 1 64 3 view .LVU1
-  65:Core/Src/my_application.c **** 
-  66:Core/Src/my_application.c ****   strcpy(msg, "RGB_LED_Init...\n");
-  83              		.loc 1 66 3 view .LVU2
+  56:Core/Src/my_application.c ****   // ========== 传感器逐个测试 ==========
+  57:Core/Src/my_application.c ****   static char msg[128];  // 声明为static避免栈溢出
+  82              		.loc 1 57 3 view .LVU1
+  58:Core/Src/my_application.c **** 
+  59:Core/Src/my_application.c ****   strcpy(msg, "RGB_LED_Init...\n");
+  83              		.loc 1 59 3 view .LVU2
   84 0006 744C     		ldr	r4, .L9
   85 0008 2546     		mov	r5, r4
   86 000a 744E     		ldr	r6, .L9+4
@@ -213,258 +206,258 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
   88 000e 0FC5     		stmia	r5!, {r0, r1, r2, r3}
   89 0010 3368     		ldr	r3, [r6]
   90 0012 2B70     		strb	r3, [r5]
-  67:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  91              		.loc 1 67 3 view .LVU3
-  92              		.loc 1 67 34 is_stmt 0 view .LVU4
+  60:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  91              		.loc 1 60 3 view .LVU3
+  92              		.loc 1 60 34 is_stmt 0 view .LVU4
   93 0014 2046     		mov	r0, r4
   94 0016 FFF7FEFF 		bl	strlen
   95              	.LVL0:
-  96              		.loc 1 67 3 view .LVU5
+  96              		.loc 1 60 3 view .LVU5
   97 001a 81B2     		uxth	r1, r0
   98 001c 2046     		mov	r0, r4
   99 001e FFF7FEFF 		bl	CDC_Transmit_FS
  100              	.LVL1:
-  68:Core/Src/my_application.c ****   RGB_LED_Init();
- 101              		.loc 1 68 3 is_stmt 1 view .LVU6
+  61:Core/Src/my_application.c ****   RGB_LED_Init();
+ 101              		.loc 1 61 3 is_stmt 1 view .LVU6
  102 0022 FFF7FEFF 		bl	RGB_LED_Init
  103              	.LVL2:
-  69:Core/Src/my_application.c ****   strcpy(msg, "RGB_LED_Init OK\n");
- 104              		.loc 1 69 3 view .LVU7
+  62:Core/Src/my_application.c ****   strcpy(msg, "RGB_LED_Init OK\n");
+ 104              		.loc 1 62 3 view .LVU7
  105 0026 2746     		mov	r7, r4
  106 0028 6D4E     		ldr	r6, .L9+8
  107 002a 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
  108 002c 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  109 002e 3368     		ldr	r3, [r6]
  110 0030 2B70     		strb	r3, [r5]
-  70:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 111              		.loc 1 70 3 view .LVU8
-ARM GAS  /tmp/ccOp99fX.s 			page 5
-
-
- 112              		.loc 1 70 34 is_stmt 0 view .LVU9
+  63:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 111              		.loc 1 63 3 view .LVU8
+ 112              		.loc 1 63 34 is_stmt 0 view .LVU9
  113 0032 2046     		mov	r0, r4
  114 0034 FFF7FEFF 		bl	strlen
  115              	.LVL3:
- 116              		.loc 1 70 3 view .LVU10
+ 116              		.loc 1 63 3 view .LVU10
  117 0038 81B2     		uxth	r1, r0
  118 003a 2046     		mov	r0, r4
+ARM GAS  /tmp/cclqLhTN.s 			page 5
+
+
  119 003c FFF7FEFF 		bl	CDC_Transmit_FS
  120              	.LVL4:
-  71:Core/Src/my_application.c ****   HAL_Delay(1000);  // 等待USB枚举完成
- 121              		.loc 1 71 3 is_stmt 1 view .LVU11
+  64:Core/Src/my_application.c ****   HAL_Delay(1000);  // 等待USB枚举完成
+ 121              		.loc 1 64 3 is_stmt 1 view .LVU11
  122 0040 4FF47A70 		mov	r0, #1000
  123 0044 FFF7FEFF 		bl	HAL_Delay
  124              	.LVL5:
-  72:Core/Src/my_application.c **** 
-  73:Core/Src/my_application.c ****   // Step 1: 初始化VCNL4040
-  74:Core/Src/my_application.c ****   strcpy(msg, "INIT:VCNL4040...\n");
- 125              		.loc 1 74 3 view .LVU12
+  65:Core/Src/my_application.c **** 
+  66:Core/Src/my_application.c ****   // Step 1: 初始化VCNL4040
+  67:Core/Src/my_application.c ****   strcpy(msg, "INIT:VCNL4040...\n");
+ 125              		.loc 1 67 3 view .LVU12
  126 0048 2746     		mov	r7, r4
  127 004a 664E     		ldr	r6, .L9+12
  128 004c 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
  129 004e 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  130 0050 3368     		ldr	r3, [r6]
  131 0052 2B80     		strh	r3, [r5]	@ movhi
-  75:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 132              		.loc 1 75 3 view .LVU13
- 133              		.loc 1 75 34 is_stmt 0 view .LVU14
+  68:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 132              		.loc 1 68 3 view .LVU13
+ 133              		.loc 1 68 34 is_stmt 0 view .LVU14
  134 0054 2046     		mov	r0, r4
  135 0056 FFF7FEFF 		bl	strlen
  136              	.LVL6:
- 137              		.loc 1 75 3 view .LVU15
+ 137              		.loc 1 68 3 view .LVU15
  138 005a 81B2     		uxth	r1, r0
  139 005c 2046     		mov	r0, r4
  140 005e FFF7FEFF 		bl	CDC_Transmit_FS
  141              	.LVL7:
-  76:Core/Src/my_application.c ****   HAL_Delay(100);
- 142              		.loc 1 76 3 is_stmt 1 view .LVU16
+  69:Core/Src/my_application.c ****   HAL_Delay(100);
+ 142              		.loc 1 69 3 is_stmt 1 view .LVU16
  143 0062 6420     		movs	r0, #100
  144 0064 FFF7FEFF 		bl	HAL_Delay
  145              	.LVL8:
-  77:Core/Src/my_application.c ****   VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
- 146              		.loc 1 77 3 view .LVU17
+  70:Core/Src/my_application.c ****   VCNL4040_Init(&vcnl4040, &hi2c1, VCNL4040_I2C_ADDR_8BIT);
+ 146              		.loc 1 70 3 view .LVU17
  147 0068 DFF89881 		ldr	r8, .L9+44
  148 006c C022     		movs	r2, #192
  149 006e 4146     		mov	r1, r8
  150 0070 5D48     		ldr	r0, .L9+16
  151 0072 FFF7FEFF 		bl	VCNL4040_Init
  152              	.LVL9:
-  78:Core/Src/my_application.c ****   strcpy(msg, "INIT:VCNL4040 OK\n");
- 153              		.loc 1 78 3 view .LVU18
+  71:Core/Src/my_application.c ****   strcpy(msg, "INIT:VCNL4040 OK\n");
+ 153              		.loc 1 71 3 view .LVU18
  154 0076 2746     		mov	r7, r4
  155 0078 5C4E     		ldr	r6, .L9+20
  156 007a 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
  157 007c 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  158 007e 3368     		ldr	r3, [r6]
  159 0080 2B80     		strh	r3, [r5]	@ movhi
-  79:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-ARM GAS  /tmp/ccOp99fX.s 			page 6
-
-
- 160              		.loc 1 79 3 view .LVU19
- 161              		.loc 1 79 34 is_stmt 0 view .LVU20
+  72:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 160              		.loc 1 72 3 view .LVU19
+ 161              		.loc 1 72 34 is_stmt 0 view .LVU20
  162 0082 2046     		mov	r0, r4
  163 0084 FFF7FEFF 		bl	strlen
  164              	.LVL10:
- 165              		.loc 1 79 3 view .LVU21
+ 165              		.loc 1 72 3 view .LVU21
  166 0088 81B2     		uxth	r1, r0
+ARM GAS  /tmp/cclqLhTN.s 			page 6
+
+
  167 008a 2046     		mov	r0, r4
  168 008c FFF7FEFF 		bl	CDC_Transmit_FS
  169              	.LVL11:
-  80:Core/Src/my_application.c ****   HAL_Delay(100);
- 170              		.loc 1 80 3 is_stmt 1 view .LVU22
+  73:Core/Src/my_application.c ****   HAL_Delay(100);
+ 170              		.loc 1 73 3 is_stmt 1 view .LVU22
  171 0090 6420     		movs	r0, #100
  172 0092 FFF7FEFF 		bl	HAL_Delay
  173              	.LVL12:
-  81:Core/Src/my_application.c **** 
-  82:Core/Src/my_application.c ****   // Step 2: 初始化ICM42688
-  83:Core/Src/my_application.c ****   strcpy(msg, "INIT:ICM42688...\n");
- 174              		.loc 1 83 3 view .LVU23
+  74:Core/Src/my_application.c **** 
+  75:Core/Src/my_application.c ****   // Step 2: 初始化ICM42688
+  76:Core/Src/my_application.c ****   strcpy(msg, "INIT:ICM42688...\n");
+ 174              		.loc 1 76 3 view .LVU23
  175 0096 2746     		mov	r7, r4
  176 0098 554E     		ldr	r6, .L9+24
  177 009a 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
  178 009c 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  179 009e 3368     		ldr	r3, [r6]
  180 00a0 2B80     		strh	r3, [r5]	@ movhi
-  84:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 181              		.loc 1 84 3 view .LVU24
- 182              		.loc 1 84 34 is_stmt 0 view .LVU25
+  77:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 181              		.loc 1 77 3 view .LVU24
+ 182              		.loc 1 77 34 is_stmt 0 view .LVU25
  183 00a2 2046     		mov	r0, r4
  184 00a4 FFF7FEFF 		bl	strlen
  185              	.LVL13:
- 186              		.loc 1 84 3 view .LVU26
+ 186              		.loc 1 77 3 view .LVU26
  187 00a8 81B2     		uxth	r1, r0
  188 00aa 2046     		mov	r0, r4
  189 00ac FFF7FEFF 		bl	CDC_Transmit_FS
  190              	.LVL14:
-  85:Core/Src/my_application.c ****   HAL_Delay(100);
- 191              		.loc 1 85 3 is_stmt 1 view .LVU27
+  78:Core/Src/my_application.c ****   HAL_Delay(100);
+ 191              		.loc 1 78 3 is_stmt 1 view .LVU27
  192 00b0 6420     		movs	r0, #100
  193 00b2 FFF7FEFF 		bl	HAL_Delay
  194              	.LVL15:
-  86:Core/Src/my_application.c ****   ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
- 195              		.loc 1 86 3 view .LVU28
+  79:Core/Src/my_application.c ****   ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
+ 195              		.loc 1 79 3 view .LVU28
  196 00b6 D022     		movs	r2, #208
  197 00b8 4146     		mov	r1, r8
  198 00ba 4E48     		ldr	r0, .L9+28
  199 00bc FFF7FEFF 		bl	ICM42688_Init
  200              	.LVL16:
-  87:Core/Src/my_application.c ****   strcpy(msg, "INIT:ICM42688 OK\n");
- 201              		.loc 1 87 3 view .LVU29
+  80:Core/Src/my_application.c ****   strcpy(msg, "INIT:ICM42688 OK\n");
+ 201              		.loc 1 80 3 view .LVU29
  202 00c0 2746     		mov	r7, r4
  203 00c2 4D4E     		ldr	r6, .L9+32
  204 00c4 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
  205 00c6 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  206 00c8 3368     		ldr	r3, [r6]
  207 00ca 2B80     		strh	r3, [r5]	@ movhi
-  88:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-ARM GAS  /tmp/ccOp99fX.s 			page 7
-
-
- 208              		.loc 1 88 3 view .LVU30
- 209              		.loc 1 88 34 is_stmt 0 view .LVU31
+  81:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 208              		.loc 1 81 3 view .LVU30
+ 209              		.loc 1 81 34 is_stmt 0 view .LVU31
  210 00cc 2046     		mov	r0, r4
  211 00ce FFF7FEFF 		bl	strlen
  212              	.LVL17:
- 213              		.loc 1 88 3 view .LVU32
+ 213              		.loc 1 81 3 view .LVU32
  214 00d2 81B2     		uxth	r1, r0
+ARM GAS  /tmp/cclqLhTN.s 			page 7
+
+
  215 00d4 2046     		mov	r0, r4
  216 00d6 FFF7FEFF 		bl	CDC_Transmit_FS
  217              	.LVL18:
-  89:Core/Src/my_application.c ****   HAL_Delay(100);
- 218              		.loc 1 89 3 is_stmt 1 view .LVU33
+  82:Core/Src/my_application.c ****   HAL_Delay(100);
+ 218              		.loc 1 82 3 is_stmt 1 view .LVU33
  219 00da 6420     		movs	r0, #100
  220 00dc FFF7FEFF 		bl	HAL_Delay
  221              	.LVL19:
-  90:Core/Src/my_application.c **** 
-  91:Core/Src/my_application.c ****   // Step 3: 初始化8个BME280传感器（跳过损坏的[3]）
-  92:Core/Src/my_application.c ****   for (int i = 0; i < 8; i++) {
- 222              		.loc 1 92 3 view .LVU34
+  83:Core/Src/my_application.c **** 
+  84:Core/Src/my_application.c ****   // Step 3: 初始化8个BME280传感器（跳过损坏的[3]）
+  85:Core/Src/my_application.c ****   for (int i = 0; i < 8; i++) {
+ 222              		.loc 1 85 3 view .LVU34
  223              	.LBB2:
- 224              		.loc 1 92 8 view .LVU35
- 225              		.loc 1 92 12 is_stmt 0 view .LVU36
+ 224              		.loc 1 85 8 view .LVU35
+ 225              		.loc 1 85 12 is_stmt 0 view .LVU36
  226 00e0 0024     		movs	r4, #0
- 227              		.loc 1 92 3 view .LVU37
+ 227              		.loc 1 85 3 view .LVU37
  228 00e2 0DE0     		b	.L2
  229              	.LVL20:
  230              	.L8:
  231              	.LBB3:
  232              	.LBB4:
-  93:Core/Src/my_application.c ****     if (i == 3) {
-  94:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
- 233              		.loc 1 94 7 is_stmt 1 view .LVU38
- 234              		.loc 1 94 17 is_stmt 0 view .LVU39
+  86:Core/Src/my_application.c ****     if (i == 3) {
+  87:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
+ 233              		.loc 1 87 7 is_stmt 1 view .LVU38
+ 234              		.loc 1 87 17 is_stmt 0 view .LVU39
  235 00e4 3C4D     		ldr	r5, .L9
  236 00e6 2246     		mov	r2, r4
  237 00e8 4449     		ldr	r1, .L9+36
  238 00ea 2846     		mov	r0, r5
  239 00ec FFF7FEFF 		bl	sprintf
  240              	.LVL21:
-  95:Core/Src/my_application.c ****       CDC_Transmit_FS((uint8_t*)msg, len);
- 241              		.loc 1 95 7 is_stmt 1 view .LVU40
+  88:Core/Src/my_application.c ****       CDC_Transmit_FS((uint8_t*)msg, len);
+ 241              		.loc 1 88 7 is_stmt 1 view .LVU40
  242 00f0 2121     		movs	r1, #33
  243 00f2 2846     		mov	r0, r5
  244 00f4 FFF7FEFF 		bl	CDC_Transmit_FS
  245              	.LVL22:
-  96:Core/Src/my_application.c ****       HAL_Delay(50);
- 246              		.loc 1 96 7 view .LVU41
+  89:Core/Src/my_application.c ****       HAL_Delay(50);
+ 246              		.loc 1 89 7 view .LVU41
  247 00f8 3220     		movs	r0, #50
  248 00fa FFF7FEFF 		bl	HAL_Delay
  249              	.LVL23:
-  97:Core/Src/my_application.c ****       continue;
- 250              		.loc 1 97 7 view .LVU42
+  90:Core/Src/my_application.c ****       continue;
+ 250              		.loc 1 90 7 view .LVU42
  251              	.L4:
- 252              		.loc 1 97 7 is_stmt 0 view .LVU43
+ 252              		.loc 1 90 7 is_stmt 0 view .LVU43
  253              	.LBE4:
  254              	.LBE3:
-  92:Core/Src/my_application.c ****     if (i == 3) {
-ARM GAS  /tmp/ccOp99fX.s 			page 8
-
-
- 255              		.loc 1 92 26 is_stmt 1 discriminator 2 view .LVU44
-  92:Core/Src/my_application.c ****     if (i == 3) {
- 256              		.loc 1 92 27 is_stmt 0 discriminator 2 view .LVU45
+  85:Core/Src/my_application.c ****     if (i == 3) {
+ 255              		.loc 1 85 26 is_stmt 1 discriminator 2 view .LVU44
+  85:Core/Src/my_application.c ****     if (i == 3) {
+ 256              		.loc 1 85 27 is_stmt 0 discriminator 2 view .LVU45
  257 00fe 0134     		adds	r4, r4, #1
  258              	.LVL24:
  259              	.L2:
-  92:Core/Src/my_application.c ****     if (i == 3) {
- 260              		.loc 1 92 19 is_stmt 1 discriminator 1 view .LVU46
-  92:Core/Src/my_application.c ****     if (i == 3) {
- 261              		.loc 1 92 3 is_stmt 0 discriminator 1 view .LVU47
+  85:Core/Src/my_application.c ****     if (i == 3) {
+ARM GAS  /tmp/cclqLhTN.s 			page 8
+
+
+ 260              		.loc 1 85 19 is_stmt 1 discriminator 1 view .LVU46
+  85:Core/Src/my_application.c ****     if (i == 3) {
+ 261              		.loc 1 85 3 is_stmt 0 discriminator 1 view .LVU47
  262 0100 072C     		cmp	r4, #7
  263 0102 27DC     		bgt	.L7
  264              	.LBB5:
-  93:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
- 265              		.loc 1 93 5 is_stmt 1 view .LVU48
-  93:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
- 266              		.loc 1 93 8 is_stmt 0 view .LVU49
+  86:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
+ 265              		.loc 1 86 5 is_stmt 1 view .LVU48
+  86:Core/Src/my_application.c ****       int len = sprintf(msg, "INIT:BME280[%d] SKIPPED (damaged)\n", i);
+ 266              		.loc 1 86 8 is_stmt 0 view .LVU49
  267 0104 032C     		cmp	r4, #3
  268 0106 EDD0     		beq	.L8
-  98:Core/Src/my_application.c ****     }
-  99:Core/Src/my_application.c **** 
- 100:Core/Src/my_application.c ****     int len = sprintf(msg, "INIT:BME280[%d]...\n", i);
- 269              		.loc 1 100 5 is_stmt 1 view .LVU50
- 270              		.loc 1 100 15 is_stmt 0 view .LVU51
+  91:Core/Src/my_application.c ****     }
+  92:Core/Src/my_application.c **** 
+  93:Core/Src/my_application.c ****     int len = sprintf(msg, "INIT:BME280[%d]...\n", i);
+ 269              		.loc 1 93 5 is_stmt 1 view .LVU50
+ 270              		.loc 1 93 15 is_stmt 0 view .LVU51
  271 0108 334D     		ldr	r5, .L9
  272 010a 2246     		mov	r2, r4
  273 010c 3C49     		ldr	r1, .L9+40
  274 010e 2846     		mov	r0, r5
  275 0110 FFF7FEFF 		bl	sprintf
  276              	.LVL25:
- 101:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
- 277              		.loc 1 101 5 is_stmt 1 view .LVU52
+  94:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
+ 277              		.loc 1 94 5 is_stmt 1 view .LVU52
  278 0114 1221     		movs	r1, #18
  279 0116 2846     		mov	r0, r5
  280 0118 FFF7FEFF 		bl	CDC_Transmit_FS
  281              	.LVL26:
- 102:Core/Src/my_application.c ****     HAL_Delay(50);
- 282              		.loc 1 102 5 view .LVU53
+  95:Core/Src/my_application.c ****     HAL_Delay(50);
+ 282              		.loc 1 95 5 view .LVU53
  283 011c 3220     		movs	r0, #50
  284 011e FFF7FEFF 		bl	HAL_Delay
  285              	.LVL27:
- 103:Core/Src/my_application.c **** 
- 104:Core/Src/my_application.c ****     BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
- 286              		.loc 1 104 5 view .LVU54
+  96:Core/Src/my_application.c **** 
+  97:Core/Src/my_application.c ****     BME280_Init(&bme[i], &hi2c1, TCA9548A_ADDR_70, i, BME280_ADDR_76);
+ 286              		.loc 1 97 5 view .LVU54
  287 0122 04EB4400 		add	r0, r4, r4, lsl #1
  288 0126 EC23     		movs	r3, #236
  289 0128 0093     		str	r3, [sp]
@@ -475,107 +468,107 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  294 0132 06EB0010 		add	r0, r6, r0, lsl #4
  295 0136 FFF7FEFF 		bl	BME280_Init
  296              	.LVL28:
- 105:Core/Src/my_application.c **** 
- 106:Core/Src/my_application.c ****     len = sprintf(msg, "INIT:BME280[%d] OK\n", i);
- 297              		.loc 1 106 5 view .LVU55
-ARM GAS  /tmp/ccOp99fX.s 			page 9
-
-
- 298              		.loc 1 106 11 is_stmt 0 view .LVU56
+  98:Core/Src/my_application.c **** 
+  99:Core/Src/my_application.c ****     len = sprintf(msg, "INIT:BME280[%d] OK\n", i);
+ 297              		.loc 1 99 5 view .LVU55
+ 298              		.loc 1 99 11 is_stmt 0 view .LVU56
  299 013a 2246     		mov	r2, r4
  300 013c 3349     		ldr	r1, .L9+52
  301 013e 2846     		mov	r0, r5
  302 0140 FFF7FEFF 		bl	sprintf
  303              	.LVL29:
- 107:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
- 304              		.loc 1 107 5 is_stmt 1 view .LVU57
+ 100:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
+ARM GAS  /tmp/cclqLhTN.s 			page 9
+
+
+ 304              		.loc 1 100 5 is_stmt 1 view .LVU57
  305 0144 1221     		movs	r1, #18
  306 0146 2846     		mov	r0, r5
  307 0148 FFF7FEFF 		bl	CDC_Transmit_FS
  308              	.LVL30:
- 108:Core/Src/my_application.c ****     HAL_Delay(50);
- 309              		.loc 1 108 5 view .LVU58
+ 101:Core/Src/my_application.c ****     HAL_Delay(50);
+ 309              		.loc 1 101 5 view .LVU58
  310 014c 3220     		movs	r0, #50
  311 014e FFF7FEFF 		bl	HAL_Delay
  312              	.LVL31:
  313 0152 D4E7     		b	.L4
  314              	.LVL32:
  315              	.L7:
- 316              		.loc 1 108 5 is_stmt 0 view .LVU59
+ 316              		.loc 1 101 5 is_stmt 0 view .LVU59
  317              	.LBE5:
  318              	.LBE2:
- 109:Core/Src/my_application.c ****   }
- 110:Core/Src/my_application.c **** 
- 111:Core/Src/my_application.c ****   // Step 4: 初始化麦克风（I2S）
- 112:Core/Src/my_application.c ****   strcpy(msg, "INIT:MICROPHONE...\n");
- 319              		.loc 1 112 3 is_stmt 1 view .LVU60
+ 102:Core/Src/my_application.c ****   }
+ 103:Core/Src/my_application.c **** 
+ 104:Core/Src/my_application.c ****   // Step 4: 初始化麦克风（I2S）
+ 105:Core/Src/my_application.c ****   strcpy(msg, "INIT:MICROPHONE...\n");
+ 319              		.loc 1 105 3 is_stmt 1 view .LVU60
  320 0154 204E     		ldr	r6, .L9
  321 0156 3446     		mov	r4, r6
  322              	.LVL33:
- 323              		.loc 1 112 3 is_stmt 0 view .LVU61
+ 323              		.loc 1 105 3 is_stmt 0 view .LVU61
  324 0158 2D4D     		ldr	r5, .L9+56
  325 015a 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
  326 015c 0FC4     		stmia	r4!, {r0, r1, r2, r3}
  327 015e 2B68     		ldr	r3, [r5]
  328 0160 2360     		str	r3, [r4]
- 113:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 329              		.loc 1 113 3 is_stmt 1 view .LVU62
- 330              		.loc 1 113 34 is_stmt 0 view .LVU63
+ 106:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 329              		.loc 1 106 3 is_stmt 1 view .LVU62
+ 330              		.loc 1 106 34 is_stmt 0 view .LVU63
  331 0162 3046     		mov	r0, r6
  332 0164 FFF7FEFF 		bl	strlen
  333              	.LVL34:
- 334              		.loc 1 113 3 view .LVU64
+ 334              		.loc 1 106 3 view .LVU64
  335 0168 81B2     		uxth	r1, r0
  336 016a 3046     		mov	r0, r6
  337 016c FFF7FEFF 		bl	CDC_Transmit_FS
  338              	.LVL35:
- 114:Core/Src/my_application.c ****   HAL_Delay(100);
- 339              		.loc 1 114 3 is_stmt 1 view .LVU65
+ 107:Core/Src/my_application.c ****   HAL_Delay(100);
+ 339              		.loc 1 107 3 is_stmt 1 view .LVU65
  340 0170 6420     		movs	r0, #100
  341 0172 FFF7FEFF 		bl	HAL_Delay
  342              	.LVL36:
- 115:Core/Src/my_application.c ****   MIC_Init(&mic, &hi2s1);
- 343              		.loc 1 115 3 view .LVU66
+ 108:Core/Src/my_application.c ****   MIC_Init(&mic, &hi2s1);
+ 343              		.loc 1 108 3 view .LVU66
  344 0176 274D     		ldr	r5, .L9+60
  345 0178 2749     		ldr	r1, .L9+64
-ARM GAS  /tmp/ccOp99fX.s 			page 10
-
-
  346 017a 2846     		mov	r0, r5
  347 017c FFF7FEFF 		bl	MIC_Init
  348              	.LVL37:
- 116:Core/Src/my_application.c ****   MIC_Start(&mic);
- 349              		.loc 1 116 3 view .LVU67
+ 109:Core/Src/my_application.c ****   MIC_Start(&mic);
+ 349              		.loc 1 109 3 view .LVU67
  350 0180 2846     		mov	r0, r5
  351 0182 FFF7FEFF 		bl	MIC_Start
+ARM GAS  /tmp/cclqLhTN.s 			page 10
+
+
  352              	.LVL38:
- 117:Core/Src/my_application.c ****   strcpy(msg, "INIT:MICROPHONE OK\n");
- 353              		.loc 1 117 3 view .LVU68
+ 110:Core/Src/my_application.c ****   strcpy(msg, "INIT:MICROPHONE OK\n");
+ 353              		.loc 1 110 3 view .LVU68
  354 0186 3746     		mov	r7, r6
  355 0188 244D     		ldr	r5, .L9+68
  356 018a 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
  357 018c 0FC7     		stmia	r7!, {r0, r1, r2, r3}
  358 018e 2B68     		ldr	r3, [r5]
  359 0190 2360     		str	r3, [r4]
- 118:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 360              		.loc 1 118 3 view .LVU69
- 361              		.loc 1 118 34 is_stmt 0 view .LVU70
+ 111:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 360              		.loc 1 111 3 view .LVU69
+ 361              		.loc 1 111 34 is_stmt 0 view .LVU70
  362 0192 3046     		mov	r0, r6
  363 0194 FFF7FEFF 		bl	strlen
  364              	.LVL39:
- 365              		.loc 1 118 3 view .LVU71
+ 365              		.loc 1 111 3 view .LVU71
  366 0198 81B2     		uxth	r1, r0
  367 019a 3046     		mov	r0, r6
  368 019c FFF7FEFF 		bl	CDC_Transmit_FS
  369              	.LVL40:
- 119:Core/Src/my_application.c ****   HAL_Delay(100);
- 370              		.loc 1 119 3 is_stmt 1 view .LVU72
+ 112:Core/Src/my_application.c ****   HAL_Delay(100);
+ 370              		.loc 1 112 3 is_stmt 1 view .LVU72
  371 01a0 6420     		movs	r0, #100
  372 01a2 FFF7FEFF 		bl	HAL_Delay
  373              	.LVL41:
- 120:Core/Src/my_application.c **** 
- 121:Core/Src/my_application.c ****   strcpy(msg, "========== ALL SENSORS READY ==========\n");
- 374              		.loc 1 121 3 view .LVU73
+ 113:Core/Src/my_application.c **** 
+ 114:Core/Src/my_application.c ****   strcpy(msg, "========== ALL SENSORS READY ==========\n");
+ 374              		.loc 1 114 3 view .LVU73
  375 01a6 3446     		mov	r4, r6
  376 01a8 1D4D     		ldr	r5, .L9+72
  377 01aa 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
@@ -585,31 +578,31 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  381 01b2 95E80700 		ldm	r5, {r0, r1, r2}
  382 01b6 03C4     		stmia	r4!, {r0, r1}
  383 01b8 2270     		strb	r2, [r4]
- 122:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
- 384              		.loc 1 122 3 view .LVU74
- 385              		.loc 1 122 34 is_stmt 0 view .LVU75
+ 115:Core/Src/my_application.c ****   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+ 384              		.loc 1 115 3 view .LVU74
+ 385              		.loc 1 115 34 is_stmt 0 view .LVU75
  386 01ba 3046     		mov	r0, r6
  387 01bc FFF7FEFF 		bl	strlen
  388              	.LVL42:
- 389              		.loc 1 122 3 view .LVU76
+ 389              		.loc 1 115 3 view .LVU76
  390 01c0 81B2     		uxth	r1, r0
  391 01c2 3046     		mov	r0, r6
  392 01c4 FFF7FEFF 		bl	CDC_Transmit_FS
  393              	.LVL43:
- 123:Core/Src/my_application.c ****   HAL_Delay(500);
- 394              		.loc 1 123 3 is_stmt 1 view .LVU77
-ARM GAS  /tmp/ccOp99fX.s 			page 11
-
-
+ 116:Core/Src/my_application.c ****   HAL_Delay(500);
+ 394              		.loc 1 116 3 is_stmt 1 view .LVU77
  395 01c8 4FF4FA70 		mov	r0, #500
  396 01cc FFF7FEFF 		bl	HAL_Delay
  397              	.LVL44:
- 124:Core/Src/my_application.c **** 
- 125:Core/Src/my_application.c **** #ifdef ENABLE_PROFILING
- 126:Core/Src/my_application.c ****   DWT_Init();  // Enable cycle counter for performance profiling
- 127:Core/Src/my_application.c **** #endif
- 128:Core/Src/my_application.c **** }
- 398              		.loc 1 128 1 is_stmt 0 view .LVU78
+ 117:Core/Src/my_application.c **** 
+ 118:Core/Src/my_application.c **** #ifdef ENABLE_PROFILING
+ 119:Core/Src/my_application.c ****   DWT_Init();  // Enable cycle counter for performance profiling
+ 120:Core/Src/my_application.c **** #endif
+ARM GAS  /tmp/cclqLhTN.s 			page 11
+
+
+ 121:Core/Src/my_application.c **** }
+ 398              		.loc 1 121 1 is_stmt 0 view .LVU78
  399 01d0 02B0     		add	sp, sp, #8
  400              	.LCFI2:
  401              		.cfi_def_cfa_offset 24
@@ -638,7 +631,7 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  424 021c D8000000 		.word	.LC10
  425 0220 EC000000 		.word	.LC11
  426              		.cfi_endproc
- 427              	.LFE139:
+ 427              	.LFE138:
  429              		.section	.rodata.My_Application_Run.str1.4,"aMS",%progbits,1
  430              		.align	2
  431              	.LC12:
@@ -658,9 +651,6 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  434      662C252E 
  434      31662C25 
  435 0099 31662C25 		.ascii	"1f,%.1f,%ld\012\000"
-ARM GAS  /tmp/ccOp99fX.s 			page 12
-
-
  435      2E31662C 
  435      256C640A 
  435      00
@@ -668,20 +658,23 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  437              		.section	.text.My_Application_Run,"ax",%progbits
  438              		.align	1
  439              		.global	My_Application_Run
+ARM GAS  /tmp/cclqLhTN.s 			page 12
+
+
  440              		.syntax unified
  441              		.thumb
  442              		.thumb_func
  443              		.fpu fpv4-sp-d16
  445              	My_Application_Run:
- 446              	.LFB140:
- 129:Core/Src/my_application.c **** 
- 130:Core/Src/my_application.c **** /**
- 131:Core/Src/my_application.c ****   * @brief  Main sensor reading loop (infinite)
- 132:Core/Src/my_application.c ****   * @retval None (never returns)
- 133:Core/Src/my_application.c ****   */
- 134:Core/Src/my_application.c **** void My_Application_Run(void)
- 135:Core/Src/my_application.c **** {
- 447              		.loc 1 135 1 is_stmt 1 view -0
+ 446              	.LFB139:
+ 122:Core/Src/my_application.c **** 
+ 123:Core/Src/my_application.c **** /**
+ 124:Core/Src/my_application.c ****   * @brief  Main sensor reading loop (infinite)
+ 125:Core/Src/my_application.c ****   * @retval None (never returns)
+ 126:Core/Src/my_application.c ****   */
+ 127:Core/Src/my_application.c **** void My_Application_Run(void)
+ 128:Core/Src/my_application.c **** {
+ 447              		.loc 1 128 1 is_stmt 1 view -0
  448              		.cfi_startproc
  449              		@ args = 0, pretend = 0, frame = 40
  450              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -718,74 +711,76 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  481              		.cfi_offset 95, -40
  482 0008 CBB0     		sub	sp, sp, #300
  483              	.LCFI5:
-ARM GAS  /tmp/ccOp99fX.s 			page 13
-
-
  484              		.cfi_def_cfa_offset 400
- 136:Core/Src/my_application.c ****   // // 传感器数据变量
- 137:Core/Src/my_application.c ****   uint16_t als = 0, ps = 0;
- 485              		.loc 1 137 3 view .LVU80
- 486              		.loc 1 137 12 is_stmt 0 view .LVU81
+ 129:Core/Src/my_application.c **** 
+ 130:Core/Src/my_application.c **** 
+ 131:Core/Src/my_application.c ****   // // 传感器数据变量
+ 132:Core/Src/my_application.c ****   uint16_t als = 0, ps = 0;
+ 485              		.loc 1 132 3 view .LVU80
+ 486              		.loc 1 132 12 is_stmt 0 view .LVU81
+ARM GAS  /tmp/cclqLhTN.s 			page 13
+
+
  487 000a 0023     		movs	r3, #0
  488 000c ADF82631 		strh	r3, [sp, #294]	@ movhi
- 489              		.loc 1 137 21 view .LVU82
+ 489              		.loc 1 132 21 view .LVU82
  490 0010 ADF82431 		strh	r3, [sp, #292]	@ movhi
- 138:Core/Src/my_application.c ****   ICM42688_ScaledData accel = {0}, gyro = {0};
- 491              		.loc 1 138 3 is_stmt 1 view .LVU83
- 492              		.loc 1 138 23 is_stmt 0 view .LVU84
+ 133:Core/Src/my_application.c ****   ICM42688_ScaledData accel = {0}, gyro = {0};
+ 491              		.loc 1 133 3 is_stmt 1 view .LVU83
+ 492              		.loc 1 133 23 is_stmt 0 view .LVU84
  493 0014 4693     		str	r3, [sp, #280]
  494 0016 4793     		str	r3, [sp, #284]
  495 0018 4893     		str	r3, [sp, #288]
- 496              		.loc 1 138 36 view .LVU85
+ 496              		.loc 1 133 36 view .LVU85
  497 001a 4393     		str	r3, [sp, #268]
  498 001c 4493     		str	r3, [sp, #272]
  499 001e 4593     		str	r3, [sp, #276]
- 139:Core/Src/my_application.c ****   float imu_temp = 0;
- 500              		.loc 1 139 3 is_stmt 1 view .LVU86
- 501              		.loc 1 139 9 is_stmt 0 view .LVU87
+ 134:Core/Src/my_application.c ****   float imu_temp = 0;
+ 500              		.loc 1 134 3 is_stmt 1 view .LVU86
+ 501              		.loc 1 134 9 is_stmt 0 view .LVU87
  502 0020 0023     		movs	r3, #0
  503 0022 4293     		str	r3, [sp, #264]	@ float
  504 0024 0EE1     		b	.L13
  505              	.L15:
  506              	.LBB6:
+ 135:Core/Src/my_application.c **** 
+ 136:Core/Src/my_application.c ****   // BME280数据缓存（静态变量，保留上次的值）
+ 137:Core/Src/my_application.c ****   static float temp[8] = {28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f};
+ 138:Core/Src/my_application.c ****   static float hum[8] = {27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f};
+ 139:Core/Src/my_application.c ****   static float press[8] = {1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f};
  140:Core/Src/my_application.c **** 
- 141:Core/Src/my_application.c ****   // BME280数据缓存（静态变量，保留上次的值）
- 142:Core/Src/my_application.c ****   static float temp[8] = {28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f, 28.0f};
- 143:Core/Src/my_application.c ****   static float hum[8] = {27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f};
- 144:Core/Src/my_application.c ****   static float press[8] = {1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f};
+ 141:Core/Src/my_application.c ****   // 轮询索引（静态变量，每次循环递增）
+ 142:Core/Src/my_application.c ****   static int bme_index = 0;
+ 143:Core/Src/my_application.c **** 
+ 144:Core/Src/my_application.c ****   static char msg[512];
  145:Core/Src/my_application.c **** 
- 146:Core/Src/my_application.c ****   // 轮询索引（静态变量，每次循环递增）
- 147:Core/Src/my_application.c ****   static int bme_index = 0;
+ 146:Core/Src/my_application.c ****   while (1)
+ 147:Core/Src/my_application.c ****   {
  148:Core/Src/my_application.c **** 
- 149:Core/Src/my_application.c ****   static char msg[512];
+ 149:Core/Src/my_application.c ****     VCNL4040_ReadALS(&vcnl4040, &als);
  150:Core/Src/my_application.c **** 
- 151:Core/Src/my_application.c ****   while (1)
- 152:Core/Src/my_application.c ****   {
- 153:Core/Src/my_application.c ****     // // === 1. 读取VCNL4040 (光线和接近传感器) ===
- 154:Core/Src/my_application.c ****     VCNL4040_ReadALS(&vcnl4040, &als);
- 155:Core/Src/my_application.c ****     VCNL4040_ReadPS(&vcnl4040, &ps);
- 156:Core/Src/my_application.c **** 
- 157:Core/Src/my_application.c ****     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
- 158:Core/Src/my_application.c ****     ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
- 159:Core/Src/my_application.c **** 
- 160:Core/Src/my_application.c ****     // === 3. 轮询读取单个BME280 (温湿度和气压) ===
- 161:Core/Src/my_application.c ****     if (bme_index == 3) {
- 162:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
- 163:Core/Src/my_application.c ****       // 跳过读取，但仍然递增索引
- 164:Core/Src/my_application.c ****     } else {
- 165:Core/Src/my_application.c ****       // 读取当前索引的BME280传感器
- 166:Core/Src/my_application.c ****       if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
- 167:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
- 507              		.loc 1 167 9 is_stmt 1 view .LVU88
- 508              		.loc 1 167 29 is_stmt 0 view .LVU89
-ARM GAS  /tmp/ccOp99fX.s 			page 14
-
-
+ 151:Core/Src/my_application.c ****     VCNL4040_ReadPS(&vcnl4040, &ps);
+ 152:Core/Src/my_application.c **** 
+ 153:Core/Src/my_application.c ****     ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+ 154:Core/Src/my_application.c **** 
+ 155:Core/Src/my_application.c **** 
+ 156:Core/Src/my_application.c ****     // === 3. 轮询读取单个BME280 (温湿度和气压) ===
+ 157:Core/Src/my_application.c ****     if (bme_index == 3) {
+ 158:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
+ 159:Core/Src/my_application.c ****     } else {
+ 160:Core/Src/my_application.c ****       // 读取当前索引的BME280传感器
+ 161:Core/Src/my_application.c ****       if (TCA9548A_SelectChannel(&hi2c1, TCA9548A_ADDR_70, bme_index) == HAL_OK) {
+ 162:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+ 507              		.loc 1 162 9 is_stmt 1 view .LVU88
+ 508              		.loc 1 162 29 is_stmt 0 view .LVU89
  509 0026 964B     		ldr	r3, .L16
  510 0028 1968     		ldr	r1, [r3]
- 511              		.loc 1 167 9 view .LVU90
+ 511              		.loc 1 162 9 view .LVU90
  512 002a 01EB4104 		add	r4, r1, r1, lsl #1
  513 002e 954B     		ldr	r3, .L16+4
+ARM GAS  /tmp/cclqLhTN.s 			page 14
+
+
  514 0030 03EB8103 		add	r3, r3, r1, lsl #2
  515 0034 944A     		ldr	r2, .L16+8
  516 0036 02EB8102 		add	r2, r2, r1, lsl #2
@@ -796,98 +791,98 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  521 0046 FFF7FEFF 		bl	BME280_ReadData
  522              	.LVL45:
  523              	.L12:
- 168:Core/Src/my_application.c ****       }
- 169:Core/Src/my_application.c ****       // I2C切换失败时保留旧值，不更新
- 170:Core/Src/my_application.c ****     }
- 171:Core/Src/my_application.c ****     // 切换到下一个传感器（循环0-7）
- 172:Core/Src/my_application.c ****     bme_index = (bme_index + 1) % 8;
- 524              		.loc 1 172 5 is_stmt 1 view .LVU91
- 525              		.loc 1 172 28 is_stmt 0 view .LVU92
+ 163:Core/Src/my_application.c ****       }
+ 164:Core/Src/my_application.c ****       // I2C切换失败时保留旧值，不更新
+ 165:Core/Src/my_application.c ****     }
+ 166:Core/Src/my_application.c ****     // 切换到下一个传感器（循环0-7）
+ 167:Core/Src/my_application.c ****     bme_index = (bme_index + 1) % 8;
+ 524              		.loc 1 167 5 is_stmt 1 view .LVU91
+ 525              		.loc 1 167 28 is_stmt 0 view .LVU92
  526 004a 8D49     		ldr	r1, .L16
  527 004c 0B68     		ldr	r3, [r1]
  528 004e 0133     		adds	r3, r3, #1
- 529              		.loc 1 172 33 view .LVU93
+ 529              		.loc 1 167 33 view .LVU93
  530 0050 5A42     		rsbs	r2, r3, #0
  531 0052 03F00703 		and	r3, r3, #7
  532 0056 02F00702 		and	r2, r2, #7
  533 005a 58BF     		it	pl
  534 005c 5342     		rsbpl	r3, r2, #0
- 535              		.loc 1 172 15 view .LVU94
+ 535              		.loc 1 167 15 view .LVU94
  536 005e 0B60     		str	r3, [r1]
- 173:Core/Src/my_application.c **** 
- 174:Core/Src/my_application.c ****     // === 4. 输出CSV格式数据 ===
- 175:Core/Src/my_application.c ****     int len = sprintf(msg,
- 537              		.loc 1 175 5 is_stmt 1 view .LVU95
- 176:Core/Src/my_application.c ****       "%u,%u,"  // ALS, PS
- 177:Core/Src/my_application.c ****       "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // Accel_X/Y/Z, Gyro_X/Y/Z
- 178:Core/Src/my_application.c ****       "%.2f,"  // IMU_Temp
- 179:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
- 180:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
- 181:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f"  // Press[0-7]
- 182:Core/Src/my_application.c ****       ",%ld"  // Audio_Result_Left
- 183:Core/Src/my_application.c ****       "\n",  // ← 添加换行符
- 184:Core/Src/my_application.c ****       als, ps,
- 185:Core/Src/my_application.c ****       accel.x, accel.y, accel.z,
- 186:Core/Src/my_application.c ****       gyro.x, gyro.y, gyro.z,
- 187:Core/Src/my_application.c ****       imu_temp,
- 188:Core/Src/my_application.c ****       temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
- 538              		.loc 1 188 11 is_stmt 0 view .LVU96
+ 168:Core/Src/my_application.c **** 
+ 169:Core/Src/my_application.c ****     // === 4. 输出CSV格式数据 ===
+ 170:Core/Src/my_application.c ****     int len = sprintf(msg,
+ 537              		.loc 1 170 5 is_stmt 1 view .LVU95
+ 171:Core/Src/my_application.c ****       "%u,%u,"  // ALS, PS
+ 172:Core/Src/my_application.c ****       "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // Accel_X/Y/Z, Gyro_X/Y/Z
+ 173:Core/Src/my_application.c ****       "%.2f,"  // IMU_Temp
+ 174:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Temp[0-7]
+ 175:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Hum[0-7]
+ 176:Core/Src/my_application.c ****       "%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,"  // Press[0-7]
+ 177:Core/Src/my_application.c ****       "%ld"  // Audio_Result_Left
+ 178:Core/Src/my_application.c ****       "\n",  // ← 添加换行符
+ 179:Core/Src/my_application.c ****       als, ps,
+ 180:Core/Src/my_application.c ****       accel.x, accel.y, accel.z,
+ 181:Core/Src/my_application.c ****       gyro.x, gyro.y, gyro.z,
+ 182:Core/Src/my_application.c ****       imu_temp,
+ 183:Core/Src/my_application.c ****       temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], temp[7],
+ 538              		.loc 1 183 11 is_stmt 0 view .LVU96
  539 0060 8A4B     		ldr	r3, .L16+12
  540 0062 D3ED007A 		vldr.32	s15, [r3]
  541 0066 CDED407A 		vstr.32	s15, [sp, #256]
- 542              		.loc 1 188 20 view .LVU97
+ 542              		.loc 1 183 20 view .LVU97
  543 006a 5E68     		ldr	r6, [r3, #4]	@ float
- 544              		.loc 1 188 29 view .LVU98
-ARM GAS  /tmp/ccOp99fX.s 			page 15
-
-
+ 544              		.loc 1 183 29 view .LVU98
  545 006c 9F68     		ldr	r7, [r3, #8]	@ float
- 546              		.loc 1 188 38 view .LVU99
+ 546              		.loc 1 183 38 view .LVU99
  547 006e D3F80C80 		ldr	r8, [r3, #12]	@ float
- 548              		.loc 1 188 47 view .LVU100
+ 548              		.loc 1 183 47 view .LVU100
  549 0072 D3F81090 		ldr	r9, [r3, #16]	@ float
- 550              		.loc 1 188 56 view .LVU101
+ARM GAS  /tmp/cclqLhTN.s 			page 15
+
+
+ 550              		.loc 1 183 56 view .LVU101
  551 0076 D3F814A0 		ldr	r10, [r3, #20]	@ float
- 552              		.loc 1 188 65 view .LVU102
+ 552              		.loc 1 183 65 view .LVU102
  553 007a D3F818B0 		ldr	fp, [r3, #24]	@ float
- 554              		.loc 1 188 74 view .LVU103
+ 554              		.loc 1 183 74 view .LVU103
  555 007e 93ED078A 		vldr.32	s16, [r3, #28]
- 189:Core/Src/my_application.c ****       hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
- 556              		.loc 1 189 10 view .LVU104
+ 184:Core/Src/my_application.c ****       hum[0], hum[1], hum[2], hum[3], hum[4], hum[5], hum[6], hum[7],
+ 556              		.loc 1 184 10 view .LVU104
  557 0082 814B     		ldr	r3, .L16+8
  558 0084 D3ED008A 		vldr.32	s17, [r3]
- 559              		.loc 1 189 18 view .LVU105
+ 559              		.loc 1 184 18 view .LVU105
  560 0088 93ED019A 		vldr.32	s18, [r3, #4]
- 561              		.loc 1 189 26 view .LVU106
+ 561              		.loc 1 184 26 view .LVU106
  562 008c D3ED029A 		vldr.32	s19, [r3, #8]
- 563              		.loc 1 189 34 view .LVU107
+ 563              		.loc 1 184 34 view .LVU107
  564 0090 93ED03AA 		vldr.32	s20, [r3, #12]
- 565              		.loc 1 189 42 view .LVU108
+ 565              		.loc 1 184 42 view .LVU108
  566 0094 D3ED04AA 		vldr.32	s21, [r3, #16]
- 567              		.loc 1 189 50 view .LVU109
+ 567              		.loc 1 184 50 view .LVU109
  568 0098 93ED05BA 		vldr.32	s22, [r3, #20]
- 569              		.loc 1 189 58 view .LVU110
+ 569              		.loc 1 184 58 view .LVU110
  570 009c D3ED06BA 		vldr.32	s23, [r3, #24]
- 571              		.loc 1 189 66 view .LVU111
+ 571              		.loc 1 184 66 view .LVU111
  572 00a0 93ED07CA 		vldr.32	s24, [r3, #28]
- 190:Core/Src/my_application.c ****       press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
- 573              		.loc 1 190 12 view .LVU112
+ 185:Core/Src/my_application.c ****       press[0], press[1], press[2], press[3], press[4], press[5], press[6], press[7],
+ 573              		.loc 1 185 12 view .LVU112
  574 00a4 774B     		ldr	r3, .L16+4
  575 00a6 D3ED00CA 		vldr.32	s25, [r3]
- 576              		.loc 1 190 22 view .LVU113
+ 576              		.loc 1 185 22 view .LVU113
  577 00aa 93ED01DA 		vldr.32	s26, [r3, #4]
- 578              		.loc 1 190 32 view .LVU114
+ 578              		.loc 1 185 32 view .LVU114
  579 00ae D3ED02DA 		vldr.32	s27, [r3, #8]
- 580              		.loc 1 190 42 view .LVU115
+ 580              		.loc 1 185 42 view .LVU115
  581 00b2 93ED03EA 		vldr.32	s28, [r3, #12]
- 582              		.loc 1 190 52 view .LVU116
+ 582              		.loc 1 185 52 view .LVU116
  583 00b6 D3ED04EA 		vldr.32	s29, [r3, #16]
- 584              		.loc 1 190 62 view .LVU117
+ 584              		.loc 1 185 62 view .LVU117
  585 00ba 93ED05FA 		vldr.32	s30, [r3, #20]
- 586              		.loc 1 190 72 view .LVU118
+ 586              		.loc 1 185 72 view .LVU118
  587 00be D3ED06FA 		vldr.32	s31, [r3, #24]
- 175:Core/Src/my_application.c ****       "%u,%u,"  // ALS, PS
- 588              		.loc 1 175 15 view .LVU119
+ 170:Core/Src/my_application.c ****       "%u,%u,"  // ALS, PS
+ 588              		.loc 1 170 15 view .LVU119
  589 00c2 BDF82451 		ldrh	r5, [sp, #292]
  590 00c6 BDF82621 		ldrh	r2, [sp, #294]
  591 00ca 4192     		str	r2, [sp, #260]
@@ -898,14 +893,14 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  596 00d4 D869     		ldr	r0, [r3, #28]	@ float
  597 00d6 FFF7FEFF 		bl	__aeabi_f2d
  598              	.LVL46:
-ARM GAS  /tmp/ccOp99fX.s 			page 16
-
-
  599 00da CDE93C01 		strd	r0, [sp, #240]
  600 00de 1FEE900A 		vmov	r0, s31
  601 00e2 FFF7FEFF 		bl	__aeabi_f2d
  602              	.LVL47:
  603 00e6 CDE93A01 		strd	r0, [sp, #232]
+ARM GAS  /tmp/cclqLhTN.s 			page 16
+
+
  604 00ea 1FEE100A 		vmov	r0, s30
  605 00ee FFF7FEFF 		bl	__aeabi_f2d
  606              	.LVL48:
@@ -958,14 +953,14 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  653 017e FFF7FEFF 		bl	__aeabi_f2d
  654              	.LVL60:
  655 0182 CDE92001 		strd	r0, [sp, #128]
-ARM GAS  /tmp/ccOp99fX.s 			page 17
-
-
  656 0186 18EE900A 		vmov	r0, s17
  657 018a FFF7FEFF 		bl	__aeabi_f2d
  658              	.LVL61:
  659 018e CDE91E01 		strd	r0, [sp, #120]
  660 0192 18EE100A 		vmov	r0, s16
+ARM GAS  /tmp/cclqLhTN.s 			page 17
+
+
  661 0196 FFF7FEFF 		bl	__aeabi_f2d
  662              	.LVL62:
  663 019a CDE91C01 		strd	r0, [sp, #112]
@@ -1018,14 +1013,14 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  710              	.LVL74:
  711 0212 CDE90401 		strd	r0, [sp, #16]
  712 0216 4798     		ldr	r0, [sp, #284]	@ float
-ARM GAS  /tmp/ccOp99fX.s 			page 18
-
-
  713 0218 FFF7FEFF 		bl	__aeabi_f2d
  714              	.LVL75:
  715 021c CDE90201 		strd	r0, [sp, #8]
  716 0220 4698     		ldr	r0, [sp, #280]	@ float
  717 0222 FFF7FEFF 		bl	__aeabi_f2d
+ARM GAS  /tmp/cclqLhTN.s 			page 18
+
+
  718              	.LVL76:
  719 0226 CDE90001 		strd	r0, [sp]
  720 022a 2B46     		mov	r3, r5
@@ -1034,84 +1029,84 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  723 0230 2046     		mov	r0, r4
  724 0232 FFF7FEFF 		bl	sprintf
  725              	.LVL77:
- 191:Core/Src/my_application.c ****       mic.audio_result_left
- 192:Core/Src/my_application.c ****     );
- 193:Core/Src/my_application.c **** 
- 194:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
- 726              		.loc 1 194 5 is_stmt 1 view .LVU120
+ 186:Core/Src/my_application.c ****       mic.audio_result_left
+ 187:Core/Src/my_application.c ****     );
+ 188:Core/Src/my_application.c **** 
+ 189:Core/Src/my_application.c ****     CDC_Transmit_FS((uint8_t*)msg, len);
+ 726              		.loc 1 189 5 is_stmt 1 view .LVU120
  727 0236 81B2     		uxth	r1, r0
  728 0238 2046     		mov	r0, r4
  729              	.LVL78:
- 730              		.loc 1 194 5 is_stmt 0 view .LVU121
+ 730              		.loc 1 189 5 is_stmt 0 view .LVU121
  731 023a FFF7FEFF 		bl	CDC_Transmit_FS
  732              	.LVL79:
- 195:Core/Src/my_application.c ****     HAL_Delay(1);  // 短暂延迟，避免USB传输过快
- 733              		.loc 1 195 5 is_stmt 1 view .LVU122
+ 190:Core/Src/my_application.c ****     HAL_Delay(1);  // 短暂延迟，避免USB传输过快
+ 733              		.loc 1 190 5 is_stmt 1 view .LVU122
  734 023e 0120     		movs	r0, #1
  735 0240 FFF7FEFF 		bl	HAL_Delay
  736              	.LVL80:
  737              	.LBE6:
- 151:Core/Src/my_application.c ****   {
- 738              		.loc 1 151 9 view .LVU123
+ 146:Core/Src/my_application.c ****   {
+ 738              		.loc 1 146 9 view .LVU123
  739              	.L13:
- 142:Core/Src/my_application.c ****   static float hum[8] = {27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f};
- 740              		.loc 1 142 3 view .LVU124
- 143:Core/Src/my_application.c ****   static float press[8] = {1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f};
- 741              		.loc 1 143 3 view .LVU125
+ 137:Core/Src/my_application.c ****   static float hum[8] = {27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f, 27.0f};
+ 740              		.loc 1 137 3 view .LVU124
+ 138:Core/Src/my_application.c ****   static float press[8] = {1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f, 1011.0f};
+ 741              		.loc 1 138 3 view .LVU125
+ 139:Core/Src/my_application.c **** 
+ 742              		.loc 1 139 3 view .LVU126
+ 142:Core/Src/my_application.c **** 
+ 743              		.loc 1 142 3 view .LVU127
  144:Core/Src/my_application.c **** 
- 742              		.loc 1 144 3 view .LVU126
- 147:Core/Src/my_application.c **** 
- 743              		.loc 1 147 3 view .LVU127
- 149:Core/Src/my_application.c **** 
- 744              		.loc 1 149 3 view .LVU128
- 151:Core/Src/my_application.c ****   {
- 745              		.loc 1 151 3 view .LVU129
+ 744              		.loc 1 144 3 view .LVU128
+ 146:Core/Src/my_application.c ****   {
+ 745              		.loc 1 146 3 view .LVU129
  746              	.LBB7:
- 154:Core/Src/my_application.c ****     VCNL4040_ReadPS(&vcnl4040, &ps);
- 747              		.loc 1 154 5 view .LVU130
+ 149:Core/Src/my_application.c **** 
+ 747              		.loc 1 149 5 view .LVU130
  748 0244 164C     		ldr	r4, .L16+32
  749 0246 0DF59371 		add	r1, sp, #294
  750 024a 2046     		mov	r0, r4
  751 024c FFF7FEFF 		bl	VCNL4040_ReadALS
  752              	.LVL81:
- 155:Core/Src/my_application.c **** 
- 753              		.loc 1 155 5 view .LVU131
+ 151:Core/Src/my_application.c **** 
+ 753              		.loc 1 151 5 view .LVU131
  754 0250 49A9     		add	r1, sp, #292
  755 0252 2046     		mov	r0, r4
-ARM GAS  /tmp/ccOp99fX.s 			page 19
-
-
  756 0254 FFF7FEFF 		bl	VCNL4040_ReadPS
  757              	.LVL82:
- 158:Core/Src/my_application.c **** 
- 758              		.loc 1 158 5 view .LVU132
+ 153:Core/Src/my_application.c **** 
+ 758              		.loc 1 153 5 view .LVU132
  759 0258 42AB     		add	r3, sp, #264
+ARM GAS  /tmp/cclqLhTN.s 			page 19
+
+
  760 025a 43AA     		add	r2, sp, #268
  761 025c 46A9     		add	r1, sp, #280
  762 025e 1148     		ldr	r0, .L16+36
  763 0260 FFF7FEFF 		bl	ICM42688_ReadAll
  764              	.LVL83:
- 161:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
- 765              		.loc 1 161 5 view .LVU133
- 161:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
- 766              		.loc 1 161 19 is_stmt 0 view .LVU134
+ 157:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
+ 765              		.loc 1 157 5 view .LVU133
+ 157:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
+ 766              		.loc 1 157 19 is_stmt 0 view .LVU134
  767 0264 064B     		ldr	r3, .L16
  768 0266 1A68     		ldr	r2, [r3]
- 161:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
- 769              		.loc 1 161 8 view .LVU135
+ 157:Core/Src/my_application.c ****       // BME280[3]损坏，使用常量值（已在初始化时设置）
+ 769              		.loc 1 157 8 view .LVU135
  770 0268 032A     		cmp	r2, #3
  771 026a 3FF4EEAE 		beq	.L12
- 166:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
- 772              		.loc 1 166 7 is_stmt 1 view .LVU136
- 166:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
- 773              		.loc 1 166 11 is_stmt 0 view .LVU137
+ 161:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+ 772              		.loc 1 161 7 is_stmt 1 view .LVU136
+ 161:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+ 773              		.loc 1 161 11 is_stmt 0 view .LVU137
  774 026e D2B2     		uxtb	r2, r2
  775 0270 E021     		movs	r1, #224
  776 0272 0D48     		ldr	r0, .L16+40
  777 0274 FFF7FEFF 		bl	TCA9548A_SelectChannel
  778              	.LVL84:
- 166:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
- 779              		.loc 1 166 10 view .LVU138
+ 161:Core/Src/my_application.c ****         BME280_ReadData(&bme[bme_index], &temp[bme_index], &hum[bme_index], &press[bme_index]);
+ 779              		.loc 1 161 10 view .LVU138
  780 0278 0028     		cmp	r0, #0
  781 027a 7FF4E6AE 		bne	.L12
  782 027e D2E6     		b	.L15
@@ -1131,49 +1126,49 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  796 02a8 00000000 		.word	hi2c1
  797              	.LBE7:
  798              		.cfi_endproc
- 799              	.LFE140:
+ 799              	.LFE139:
  801              		.comm	mic,16,4
  802              		.comm	icm42688,16,4
  803              		.comm	vcnl4040,8,4
  804              		.section	.bss.bme,"aw",%nobits
  805              		.align	2
  806              		.set	.LANCHOR1,. + 0
-ARM GAS  /tmp/ccOp99fX.s 			page 20
-
-
  809              	bme:
  810 0000 00000000 		.space	384
  810      00000000 
  810      00000000 
  810      00000000 
+ARM GAS  /tmp/cclqLhTN.s 			page 20
+
+
  810      00000000 
- 811              		.section	.bss.bme_index.10754,"aw",%nobits
+ 811              		.section	.bss.bme_index.10751,"aw",%nobits
  812              		.align	2
  813              		.set	.LANCHOR2,. + 0
- 816              	bme_index.10754:
+ 816              	bme_index.10751:
  817 0000 00000000 		.space	4
- 818              		.section	.bss.msg.10735,"aw",%nobits
+ 818              		.section	.bss.msg.10732,"aw",%nobits
  819              		.align	2
  820              		.set	.LANCHOR0,. + 0
- 823              	msg.10735:
+ 823              	msg.10732:
  824 0000 00000000 		.space	128
  824      00000000 
  824      00000000 
  824      00000000 
  824      00000000 
- 825              		.section	.bss.msg.10755,"aw",%nobits
+ 825              		.section	.bss.msg.10752,"aw",%nobits
  826              		.align	2
  827              		.set	.LANCHOR6,. + 0
- 830              	msg.10755:
+ 830              	msg.10752:
  831 0000 00000000 		.space	512
  831      00000000 
  831      00000000 
  831      00000000 
  831      00000000 
- 832              		.section	.data.hum.10752,"aw"
+ 832              		.section	.data.hum.10749,"aw"
  833              		.align	2
  834              		.set	.LANCHOR4,. + 0
- 837              	hum.10752:
+ 837              	hum.10749:
  838 0000 0000D841 		.word	1104674816
  839 0004 0000D841 		.word	1104674816
  840 0008 0000D841 		.word	1104674816
@@ -1182,10 +1177,10 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  843 0014 0000D841 		.word	1104674816
  844 0018 0000D841 		.word	1104674816
  845 001c 0000D841 		.word	1104674816
- 846              		.section	.data.press.10753,"aw"
+ 846              		.section	.data.press.10750,"aw"
  847              		.align	2
  848              		.set	.LANCHOR3,. + 0
- 851              	press.10753:
+ 851              	press.10750:
  852 0000 00C07C44 		.word	1149026304
  853 0004 00C07C44 		.word	1149026304
  854 0008 00C07C44 		.word	1149026304
@@ -1194,18 +1189,18 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  857 0014 00C07C44 		.word	1149026304
  858 0018 00C07C44 		.word	1149026304
  859 001c 00C07C44 		.word	1149026304
- 860              		.section	.data.temp.10751,"aw"
+ 860              		.section	.data.temp.10748,"aw"
  861              		.align	2
  862              		.set	.LANCHOR5,. + 0
- 865              	temp.10751:
-ARM GAS  /tmp/ccOp99fX.s 			page 21
-
-
+ 865              	temp.10748:
  866 0000 0000E041 		.word	1105199104
  867 0004 0000E041 		.word	1105199104
  868 0008 0000E041 		.word	1105199104
  869 000c 0000E041 		.word	1105199104
  870 0010 0000E041 		.word	1105199104
+ARM GAS  /tmp/cclqLhTN.s 			page 21
+
+
  871 0014 0000E041 		.word	1105199104
  872 0018 0000E041 		.word	1105199104
  873 001c 0000E041 		.word	1105199104
@@ -1242,36 +1237,36 @@ ARM GAS  /tmp/ccOp99fX.s 			page 1
  904              		.file 30 "/usr/include/newlib/stdio.h"
  905              		.file 31 "/usr/include/newlib/string.h"
  906              		.file 32 "Core/Inc/methods.h"
-ARM GAS  /tmp/ccOp99fX.s 			page 22
+ARM GAS  /tmp/cclqLhTN.s 			page 22
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 my_application.c
-     /tmp/ccOp99fX.s:18     .rodata.My_Application_Init.str1.4:0000000000000000 $d
-     /tmp/ccOp99fX.s:55     .text.My_Application_Init:0000000000000000 $t
-     /tmp/ccOp99fX.s:63     .text.My_Application_Init:0000000000000000 My_Application_Init
-     /tmp/ccOp99fX.s:407    .text.My_Application_Init:00000000000001d8 $d
+     /tmp/cclqLhTN.s:18     .rodata.My_Application_Init.str1.4:0000000000000000 $d
+     /tmp/cclqLhTN.s:55     .text.My_Application_Init:0000000000000000 $t
+     /tmp/cclqLhTN.s:63     .text.My_Application_Init:0000000000000000 My_Application_Init
+     /tmp/cclqLhTN.s:407    .text.My_Application_Init:00000000000001d8 $d
                             *COM*:0000000000000008 vcnl4040
                             *COM*:0000000000000010 icm42688
                             *COM*:0000000000000010 mic
-     /tmp/ccOp99fX.s:430    .rodata.My_Application_Run.str1.4:0000000000000000 $d
-     /tmp/ccOp99fX.s:438    .text.My_Application_Run:0000000000000000 $t
-     /tmp/ccOp99fX.s:445    .text.My_Application_Run:0000000000000000 My_Application_Run
-     /tmp/ccOp99fX.s:786    .text.My_Application_Run:0000000000000280 $d
-     /tmp/ccOp99fX.s:805    .bss.bme:0000000000000000 $d
-     /tmp/ccOp99fX.s:809    .bss.bme:0000000000000000 bme
-     /tmp/ccOp99fX.s:812    .bss.bme_index.10754:0000000000000000 $d
-     /tmp/ccOp99fX.s:816    .bss.bme_index.10754:0000000000000000 bme_index.10754
-     /tmp/ccOp99fX.s:819    .bss.msg.10735:0000000000000000 $d
-     /tmp/ccOp99fX.s:823    .bss.msg.10735:0000000000000000 msg.10735
-     /tmp/ccOp99fX.s:826    .bss.msg.10755:0000000000000000 $d
-     /tmp/ccOp99fX.s:830    .bss.msg.10755:0000000000000000 msg.10755
-     /tmp/ccOp99fX.s:833    .data.hum.10752:0000000000000000 $d
-     /tmp/ccOp99fX.s:837    .data.hum.10752:0000000000000000 hum.10752
-     /tmp/ccOp99fX.s:847    .data.press.10753:0000000000000000 $d
-     /tmp/ccOp99fX.s:851    .data.press.10753:0000000000000000 press.10753
-     /tmp/ccOp99fX.s:861    .data.temp.10751:0000000000000000 $d
-     /tmp/ccOp99fX.s:865    .data.temp.10751:0000000000000000 temp.10751
+     /tmp/cclqLhTN.s:430    .rodata.My_Application_Run.str1.4:0000000000000000 $d
+     /tmp/cclqLhTN.s:438    .text.My_Application_Run:0000000000000000 $t
+     /tmp/cclqLhTN.s:445    .text.My_Application_Run:0000000000000000 My_Application_Run
+     /tmp/cclqLhTN.s:786    .text.My_Application_Run:0000000000000280 $d
+     /tmp/cclqLhTN.s:805    .bss.bme:0000000000000000 $d
+     /tmp/cclqLhTN.s:809    .bss.bme:0000000000000000 bme
+     /tmp/cclqLhTN.s:812    .bss.bme_index.10751:0000000000000000 $d
+     /tmp/cclqLhTN.s:816    .bss.bme_index.10751:0000000000000000 bme_index.10751
+     /tmp/cclqLhTN.s:819    .bss.msg.10732:0000000000000000 $d
+     /tmp/cclqLhTN.s:823    .bss.msg.10732:0000000000000000 msg.10732
+     /tmp/cclqLhTN.s:826    .bss.msg.10752:0000000000000000 $d
+     /tmp/cclqLhTN.s:830    .bss.msg.10752:0000000000000000 msg.10752
+     /tmp/cclqLhTN.s:833    .data.hum.10749:0000000000000000 $d
+     /tmp/cclqLhTN.s:837    .data.hum.10749:0000000000000000 hum.10749
+     /tmp/cclqLhTN.s:847    .data.press.10750:0000000000000000 $d
+     /tmp/cclqLhTN.s:851    .data.press.10750:0000000000000000 press.10750
+     /tmp/cclqLhTN.s:861    .data.temp.10748:0000000000000000 $d
+     /tmp/cclqLhTN.s:865    .data.temp.10748:0000000000000000 temp.10748
 
 UNDEFINED SYMBOLS
 strlen

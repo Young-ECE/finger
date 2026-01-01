@@ -214,7 +214,7 @@ void DMA1_Stream0_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
   /* USER CODE END DMA1_Stream0_IRQn 0 */
-  // HAL_DMA_IRQHandler(&hdma_i2c1_rx);  // DISABLED
+  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
 
   /* USER CODE END DMA1_Stream0_IRQn 1 */
@@ -228,7 +228,7 @@ void DMA1_Stream6_IRQHandler(void)
   /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
   /* I2C DMA已禁用 - 使用轮询模式避免与I2S冲突 */
   /* USER CODE END DMA1_Stream6_IRQn 0 */
-  // HAL_DMA_IRQHandler(&hdma_i2c1_tx);  // DISABLED
+  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
   /* USER CODE BEGIN DMA1_Stream6_IRQn 1 */
 
   /* USER CODE END DMA1_Stream6_IRQn 1 */
@@ -293,19 +293,13 @@ void OTG_FS_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-  // if (hi2s == &hi2s1)
-  // {
-  //   // static uint16_t cb_cnt = 0;
-  //   // cb_cnt++; // 回调次数计数
+    if (hi2s == &hi2s1)
+  {
+    int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
+    mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+    mic.half_ready = 1;
+  }
 
-  //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
-  //   if (val & 0x800000)
-  //     mic.audio_result = val | 0xFF000000; // 符号扩展
-  //   else
-  //     mic.audio_result = val;
-
-  //   mic.half_ready = 1;
-  // }
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
@@ -313,10 +307,8 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 
   if (hi2s == &hi2s1)
   {
-    int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
-    // int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+    int32_t raw_left = (dma_buffer[4]<<16) | (dma_buffer[5]);
     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
-    // mic.audio_result_right = raw_right>>8 ;
     mic.full_ready = 1;
   }
 }

@@ -1,54 +1,15 @@
 {
-  // Cortex-Debug 配置
-    "cortex-debug.gdbPath": "/usr/bin/gdb-multiarch",
-    "cortex-debug.objdumpPath": "/usr/bin/arm-none-eabi-objdump",
-    "cortex-debug.nmPath": "/usr/bin/arm-none-eabi-nm",
-  "cortex-debug.variableUseNaturalFormat": false,
-  
-  // Python 配置
-    "idf.pythonInstallPath": "/usr/bin/python3",
-  "python.terminal.activateEnvironment": false,
-  "python.autoComplete.extraPaths": [],
-  
-  // 文件关联
-    "files.associations": {
-    "*.h": "c",
-    "stm32f4xx*.h": "c",
-    "usbd_*.h": "c"
-  },
-  
-  // C/C++ 扩展配置（微软官方扩展）
-  "C_Cpp.intelliSenseEngine": "default",
-  "C_Cpp.errorSquiggles": "enabled",
-  "C_Cpp.autocomplete": "default",
-  "C_Cpp.suggestSnippets": true,
-  "C_Cpp.enhancedColorization": "enabled",
-  "C_Cpp.default.includePath": [],
-  "C_Cpp.default.defines": [],
-  "C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-gcc",
-  "C_Cpp.default.cStandard": "c11",
-  "C_Cpp.default.cppStandard": "gnu++14",
-  "C_Cpp.default.intelliSenseMode": "gcc-arm",
-  "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
-  
-  // 禁用 C/C++ 扩展的默认构建任务，使用 tasks.json 中的 Makefile 任务
-  "C_Cpp.default.buildTask": "Build",
-  "C_Cpp.default.compilerArgs": [],
-  
-  // 排除搜索路径（提高性能）
-  "C_Cpp.files.exclude": {
-    "**/build": true,
-    "**/build/**": true,
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true
-  },
-  
-  // 搜索排除
-  "search.exclude": {
-    "**/build": true,
-    "**/build/**": true
-    }
+    "cmake.cmakePath": "cube-cmake",
+    "cmake.configureArgs": [
+        "-DCMAKE_COMMAND=cube-cmake"
+    ],
+    "stm32cube-ide-clangd.path": "cube",
+    "stm32cube-ide-clangd.arguments": [
+        "starm-clangd",
+        "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/13.3.1+st.9/bin/arm-none-eabi-gcc",
+        "--query-driver=${env:CUBE_BUNDLE_PATH}/gnu-tools-for-stm32/13.3.1+st.9/bin/arm-none-eabi-g++"
+    ],
+    "cmake.preferredGenerators": [
+        "Ninja"
+    ]
 }
