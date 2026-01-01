@@ -4,54 +4,12 @@
 #include "i2c.h"
 
 
-
-void DWT_Init(void) {
-    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-    DWT->CYCCNT = 0;
-    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
-}
-
 /**
  * @brief 诊断 I2C 错误并尝试自动恢复
  * @param hi2c I2C句柄
  * @param sensor_name 传感器名称（用于打印识别）
  * @param status HAL操作返回值
  */
-void I2C_Diagnose_And_Recover(I2C_HandleTypeDef *hi2c, char* sensor_name, HAL_StatusTypeDef status)
-{
-    if (status != HAL_OK)
-    {
-			
-        static char error_buf[256]; // 使用 static 减小栈压力			
-        // 1. 抓取快照
-        uint32_t err = HAL_I2C_GetError(hi2c);
-        uint32_t sr1 = hi2c->Instance->SR1;
-        uint32_t sr2 = hi2c->Instance->SR2;
-
-        // 2. 打印详细报告 (VOFA+ 文本窗口可见)
-        int len = sprintf(error_buf, 
-            "\r\n!!! I2C Error @ %s !!!\r\n"
-            "Status: %d | ErrorCode: 0x%02X | SR1: 0x%04X | SR2: 0x%04X\r\n"
-            "Attempting Bus Recovery...\r\n",
-            sensor_name, (int)status, (unsigned int)err, (unsigned int)sr1, (unsigned int)sr2);
-				
-//				CDC_Transmit_FS((uint8_t*)error_buf, len);
-
-//        // 3. 具体的错误解读
-//        if (err & HAL_I2C_ERROR_AF)   USB_Print("-> Reason: Acknowledge Failure (NACK)\r\n");
-//        if (err & HAL_I2C_ERROR_BERR) USB_Print("-> Reason: Bus Error (Interference?)\r\n");
-//        if (err & HAL_I2C_ERROR_ARLO) USB_Print("-> Reason: Arbitration Lost\r\n");
-//        if (sr2 & I2C_SR2_BUSY)       USB_Print("-> Line State: BUSY (SDA stuck low?)\r\n");
-
-        // 4. 尝试物理恢复 (使用你已有的 BusRecover)
-        
-        I2C_BusRecover(); 
-        HAL_I2C_DeInit(hi2c);
-        MX_I2C1_Init();
-        
-    }
-}
-
 
 void RGB_LED_Init(void)
 {
@@ -86,14 +44,6 @@ void RGB_LED_Blink(void)
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_RESET);
     HAL_Delay(10);
-
-    // // White (all on)
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
-    // HAL_Delay(200);
-
-    // // Off
-    // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
-    // HAL_Delay(200);
 }
 void USART_Print(const char *format, ...)
 {

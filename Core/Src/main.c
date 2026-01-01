@@ -96,8 +96,8 @@ int main(void)
   MX_DMA_Init();
   MX_I2C1_Init();
   MX_USART1_UART_Init();
-  MX_I2S1_Init();
   MX_USB_DEVICE_Init();
+  MX_I2S2_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize all sensors

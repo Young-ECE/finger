@@ -37,7 +37,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 extern I2C_HandleTypeDef hi2c1;
-extern I2S_HandleTypeDef hi2s1;
+extern I2S_HandleTypeDef hi2s2;
 extern UART_HandleTypeDef huart1;
 
 // 定义全局状态机
@@ -53,7 +53,7 @@ VCNL4040_HandleTypeDef vcnl4040;
 //static BME280_HandleTypeDef bme[8];  // 8x BME280 sensors via TCA9548A
 ICM42688_HandleTypeDef icm42688;
 MIC_HandleTypeDef mic;
-HAL_StatusTypeDef status;
+
 
 /* Public functions ----------------------------------------------------------*/
 
@@ -96,26 +96,7 @@ void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
             break;
     }
 }
-//void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
-//{
-//    if (hi2c->Instance == I2C1) {
-//        // 1. 打印报错（调试用，正式版可去掉）
-//        // printf("I2C Error! Code: 0x%X\n", HAL_I2C_GetError(hi2c));
-//        
-//        // 2. 极其重要：清除 I2C 的错误标志，复位状态
-//        // 如果不复位，HAL 库会一直认为 I2C 处于 Busy 或 Error 状态
-//        HAL_I2C_DeInit(hi2c);
-//        HAL_I2C_Init(hi2c); 
-//        
-//        // 3. 强制重启状态机（起搏器）
-//        // 哪怕当前是读 ICM 读到一半错了，也强制回到起点 VCNL
-//        current_state = STATE_VCNL_ALS;
-////        HAL_Delay(5); // 稍微喘口气，等待总线稳定
-//        
-//        // 重新发起第一张多米诺骨牌
-//        HAL_I2C_Mem_Read_DMA(hi2c, vcnl4040.i2c_addr, VCNL4040_REG_ALS_DATA, 1, vcnl4040.dma_buffer, 2);
-//    }
-//}
+
 void My_Application_Init(void)
 {
 
@@ -124,7 +105,7 @@ void My_Application_Init(void)
 	
 	//初始化麦克风（I2S）
 
-  MIC_Init(&mic, &hi2s1);
+  MIC_Init(&mic, &hi2s2);
   MIC_Start(&mic);
 
   // 初始化传感器
@@ -164,9 +145,6 @@ void My_Application_Init(void)
 //  }
 
 
-#ifdef ENABLE_PROFILING
-  DWT_Init();  // Enable cycle counter for performance profiling
-#endif
 }
 
 /**
@@ -184,7 +162,7 @@ void My_Application_Run(void)
 //  // 轮询索引（静态变量，每次循环递增）
 //  static int bme_index = 0;
 
-  static char msg[512];
+  static char msg[256];
     
 
   while (1)
@@ -198,7 +176,7 @@ void My_Application_Run(void)
 		icm42688.accel_raw.x, icm42688.accel_raw.y, icm42688.accel_raw.z,icm42688.gyro_raw.x,icm42688.gyro_raw.y,icm42688.gyro_raw.z,
 		mic.audio_result_left);
 		CDC_Transmit_FS((uint8_t*)msg, len);
-		HAL_Delay(10);
+		HAL_Delay(1);
     // === 1. 读取VCNL4040 (光线和接近传感器) ===
 //    status = VCNL4040_ReadALS(&vcnl4040, &als);
 //    I2C_Diagnose_And_Recover(&hi2c1, "VCNL4040_ALS", status);
