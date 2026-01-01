@@ -177,3 +177,43 @@ HAL_StatusTypeDef ICM42688_ReadAll(ICM42688_HandleTypeDef *dev, ICM42688_ScaledD
 
     return HAL_OK;
 }
+// 1. 启动 DMA 读取 (发车)
+// 读取从 REG_TEMP_DATA1 (0x1D) 开始的连续 14 个字节
+HAL_StatusTypeDef ICM42688_Start_DMA_Read(ICM42688_HandleTypeDef *dev)
+{
+    // 直接启动 DMA，目标是结构体里的 dma_buffer
+    return HAL_I2C_Mem_Read_DMA(dev->hi2c, dev->i2c_addr, 
+                                ICM42688_REG_TEMP_DATA1, I2C_MEMADD_SIZE_8BIT, 
+                                dev->dma_buffer, 14);
+}
+
+// 2. DMA 完成后的数据解析 (卸货)
+// 这个函数只负责把 buffer 里的数据变成 float，不负责调度下一个传感器
+void ICM42688_DMA_Callback(ICM42688_HandleTypeDef *dev)
+{
+    int16_t raw_temp;
+    ICM42688_RawData raw_accel, raw_gyro;
+    uint8_t *buffer = dev->dma_buffer;
+
+    // --- 解析温度 (Bytes 0-1) ---
+    raw_temp = (int16_t)((buffer[0] << 8) | buffer[1]);
+    dev->temp_raw = (raw_temp / 132.48f) + 25.0f;
+
+    // --- 解析加速度 (Bytes 2-7) ---
+    raw_accel.x = (int16_t)((buffer[2] << 8) | buffer[3]);
+    raw_accel.y = (int16_t)((buffer[4] << 8) | buffer[5]);
+    raw_accel.z = (int16_t)((buffer[6] << 8) | buffer[7]);
+
+    dev->accel_raw.x = raw_accel.x * dev->accel_scale;
+    dev->accel_raw.y = raw_accel.y * dev->accel_scale;
+    dev->accel_raw.z = raw_accel.z * dev->accel_scale;
+
+    // --- 解析陀螺仪 (Bytes 8-13) ---
+    raw_gyro.x = (int16_t)((buffer[8] << 8) | buffer[9]);
+    raw_gyro.y = (int16_t)((buffer[10] << 8) | buffer[11]);
+    raw_gyro.z = (int16_t)((buffer[12] << 8) | buffer[13]);
+
+    dev->gyro_raw.x = raw_gyro.x * dev->gyro_scale;
+    dev->gyro_raw.y = raw_gyro.y * dev->gyro_scale;
+    dev->gyro_raw.z = raw_gyro.z * dev->gyro_scale;
+}

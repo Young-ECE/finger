@@ -92,3 +92,62 @@ HAL_StatusTypeDef VCNL4040_ReadID(VCNL4040_HandleTypeDef *dev, uint16_t *id)
 {
     return VCNL4040_Read16(dev, VCNL4040_REG_DEVICE_ID, id);
 }
+
+// ?? DMA ????
+HAL_StatusTypeDef VCNL4040_Start_DMA_Loop(VCNL4040_HandleTypeDef *dev)
+{
+    // 1. ????:???? ALS
+    dev->state = VCNL_STATE_READING_ALS;
+    
+    // 2. ????? DMA ?? (?? ALS ??? 0x09)
+    // ??:HAL_I2C_Mem_Read_DMA ?????,????
+    return HAL_I2C_Mem_Read_DMA(dev->hi2c, dev->i2c_addr, 
+                                VCNL4040_REG_ALS_DATA, I2C_MEMADD_SIZE_8BIT, 
+                                dev->dma_buffer, 2);
+}
+
+//void VCNL4040_DMA_Callback(VCNL4040_HandleTypeDef *dev)
+//{
+//    uint16_t temp_val;
+
+//    // ? DMA ????? 2 ????? 16 ??? (????)
+//    temp_val = (uint16_t)((dev->dma_buffer[1] << 8) | dev->dma_buffer[0]);
+
+//    if (dev->state == VCNL_STATE_READING_ALS)
+//    {
+//        // 1. ??????? ALS ????????
+//        dev->als_raw = temp_val;
+
+//        // 2. ????,??????? -> PS (??? 0x08)
+//        dev->state = VCNL_STATE_READING_PS;
+//        HAL_I2C_Mem_Read_DMA(dev->hi2c, dev->i2c_addr, 
+//                             VCNL4040_REG_PS_DATA, I2C_MEMADD_SIZE_8BIT, 
+//                             dev->dma_buffer, 2);
+//    }
+//    else if (dev->state == VCNL_STATE_READING_PS)
+//    {
+//        // 1. ??????? PS ??
+//        dev->ps_raw = temp_val;
+
+//        // 2. ????,???? -> ALS
+//        dev->state = VCNL_STATE_READING_ALS;
+//        HAL_I2C_Mem_Read_DMA(dev->hi2c, dev->i2c_addr, 
+//                             VCNL4040_REG_ALS_DATA, I2C_MEMADD_SIZE_8BIT, 
+//                             dev->dma_buffer, 2);
+//    }
+//}
+// vcnl4040_sensor.c
+
+// ??????
+void VCNL4040_Parse_ALS(VCNL4040_HandleTypeDef *dev)
+{
+    // ??? dma_buffer ?????
+    dev->als_raw = (uint16_t)((dev->dma_buffer[1] << 8) | dev->dma_buffer[0]);
+}
+
+// ??????
+void VCNL4040_Parse_PS(VCNL4040_HandleTypeDef *dev)
+{
+    // ??? dma_buffer ?????
+    dev->ps_raw = (uint16_t)((dev->dma_buffer[1] << 8) | dev->dma_buffer[0]);
+}

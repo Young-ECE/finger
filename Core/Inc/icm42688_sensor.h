@@ -89,11 +89,27 @@ extern "C" {
 #define ICM42688_ODR_12_5HZ             0x0B
 
 /* ==== STRUCTURE ==== */
+
+
+typedef struct {
+    float x;
+    float y;
+    float z;
+} ICM42688_ScaledData;
 typedef struct {
     I2C_HandleTypeDef *hi2c;
     uint8_t i2c_addr;
     float gyro_scale;   // Scale factor for gyro (DPS/LSB)
     float accel_scale;  // Scale factor for accel (g/LSB)
+	
+	// === ??:DMA ???? ===
+    uint8_t dma_buffer[14];
+	
+	// === ??:??????????? ===
+    ICM42688_ScaledData accel_raw;
+    ICM42688_ScaledData gyro_raw;
+    float temp_raw;
+	
 } ICM42688_HandleTypeDef;
 
 typedef struct {
@@ -102,11 +118,7 @@ typedef struct {
     int16_t z;
 } ICM42688_RawData;
 
-typedef struct {
-    float x;
-    float y;
-    float z;
-} ICM42688_ScaledData;
+
 
 /* ==== FUNCTION DECLARATIONS ==== */
 HAL_StatusTypeDef ICM42688_Init(ICM42688_HandleTypeDef *dev, I2C_HandleTypeDef *hi2c, uint8_t address);
@@ -115,6 +127,11 @@ HAL_StatusTypeDef ICM42688_ReadGyro(ICM42688_HandleTypeDef *dev, ICM42688_Scaled
 HAL_StatusTypeDef ICM42688_ReadTemp(ICM42688_HandleTypeDef *dev, float *temperature);
 HAL_StatusTypeDef ICM42688_ReadAll(ICM42688_HandleTypeDef *dev, ICM42688_ScaledData *accel,
                                     ICM42688_ScaledData *gyro, float *temperature);
+
+// ?? DMA ??????
+HAL_StatusTypeDef ICM42688_Start_DMA_Read(ICM42688_HandleTypeDef *dev);
+// ?? DMA ????????
+void ICM42688_DMA_Callback(ICM42688_HandleTypeDef *dev);
 
 #ifdef __cplusplus
 }

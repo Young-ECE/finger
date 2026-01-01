@@ -49,16 +49,37 @@ extern "C" {
 #define VCNL4040_LED_I_200MA       (0x07)
 
 /* ==== STRUCTURE ==== */
+typedef enum {
+    VCNL_STATE_IDLE,
+    VCNL_STATE_READING_ALS,
+    VCNL_STATE_READING_PS
+} VCNL_State_t;
+
 typedef struct {
     I2C_HandleTypeDef *hi2c;
     uint8_t i2c_addr;
+	
+	// --- ?? DMA ?? ---
+    uint8_t dma_buffer[2];    // DMA (Ping-Pong )
+    uint16_t als_raw;         //  ALS 
+    uint16_t ps_raw;          //  PS 
+    volatile VCNL_State_t state; // 
 } VCNL4040_HandleTypeDef;
+
+
 
 /* ==== FUNCTION PROTOTYPES ==== */
 HAL_StatusTypeDef VCNL4040_Init(VCNL4040_HandleTypeDef *dev,I2C_HandleTypeDef *hi2c,uint8_t address);
 HAL_StatusTypeDef VCNL4040_ReadALS(VCNL4040_HandleTypeDef *dev, uint16_t *als);
 HAL_StatusTypeDef VCNL4040_ReadPS(VCNL4040_HandleTypeDef *dev, uint16_t *ps);
 HAL_StatusTypeDef VCNL4040_ReadID(VCNL4040_HandleTypeDef *dev, uint16_t *id);
+
+HAL_StatusTypeDef VCNL4040_Start_DMA_Loop(VCNL4040_HandleTypeDef *dev);
+//void VCNL4040_DMA_Callback(VCNL4040_HandleTypeDef *dev); // ?? I2C ??????
+
+// ?????????????,???????
+void VCNL4040_Parse_ALS(VCNL4040_HandleTypeDef *dev);
+void VCNL4040_Parse_PS(VCNL4040_HandleTypeDef *dev);
 
 #ifdef __cplusplus
 }

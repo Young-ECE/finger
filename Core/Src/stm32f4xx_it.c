@@ -57,6 +57,8 @@
 
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+extern DMA_HandleTypeDef hdma_i2c1_rx;
+extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_spi1_rx;
 /* USER CODE BEGIN EV */
 extern I2S_HandleTypeDef hi2s1;
@@ -204,6 +206,48 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles DMA1 stream0 global interrupt.
+  */
+void DMA1_Stream0_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream0_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
+  /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles I2C1 event interrupt.
+  */
+void I2C1_EV_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_EV_IRQn 0 */
+
+  /* USER CODE END I2C1_EV_IRQn 0 */
+  HAL_I2C_EV_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_EV_IRQn 1 */
+
+  /* USER CODE END I2C1_EV_IRQn 1 */
+}
+
+/**
+  * @brief This function handles I2C1 error interrupt.
+  */
+void I2C1_ER_IRQHandler(void)
+{
+  /* USER CODE BEGIN I2C1_ER_IRQn 0 */
+
+  /* USER CODE END I2C1_ER_IRQn 0 */
+  HAL_I2C_ER_IRQHandler(&hi2c1);
+  /* USER CODE BEGIN I2C1_ER_IRQn 1 */
+
+  /* USER CODE END I2C1_ER_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA2 stream0 global interrupt.
   */
 void DMA2_Stream0_IRQHandler(void)
@@ -234,37 +278,23 @@ void OTG_FS_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-  // if (hi2s == &hi2s1)
-  // {
-  //   // static uint16_t cb_cnt = 0;
-  //   // cb_cnt++; // 回调次数计数
+	    if (hi2s == &hi2s1)
+  {
+    int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
 
-  //   uint32_t val = (dma_buffer[0]<<8) + (dma_buffer[1]>>8);
-  //   if (val & 0x800000)
-  //     mic.audio_result = val | 0xFF000000; // 符号扩展
-  //   else
-  //     mic.audio_result = val;
+    mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
+    mic.half_ready = 1;
+  }
 
-  //   mic.half_ready = 1;
-  // }
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 {
-  // if (hi2s == &hi2s1)
-  // {
-  //   int32_t raw_left = ((int32_t)dma_buffer[0] << 16) | dma_buffer[1];
-  //   int32_t raw_right = ((int32_t)dma_buffer[2] << 16) | dma_buffer[3];
-  //   mic.audio_result_left = raw_left >> 8;   // 右移8位得到24-bit数据
-  //   mic.audio_result_right = raw_right >> 8;
-  //   mic.full_ready = 1;
-  // }
     if (hi2s == &hi2s1)
   {
-    int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
-    int32_t raw_right = (dma_buffer[2]<<16) | (dma_buffer[3]);
+    int32_t raw_left = (dma_buffer[MIC_BUFFER_SIZE/2]<<16) | (dma_buffer[MIC_BUFFER_SIZE/2+1]);
+
     mic.audio_result_left = raw_left>>8 ;   // 右移8位得到24-bit数据
-    mic.audio_result_right = raw_right>>8 ;
     mic.full_ready = 1;
   }
 }
