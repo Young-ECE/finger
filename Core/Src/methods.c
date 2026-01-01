@@ -1,4 +1,5 @@
 #include "methods.h"
+#include <stdarg.h>
 
 
 
@@ -45,35 +46,35 @@ void RGB_LED_Blink(void)
     // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_RESET);
     // HAL_Delay(200);
 }
-void USART_Print(const char *format, ...)
-{
-    char buffer[128];
-    va_list args;
-    va_start(args, format);
-    vsnprintf(buffer, sizeof(buffer), format, args);
-    va_end(args);
-    // 发送格式化的字符串通过UART
-    HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 100);
-}
-void Send_Raw_Bytes(uint16_t data)
-{
-    uint8_t bytes[2];
+// void USART_Print(const char *format, ...)
+// {
+//     char buffer[128];
+//     va_list args;
+//     va_start(args, format);
+//     vsnprintf(buffer, sizeof(buffer), format, args);
+//     va_end(args);
+//     // 发送格式化的字符串通过UART
+//     HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 100);
+// }
+// void Send_Raw_Bytes(uint16_t data)
+// {
+//     uint8_t bytes[2];
     
-    // 将16位数据拆分为2个字节
-    bytes[0] = (uint8_t)(data & 0xFF);        // 低字节 (LSB)
-    bytes[1] = (uint8_t)((data >> 8) & 0xFF); // 高字节 (MSB)
+//     // 将16位数据拆分为2个字节
+//     bytes[0] = (uint8_t)(data & 0xFF);        // 低字节 (LSB)
+//     bytes[1] = (uint8_t)((data >> 8) & 0xFF); // 高字节 (MSB)
     
-    // 发送字节数据
-    HAL_UART_Transmit(&huart1, bytes, 2, HAL_MAX_DELAY);
-}
+//     // 发送字节数据
+//     HAL_UART_Transmit(&huart1, bytes, 2, HAL_MAX_DELAY);
+// }
 
-void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count)
-{
-    for (uint16_t i = 0; i < count; i++)
-    {
-        Send_Raw_Bytes(buffer[i]);
-    }
-}
+// void Send_Buffer_Bytes(uint16_t *buffer, uint16_t count)
+// {
+//     for (uint16_t i = 0; i < count; i++)
+//     {
+//         Send_Raw_Bytes(buffer[i]);
+//     }
+// }
 
 void I2C_Scan(void)
 {

@@ -21,7 +21,6 @@
 #include "dma.h"
 #include "i2c.h"
 #include "i2s.h"
-#include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
@@ -61,7 +60,6 @@
 /* USER CODE BEGIN PV */
 extern I2C_HandleTypeDef hi2c1;
 extern I2S_HandleTypeDef hi2s1;  // 例如使用 I2S1
-extern UART_HandleTypeDef huart1; 
 
 
 VCNL4040_HandleTypeDef vcnl4040;
@@ -99,7 +97,8 @@ void Data_Send(void)
   USB_Print("%d,%d,%d,", aqi, tvoc, eco2);
   USB_Print("%u,%u,", als, ps);
   USB_Print("%d,%d,%d,%d,%d,%d,%d,%d,", (int)(T1 * 10), (int)(H1 * 10), (int)(T2 * 10), (int)(H2 * 10), (int)(T3 * 10), (int)(H3 * 10), (int)(T4 * 10), (int)(H4 * 10));
-  USB_Print("%d\n", mic.audio_result);
+  USB_Print("%d\n", mic.audio_result_left);
+  HAL_Delay(10);
 }
 
 /* USER CODE END PFP */
@@ -142,7 +141,6 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_I2C1_Init();
-  MX_USART1_UART_Init();
   MX_I2S1_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
@@ -166,9 +164,6 @@ int main(void)
 
     /* USER CODE END WHILE */
     Data_Send();
-
-
-    // HAL_Delay();
 
     /* USER CODE BEGIN 3 */
   }
