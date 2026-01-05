@@ -68,7 +68,7 @@ void My_Application_Init(void)
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
   MIC_Init(&mic, &hi2s1);
-//  MIC_Start(&mic);
+  MIC_Start(&mic);
   strcpy(msg, "INIT:MICROPHONE OK\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
