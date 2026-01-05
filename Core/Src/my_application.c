@@ -116,9 +116,7 @@ void My_Application_Init(void)
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(500);
 
-#ifdef ENABLE_PROFILING
-  DWT_Init();  // Enable cycle counter for performance profiling
-#endif
+
 }
 
 /**
@@ -141,23 +139,19 @@ void My_Application_Run(void)
   static int bme_index = 0;
 
   static char msg[512];
-	uint32_t start_cycles, end_cycles;
-    float duration_us;
-    
-    DWT_Init(); // 确保 DWT 已开启
+
 
   while (1)
   {
     // === 1. 读取VCNL4040 (光线和接近传感器) ===
-    status = VCNL4040_ReadALS(&vcnl4040, &als);
-    I2C_Diagnose_And_Recover(&hi2c1, "VCNL4040_ALS", status);
-        
-    status = VCNL4040_ReadPS(&vcnl4040, &ps);
-    I2C_Diagnose_And_Recover(&hi2c1, "VCNL4040_PS", status);
+    VCNL4040_ReadALS(&vcnl4040, &als);
+
+       
+    VCNL4040_ReadPS(&vcnl4040, &ps);
+  
 
     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
-    status = ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
-    I2C_Diagnose_And_Recover(&hi2c1, "ICM42688", status);
+    ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
 		
 		
     // === 3. 轮询读取单个BME280 (温湿度和气压) ===
@@ -172,8 +166,6 @@ void My_Application_Run(void)
         }
     bme_index = (bme_index + 1) % 8;
 				
-				
-		start_cycles = DWT->CYCCNT;
 
     // === 4. 输出CSV格式数据 ===
     int len = sprintf(msg,
@@ -196,12 +188,7 @@ void My_Application_Run(void)
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);
-		end_cycles = DWT->CYCCNT;
-		duration_us = (float)(end_cycles - start_cycles) / CPU_FREQ_MHZ;
 
-            // 借用 bme_index 作为一个触发，每 8 次主循环打印一次耗时
-    USB_Print("Formatting & USB Send Time: %.2f us\r\n", duration_us);
-        
 		
 
 	}
