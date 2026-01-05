@@ -86,7 +86,8 @@ HAL_StatusTypeDef ICM42688_ReadAccel(ICM42688_HandleTypeDef *dev, ICM42688_Scale
     ICM42688_RawData raw;
 
     if (ICM42688_ReadRegs(dev, ICM42688_REG_ACCEL_DATA_X1, buffer, 6) != HAL_OK)
-        return HAL_ERROR;
+			  return HAL_ERROR;
+			     
 
     // Combine high and low bytes (big-endian)
     raw.x = (int16_t)((buffer[0] << 8) | buffer[1]);
@@ -148,10 +149,21 @@ HAL_StatusTypeDef ICM42688_ReadAll(ICM42688_HandleTypeDef *dev, ICM42688_ScaledD
     uint8_t buffer[14];
     ICM42688_RawData raw_accel, raw_gyro;
     int16_t raw_temp;
+	
+
 
     // Read all data in one transaction (TEMP + ACCEL + GYRO)
-    if (ICM42688_ReadRegs(dev, ICM42688_REG_TEMP_DATA1, buffer, 14) != HAL_OK)
-        return HAL_ERROR;
+//    if (ICM42688_ReadRegs(dev, ICM42688_REG_TEMP_DATA1, buffer, 14) != HAL_OK)
+//        return HAL_ERROR;
+		HAL_StatusTypeDef status;
+	  status = ICM42688_ReadRegs(dev, ICM42688_REG_TEMP_DATA1, buffer, 14);
+
+    if ( status != HAL_OK){
+			static char err_msg[128];
+			int len=sprintf(err_msg,"ErrorType:%d\n",status);
+			CDC_Transmit_FS((uint8_t*)err_msg,len);
+			return status;
+		}
 
     // Parse temperature
     raw_temp = (int16_t)((buffer[0] << 8) | buffer[1]);

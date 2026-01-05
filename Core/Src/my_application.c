@@ -63,24 +63,23 @@ void My_Application_Init(void)
   HAL_Delay(1000);  // 等待USB枚举完成
 
 
-  // Step 2: 初始化ICM42688
-  strcpy(msg, "INIT:ICM42688...\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
-  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
-  strcpy(msg, "INIT:ICM42688 OK\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
-
-
-
   // Step 4: 初始化麦克风（I2S）
   strcpy(msg, "INIT:MICROPHONE...\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
   MIC_Init(&mic, &hi2s1);
-  MIC_Start(&mic);
+//  MIC_Start(&mic);
   strcpy(msg, "INIT:MICROPHONE OK\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+	
+	
+	// Step 2: 初始化ICM42688
+  strcpy(msg, "INIT:ICM42688...\n");
+  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+  HAL_Delay(100);
+  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
+  strcpy(msg, "INIT:ICM42688 OK\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
 
