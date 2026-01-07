@@ -38,10 +38,14 @@
 /* Private variables ---------------------------------------------------------*/
 extern I2C_HandleTypeDef hi2c1;
 extern I2S_HandleTypeDef hi2s1;
+extern I2S_HandleTypeDef hi2s2;
 extern UART_HandleTypeDef huart1;
+extern uint32_t dma_buffer[MIC_BUFFER_SIZE]; 
+extern uint32_t dma_buffer_2[MIC_BUFFER_SIZE]; 
 
 ICM42688_HandleTypeDef icm42688;
 MIC_HandleTypeDef mic;
+MIC_HandleTypeDef mic_2;
 
 
 /* Public functions ----------------------------------------------------------*/
@@ -68,20 +72,22 @@ void My_Application_Init(void)
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
   MIC_Init(&mic, &hi2s1);
-  MIC_Start(&mic);
+	MIC_Init(&mic_2, &hi2s2);
+  MIC_Start(&mic,(uint16_t*)dma_buffer);
+  MIC_Start(&mic_2,(uint16_t*)dma_buffer_2);
   strcpy(msg, "INIT:MICROPHONE OK\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
   HAL_Delay(100);
 	
 	
-	// Step 2: 初始化ICM42688
-  strcpy(msg, "INIT:ICM42688...\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
-  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_68);
-  strcpy(msg, "INIT:ICM42688 OK\n");
-  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
-  HAL_Delay(100);
+//	// Step 2: 初始化ICM42688
+//  strcpy(msg, "INIT:ICM42688...\n");
+//  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+//  HAL_Delay(100);
+//  ICM42688_Init(&icm42688, &hi2c1, ICM42688_ADDR_69);
+//  strcpy(msg, "INIT:ICM42688 OK\n");
+//  CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
+//  HAL_Delay(100);
 
   strcpy(msg, "========== ALL SENSORS READY ==========\n");
   CDC_Transmit_FS((uint8_t*)msg, strlen(msg));
@@ -107,7 +113,7 @@ void My_Application_Run(void)
   {
 
     // === 2. 读取ICM42688 (加速度计和陀螺仪) ===
-    ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
+    // ICM42688_ReadAll(&icm42688, &accel, &gyro, &imu_temp);
 
 		
 
@@ -115,13 +121,14 @@ void My_Application_Run(void)
     int len = sprintf(msg,
       "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,"  // Accel_X/Y/Z, Gyro_X/Y/Z
       "%.2f,"  // IMU_Temp
-
-      "%d" // Mic_Left
+      "%d," // Mic_Left
+		  "%d" // Mic_2_Left
       "\n",  // ← 添加换行符
       accel.x, accel.y, accel.z,
       gyro.x, gyro.y, gyro.z,
       imu_temp,
-      mic.audio_result_left
+      mic.audio_result_left,
+		  mic_2.audio_result_left
     );
 
     CDC_Transmit_FS((uint8_t*)msg, len);

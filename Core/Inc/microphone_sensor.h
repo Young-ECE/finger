@@ -30,7 +30,9 @@ typedef struct
 
 /* Initialization and startup */
 HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s);
-HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic);
+HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic, uint16_t* buffer);
+
+
 
 
 #ifdef __cplusplus

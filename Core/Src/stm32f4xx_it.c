@@ -58,9 +58,12 @@
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern DMA_HandleTypeDef hdma_spi1_rx;
+extern DMA_HandleTypeDef hdma_spi2_rx;
 /* USER CODE BEGIN EV */
 extern I2S_HandleTypeDef hi2s1;
+extern I2S_HandleTypeDef hi2s2;
 extern uint32_t dma_buffer[MIC_BUFFER_SIZE]; 
+extern uint32_t dma_buffer_2[MIC_BUFFER_SIZE]; 
 
 
 /* USER CODE END EV */
@@ -204,6 +207,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles DMA1 stream3 global interrupt.
+  */
+void DMA1_Stream3_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream3_IRQn 0 */
+
+  /* USER CODE END DMA1_Stream3_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_spi2_rx);
+  /* USER CODE BEGIN DMA1_Stream3_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream3_IRQn 1 */
+}
+
+/**
   * @brief This function handles DMA2 stream0 global interrupt.
   */
 void DMA2_Stream0_IRQHandler(void)
@@ -238,7 +255,13 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s)
   {
     int32_t raw_left = (dma_buffer[0]<<16) | (dma_buffer[1]);
     mic.audio_result_left = raw_left>>10 ;   // 右移8位得到24-bit数据
-    mic.full_ready = 1;
+    mic.half_ready = 1;
+  }
+	    if (hi2s == &hi2s2)
+  {
+    int32_t raw_left = (dma_buffer_2[0]<<16) | (dma_buffer_2[1]);
+    mic_2.audio_result_left = raw_left>>10 ;   // 右移8位得到24-bit数据
+    mic_2.half_ready = 1;
   }
 }
 
@@ -249,6 +272,12 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
     int32_t raw_left = (dma_buffer[MIC_BUFFER_SIZE/2]<<16) | (dma_buffer[MIC_BUFFER_SIZE/2+1]);
     mic.audio_result_left = raw_left>>10 ;   // 右移8位得到24-bit数据
     mic.full_ready = 1;
+  }
+		if (hi2s == &hi2s2)
+  {
+    int32_t raw_left = (dma_buffer_2[MIC_BUFFER_SIZE/2]<<16) | (dma_buffer_2[MIC_BUFFER_SIZE/2+1]);
+    mic_2.audio_result_left = raw_left>>10 ;   // 右移8位得到24-bit数据
+    mic_2.full_ready = 1;
   }
 }
 

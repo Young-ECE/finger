@@ -30,6 +30,7 @@ extern "C" {
 extern VCNL4040_HandleTypeDef vcnl4040;
 extern ICM42688_HandleTypeDef icm42688;
 extern MIC_HandleTypeDef mic;
+extern MIC_HandleTypeDef mic_2;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void My_Application_Init(void);
