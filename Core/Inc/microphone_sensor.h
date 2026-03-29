@@ -1,6 +1,6 @@
 /**
  * @file microphone_sensor.h
- * @brief ICS-43434 I2S Digital MEMS Microphone Driver (Left Channel)
+ * @brief ICS-43434 I2S Digital MEMS microphone interface
  * @version 1.0
  * @date 2025-10
  *
@@ -11,29 +11,26 @@
 #define __MICROPHONE_SENSOR_H__
 
 #include "stm32f4xx_hal.h"
+#include "audio_stream_transport.h"
 #include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define MIC_BUFFER_SIZE 8   // DMA 缓冲长度
+#define MIC_BUFFER_SIZE AUDIO_STREAM_DMA_BUFFER_WORDS
 
 typedef struct
 {
-    I2S_HandleTypeDef *hi2s;              // I2S句柄
-    int32_t audio_result_left;
-    int32_t audio_result_right;
-    uint8_t   half_ready;               // 半缓冲就绪标志
-    uint8_t   full_ready;               // 全缓冲就绪标志
+    I2S_HandleTypeDef *hi2s;
+    volatile int32_t audio_result_left;
+    volatile int32_t audio_result_right;
+    volatile uint8_t half_ready;
+    volatile uint8_t full_ready;
 } MIC_HandleTypeDef;
 
-/* Initialization and startup */
 HAL_StatusTypeDef MIC_Init(MIC_HandleTypeDef *mic, I2S_HandleTypeDef *hi2s);
-HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic, uint16_t* buffer);
-
-
-
+HAL_StatusTypeDef MIC_Start(MIC_HandleTypeDef *mic, uint16_t *buffer);
 
 #ifdef __cplusplus
 }
