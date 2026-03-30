@@ -51,6 +51,7 @@ Core/Src/microphone_sensor.c \
 Core/Src/icm42688_sensor.c \
 Core/Src/methods.c \
 Core/Src/my_application.c \
+Core/Src/audio_stream_transport.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
@@ -235,3 +236,5 @@ clean:
 -include $(wildcard $(BUILD_DIR)/*.d)
 
 # *** EOF ***
+
+
