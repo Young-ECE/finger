@@ -12,6 +12,7 @@ tim_c = (ROOT / "Core/Src/tim.c").read_text(encoding="utf-8", errors="ignore")
 hal_conf = (ROOT / "Core/Inc/stm32f4xx_hal_conf.h").read_text(encoding="utf-8", errors="ignore")
 my_application_c = (ROOT / "Core/Src/my_application.c").read_text(encoding="utf-8", errors="ignore")
 tim2_dma_usage = re.compile(r"HAL_TIM_\w*DMA\s*\(\s*[^;]*?&htim2[^;]*?\)", re.S)
+tim2_dma_ioc = re.compile(r"^(?:[^\n]*TIM2[^\n]*DMA[^\n]*|[^\n]*Dma[^\n]*TIM2[^\n]*)$", re.M)
 
 assert "MX_TIM2_Init();" in main_c, "main.c does not initialize TIM2"
 assert '#include "tim.h"' in main_c, "main.c does not include tim.h"
@@ -25,7 +26,7 @@ for channel in range(1, 5):
         f"HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_{channel})" in tim_c
     ), f"tim.c does not configure PWM channel {channel}"
 assert "\n#define HAL_TIM_MODULE_ENABLED\n" in ("\n" + hal_conf + "\n"), "stm32f4xx_hal_conf.h does not enable HAL_TIM_MODULE_ENABLED"
-assert "TIM2 DMA" not in ioc, "finger.ioc has TIM2 DMA enabled"
+assert not tim2_dma_ioc.search(ioc), "finger.ioc has TIM2 DMA enabled"
 for entry in (
     "PA0-WKUP.Signal=S_TIM2_CH1_ETR",
     "PA1.Signal=S_TIM2_CH2",
