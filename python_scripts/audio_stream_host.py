@@ -10,9 +10,11 @@ import serial
 
 try:
     from python_scripts.audio_feature_pipeline import compute_log_mel, resample_to_16k
+    from python_scripts.pwm_control_protocol import build_pwm_packet
     from python_scripts.audio_stream_protocol import AudioStreamParser, AudioStreamReconstructor
 except ImportError:
     from audio_feature_pipeline import compute_log_mel, resample_to_16k
+    from pwm_control_protocol import build_pwm_packet
     from audio_stream_protocol import AudioStreamParser, AudioStreamReconstructor
 
 
@@ -131,12 +133,34 @@ def save_log_mel(path, mel: np.ndarray) -> Path:
     return mel_path
 
 
+def _requested_pwm_values(args) -> tuple[int, int, int, int] | None:
+    values = (args.lcd1_duty, args.led1_duty, args.lcd2_duty, args.led2_duty)
+    if all(value is None for value in values):
+        return None
+    if any(value is None for value in values):
+        raise ValueError("provide all four PWM duty values together")
+    return tuple(int(value) for value in values)
+
+
+def send_pwm_command(serial_port, duties: tuple[int, int, int, int], sequence: int = 0) -> None:
+    packet = build_pwm_packet(
+        sequence=sequence,
+        lcd1=duties[0],
+        led1=duties[1],
+        lcd2=duties[2],
+        led2=duties[3],
+    )
+    serial_port.write(packet)
+    serial_port.flush()
+
+
 def capture_stream(
     port: str,
     baudrate: int = DEFAULT_BAUDRATE,
     duration: float | None = None,
     max_packets: int | None = None,
     quiet: bool = False,
+    pwm_duties: tuple[int, int, int, int] | None = None,
 ) -> AudioCaptureSession:
     parser = AudioStreamParser()
     session = AudioCaptureSession()
@@ -144,6 +168,9 @@ def capture_stream(
     last_status_time = start_time
 
     with serial.Serial(port, baudrate, timeout=0.1) as serial_port:
+        if pwm_duties is not None:
+            send_pwm_command(serial_port, pwm_duties)
+
         while True:
             chunk = serial_port.read(4096)
             if chunk:
@@ -165,7 +192,7 @@ def capture_stream(
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Capture the binary dual-channel audio stream, save WAV, and export 16 kHz log-mel features."
+        description="Capture the binary dual-channel audio stream, save WAV, export 16 kHz log-mel features, and optionally set PWM duty values."
     )
     parser.add_argument("--port", required=True, help="Serial port, for example COM5")
     parser.add_argument("--baudrate", type=int, default=DEFAULT_BAUDRATE, help="Serial baud rate")
@@ -181,12 +208,21 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default=(1000.0 / 60.0),
         help="Hop size in milliseconds when exporting log-mel",
     )
+    parser.add_argument("--lcd1-duty", type=int, default=None, help="Optional LCD1 PWM duty in range 0..99")
+    parser.add_argument("--led1-duty", type=int, default=None, help="Optional LED1 PWM duty in range 0..99")
+    parser.add_argument("--lcd2-duty", type=int, default=None, help="Optional LCD2 PWM duty in range 0..99")
+    parser.add_argument("--led2-duty", type=int, default=None, help="Optional LED2 PWM duty in range 0..99")
     parser.add_argument("--quiet", action="store_true", help="Suppress periodic status prints")
     return parser
 
 
 def main(argv=None) -> int:
     args = build_arg_parser().parse_args(argv)
+    try:
+        pwm_duties = _requested_pwm_values(args)
+    except ValueError as exc:
+        print(f"argument error: {exc}", file=sys.stderr)
+        return 2
 
     try:
         session = capture_stream(
@@ -195,6 +231,7 @@ def main(argv=None) -> int:
             duration=args.duration,
             max_packets=args.max_packets,
             quiet=args.quiet,
+            pwm_duties=pwm_duties,
         )
     except KeyboardInterrupt:
         print("capture interrupted by user", file=sys.stderr)

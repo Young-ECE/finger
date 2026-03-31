@@ -74,6 +74,23 @@ class AudioStreamHostTest(unittest.TestCase):
 
         np.testing.assert_array_equal(decoded, stereo)
 
+    def test_cli_accepts_pwm_duty_arguments(self):
+        from python_scripts.audio_stream_host import build_arg_parser
+
+        args = build_arg_parser().parse_args(
+            [
+                "--port", "COM5",
+                "--lcd1-duty", "10",
+                "--led1-duty", "20",
+                "--lcd2-duty", "30",
+                "--led2-duty", "40",
+                "--max-packets", "1",
+            ]
+        )
+
+        self.assertEqual(args.lcd1_duty, 10)
+        self.assertEqual(args.led2_duty, 40)
+
 
 if __name__ == "__main__":
     unittest.main()

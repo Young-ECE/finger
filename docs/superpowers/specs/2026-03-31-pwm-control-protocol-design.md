@@ -59,6 +59,13 @@ The host-to-device PWM command uses a new compact binary packet with a distinct 
 - byte 9: `led2_duty`
 - byte 10: CRC-8 over bytes `2..9`
 
+CRC-8 uses:
+
+- polynomial `0x07`
+- initial value `0x00`
+- no reflection
+- no final xor
+
 Total packet size is 11 bytes.
 
 ## Duty Semantics
