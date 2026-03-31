@@ -139,7 +139,16 @@ def _requested_pwm_values(args) -> tuple[int, int, int, int] | None:
         return None
     if any(value is None for value in values):
         raise ValueError("provide all four PWM duty values together")
-    return tuple(int(value) for value in values)
+
+    duties = tuple(int(value) for value in values)
+    build_pwm_packet(
+        sequence=0,
+        lcd1=duties[0],
+        led1=duties[1],
+        lcd2=duties[2],
+        led2=duties[3],
+    )
+    return duties
 
 
 def send_pwm_command(serial_port, duties: tuple[int, int, int, int], sequence: int = 0) -> None:
@@ -164,18 +173,28 @@ def capture_stream(
 ) -> AudioCaptureSession:
     parser = AudioStreamParser()
     session = AudioCaptureSession()
-    start_time = time.monotonic()
-    last_status_time = start_time
 
     with serial.Serial(port, baudrate, timeout=0.1) as serial_port:
         if pwm_duties is not None:
             send_pwm_command(serial_port, pwm_duties)
+            if hasattr(serial_port, "reset_input_buffer"):
+                serial_port.reset_input_buffer()
+
+        start_time = time.monotonic()
+        last_status_time = start_time
+
+        if duration is not None and duration <= 0:
+            return session
+        if max_packets is not None and max_packets <= 0:
+            return session
 
         while True:
             chunk = serial_port.read(4096)
             if chunk:
                 for packet in parser.feed(chunk):
                     session.handle_packet(packet)
+                    if max_packets is not None and session.stats.packets_received >= max_packets:
+                        return session
 
             now = time.monotonic()
             if not quiet and now - last_status_time >= 1.0:

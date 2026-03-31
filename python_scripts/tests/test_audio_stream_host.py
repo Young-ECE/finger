@@ -1,11 +1,15 @@
+import contextlib
+import io
 import tempfile
 import unittest
 import wave
 from pathlib import Path
+from unittest import mock
 
 import numpy as np
 
 from python_scripts.audio_stream_protocol import AudioPacket
+from python_scripts.tests.test_audio_stream_protocol import build_packet
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -90,6 +94,158 @@ class AudioStreamHostTest(unittest.TestCase):
 
         self.assertEqual(args.lcd1_duty, 10)
         self.assertEqual(args.led2_duty, 40)
+
+    def test_capture_stream_sends_pwm_command_before_capture_and_clears_rx_buffer(self):
+        from python_scripts.audio_stream_host import capture_stream
+        from python_scripts.pwm_control_protocol import build_pwm_packet
+
+        events = []
+        expected_packet = build_pwm_packet(sequence=0, lcd1=10, led1=20, lcd2=30, led2=40)
+
+        class FakeSerial:
+            def __init__(self, *args, **kwargs):
+                self.args = args
+                self.kwargs = kwargs
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def write(self, data):
+                events.append(("write", bytes(data)))
+                return len(data)
+
+            def flush(self):
+                events.append(("flush", None))
+
+            def reset_input_buffer(self):
+                events.append(("reset_input_buffer", None))
+
+            def read(self, size):
+                events.append(("read", size))
+                return b""
+
+        with mock.patch("python_scripts.audio_stream_host.serial.Serial", FakeSerial):
+            capture_stream("COM5", max_packets=0, quiet=True, pwm_duties=(10, 20, 30, 40))
+
+        self.assertEqual(events[0], ("write", expected_packet))
+        self.assertEqual(events[1], ("flush", None))
+        self.assertEqual(events[2], ("reset_input_buffer", None))
+        self.assertEqual(len([event for event in events if event[0] == "read"]), 0)
+
+    def test_capture_stream_zero_duration_sends_pwm_then_returns_without_reading(self):
+        from python_scripts.audio_stream_host import capture_stream
+        from python_scripts.pwm_control_protocol import build_pwm_packet
+
+        events = []
+        expected_packet = build_pwm_packet(sequence=0, lcd1=11, led1=22, lcd2=33, led2=44)
+
+        class FakeSerial:
+            def __init__(self, *args, **kwargs):
+                self.args = args
+                self.kwargs = kwargs
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def write(self, data):
+                events.append(("write", bytes(data)))
+                return len(data)
+
+            def flush(self):
+                events.append(("flush", None))
+
+            def reset_input_buffer(self):
+                events.append(("reset_input_buffer", None))
+
+            def read(self, size):
+                events.append(("read", size))
+                return b""
+
+        with mock.patch("python_scripts.audio_stream_host.serial.Serial", FakeSerial):
+            capture_stream("COM5", duration=0.0, quiet=True, pwm_duties=(11, 22, 33, 44))
+
+        self.assertEqual(events[0], ("write", expected_packet))
+        self.assertEqual(events[1], ("flush", None))
+        self.assertEqual(events[2], ("reset_input_buffer", None))
+        self.assertEqual(len([event for event in events if event[0] == "read"]), 0)
+
+    def test_main_rejects_out_of_range_pwm_duty_as_argument_error(self):
+        from python_scripts.audio_stream_host import main
+
+        stderr = io.StringIO()
+
+        class FakeSerial:
+            def __init__(self, *args, **kwargs):
+                self.args = args
+                self.kwargs = kwargs
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def write(self, data):
+                return len(data)
+
+            def flush(self):
+                return None
+
+            def read(self, size):
+                return b""
+
+        with mock.patch("python_scripts.audio_stream_host.serial.Serial", FakeSerial):
+            with contextlib.redirect_stderr(stderr):
+                exit_code = main(
+                    [
+                        "--port", "COM5",
+                        "--lcd1-duty", "100",
+                        "--led1-duty", "20",
+                        "--lcd2-duty", "30",
+                        "--led2-duty", "40",
+                        "--max-packets", "0",
+                        "--quiet",
+                    ]
+                )
+
+        self.assertEqual(exit_code, 2)
+        self.assertIn("argument error", stderr.getvalue())
+
+    def test_capture_stream_honors_packet_limit_with_multi_packet_read(self):
+        from python_scripts.audio_stream_host import capture_stream
+
+        chunks = [
+            build_packet(1, 0x00, 1, [10, -10]) + build_packet(2, 0x00, 1, [20, -20]),
+            b"",
+        ]
+
+        class FakeSerial:
+            def __init__(self, *args, **kwargs):
+                self.args = args
+                self.kwargs = kwargs
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def read(self, size):
+                if chunks:
+                    return chunks.pop(0)
+                return b""
+
+        with mock.patch("python_scripts.audio_stream_host.serial.Serial", FakeSerial):
+            session = capture_stream("COM5", max_packets=1, quiet=True)
+
+        self.assertEqual(session.stats.packets_received, 1)
+        self.assertEqual(session.stereo_pcm().tolist(), [[10, -10]])
 
 
 if __name__ == "__main__":
