@@ -17,13 +17,15 @@ assert "MX_TIM2_Init();" in main_c, "main.c does not initialize TIM2"
 assert '#include "tim.h"' in main_c, "main.c does not include tim.h"
 for channel in range(1, 5):
     assert f"HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_{channel});" in main_c, f"PWM channel {channel} is not started"
-assert "LCD1_Pin" in main_h and "LED2_Pin" in main_h, "main.h is missing PWM pin defines"
+for pin_define in ("LCD1_Pin", "LED1_Pin", "LCD2_Pin", "LED2_Pin"):
+    assert pin_define in main_h, f"main.h is missing {pin_define}"
 assert "extern TIM_HandleTypeDef htim2;" in tim_h, "tim.h does not export htim2"
 for channel in range(1, 5):
     assert (
         f"HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_{channel})" in tim_c
     ), f"tim.c does not configure PWM channel {channel}"
 assert "\n#define HAL_TIM_MODULE_ENABLED\n" in ("\n" + hal_conf + "\n"), "stm32f4xx_hal_conf.h does not enable HAL_TIM_MODULE_ENABLED"
+assert "TIM2 DMA" not in ioc, "finger.ioc has TIM2 DMA enabled"
 for entry in (
     "PA0-WKUP.Signal=S_TIM2_CH1_ETR",
     "PA1.Signal=S_TIM2_CH2",
@@ -42,6 +44,8 @@ for entry in (
     "TIM2.Prescaler=71",
 ):
     assert entry in ioc, f"finger.ioc is missing {entry}"
+assert "GPIO_InitStruct.Pin = LCD1_Pin | LED1_Pin | LCD2_Pin | LED2_Pin;" in tim_c, "tim.c does not configure the combined TIM2 pin mask"
+assert "GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;" in tim_c, "tim.c does not configure TIM2 alternate function"
 assert not tim2_dma_usage.search(main_c), "main.c contains TIM2 DMA usage"
 assert not tim2_dma_usage.search(tim_c), "tim.c contains TIM2 DMA usage"
 assert not tim2_dma_usage.search(my_application_c), "my_application.c contains TIM2 DMA usage"
