@@ -56,6 +56,14 @@ static uint32_t audio_sequence;
 static uint8_t audio_status_flags;
 static PwmDutyState pwm_state;
 
+typedef struct
+{
+  uint8_t lcd1_duty;
+  uint8_t led1_duty;
+  uint8_t lcd2_duty;
+  uint8_t led2_duty;
+} PwmControlSnapshot;
+
 static uint8_t AudioTx_NextIndex(uint8_t index)
 {
   return (uint8_t)((index + 1U) % AUDIO_TX_QUEUE_DEPTH);
@@ -141,13 +149,31 @@ static void AudioTx_Process(void)
   }
 }
 
-static void PwmControl_Apply(void)
+static uint8_t PwmControl_ConsumeSnapshot(PwmControlSnapshot *snapshot)
 {
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, pwm_state.lcd1_duty);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, pwm_state.led1_duty);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, pwm_state.lcd2_duty);
-  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, pwm_state.led2_duty);
-  pwm_state.dirty = 0U;
+  uint8_t dirty;
+
+  __disable_irq();
+  dirty = pwm_state.dirty;
+  if (dirty != 0U)
+  {
+    snapshot->lcd1_duty = pwm_state.lcd1_duty;
+    snapshot->led1_duty = pwm_state.led1_duty;
+    snapshot->lcd2_duty = pwm_state.lcd2_duty;
+    snapshot->led2_duty = pwm_state.led2_duty;
+    pwm_state.dirty = 0U;
+  }
+  __enable_irq();
+
+  return dirty;
+}
+
+static void PwmControl_ApplySnapshot(const PwmControlSnapshot *snapshot)
+{
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, snapshot->lcd1_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, snapshot->led1_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, snapshot->lcd2_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, snapshot->led2_duty);
 }
 
 /* Public functions ----------------------------------------------------------*/
@@ -182,11 +208,13 @@ void My_Application_OnUsbReceived(uint8_t *data, uint32_t len)
   */
 void My_Application_Run(void)
 {
+  PwmControlSnapshot pwm_snapshot;
+
   while (1)
   {
-    if (pwm_state.dirty != 0U)
+    if (PwmControl_ConsumeSnapshot(&pwm_snapshot) != 0U)
     {
-      PwmControl_Apply();
+      PwmControl_ApplySnapshot(&pwm_snapshot);
     }
 
     if ((mic.half_ready != 0U) && (mic_2.half_ready != 0U))
