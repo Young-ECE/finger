@@ -21,6 +21,7 @@
 #include "dma.h"
 #include "i2c.h"
 #include "i2s.h"
+#include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -103,10 +104,15 @@ int main(void)
   MX_I2S1_Init();
   MX_USB_DEVICE_Init();
   MX_I2S2_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   // Initialize all sensors
   My_Application_Init();
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
 
   /* USER CODE END 2 */
 
