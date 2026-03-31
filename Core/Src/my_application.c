@@ -19,11 +19,14 @@
 #include "audio_stream_transport.h"
 #include "i2s.h"
 #include "methods.h"
+#include "pwm_control_protocol.h"
+#include "tim.h"
 #include "usbd_cdc_if.h"
 
 /* Private variables ---------------------------------------------------------*/
 extern I2S_HandleTypeDef hi2s1;
 extern I2S_HandleTypeDef hi2s2;
+extern TIM_HandleTypeDef htim2;
 extern USBD_HandleTypeDef hUsbDeviceFS;
 extern uint32_t dma_buffer[MIC_BUFFER_SIZE];
 extern uint32_t dma_buffer_2[MIC_BUFFER_SIZE];
@@ -51,6 +54,7 @@ static uint8_t audio_tx_count;
 static uint8_t audio_tx_in_flight;
 static uint32_t audio_sequence;
 static uint8_t audio_status_flags;
+static PwmDutyState pwm_state;
 
 static uint8_t AudioTx_NextIndex(uint8_t index)
 {
@@ -137,6 +141,15 @@ static void AudioTx_Process(void)
   }
 }
 
+static void PwmControl_Apply(void)
+{
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, pwm_state.lcd1_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, pwm_state.led1_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_3, pwm_state.lcd2_duty);
+  __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, pwm_state.led2_duty);
+  pwm_state.dirty = 0U;
+}
+
 /* Public functions ----------------------------------------------------------*/
 
 /**
@@ -146,6 +159,7 @@ static void AudioTx_Process(void)
 void My_Application_Init(void)
 {
   AudioTx_Reset();
+  PwmControl_Init(&pwm_state);
 
   RGB_LED_Init();
   HAL_Delay(100U);
@@ -157,6 +171,11 @@ void My_Application_Init(void)
   HAL_Delay(100U);
 }
 
+void My_Application_OnUsbReceived(uint8_t *data, uint32_t len)
+{
+  PwmControl_FeedBytes(&pwm_state, data, len);
+}
+
 /**
   * @brief  Main sensor reading loop (infinite)
   * @retval None (never returns)
@@ -165,6 +184,11 @@ void My_Application_Run(void)
 {
   while (1)
   {
+    if (pwm_state.dirty != 0U)
+    {
+      PwmControl_Apply();
+    }
+
     if ((mic.half_ready != 0U) && (mic_2.half_ready != 0U))
     {
       mic.half_ready = 0U;

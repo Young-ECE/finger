@@ -1,9 +1,9 @@
 from pathlib import Path
 
 
-WORKTREE = Path(r"D:\technical documents\SSR\GJH\SHARP\new\finger\.worktrees\audio-stream-alignment")
-MY_APPLICATION = WORKTREE / "Core" / "Src" / "my_application.c"
-IRQ_FILE = WORKTREE / "Core" / "Src" / "stm32f4xx_it.c"
+ROOT = Path(__file__).resolve().parents[2]
+MY_APPLICATION = ROOT / "Core" / "Src" / "my_application.c"
+IRQ_FILE = ROOT / "Core" / "Src" / "stm32f4xx_it.c"
 
 
 def main() -> None:

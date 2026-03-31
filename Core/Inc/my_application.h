@@ -35,6 +35,7 @@ extern MIC_HandleTypeDef mic_2;
 /* Exported functions prototypes ---------------------------------------------*/
 void My_Application_Init(void);
 void My_Application_Run(void);  // Contains infinite loop, never returns
+void My_Application_OnUsbReceived(uint8_t *data, uint32_t len);
 
 #ifdef __cplusplus
 }
