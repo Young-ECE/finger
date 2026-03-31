@@ -20,11 +20,20 @@ def crc8(data: bytes) -> int:
     return crc
 
 
+def _validate_sequence(value: int) -> int:
+    if type(value) is not int:
+        raise TypeError(f"sequence must be an integer, got {value!r}")
+    if not 0 <= value <= 255:
+        raise ValueError(f"sequence must be in range 0..255, got {value}")
+    return value
+
+
 def _validate_duty(name: str, value: int) -> int:
-    duty = int(value)
-    if not 0 <= duty <= 99:
+    if type(value) is not int:
+        raise TypeError(f"{name} must be an integer, got {value!r}")
+    if not 0 <= value <= 99:
         raise ValueError(f"{name} must be in range 0..99, got {value}")
-    return duty
+    return value
 
 
 @dataclass(frozen=True)
@@ -41,7 +50,7 @@ class PwmDutyCommand:
                 PROTOCOL_VERSION,
                 PACKET_TYPE_SET_PWM_DUTY,
                 PAYLOAD_LENGTH,
-                self.sequence & 0xFF,
+                _validate_sequence(self.sequence),
                 _validate_duty("lcd1", self.lcd1),
                 _validate_duty("led1", self.led1),
                 _validate_duty("lcd2", self.lcd2),

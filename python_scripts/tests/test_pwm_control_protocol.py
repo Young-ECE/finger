@@ -18,6 +18,20 @@ class PwmControlProtocolTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             build_pwm_packet(sequence=0, lcd1=100, led1=0, lcd2=0, led2=0)
 
+    def test_build_pwm_packet_rejects_out_of_range_sequence(self):
+        from python_scripts.pwm_control_protocol import build_pwm_packet
+
+        with self.assertRaises(ValueError):
+            build_pwm_packet(sequence=256, lcd1=0, led1=0, lcd2=0, led2=0)
+
+    def test_build_pwm_packet_rejects_non_integer_duty_values(self):
+        from python_scripts.pwm_control_protocol import build_pwm_packet
+
+        for bad_value in (True, "10", 10.5):
+            with self.subTest(bad_value=bad_value):
+                with self.assertRaises(TypeError):
+                    build_pwm_packet(sequence=0, lcd1=bad_value, led1=0, lcd2=0, led2=0)
+
 
 if __name__ == "__main__":
     unittest.main()
