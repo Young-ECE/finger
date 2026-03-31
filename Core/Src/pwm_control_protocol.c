@@ -1,8 +1,5 @@
 #include "pwm_control_protocol.h"
 
-static uint8_t pwm_rx_buffer[PWM_CONTROL_PACKET_BYTES];
-static uint8_t pwm_rx_count;
-
 static uint8_t PwmControl_Crc8(const uint8_t *data, uint16_t len)
 {
   uint8_t crc = 0U;
@@ -33,11 +30,6 @@ static uint8_t PwmControl_ClampDuty(uint8_t duty)
   return (duty > 99U) ? 99U : duty;
 }
 
-static void PwmControl_ResetParser(void)
-{
-  pwm_rx_count = 0U;
-}
-
 static void PwmControl_ApplyPacket(PwmDutyState *state, const uint8_t *packet)
 {
   if ((packet[0] != PWM_CONTROL_MAGIC0) ||
@@ -63,47 +55,51 @@ static void PwmControl_ApplyPacket(PwmDutyState *state, const uint8_t *packet)
 
 static void PwmControl_PushByte(PwmDutyState *state, uint8_t byte)
 {
-  if (pwm_rx_count == 0U)
+  uint8_t *rx_buffer = state->parser.rx_buffer;
+  uint8_t *rx_count = &state->parser.rx_count;
+
+  if (*rx_count == 0U)
   {
     if (byte == PWM_CONTROL_MAGIC0)
     {
-      pwm_rx_buffer[0] = byte;
-      pwm_rx_count = 1U;
+      rx_buffer[0] = byte;
+      *rx_count = 1U;
     }
     return;
   }
 
-  if (pwm_rx_count == 1U)
+  if (*rx_count == 1U)
   {
     if (byte == PWM_CONTROL_MAGIC1)
     {
-      pwm_rx_buffer[1] = byte;
-      pwm_rx_count = 2U;
+      rx_buffer[1] = byte;
+      *rx_count = 2U;
     }
     else if (byte == PWM_CONTROL_MAGIC0)
     {
-      pwm_rx_buffer[0] = byte;
-      pwm_rx_count = 1U;
+      rx_buffer[0] = byte;
+      *rx_count = 1U;
     }
     else
     {
-      PwmControl_ResetParser();
+      *rx_count = 0U;
     }
     return;
   }
 
-  pwm_rx_buffer[pwm_rx_count++] = byte;
-  if (pwm_rx_count >= PWM_CONTROL_PACKET_BYTES)
+  rx_buffer[*rx_count] = byte;
+  (*rx_count)++;
+  if (*rx_count >= PWM_CONTROL_PACKET_BYTES)
   {
-    PwmControl_ApplyPacket(state, pwm_rx_buffer);
+    PwmControl_ApplyPacket(state, rx_buffer);
     if (byte == PWM_CONTROL_MAGIC0)
     {
-      pwm_rx_buffer[0] = PWM_CONTROL_MAGIC0;
-      pwm_rx_count = 1U;
+      rx_buffer[0] = PWM_CONTROL_MAGIC0;
+      *rx_count = 1U;
     }
     else
     {
-      PwmControl_ResetParser();
+      *rx_count = 0U;
     }
   }
 }
@@ -115,7 +111,7 @@ void PwmControl_Init(PwmDutyState *state)
   state->lcd2_duty = 0U;
   state->led2_duty = 0U;
   state->dirty = 1U;
-  PwmControl_ResetParser();
+  state->parser.rx_count = 0U;
 }
 
 void PwmControl_FeedBytes(PwmDutyState *state, const uint8_t *data, uint32_t len)

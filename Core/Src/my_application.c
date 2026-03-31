@@ -15,6 +15,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "my_application.h"
+#include "my_application_usb.h"
 
 #include "audio_stream_transport.h"
 #include "i2s.h"
@@ -152,6 +153,7 @@ static void AudioTx_Process(void)
 static uint8_t PwmControl_ConsumeSnapshot(PwmControlSnapshot *snapshot)
 {
   uint8_t dirty;
+  uint32_t primask = __get_PRIMASK();
 
   __disable_irq();
   dirty = pwm_state.dirty;
@@ -163,7 +165,7 @@ static uint8_t PwmControl_ConsumeSnapshot(PwmControlSnapshot *snapshot)
     snapshot->led2_duty = pwm_state.led2_duty;
     pwm_state.dirty = 0U;
   }
-  __enable_irq();
+  __set_PRIMASK(primask);
 
   return dirty;
 }
@@ -197,7 +199,7 @@ void My_Application_Init(void)
   HAL_Delay(100U);
 }
 
-void My_Application_OnUsbReceived(uint8_t *data, uint32_t len)
+void My_Application_OnUsbReceived(const uint8_t *data, uint32_t len)
 {
   PwmControl_FeedBytes(&pwm_state, data, len);
 }

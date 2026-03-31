@@ -4,7 +4,9 @@ import re
 
 ROOT = Path(__file__).resolve().parents[2]
 MY_APPLICATION_H = ROOT / "Core" / "Inc" / "my_application.h"
+MY_APPLICATION_USB_H = ROOT / "Core" / "Inc" / "my_application_usb.h"
 MY_APPLICATION_C = ROOT / "Core" / "Src" / "my_application.c"
+PWM_CONTROL_PROTOCOL_C = ROOT / "Core" / "Src" / "pwm_control_protocol.c"
 USBD_CDC_IF_C = ROOT / "USB_DEVICE" / "App" / "usbd_cdc_if.c"
 
 
@@ -37,24 +39,33 @@ def extract_function_body(text: str, signature_pattern: str) -> str:
 
 def main() -> None:
     my_application_h = MY_APPLICATION_H.read_text(encoding="utf-8", errors="ignore")
+    my_application_usb_h = MY_APPLICATION_USB_H.read_text(encoding="utf-8", errors="ignore")
     my_application_c = MY_APPLICATION_C.read_text(encoding="utf-8", errors="ignore")
+    pwm_control_protocol_c = PWM_CONTROL_PROTOCOL_C.read_text(encoding="utf-8", errors="ignore")
     usbd_cdc_if_c = USBD_CDC_IF_C.read_text(encoding="utf-8", errors="ignore")
 
     require(
-        r"void\s+My_Application_OnUsbReceived\s*\(\s*uint8_t\s*\*\s*data\s*,\s*uint32_t\s+len\s*\)\s*;",
-        my_application_h,
-        "my_application.h is missing the My_Application_OnUsbReceived declaration",
+        r"void\s+My_Application_OnUsbReceived\s*\(\s*const\s+uint8_t\s*\*\s*data\s*,\s*uint32_t\s+len\s*\)\s*;",
+        my_application_usb_h,
+        "my_application_usb.h is missing the narrow My_Application_OnUsbReceived declaration",
     )
+    assert "My_Application_OnUsbReceived" not in my_application_h, "my_application.h still exposes the USB callback"
     require(
-        r"void\s+My_Application_OnUsbReceived\s*\(\s*uint8_t\s*\*\s*data\s*,\s*uint32_t\s+len\s*\)\s*\{[^{}]*PwmControl_FeedBytes\s*\(\s*&pwm_state\s*,\s*data\s*,\s*len\s*\)\s*;",
+        r"void\s+My_Application_OnUsbReceived\s*\(\s*const\s+uint8_t\s*\*\s*data\s*,\s*uint32_t\s+len\s*\)\s*\{[^{}]*PwmControl_FeedBytes\s*\(\s*&pwm_state\s*,\s*data\s*,\s*len\s*\)\s*;",
         my_application_c,
         "my_application.c does not define My_Application_OnUsbReceived as a thin PwmControl_FeedBytes wrapper",
     )
     require(
-        r"My_Application_OnUsbReceived\s*\(\s*Buf\s*,\s*\*Len\s*\)\s*;",
+        r'#include\s+"my_application_usb\.h"',
         usbd_cdc_if_c,
-        "usbd_cdc_if.c does not forward CDC_Receive_FS bytes to My_Application_OnUsbReceived",
+        "usbd_cdc_if.c does not include the narrow USB callback header",
     )
+    assert '#include "my_application.h"' not in usbd_cdc_if_c, "usbd_cdc_if.c still includes my_application.h"
+    require(r'parser\s*\.\s*rx_buffer', pwm_control_protocol_c, "PwmDutyState does not carry parser rx_buffer state")
+    require(r'parser\s*\.\s*rx_count', pwm_control_protocol_c, "PwmDutyState does not carry parser rx_count state")
+    assert "static uint8_t pwm_rx_buffer" not in pwm_control_protocol_c, "parser progress is still stored in a file-scope buffer"
+    assert "static uint8_t pwm_rx_count" not in pwm_control_protocol_c, "parser progress is still stored in a file-scope counter"
+
     require(
         r"static\s+uint8_t\s+PwmControl_ConsumeSnapshot\s*\(\s*PwmControlSnapshot\s*\*\s*snapshot\s*\)",
         my_application_c,
@@ -64,8 +75,9 @@ def main() -> None:
         my_application_c,
         r"static\s+uint8_t\s+PwmControl_ConsumeSnapshot\s*\(\s*PwmControlSnapshot\s*\*\s*snapshot\s*\)",
     )
+    assert "__get_PRIMASK()" in consume_block, "snapshot consumption does not save the prior IRQ mask"
     assert "__disable_irq()" in consume_block, "snapshot consumption does not disable IRQs"
-    assert "__enable_irq()" in consume_block, "snapshot consumption does not re-enable IRQs"
+    assert "__set_PRIMASK(primask)" in consume_block, "snapshot consumption does not restore the prior IRQ mask"
     assert "pwm_state.dirty = 0U;" in consume_block, "snapshot consumption does not clear dirty"
 
     apply_block = extract_function_body(
