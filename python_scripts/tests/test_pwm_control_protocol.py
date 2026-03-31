@@ -9,6 +9,7 @@ class PwmControlProtocolTest(unittest.TestCase):
 
         self.assertEqual(packet[:6], bytes([0x43, 0x54, 0x01, 0x01, 0x04, 0x12]))
         self.assertEqual(packet[6:10], bytes([10, 20, 30, 40]))
+        self.assertEqual(packet[10], 0x52)
         self.assertEqual(len(packet), 11)
 
     def test_build_pwm_packet_rejects_out_of_range_values(self):
