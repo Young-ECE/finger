@@ -45,7 +45,10 @@ for entry in (
     "TIM2.Prescaler=71",
 ):
     assert entry in ioc, f"finger.ioc is missing {entry}"
-assert "GPIO_InitStruct.Pin = LCD1_Pin | LED1_Pin | LCD2_Pin | LED2_Pin;" in tim_c, "tim.c does not configure the combined TIM2 pin mask"
+assert re.search(
+    r"GPIO_InitStruct\.Pin\s*=\s*LCD1_Pin\s*\|\s*LED1_Pin\s*\|\s*LCD2_Pin\s*\|\s*LED2_Pin\s*;",
+    tim_c,
+), "tim.c does not configure the combined TIM2 pin mask"
 assert "GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;" in tim_c, "tim.c does not configure TIM2 alternate function"
 assert not tim2_dma_usage.search(main_c), "main.c contains TIM2 DMA usage"
 assert not tim2_dma_usage.search(tim_c), "tim.c contains TIM2 DMA usage"
